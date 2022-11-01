@@ -16,10 +16,12 @@ const Image tiles[] = {
     Image{"trees.png"},      //3 = TREES
 };
 
-#define PLAIN    0
-#define CHARA    1
-#define SHRUB    2
-#define TREES    3
+enum Tiles {
+    PLAIN = 0,
+    CHARA = 1,
+    SHRUB = 2,
+    TREES = 3
+};
 
 const int world_map[world_x][world_y] = {
     { TREES, TREES, TREES, TREES, TREES, TREES, TREES, TREES, TREES, TREES },
@@ -38,51 +40,43 @@ struct Player {
     int chara_pos_y = 0;
     int speed = 5;
 
-    void draw() {
+    void draw_chara() {
         draw_image(tiles[CHARA], chara_pos_x, chara_pos_y, tile_size, tile_size);
     }
 
     void pos_update() {
+        bool moveW = Key == KeyboardButtons::W;
+        bool moveA = Key == KeyboardButtons::A;
+        bool moveS = Key == KeyboardButtons::S;
+        bool moveD = Key == KeyboardButtons::D;
+
         if (KeyIsPressed)
         {
-            switch (Key)
-            {
-            case KeyboardButtons::W:
-                chara_pos_y -= speed;
-                break;
-            case KeyboardButtons::A:
-                chara_pos_x -= speed;
-                break;
-            case KeyboardButtons::S:
-                chara_pos_y += speed;
-                break;
-            case KeyboardButtons::D:
-                chara_pos_x += speed;
-                break;
-            default:
-                break;
+            if (chara_pos_x < 0) {
+                chara_pos_x = 0;
             }
-        }
-    }
-};
+            if (chara_pos_x > Width - tile_size) {
+                chara_pos_x = Width - tile_size;
+            }
+            if (chara_pos_y < 0) {
+                chara_pos_y = 0;
+            }
+            if (chara_pos_y > Height - tile_size) {
+                chara_pos_y = Height - tile_size;
+            }
 
-struct Shooting {
-    int bullet_pos_x = 0;
-    int bullet_pos_y = 0;
-    int bullet_speed = 5;
-    int bullet_delay = 5;
-
-    void draw_bullet() {
-        draw_ellipse(bullet_pos_x, bullet_pos_y, 5, 5);
-    }
-
-    void bullet_update() {
-        if (MouseIsPressed == true)
-        {
-            //&& mouse_hold == false
-            //mouse_hold = true;
-            bullet_pos_x += bullet_speed * get_mouse_x();
-            bullet_pos_y += bullet_speed * get_mouse_y();
+            if (moveW == true) {
+                chara_pos_y -= 10;
+            }
+            if (moveA == true) {
+                chara_pos_x -= 10;
+            }
+            if (moveS == true) {
+                chara_pos_y += 10;
+            }
+            if (moveD == true) {
+                chara_pos_x += 10;
+            }
         }
     }
 };
@@ -95,8 +89,9 @@ int main() {
     no_fill();
     set_outline_width(3.0);
 
-
+    //캐릭터 초기 위치 찾기
     Player player = Player{ 0, 0 };
+
     for (int x = 0; x < 10; x++) {
         for (int y = 0; y < 10; y++) {
             if (world_map[y][x] == CHARA) {
@@ -107,6 +102,8 @@ int main() {
         }
     }
 
+    bool not_clicked = false;
+
     while (!is_window_closed()) {
         update_window();
         clear_background(255);
@@ -114,18 +111,34 @@ int main() {
         for (int x = 0; x < 10; x++) {
             for (int y = 0; y < 10; y++) {
                 int tile = world_map[y][x];
+                draw_image(tiles[PLAIN], x * tile_size, y * tile_size, tile_size, tile_size);
+            }
+        }
+
+        for (int x = 0; x < 10; x++) {
+            for (int y = 0; y < 10; y++) {
+
+                int tile = world_map[y][x];
+
                 if (tile > 3 || tile < 0) {
                     tile = PLAIN;
                 }
+
                 if (tile == CHARA) {
                     tile = PLAIN;
                 }
+
                 draw_image(tiles[tile], x * tile_size, y * tile_size, tile_size, tile_size);
             }
         }
 
+        if (!MouseIsPressed)
+        {
+            not_clicked = true;
+        }
+
         player.pos_update();
-        player.draw();
+        player.draw_chara();
     }
 
     return 0;
