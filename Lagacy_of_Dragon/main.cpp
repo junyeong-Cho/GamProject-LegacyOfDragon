@@ -96,10 +96,11 @@ struct Shooting {
 	int bullet_pos_x = 0;
 	int bullet_pos_y = 0;
 	int size = 0;
-	int speed = 5;
-	int range = 100;
+
 	float mouseX = static_cast<float>(get_mouse_x());
 	float mouseY = static_cast<float>(get_mouse_y());
+	float angleX = (mouseX - bullet_pos_x);
+	float angleY = (mouseY - bullet_pos_y);
 	
 	void draw()
 	{
@@ -108,8 +109,6 @@ struct Shooting {
 	}
 	void FireBullet()
 	{
-		float angleX = (mouseX - bullet_pos_x);
-		float angleY = (mouseY - bullet_pos_y);
 		float aimAngle = atan2(angleY, angleX);
 		float velocityX = (cos(aimAngle) * Bvelocity);
 		float velocityY = (sin(aimAngle) * Bvelocity);
