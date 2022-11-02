@@ -20,6 +20,11 @@ constexpr int bullet_y = -200;
 constexpr int bullet_vel = 5;
 constexpr int bullet_size = 10;
 
+bool moveW = false;
+bool moveA = false;
+bool moveS = false;
+bool moveD = false;
+
 const Image tiles[] = {
 	Image{"plain.png"},      //0 = PLAIN
 	Image{"chara.png"},      //1 = CHARA
@@ -55,39 +60,19 @@ struct Player {
 		draw_image(tiles[CHARA], chara_pos_x, chara_pos_y, tile_size, tile_size);
 	}
 
-	void pos_update() {
-		bool moveW = Key == KeyboardButtons::W;
-		bool moveA = Key == KeyboardButtons::A;
-		bool moveS = Key == KeyboardButtons::S;
-		bool moveD = Key == KeyboardButtons::D;
-
-		if (KeyIsPressed)
-		{
-			if (chara_pos_x < 0) {
-				chara_pos_x = 0;
-			}
-			if (chara_pos_x > Width - tile_size) {
-				chara_pos_x = Width - tile_size;
-			}
-			if (chara_pos_y < 0) {
-				chara_pos_y = 0;
-			}
-			if (chara_pos_y > Height - tile_size) {
-				chara_pos_y = Height - tile_size;
-			}
-
-			if (moveW == true) {
-				chara_pos_y -= 10;
-			}
-			if (moveA == true) {
-				chara_pos_x -= 10;
-			}
-			if (moveS == true) {
-				chara_pos_y += 10;
-			}
-			if (moveD == true) {
-				chara_pos_x += 10;
-			}
+	//좀더 쉽게 보이라고 캐릭터 움직이는거 MOVE로 바꿈
+	void MOVE() {
+		if (moveW == true) {
+			chara_pos_y -= 6;
+		}
+		if (moveA == true) {
+			chara_pos_x -= 6;
+		}
+		if (moveS == true) {
+			chara_pos_y += 6;
+		}
+		if (moveD == true) {
+			chara_pos_x += 6;
 		}
 	}
 };
@@ -101,7 +86,7 @@ struct Shooting {
 	float mouseY = static_cast<float>(get_mouse_y());
 	float angleX = (mouseX - bullet_pos_x);
 	float angleY = (mouseY - bullet_pos_y);
-	
+
 	void draw()
 	{
 		set_fill_color(HexColor{ 0xff002aff });
@@ -117,6 +102,37 @@ struct Shooting {
 		bullet_pos_y += velocityY;
 	}
 };
+
+//키보드 눌렸는지 체크하는 시스템
+void on_key_pressed(KeyboardButtons button) {
+	if (button == KeyboardButtons::W) {
+		moveW = true;
+	}
+	if (button == KeyboardButtons::A) {
+		moveA = true;
+	}
+	if (button == KeyboardButtons::S) {
+		moveS = true;
+	}
+	if (button == KeyboardButtons::D) {
+		moveD = true;
+	}
+}
+void on_key_released(KeyboardButtons button) {
+	if (button == KeyboardButtons::W) {
+		moveW = false;
+	}
+	if (button == KeyboardButtons::A) {
+		moveA = false;
+	}
+	if (button == KeyboardButtons::S) {
+		moveS = false;
+	}
+	if (button == KeyboardButtons::D) {
+		moveD = false;
+	}
+}
+
 
 int main() {
 	create_window(world_x * tile_size, world_y * tile_size);
@@ -185,7 +201,7 @@ int main() {
 			bullets[i].draw();
 			bullets[i].FireBullet();
 		}
-		player.pos_update();
+		player.MOVE();
 		player.draw_chara();
 	}
 	return 0;
