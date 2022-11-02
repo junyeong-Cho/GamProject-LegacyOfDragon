@@ -97,20 +97,19 @@ struct Shooting {
 	int bullet_pos_y = 0;
 	int size = 0;
 	int speed = 5;
-	int range = 5;
-
+	int range = 100;
+	float mouseX = static_cast<float>(get_mouse_x());
+	float mouseY = static_cast<float>(get_mouse_y());
+	
 	void draw()
 	{
 		set_fill_color(HexColor{ 0xff002aff });
 		draw_ellipse(bullet_pos_x, bullet_pos_y, size, size);
 	}
-	void FireBullet(Player other)
+	void FireBullet()
 	{
-		float mouseX = static_cast<float>(get_mouse_x());
-		float mouseY = static_cast<float>(get_mouse_y());
-
-		float angleX = (mouseX - other.chara_pos_x);
-		float angleY = (mouseY - other.chara_pos_y);
+		float angleX = (mouseX - bullet_pos_x);
+		float angleY = (mouseY - bullet_pos_y);
 		float aimAngle = atan2(angleY, angleX);
 		float velocityX = (cos(aimAngle) * Bvelocity);
 		float velocityY = (sin(aimAngle) * Bvelocity);
@@ -185,7 +184,7 @@ int main() {
 		for (int i = 0; i < bullets.size(); i++)
 		{
 			bullets[i].draw();
-			bullets[i].FireBullet(player);
+			bullets[i].FireBullet();
 		}
 		player.pos_update();
 		player.draw_chara();
