@@ -12,7 +12,7 @@ constexpr int world_x = 10;
 constexpr int world_y = 10;
 
 constexpr int Pvelocity = 3;
-constexpr int Bvelocity = 4;
+constexpr int Bvelocity = 6;
 constexpr int Player_r = 50;
 
 constexpr int bullet_x = -200;
@@ -57,7 +57,10 @@ struct Player {
 	int speed = 5;
 
 	void draw_chara() {
+		push_settings();
+		set_image_mode(RectMode::Center);
 		draw_image(tiles[CHARA], chara_pos_x, chara_pos_y, tile_size, tile_size);
+		pop_settings();
 	}
 
 	//좀더 쉽게 보이라고 캐릭터 움직이는거 MOVE로 바꿈
@@ -76,6 +79,7 @@ struct Player {
 		}
 	}
 };
+
 
 struct Shooting {
 	int bullet_pos_x = 0;
