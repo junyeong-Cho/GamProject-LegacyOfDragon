@@ -20,6 +20,16 @@ constexpr int bullet_y = -200;
 constexpr int bullet_vel = 5;
 constexpr int bullet_size = 10;
 
+constexpr int enemyMin = -800;
+constexpr int enemyMax = 800;
+
+int enemy_x = 100;
+int enemy_y = 0;
+int Max = 5;
+int Score = 0;
+int timer_check = 3;
+double timer = 0;
+
 bool moveW = false;
 bool moveA = false;
 bool moveS = false;
@@ -137,6 +147,18 @@ void on_key_released(KeyboardButtons button) {
 	}
 }
 
+struct Enemy {
+	int x = 0;
+	int y = 0;
+	int size = 0;
+
+	void draw()
+	{
+		set_fill_color(HexColor{ 0xffff2aff });
+		draw_ellipse(x, y, size, size);
+	}
+
+};
 
 int main() {
 	create_window(world_x * tile_size, world_y * tile_size);
@@ -147,6 +169,7 @@ int main() {
 	set_outline_width(3.0);
 
 	vector<Shooting> bullets;
+	vector<Enemy> enemys;
 	bool not_clicked = false;
 
 	//캐릭터 초기 위치 찾기
@@ -163,6 +186,7 @@ int main() {
 	}
 
 	while (!is_window_closed()) {
+		timer += DeltaTime;
 		update_window();
 		clear_background(255);
 
@@ -205,6 +229,44 @@ int main() {
 			bullets[i].draw();
 			bullets[i].FireBullet();
 		}
+
+		//Random enemy
+		if (timer > timer_check)
+		{
+			for (int j = 0; j < Max; j++)
+			{
+				int enemy_y = random(enemyMin, enemyMax);
+				int enemy_x = random(enemyMin, enemyMax);
+				enemys.push_back({ enemy_x, enemy_y, 30 });
+			}
+			timer_check += 3;
+		}
+
+		//Enemy draw
+		for (int i = 0; i < enemys.size(); i++)
+		{
+
+			enemys[i].draw();
+
+			if (enemys[i].x > player.chara_pos_x)
+			{
+				enemys[i].x -= 2;
+			}
+			if (enemys[i].x < player.chara_pos_x)
+			{
+				enemys[i].x += 2;
+			}
+			if (enemys[i].y > player.chara_pos_y)
+			{
+				enemys[i].y -= 2;
+			}
+			if (enemys[i].y < player.chara_pos_y)
+			{
+				enemys[i].y += 2;
+			}
+
+		}
+
 		player.MOVE();
 		player.draw_chara();
 	}
