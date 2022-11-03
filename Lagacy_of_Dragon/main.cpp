@@ -248,19 +248,19 @@ int main() {
 
 			enemys[i].draw();
 
-			if (enemys[i].x > player.chara_pos_x)
+			if (enemys[i].x >= player.chara_pos_x)
 			{
 				enemys[i].x -= 2;
 			}
-			if (enemys[i].x < player.chara_pos_x)
+			if (enemys[i].x <= player.chara_pos_x)
 			{
 				enemys[i].x += 2;
 			}
-			if (enemys[i].y > player.chara_pos_y)
+			if (enemys[i].y >= player.chara_pos_y)
 			{
 				enemys[i].y -= 2;
 			}
-			if (enemys[i].y < player.chara_pos_y)
+			if (enemys[i].y <= player.chara_pos_y)
 			{
 				enemys[i].y += 2;
 			}
