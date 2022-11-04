@@ -3,25 +3,10 @@
 #include <vector>
 #include <string>
 #include <cmath>
+#include "library.h"
 
 using namespace std;
 using namespace doodle;
-
-constexpr int tile_size = 100;
-constexpr int world_x = 10;
-constexpr int world_y = 10;
-
-constexpr int Pvelocity = 3;
-constexpr int Bvelocity = 6;
-constexpr int Player_r = 50;
-
-constexpr int bullet_x = -200;
-constexpr int bullet_y = -200;
-constexpr int bullet_vel = 5;
-constexpr int bullet_size = 10;
-
-constexpr int enemyMin = -800;
-constexpr int enemyMax = 800;
 
 int enemy_x = 100;
 int enemy_y = 0;
@@ -30,6 +15,7 @@ int Score = 0;
 int timer_check = 3;
 double timer = 0;
 
+bool not_clicked = false;
 bool moveW = false;
 bool moveA = false;
 bool moveS = false;
@@ -42,25 +28,6 @@ const Image tiles[] = {
 	Image{"trees.png"},      //3 = TREES
 };
 
-enum Tiles {
-	PLAIN = 0,
-	CHARA = 1,
-	SHRUB = 2,
-	TREES = 3
-};
-
-const int world_map[world_x][world_y] = {
-	{ TREES, TREES, TREES, TREES, TREES, TREES, TREES, TREES, TREES, TREES },
-	{ TREES, PLAIN, PLAIN, PLAIN, PLAIN, PLAIN, PLAIN, PLAIN, TREES, TREES },
-	{ TREES, TREES, PLAIN, PLAIN, PLAIN, PLAIN, PLAIN, PLAIN, PLAIN, TREES },
-	{ TREES, PLAIN, SHRUB, PLAIN, PLAIN, TREES, PLAIN, SHRUB, PLAIN, TREES },
-	{ TREES, PLAIN, PLAIN, PLAIN, PLAIN, PLAIN, PLAIN, PLAIN, PLAIN, TREES },
-	{ TREES, PLAIN, PLAIN, PLAIN, SHRUB, PLAIN, PLAIN, PLAIN, PLAIN, TREES },
-	{ TREES, PLAIN, PLAIN, PLAIN, PLAIN, PLAIN, CHARA, PLAIN, PLAIN, TREES },
-	{ TREES, PLAIN, PLAIN, PLAIN, PLAIN, PLAIN, PLAIN, PLAIN, PLAIN, TREES },
-	{ TREES, TREES, TREES, TREES, TREES, TREES, TREES, TREES, TREES, TREES },
-};
-
 struct Player {
 	int chara_pos_x = 0;
 	int chara_pos_y = 0;
@@ -69,7 +36,7 @@ struct Player {
 	void draw_chara() {
 		push_settings();
 		set_image_mode(RectMode::Center);
-		draw_image(tiles[CHARA], chara_pos_x, chara_pos_y, tile_size, tile_size);
+		draw_image(tiles[map_setting.CHARA], chara_pos_x, chara_pos_y, setting.tile_size, setting.tile_size);
 		pop_settings();
 	}
 
@@ -109,11 +76,11 @@ struct Shooting {
 	void FireBullet()
 	{
 		float aimAngle = atan2(angleY, angleX);
-		float velocityX = (cos(aimAngle) * Bvelocity);
-		float velocityY = (sin(aimAngle) * Bvelocity);
+		float velocityX = (cos(aimAngle) * setting.Bvelocity);
+		float velocityY = (sin(aimAngle) * setting.Bvelocity);
 
-		bullet_pos_x += velocityX;
-		bullet_pos_y += velocityY;
+		bullet_pos_x += static_cast<int>(velocityX);
+		bullet_pos_y += static_cast<int>(velocityY);
 	}
 };
 
@@ -132,6 +99,7 @@ void on_key_pressed(KeyboardButtons button) {
 		moveD = true;
 	}
 }
+
 void on_key_released(KeyboardButtons button) {
 	if (button == KeyboardButtons::W) {
 		moveW = false;
@@ -161,25 +129,19 @@ struct Enemy {
 };
 
 int main() {
-	create_window(world_x * tile_size, world_y * tile_size);
-
-	set_frame_of_reference(FrameOfReference::LeftHanded_OriginTopLeft);
-	set_image_mode(RectMode::Corner);
-	no_fill();
-	set_outline_width(3.0);
+	create_window(setting.world_x * setting.tile_size, setting.world_y * setting.tile_size);
+	window_setting.window();
 
 	vector<Shooting> bullets;
 	vector<Enemy> enemys;
-	bool not_clicked = false;
-
 	//캐릭터 초기 위치 찾기
 	Player player = Player{ 0, 0 };
 
 	for (int x = 0; x < 10; x++) {
 		for (int y = 0; y < 10; y++) {
-			if (world_map[y][x] == CHARA) {
-				player.chara_pos_x = x * tile_size;
-				player.chara_pos_y = y * tile_size;
+			if (map_setting.world_map[y][x] == map_setting.CHARA) {
+				player.chara_pos_x = x * setting.tile_size;
+				player.chara_pos_y = y * setting.tile_size;
 				break;
 			}
 		}
@@ -187,8 +149,7 @@ int main() {
 
 	while (!is_window_closed()) {
 		timer += DeltaTime;
-		update_window();
-		clear_background(255);
+				update_window();
 
 		if (!MouseIsPressed) {
 			not_clicked = true;
@@ -202,25 +163,24 @@ int main() {
 
 		for (int x = 0; x < 10; x++) {
 			for (int y = 0; y < 10; y++) {
-				int tile = world_map[y][x];
-				draw_image(tiles[PLAIN], x * tile_size, y * tile_size, tile_size, tile_size);
+				draw_image(tiles[map_setting.PLAIN], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
 			}
 		}
 
 		for (int x = 0; x < 10; x++) {
 			for (int y = 0; y < 10; y++) {
 
-				int tile = world_map[y][x];
+				int tile = map_setting.world_map[y][x];
 
 				if (tile > 3 || tile < 0) {
-					tile = PLAIN;
+					tile = map_setting.PLAIN;
 				}
 
-				if (tile == CHARA) {
-					tile = PLAIN;
+				if (tile == map_setting.CHARA) {
+					tile = map_setting.PLAIN;
 				}
 
-				draw_image(tiles[tile], x * tile_size, y * tile_size, tile_size, tile_size);
+				draw_image(tiles[tile], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
 			}
 		}
 
@@ -235,9 +195,9 @@ int main() {
 		{
 			for (int j = 0; j < Max; j++)
 			{
-				int enemy_y = random(enemyMin, enemyMax);
-				int enemy_x = random(enemyMin, enemyMax);
-				enemys.push_back({ enemy_x, enemy_y, 30 });
+				int r_enemy_y = random(setting.enemyMin, setting.enemyMax);
+				int r_enemy_x = random(setting.enemyMin, setting.enemyMax);
+				enemys.push_back({ r_enemy_x, r_enemy_y, 30 });
 			}
 			timer_check += 3;
 		}
