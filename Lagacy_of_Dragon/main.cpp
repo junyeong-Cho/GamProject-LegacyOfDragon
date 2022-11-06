@@ -5,6 +5,8 @@
 #include <cmath>
 #include "library.h"
 
+
+
 using namespace std;
 using namespace doodle;
 
@@ -14,6 +16,13 @@ int Max = 5;
 int Score = 0;
 int timer_check = 3;
 double timer = 0;
+
+double scene_timer = 0;
+int scene_check = 3;
+int scene = 0;
+
+constexpr int enemyWidth = 10;
+constexpr int enemyHeight = 10;
 
 bool not_clicked = false;
 bool moveW = false;
@@ -27,6 +36,9 @@ const Image tiles[] = {
 	Image{"shrub.png"},      //2 = SHRUB
 	Image{"trees.png"},      //3 = TREES
 };
+
+const Image DigipenLogo{ "DigipenLogo.png" };
+const Image TeamLogo{ "TeamLogo.png" };
 
 struct Player {
 	int chara_pos_x = 0;
@@ -57,11 +69,15 @@ struct Player {
 	}
 };
 
-
 struct Shooting {
 	int bullet_pos_x = 0;
 	int bullet_pos_y = 0;
 	int size = 0;
+	double radius() {
+		double radius = static_cast<int>(size / 2);
+		return radius;
+	}
+
 
 	float mouseX = static_cast<float>(get_mouse_x());
 	float mouseY = static_cast<float>(get_mouse_y());
@@ -119,6 +135,10 @@ struct Enemy {
 	int x = 0;
 	int y = 0;
 	int size = 0;
+	double radius() {
+		double radius = static_cast<int>(size / 2);
+		return radius;
+	}
 
 	void draw()
 	{
@@ -126,6 +146,15 @@ struct Enemy {
 		draw_ellipse(x, y, size, size);
 	}
 
+	void bulletEnemyCheck(Shooting other) {
+		double a = other.bullet_pos_x - x;
+		double b = other.bullet_pos_y - y;
+		double distance = sqrt(a * a + b * b);
+		if (distance < other.radius() + radius()) {
+			x = 900;
+			y = 900;
+		}
+	}
 };
 
 int main() {
@@ -149,86 +178,136 @@ int main() {
 
 	while (!is_window_closed()) {
 		timer += DeltaTime;
-				update_window();
+		scene_timer += DeltaTime;
 
-		if (!MouseIsPressed) {
-			not_clicked = true;
-		}
-
-		if (MouseIsPressed && not_clicked == true)
-		{  //bullet_create
-			bullets.push_back({ player.chara_pos_x, player.chara_pos_y, 10 });
-			not_clicked = false;
-		}
-
-		for (int x = 0; x < 10; x++) {
-			for (int y = 0; y < 10; y++) {
-				draw_image(tiles[map_setting.PLAIN], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
+		update_window();
+		//DIGIEPN LOGO
+		if (scene == 0)
+		{
+			clear_background(255);
+			draw_image(DigipenLogo, 400, 400);
+			if (scene_timer > scene_check)
+			{
+				scene += 1;
 			}
 		}
+		//TEAM HATCHLING
+		if (scene == 1)
+		{
+			clear_background(255);
+			draw_image(TeamLogo, 400, 400);
 
-		for (int x = 0; x < 10; x++) {
-			for (int y = 0; y < 10; y++) {
+			push_settings();
+			set_fill_color(HexColor{ 0x7E5873FF });
+			draw_rectangle(500, 500, 100, 100);
+			pop_settings();
+			if (get_mouse_x() > 400 && get_mouse_x() < 500 && get_mouse_y() > 500 && get_mouse_y() < 600)
+			{
+				scene += 1;
+			}
 
-				int tile = map_setting.world_map[y][x];
+		}
+		//Game Play
+		if (scene == 2)
+		{
+			if (!MouseIsPressed) {
+				not_clicked = true;
+			}
 
-				if (tile > 3 || tile < 0) {
-					tile = map_setting.PLAIN;
+			if (MouseIsPressed && not_clicked == true)
+			{  //bullet_create
+				bullets.push_back({ player.chara_pos_x, player.chara_pos_y, 10 });
+				not_clicked = false;
+			}
+
+			for (int x = 0; x < 10; x++) {
+				for (int y = 0; y < 10; y++) {
+					draw_image(tiles[map_setting.PLAIN], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
+				}
+			}
+
+			for (int x = 0; x < 10; x++) {
+				for (int y = 0; y < 10; y++) {
+
+					int tile = map_setting.world_map[y][x];
+
+					if (tile > 3 || tile < 0) {
+						tile = map_setting.PLAIN;
+					}
+
+					if (tile == map_setting.CHARA) {
+						tile = map_setting.PLAIN;
+					}
+
+					draw_image(tiles[tile], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
+				}
+			}
+			//Create bullet
+			for (int i = 0; i < bullets.size(); i++)
+			{
+				bullets[i].draw();
+				bullets[i].FireBullet();
+			}
+
+			//Random enemy
+			if (timer > timer_check)
+			{
+				for (int j = 0; j < Max; j++)
+				{
+					int r_enemy_y = random(setting.enemyMin, setting.enemyMax);
+					int r_enemy_x = random(setting.enemyMin, setting.enemyMax);
+					enemys.push_back({ r_enemy_x, r_enemy_y, 30 });
+				}
+				timer_check += 3;
+			}
+
+			//Enemy move
+			for (int i = 0; i < enemys.size(); i++)
+			{
+
+				enemys[i].draw();
+
+				if (enemys[i].x >= player.chara_pos_x)
+				{
+					enemys[i].x -= 2;
+				}
+				if (enemys[i].x <= player.chara_pos_x)
+				{
+					enemys[i].x += 2;
+				}
+				if (enemys[i].y >= player.chara_pos_y)
+				{
+					enemys[i].y -= 2;
+				}
+				if (enemys[i].y <= player.chara_pos_y)
+				{
+					enemys[i].y += 2;
 				}
 
-				if (tile == map_setting.CHARA) {
-					tile = map_setting.PLAIN;
+			}
+
+			//Bullet Enemy check
+			for (int i = 0; i < enemys.size(); i++)
+			{
+				for (int o = 0; o < bullets.size(); o++)
+				{
+					enemys[i].bulletEnemyCheck(bullets[o]);
 				}
-
-				draw_image(tiles[tile], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
 			}
-		}
 
-		for (int i = 0; i < bullets.size(); i++)
-		{
-			bullets[i].draw();
-			bullets[i].FireBullet();
-		}
-
-		//Random enemy
-		if (timer > timer_check)
-		{
-			for (int j = 0; j < Max; j++)
+			//Enemy Player check
+			/*for (int i = 0; i < enemys.size(); i++)
 			{
-				int r_enemy_y = random(setting.enemyMin, setting.enemyMax);
-				int r_enemy_x = random(setting.enemyMin, setting.enemyMax);
-				enemys.push_back({ r_enemy_x, r_enemy_y, 30 });
-			}
-			timer_check += 3;
-		}
+				for (int o = 0; o < player.size; o++)
+				{
+					enemys[i].enemyPlayerCheck(player[o]);
+				}
+			}*/
 
-		//Enemy draw
-		for (int i = 0; i < enemys.size(); i++)
-		{
-
-			enemys[i].draw();
-
-			if (enemys[i].x >= player.chara_pos_x)
-			{
-				enemys[i].x -= 2;
-			}
-			if (enemys[i].x <= player.chara_pos_x)
-			{
-				enemys[i].x += 2;
-			}
-			if (enemys[i].y >= player.chara_pos_y)
-			{
-				enemys[i].y -= 2;
-			}
-			if (enemys[i].y <= player.chara_pos_y)
-			{
-				enemys[i].y += 2;
-			}
+			player.MOVE();
+			player.draw_chara();
 
 		}
-
-		player.MOVE();
-		player.draw_chara();
 	}
 	return 0;
 }
