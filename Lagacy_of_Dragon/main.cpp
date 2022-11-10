@@ -45,6 +45,7 @@ constexpr int maxvolume_x = 600;
 constexpr int maxvolume_y = 400;
 
 //--------------------------------// Random Enemy
+
 int Max = 5;
 int tutoMax = 6;
 int timer_check = 4;
@@ -79,16 +80,6 @@ bool bullet_draw_check = false;
 bool player_die_check = false;
 bool tutorial_scene3 = false;
 
-const Image tiles[] = {
-	Image{"plain.png"},      //0 = PLAIN
-	Image{"chara.png"},      //1 = CHARA
-	Image{"shrub.png"},      //2 = SHRUB
-	Image{"trees.png"},      //3 = TREES
-};
-
-const Image DigipenLogo{ "DigipenLogo.jpg" };
-const Image TeamLogo{ "TeamLogo.png" };
-const Image Nest{ "nest.png" };
 
 struct Player {
 	int chara_pos_x = 0;
@@ -366,10 +357,6 @@ int main()
 
 					int tile = map_setting.world_map[y][x];
 
-					if (tile > 3 || tile < 0) {
-						tile = map_setting.PLAIN;
-					}
-
 					if (tile == map_setting.CHARA) {
 						tile = map_setting.PLAIN;
 					}
@@ -414,11 +401,11 @@ int main()
 			{
 				for (int i = 0; i < Max; i++)
 				{
-					push_settings();
-					int r_enemy_y = random(setting.enemyMin, setting.enemyMax);
-					int r_enemy_x = random(setting.enemyMin, setting.enemyMax);
-					enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, setting.enemySize });
-					pop_settings();
+						push_settings();
+						int r_enemy_y = random(setting.enemyMin, setting.enemyMax);
+						int r_enemy_x = random(setting.enemyMin, setting.enemyMax);
+						enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, setting.enemySize });
+						pop_settings();
 				}
 				timer_check += 4;
 			}
@@ -467,7 +454,7 @@ int main()
 					double a = bullets[i]->bullet_pos_x - enemys[j]->x;
 					double b = bullets[i]->bullet_pos_y - enemys[j]->y;
 					double distance = sqrt(a * a + b * b);
-
+					
 					if (distance < bulletradius + enemyradius)
 					{
 						score += 1;
@@ -495,10 +482,6 @@ int main()
 				for (int y = 0; y < 10; y++) {
 
 					int tile = map_setting.world_map[y][x];
-
-					if (tile > 3 || tile < 0) {
-						tile = map_setting.PLAIN;
-					}
 
 					if (tile == map_setting.CHARA) {
 						tile = map_setting.PLAIN;
