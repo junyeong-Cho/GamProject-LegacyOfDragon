@@ -215,7 +215,6 @@ struct TutoEnemy {
 	}
 };
 
-
 int main()
 {
 	create_window(setting.world_x * setting.tile_size, setting.world_y * setting.tile_size);
@@ -681,15 +680,22 @@ int main()
 				pop_settings();
 
 				//Player move limit
-				if (player->chara_pos_x < player_limit_x1 || player->chara_pos_y > player_limit_y)
+				if (player->chara_pos_x < player_limit_x1)//Right 
 				{
-					player->speed = -5;
+					player->chara_pos_x += 6;
 				}
-				if (player->chara_pos_x > player_limit_x || player->chara_pos_y < player_limit_y1)
+				if (player->chara_pos_y > player_limit_y)//Down
 				{
-					player->speed += 5;
+					player->chara_pos_y -= 6;
 				}
-
+				if (player->chara_pos_x > player_limit_x)//Left
+				{
+					player->chara_pos_x -= 6;
+				}
+				if (player->chara_pos_y < player_limit_y1)//Up
+				{
+					player->chara_pos_y += 6;
+				}
 				player->draw_chara();
 				player->MOVE();
 
