@@ -37,7 +37,7 @@ const Image tiles[] = {
 	Image{"trees.png"},      //3 = TREES
 };
 
-const Image DigipenLogo{ "DigipenLogo.png" };
+const Image DigipenLogo{ "DigipenLogo.jpg" };
 const Image TeamLogo{ "TeamLogo.png" };
 
 struct Player {
@@ -116,7 +116,7 @@ void on_key_pressed(KeyboardButtons button) {
 	}
 }
 
-void on_key_released(KeyboardButtons button) {
+void on_key_releasd(KeyboardButtons button) {
 	if (button == KeyboardButtons::W) {
 		moveW = false;
 	}
