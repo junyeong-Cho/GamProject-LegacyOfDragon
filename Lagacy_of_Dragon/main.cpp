@@ -102,11 +102,41 @@ bool bullet_draw_check = false;
 bool player_die_check = false;
 bool tutorial_scene3 = false;
 
+void on_key_pressed(KeyboardButtons button) {
+	if (button == KeyboardButtons::W) {
+		moveW = true;
+	}
+	if (button == KeyboardButtons::A) {
+		moveA = true;
+	}
+	if (button == KeyboardButtons::S) {
+		moveS = true;
+	}
+	if (button == KeyboardButtons::D) {
+		moveD = true;
+	}
+}
+void on_key_released(KeyboardButtons button) {
+	if (button == KeyboardButtons::W) {
+		moveW = false;
+	}
+	if (button == KeyboardButtons::A) {
+		moveA = false;
+	}
+	if (button == KeyboardButtons::S) {
+		moveS = false;
+	}
+	if (button == KeyboardButtons::D) {
+		moveD = false;
+	}
+}
 
+
+//Player Structures
 struct Player {
 	int chara_pos_x = 0;
 	int chara_pos_y = 0;
-	int speed = 5;
+	double speed = 2.0;
 
 	void draw_chara() {
 		push_settings();
@@ -162,35 +192,8 @@ struct Shooting {
 	}
 };
 
-void on_key_pressed(KeyboardButtons button) {
-	if (button == KeyboardButtons::W) {
-		moveW = true;
-	}
-	if (button == KeyboardButtons::A) {
-		moveA = true;
-	}
-	if (button == KeyboardButtons::S) {
-		moveS = true;
-	}
-	if (button == KeyboardButtons::D) {
-		moveD = true;
-	}
-}
-void on_key_released(KeyboardButtons button) {
-	if (button == KeyboardButtons::W) {
-		moveW = false;
-	}
-	if (button == KeyboardButtons::A) {
-		moveA = false;
-	}
-	if (button == KeyboardButtons::S) {
-		moveS = false;
-	}
-	if (button == KeyboardButtons::D) {
-		moveD = false;
-	}
-}
 
+//Enemy Structures
 struct Enemy {
 	int x = 0;
 	int y = 0;
@@ -243,33 +246,8 @@ int main()
 		scene_timer += DeltaTime;
 		update_window();
 
-		////Erase enemy
-		//if(enemy_check == true)
-		//{
-		//	for (int i = 0; i < enemys.size(); i++)
-		//	{
-		//		delete enemys[i];
-		//		enemys.erase(enemys.begin() + i);
-		//	}
-		//}
 
-		////Erase bullet
-		//if (bullet_draw_check == true)
-		//{
-		//	for (int i = 0; i < bullets.size(); i++)
-		//	{
-		//		delete bullets[i];
-		//		bullets.erase(bullets.begin() + i);
-		//	}
-		//}
-
-		////Erase player
-		//if (player_die_check == true)
-		//{
-		//	scene = 2;
-		//	//reset();
-		//}
-
+		//Game_start
 		//DIGIEPN LOGO
 		if (scene == 0)
 		{
@@ -284,6 +262,7 @@ int main()
 				scene += 1;
 			}
 		}
+
 		//TEAM HATCHLING
 		if (scene == 1)
 		{
@@ -299,6 +278,7 @@ int main()
 				scene += 1;
 			}
 		}
+
 		//Main Menu
 		if (scene == 2)
 		{
@@ -314,7 +294,7 @@ int main()
 			//Gameplay
 			if ((get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x+click_gap_x && get_mouse_y() > click_gameplay_y && get_mouse_y() < click_gameplay_y + click_gap_y ) && MouseIsPressed)
 			{
-				scene = 7;
+				scene = 6;
 			}
 			//Settings
 			if ((get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_setting_y && get_mouse_y() < click_setting_y + click_gap_y) && MouseIsPressed)
@@ -332,6 +312,7 @@ int main()
 				scene = 5;
 			}
 		}
+
 		//Settings
 		if (scene == 3)
 		{
@@ -342,6 +323,7 @@ int main()
 				scene = 2;
 			}
 		}
+
 		//Credits
 		if (scene == 4)
 		{
@@ -352,192 +334,17 @@ int main()
 				scene = 2;
 			}
 		}
+
 		//Exit
 		if (scene == 5)
 		{
 			return 0;
 		}
-		//GamePlay(Chap1)
-		if (scene == 6)
-		{
-			if (!MouseIsPressed) {
-				not_clicked = true;
-			}
-			if (MouseIsPressed && not_clicked == true)
-			{
-				//bullet_create
-				bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
-				not_clicked = false;
-			}
-
-			for (int x = 0; x < 15; x++) {
-				for (int y = 0; y < 10; y++) {
-					draw_image(tiles[map_setting.PLAI0], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
-				}
-			}
-			for (int x = 0; x < 15; x++) {
-				for (int y = 0; y < 10; y++) {
-
-					int tile = map_setting.world_map[y][x];
-
-					if (tile == map_setting.CHARA) {
-						tile = map_setting.PLAI0;
-					}
-
-					draw_image(tiles[tile], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
-				}
-			}
-
-			//Create bullet
-			for (int i = 0; i < bullets.size(); i++)
-			{
-				push_settings();
-				bullets[i]->draw();
-				bullets[i]->FireBullet();
-				pop_settings();
-			}
-			//Bullet Remove
-			for (int i = 0; i < bullets.size(); i++)
-			{
-				if (bullets[i]->bullet_pos_x > 1400 || bullets[i]->bullet_pos_x < 100 || bullets[i]->bullet_pos_y > 900 || bullets[i]->bullet_pos_y < 100)
-				{
-					delete bullets[i];
-					bullets.erase(bullets.begin() + i);
-
-				}
-
-				/*if (bullet_timer > bullet_check)
-				{
-					for (int i = 0; i < bullets.size(); i++)
-					{
-						bullets[i]->draw();
-						bullets[i]->FireBullet();
-					}
-					delete bullets[i];
-					bullets.erase(bullets.begin() + i);
-					bullet_check += 4;
-				}*/
-			}
-
-			//Random enemy
-			if (timer > timer_check)
-			{
-				for (int i = 0; i < Max; i++)
-				{
-						push_settings();
-						int r_enemy_y = random(setting.enemyMin, setting.enemyMax);
-						int r_enemy_x = random(setting.enemyMin, setting.enemyMax);
-						enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, setting.enemySize });
-						pop_settings();
-				}
-				timer_check += 4;
-			}
-			
-			//Enemy move
-			for (int i = 0; i < enemys.size(); i++)
-			{
-				enemys[i]->draw();
-
-				if (enemys[i]->x >= player->chara_pos_x)
-				{
-					enemys[i]->x -= random(enemy_vel_min, enemy_vel_max);
-				}
-				if (enemys[i]->x <= player->chara_pos_x)
-				{
-					enemys[i]->x += random(enemy_vel_min, enemy_vel_max);
-				}
-				if (enemys[i]->y >= player->chara_pos_y)
-				{
-					enemys[i]->y -= random(enemy_vel_min, enemy_vel_max);
-				}
-				if (enemys[i]->y <= player->chara_pos_y)
-				{
-					enemys[i]->y += random(enemy_vel_min, enemy_vel_max);
-				}
-
-			}
-
-			//Me Enemy check
-			for (int j = 0; j < enemys.size(); j++)
-			{
-				double a = player->chara_pos_x - enemys[j]->x;
-				double b = player->chara_pos_y - enemys[j]->y;
-				double distance = sqrt(a * a + b * b);
-
-				if (distance < chararadius + enemyradius)
-				{
-					player_die_check = true;
-				}
-			}
-
-			//Bullet Enemy Check
-			for (int i = 0; i < bullets.size(); i++)
-			{
-				for (int j = 0; j < enemys.size(); j++)
-				{
-					double a = bullets[i]->bullet_pos_x - enemys[j]->x;
-					double b = bullets[i]->bullet_pos_y - enemys[j]->y;
-					double distance = sqrt(a * a + b * b);
-					
-					if (distance < bulletradius + enemyradius)
-					{
-						chap1_point--;
-						delete bullets[i];
-						bullets.erase(bullets.begin() + i);
-
-						delete enemys[j];
-						enemys.erase(enemys.begin() + j);
-						break;
-					}
-				}
-			}
-
-			//Player move limit
-			if (player->chara_pos_x < player_limit_x1)//Right 
-			{
-				player->chara_pos_x += 6;
-			}
-			if (player->chara_pos_y > player_limit_y)//Down
-			{
-				player->chara_pos_y -= 6;
-			}
-			if (player->chara_pos_x > player_limit_x)//Left
-			{
-				player->chara_pos_x -= 6;
-			}
-			if (player->chara_pos_y < player_limit_y1)//Up
-			{
-				player->chara_pos_y += 6;
-			}
-			//Move next chapter
-			if (chap1_point == 0)
-			{
-				scene = 8;
-			}
-
-			//Draw point
-			push_settings();
-			draw_text(to_string(chap1_point) + " / 20", score_width, score_height);
-			pop_settings();
-
-			player->MOVE();
-			player->draw_chara();
-
-		}
-        //GamePlay(Chap2)	
-		if (scene == 8)
-		{
-			//지워질 씬이라 변수 따로 안 만들었어요
-			clear_background(0);			
-			draw_text("Please keep your eyes on us!", 200, 400);
-			push_settings();
-			draw_text("Thank you", 600, 600);
-			pop_settings();
 
 
-		}
+		//Gameplay_start
 		//Tutorial
-		if (scene == 7)
+		if (scene == 6)
 		{
 			clear_background(255);
 			for (int x = 0; x < 15; x++) {
@@ -671,7 +478,7 @@ int main()
 				}
 			}
 
-			//Last Scene (Kill Enemies)
+			//Fourth Scene (Kill Enemies)
 			if (tutorial_scene == 3)
 			{
 				push_settings();
@@ -699,20 +506,17 @@ int main()
 				player->draw_chara();
 				player->MOVE();
 
+				//Bullet_shooting
 				if (!MouseIsPressed) {
 					not_clicked = true;
 				}
 				if (MouseIsPressed && not_clicked == true)
 				{
-					//bullet_create
 					bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
 					not_clicked = false;
 				}
-				for (int i = 0; i < bullets.size(); i++)
-				{
-					bullets[i]->draw();
-					bullets[i]->FireBullet();
-				}
+
+
 				//Create Enemy
 				if (timer > timer_check)
 				{
@@ -808,12 +612,181 @@ int main()
 					}
 				}
 
-				//Move next stage
+				//Move to Tutorial_last
 				if (score >= tuto_enemy_max)
 				{
-					scene = 6;
+					scene = 7;
 				}
 			}
+		}
+
+		//Tutorial_last
+		if (scene == 7)
+		{
+			//Bullet_shooting
+			if (!MouseIsPressed) {
+				not_clicked = true;
+			}
+			if (MouseIsPressed && not_clicked == true)
+			{
+				bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
+				not_clicked = false;
+			}
+
+			//Draw Map
+			for (int x = 0; x < 15; x++) {
+				for (int y = 0; y < 10; y++) {
+					draw_image(tiles[map_setting.PLAI0], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
+				}
+			}
+			for (int x = 0; x < 15; x++) {
+				for (int y = 0; y < 10; y++) {
+
+					int tile = map_setting.world_map[y][x];
+
+					if (tile == map_setting.CHARA) {
+						tile = map_setting.PLAI0;
+					}
+
+					draw_image(tiles[tile], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
+				}
+			}
+
+			//Create bullet
+			for (int i = 0; i < bullets.size(); i++)
+			{
+				push_settings();
+				bullets[i]->draw();
+				bullets[i]->FireBullet();
+				pop_settings();
+			}
+
+			//Bullet Remove
+			for (int i = 0; i < bullets.size(); i++)
+			{
+				if (bullets[i]->bullet_pos_x > 1400 || bullets[i]->bullet_pos_x < 100 || bullets[i]->bullet_pos_y > 900 || bullets[i]->bullet_pos_y < 100)
+				{
+					delete bullets[i];
+					bullets.erase(bullets.begin() + i);
+				}
+			}
+
+			//Random enemy
+			if (timer > timer_check)
+			{
+				for (int i = 0; i < Max; i++)
+				{
+					push_settings();
+					int r_enemy_y = random(setting.enemyMin, setting.enemyMax);
+					int r_enemy_x = random(setting.enemyMin, setting.enemyMax);
+					enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, setting.enemySize });
+					pop_settings();
+				}
+				timer_check += 4;
+			}
+
+			//Enemy move
+			for (int i = 0; i < enemys.size(); i++)
+			{
+				enemys[i]->draw();
+
+				if (enemys[i]->x >= player->chara_pos_x)
+				{
+					enemys[i]->x -= random(enemy_vel_min, enemy_vel_max);
+				}
+				if (enemys[i]->x <= player->chara_pos_x)
+				{
+					enemys[i]->x += random(enemy_vel_min, enemy_vel_max);
+				}
+				if (enemys[i]->y >= player->chara_pos_y)
+				{
+					enemys[i]->y -= random(enemy_vel_min, enemy_vel_max);
+				}
+				if (enemys[i]->y <= player->chara_pos_y)
+				{
+					enemys[i]->y += random(enemy_vel_min, enemy_vel_max);
+				}
+
+			}
+
+			//Me Enemy check
+			for (int j = 0; j < enemys.size(); j++)
+			{
+				double a = player->chara_pos_x - enemys[j]->x;
+				double b = player->chara_pos_y - enemys[j]->y;
+				double distance = sqrt(a * a + b * b);
+
+				if (distance < chararadius + enemyradius)
+				{
+					player_die_check = true;
+				}
+			}
+
+			//Bullet Enemy Check
+			for (int i = 0; i < bullets.size(); i++)
+			{
+				for (int j = 0; j < enemys.size(); j++)
+				{
+					double a = bullets[i]->bullet_pos_x - enemys[j]->x;
+					double b = bullets[i]->bullet_pos_y - enemys[j]->y;
+					double distance = sqrt(a * a + b * b);
+
+					if (distance < bulletradius + enemyradius)
+					{
+						chap1_point--;
+						delete bullets[i];
+						bullets.erase(bullets.begin() + i);
+
+						delete enemys[j];
+						enemys.erase(enemys.begin() + j);
+						break;
+					}
+				}
+			}
+
+			//Player move limit
+			if (player->chara_pos_x < player_limit_x1)//Right 
+			{
+				player->chara_pos_x += 6;
+			}
+			if (player->chara_pos_y > player_limit_y)//Down
+			{
+				player->chara_pos_y -= 6;
+			}
+			if (player->chara_pos_x > player_limit_x)//Left
+			{
+				player->chara_pos_x -= 6;
+			}
+			if (player->chara_pos_y < player_limit_y1)//Up
+			{
+				player->chara_pos_y += 6;
+			}
+
+			//Move next chapter
+			if (chap1_point == 0)
+			{
+				scene = 8;
+			}
+
+			//Draw point
+			push_settings();
+			draw_text(to_string(chap1_point) + " / 20", score_width, score_height);
+			pop_settings();
+
+			player->MOVE();
+			player->draw_chara();
+
+		}
+
+		//Tutorial_black scene	
+		if (scene == 8)
+		{
+			//지워질 씬이라 변수 따로 안 만들었어요
+			clear_background(0);
+			draw_text("Please keep your eyes on us!", 200, 400);
+			push_settings();
+			draw_text("Thank you", 600, 600);
+			pop_settings();
 		}
 	}
 	return 0;
