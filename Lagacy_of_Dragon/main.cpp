@@ -529,9 +529,9 @@ int main()
 		{
 			//지워질 씬이라 변수 따로 안 만들었어요
 			clear_background(0);			
-			draw_text("Please keep your eyes on me!", 200, 400);
+			draw_text("Please keep your eyes on us!", 200, 400);
 			push_settings();
-			draw_text("Thank you", 600, 800);
+			draw_text("Thank you", 600, 600);
 			pop_settings();
 
 
