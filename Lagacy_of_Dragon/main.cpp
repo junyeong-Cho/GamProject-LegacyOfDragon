@@ -463,6 +463,7 @@ int main()
 
 						delete enemys[j];
 						enemys.erase(enemys.begin() + j);
+						break;
 					}
 				}
 			}
@@ -656,6 +657,7 @@ int main()
 							delete tutoenemys[j];
 							bullets.erase(bullets.begin() + i);
 							tutoenemys.erase(tutoenemys.begin() + j);
+							break;
 						}
 					}
 				}
