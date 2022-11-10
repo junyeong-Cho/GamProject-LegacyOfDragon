@@ -22,8 +22,8 @@ int tutorial_check = 2;
 //--------------------------------// Tutorial Scene 
 int clicked_check = 0;
 constexpr int clicked_success = 3;
-constexpr int score_width = 900;
-constexpr int score_height = 300;
+constexpr int score_width = 1000;
+constexpr int score_height = 150;
 constexpr int tuto_move_line = 1000;
 constexpr int tuto_move_line2 = 1000;
 constexpr int tuto_word_x = 500;
@@ -55,11 +55,16 @@ constexpr int click_credit_y = 650;
 constexpr int click_exit_y = 730;
 
 constexpr int click_gap_y = 50;
+//--------------------------------// Player Move limit
+constexpr int player_limit_x = 1400;
+constexpr int player_limit_x1 = 100;
+constexpr int player_limit_y = 800;
+constexpr int player_limit_y1 = 100;
 
 
 //--------------------------------// Random Enemy
 
-int Max = 7;
+int Max = 3;
 int tutoMax = 6;
 int timer_check = 4;
 double timer = 0;
@@ -67,11 +72,15 @@ constexpr int enemy_vel_min = 1;
 constexpr int enemy_vel_max = 3;
 
 int count_enemy_start = 0;
+int tuto_enemy_max = 3;
 
 int score = 0;
+int Chap1_Enemy = 0;
 double bulletradius = 5;
 double enemyradius = 15;
 double chararadius = 25;
+
+int chap1_point = 20;
 //--------------------------------//Bullet
 double bullet_timer = 0;
 int bullet_check = 4;
@@ -119,6 +128,7 @@ struct Player {
 		if (moveD == true) {
 			chara_pos_x += 6;
 		}
+		//마우스 방향보고 캐릭터 좌우반전
 	}
 };
 
@@ -347,13 +357,12 @@ int main()
 		{
 			return 0;
 		}
-		//GamePlay
+		//GamePlay(Chap1)
 		if (scene == 6)
 		{
 			if (!MouseIsPressed) {
 				not_clicked = true;
 			}
-
 			if (MouseIsPressed && not_clicked == true)
 			{
 				//bullet_create
@@ -423,6 +432,7 @@ int main()
 				}
 				timer_check += 4;
 			}
+			
 			//Enemy move
 			for (int i = 0; i < enemys.size(); i++)
 			{
@@ -471,7 +481,7 @@ int main()
 					
 					if (distance < bulletradius + enemyradius)
 					{
-						score += 1;
+						chap1_point--;
 						delete bullets[i];
 						bullets.erase(bullets.begin() + i);
 
@@ -481,8 +491,50 @@ int main()
 					}
 				}
 			}
+
+			//Player move limit
+			if (player->chara_pos_x < player_limit_x1)//Right 
+			{
+				player->chara_pos_x += 6;
+			}
+			if (player->chara_pos_y > player_limit_y)//Down
+			{
+				player->chara_pos_y -= 6;
+			}
+			if (player->chara_pos_x > player_limit_x)//Left
+			{
+				player->chara_pos_x -= 6;
+			}
+			if (player->chara_pos_y < player_limit_y1)//Up
+			{
+				player->chara_pos_y += 6;
+			}
+			//Move next chapter
+			if (chap1_point == 0)
+			{
+				scene = 8;
+			}
+
+			//Draw point
+			push_settings();
+			draw_text(to_string(chap1_point) + " / 20", score_width, score_height);
+			pop_settings();
+
 			player->MOVE();
 			player->draw_chara();
+
+		}
+        //GamePlay(Chap2)	
+		if (scene == 8)
+		{
+			//지워질 씬이라 변수 따로 안 만들었어요
+			clear_background(0);			
+			draw_text("Please keep your eyes on me!", 200, 400);
+			push_settings();
+			draw_text("Thank you", 600, 800);
+			pop_settings();
+
+
 		}
 		//Tutorial
 		if (scene == 7)
@@ -522,7 +574,7 @@ int main()
 			if (tutorial_scene == 1)
 			{
 				push_settings();
-				set_outline_color(0);
+				set_outline_color(HexColor{ 0x00ff85ff });
 				set_outline_width(4.0);
 				draw_line(tuto_move_line, 0, tuto_move_line, tuto_move_line2);
 				draw_text("Use W A S D", tuto_word_x, tuto_word_y);
@@ -530,6 +582,23 @@ int main()
 				draw_image(Nest, nest_loc, nest_loc, nest_size, nest_size);
 				pop_settings();
 
+				//Player move limit
+				if (player->chara_pos_x < player_limit_x1)
+				{
+					player->chara_pos_x += 6;
+				}
+				if (player->chara_pos_y > player_limit_y)
+				{
+					player->chara_pos_y -= 6;
+				}
+				if (player->chara_pos_x > player_limit_x)
+				{
+					player->chara_pos_x -= 6;
+				}
+				if (player->chara_pos_y < player_limit_y1)
+				{
+					player->chara_pos_y += 6;
+				}
 				player->draw_chara();
 				player->MOVE();
 
@@ -542,7 +611,27 @@ int main()
 			//Third Scene(Shoot)			
 			if (tutorial_scene == 2)
 			{
+				push_settings();
 				draw_text("Use mouse to shoot Bullet!", tuto_word_x, tuto_word_y);
+				pop_settings();
+
+				//Player move limit
+				if (player->chara_pos_x < player_limit_x1)
+				{
+					player->chara_pos_x += 6;
+				}
+				if (player->chara_pos_y > player_limit_y)
+				{
+					player->chara_pos_y -= 6;
+				}
+				if (player->chara_pos_x > player_limit_x)
+				{
+					player->chara_pos_x -= 6;
+				}
+				if (player->chara_pos_y < player_limit_y1)
+				{
+					player->chara_pos_y += 6;
+				}
 
 				player->draw_chara();
 				player->MOVE();
@@ -555,7 +644,7 @@ int main()
 					//bullet_create
 					bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
 
-					if (bullets.size() > 5)
+					if (bullets.size() >= 5)
 					{
 						tutorial_scene = 3;
 					}
@@ -565,8 +654,10 @@ int main()
 				//bullet draw
 				for (int i = 0; i < bullets.size(); i++)
 				{
+					push_settings();
 					bullets[i]->draw();
 					bullets[i]->FireBullet();
+					pop_settings();
 				}
 
 				//Bullet Remove
@@ -578,13 +669,26 @@ int main()
 						bullets.erase(bullets.begin() + i);
 					}
 				}
-
 			}
 
 			//Last Scene (Kill Enemies)
 			if (tutorial_scene == 3)
 			{
+				push_settings();
+				draw_text("Kill all the enemies!", 100, 150);
 				draw_text("SCORE: " + to_string(score), score_width, score_height);
+				pop_settings();
+
+				//Player move limit
+				if (player->chara_pos_x < player_limit_x1 || player->chara_pos_y > player_limit_y)
+				{
+					player->speed = -5;
+				}
+				if (player->chara_pos_x > player_limit_x || player->chara_pos_y < player_limit_y1)
+				{
+					player->speed += 5;
+				}
+
 				player->draw_chara();
 				player->MOVE();
 
@@ -616,7 +720,9 @@ int main()
 				//Enemy Move
 				for (int i = 0; i < tutoenemys.size(); i++)
 				{
+					push_settings();
 					tutoenemys[i]->draw();
+					pop_settings();
 
 					if (tutoenemys[i]->x >= player->chara_pos_x)
 					{
@@ -640,8 +746,10 @@ int main()
 				//bullet draw
 				for (int i = 0; i < bullets.size(); i++)
 				{
+					push_settings();
 					bullets[i]->draw();
 					bullets[i]->FireBullet();
+					pop_settings();
 
 				}
 
@@ -694,7 +802,7 @@ int main()
 				}
 
 				//Move next stage
-				if (score > 5)
+				if (score >= tuto_enemy_max)
 				{
 					scene = 6;
 				}
