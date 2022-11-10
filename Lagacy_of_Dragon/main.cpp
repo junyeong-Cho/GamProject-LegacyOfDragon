@@ -46,7 +46,7 @@ constexpr int maxvolume_y = 400;
 
 //--------------------------------// Random Enemy
 
-int Max = 7;
+int Max = 5;
 int tutoMax = 6;
 int timer_check = 4;
 double timer = 0;
