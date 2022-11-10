@@ -35,18 +35,31 @@ constexpr int nest_loc = 300;
 int scene = 0;
 int tutorial_scene = 0;
 //--------------------------------// Gamestate
-constexpr int mainmenu_x = 600;
-constexpr int gameplay_y = 300;
-constexpr int settings_y = 400;
-constexpr int credits_y = 500;
-constexpr int exit_y = 600;
-constexpr int word_leng = 50;
+constexpr int title_x = 250;
+constexpr int title_y = 50;
+constexpr int mainmenu_x = 1000;
+
+constexpr int gameplay_y = 800;
+constexpr int setting_y = 950;
+constexpr int credit_y = 1100;
+constexpr int exit_y = 1250;
 constexpr int maxvolume_x = 600;
 constexpr int maxvolume_y = 400;
 
+constexpr int click_mainmenu_x = 610;
+constexpr int click_gap_x = 300;
+
+constexpr int click_gameplay_y = 500;
+constexpr int click_setting_y = 570;
+constexpr int click_credit_y = 650;
+constexpr int click_exit_y = 730;
+
+constexpr int click_gap_y = 50;
+
+
 //--------------------------------// Random Enemy
 
-int Max = 5;
+int Max = 7;
 int tutoMax = 6;
 int timer_check = 4;
 double timer = 0;
@@ -280,28 +293,31 @@ int main()
 		if (scene == 2)
 		{
 			clear_background(255);
-			draw_text("GamePlay", mainmenu_x, gameplay_y);
-			draw_text("Settings", mainmenu_x, settings_y);
-			draw_text("Credit", mainmenu_x, credits_y);
-			draw_text("Exit", mainmenu_x, exit_y);
+			draw_image(Title, title_x, title_y);
+
+			apply_scale(0.5);
+			draw_image(Gameplay_button, mainmenu_x, gameplay_y);
+			draw_image(Setting_button, mainmenu_x, setting_y);
+			draw_image(Credit_button, mainmenu_x, credit_y);
+			draw_image(Exit_button, mainmenu_x, exit_y);
 
 			//Gameplay
-			if ((get_mouse_x() > 600 && get_mouse_x() < 920 && get_mouse_y() > 220 && get_mouse_y() < 220 + word_leng) && MouseIsPressed)
+			if ((get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x+click_gap_x && get_mouse_y() > click_gameplay_y && get_mouse_y() < click_gameplay_y + click_gap_y ) && MouseIsPressed)
 			{
 				scene = 7;
 			}
 			//Settings
-			if ((get_mouse_x() > 600 && get_mouse_x() < 880 && get_mouse_y() > 320 && get_mouse_y() < 320 + word_leng) && MouseIsPressed)
+			if ((get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_setting_y && get_mouse_y() < click_setting_y + click_gap_y) && MouseIsPressed)
 			{
 				scene = 3;
 			}
 			//Credits
-			if ((get_mouse_x() > 600 && get_mouse_x() < 800 && get_mouse_y() > 420 && get_mouse_y() < 420 + word_leng) && MouseIsPressed)
+			if ((get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_credit_y && get_mouse_y() < click_credit_y + click_gap_y) && MouseIsPressed)
 			{
 				scene = 4;
 			}
 			//Exit
-			if ((get_mouse_x() > 600 && get_mouse_x() < 730 && get_mouse_y() > 520 && get_mouse_y() < 520 + word_leng) && MouseIsPressed)
+			if ((get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_exit_y && get_mouse_y() < click_exit_y + click_gap_y) && MouseIsPressed)
 			{
 				scene = 5;
 			}
@@ -311,19 +327,17 @@ int main()
 		{
 			clear_background(0x7E5873FF);
 			draw_text("Back", maxvolume_x, maxvolume_y);
-			if ((get_mouse_x() > 600 && get_mouse_x() < 750 && get_mouse_y() > 320 && get_mouse_y() < 330 + word_leng) && MouseIsPressed)
+			if ((get_mouse_x() > 600 && get_mouse_x() < 750 && get_mouse_y() > 320 && get_mouse_y() < 330 + click_gap_y) && MouseIsPressed)
 			{
 				scene = 2;
 			}
-
-
 		}
 		//Credits
 		if (scene == 4)
 		{
 			clear_background(0x7E5873FF);
 			draw_text("Back", maxvolume_x, maxvolume_y);
-			if ((get_mouse_x() > 600 && get_mouse_x() < 750 && get_mouse_y() > 320 && get_mouse_y() < 330 + word_leng) && MouseIsPressed)
+			if ((get_mouse_x() > 600 && get_mouse_x() < 750 && get_mouse_y() > 320 && get_mouse_y() < 330 + click_gap_y) && MouseIsPressed)
 			{
 				scene = 2;
 			}
@@ -349,7 +363,7 @@ int main()
 
 			for (int x = 0; x < 15; x++) {
 				for (int y = 0; y < 10; y++) {
-					draw_image(tiles[map_setting.PLAIN], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
+					draw_image(tiles[map_setting.PLAI0], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
 				}
 			}
 			for (int x = 0; x < 15; x++) {
@@ -358,7 +372,7 @@ int main()
 					int tile = map_setting.world_map[y][x];
 
 					if (tile == map_setting.CHARA) {
-						tile = map_setting.PLAIN;
+						tile = map_setting.PLAI0;
 					}
 
 					draw_image(tiles[tile], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
@@ -476,7 +490,7 @@ int main()
 			clear_background(255);
 			for (int x = 0; x < 15; x++) {
 				for (int y = 0; y < 10; y++) {
-					draw_image(tiles[map_setting.PLAIN], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
+					draw_image(tiles[map_setting.PLAI0], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
 				}
 			}
 			for (int x = 0; x < 15; x++) {
@@ -485,7 +499,7 @@ int main()
 					int tile = map_setting.world_map[y][x];
 
 					if (tile == map_setting.CHARA) {
-						tile = map_setting.PLAIN;
+						tile = map_setting.PLAI0;
 					}
 
 					draw_image(tiles[tile], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
