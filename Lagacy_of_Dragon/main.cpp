@@ -46,7 +46,7 @@ constexpr int maxvolume_y = 400;
 
 //--------------------------------// Random Enemy
 
-int Max = 5;
+int Max = 7;
 int tutoMax = 6;
 int timer_check = 4;
 double timer = 0;
@@ -399,14 +399,14 @@ int main()
 			//Random enemy
 			if (timer > timer_check)
 			{
-				for (int i = 0; i < Max; i++)
-				{
+					if ( enemys.size() < Max)
+					{
 						push_settings();
 						int r_enemy_y = random(setting.enemyMin, setting.enemyMax);
 						int r_enemy_x = random(setting.enemyMin, setting.enemyMax);
 						enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, setting.enemySize });
 						pop_settings();
-				}
+					}
 				timer_check += 4;
 			}
 			//Enemy move
