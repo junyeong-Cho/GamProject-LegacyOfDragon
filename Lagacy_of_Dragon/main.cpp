@@ -215,6 +215,7 @@ struct TutoEnemy {
 	}
 };
 
+
 int main()
 {
 	create_window(setting.world_x * setting.tile_size, setting.world_y * setting.tile_size);
