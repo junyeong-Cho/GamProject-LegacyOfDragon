@@ -136,6 +136,7 @@ struct Shooting {
 	int bullet_pos_x = 0;
 	int bullet_pos_y = 0;
 	int size = 0;
+	double bullet_speed = 4;
 	double radius() {
 		double radius = static_cast<int>(size / 2);
 		return radius;
@@ -157,8 +158,8 @@ struct Shooting {
 		float velocityX = (cos(aimAngle) * setting.Bvelocity);
 		float velocityY = (sin(aimAngle) * setting.Bvelocity);
 
-		bullet_pos_x += static_cast<int>(velocityX);
-		bullet_pos_y += static_cast<int>(velocityY);
+		bullet_pos_x += static_cast<int>(velocityX) * static_cast<int>(bullet_speed);
+		bullet_pos_y += static_cast<int>(velocityY) * static_cast<int>(bullet_speed);
 	}
 };
 
@@ -312,7 +313,7 @@ int main()
 			draw_image(Exit_button, mainmenu_x, exit_y);
 
 			//Gameplay
-			if ((get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x+click_gap_x && get_mouse_y() > click_gameplay_y && get_mouse_y() < click_gameplay_y + click_gap_y ) && MouseIsPressed)
+			if ((get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_gameplay_y && get_mouse_y() < click_gameplay_y + click_gap_y) && MouseIsPressed)
 			{
 				scene = 7;
 			}
@@ -424,15 +425,15 @@ int main()
 			{
 				for (int i = 0; i < Max; i++)
 				{
-						push_settings();
-						int r_enemy_y = random(setting.enemyMin, setting.enemyMax);
-						int r_enemy_x = random(setting.enemyMin, setting.enemyMax);
-						enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, setting.enemySize });
-						pop_settings();
+					push_settings();
+					int r_enemy_y = random(setting.enemyMin, setting.enemyMax);
+					int r_enemy_x = random(setting.enemyMin, setting.enemyMax);
+					enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, setting.enemySize });
+					pop_settings();
 				}
 				timer_check += 4;
 			}
-			
+
 			//Enemy move
 			for (int i = 0; i < enemys.size(); i++)
 			{
@@ -478,7 +479,7 @@ int main()
 					double a = bullets[i]->bullet_pos_x - enemys[j]->x;
 					double b = bullets[i]->bullet_pos_y - enemys[j]->y;
 					double distance = sqrt(a * a + b * b);
-					
+
 					if (distance < bulletradius + enemyradius)
 					{
 						chap1_point--;
@@ -524,11 +525,11 @@ int main()
 			player->draw_chara();
 
 		}
-        //GamePlay(Chap2)	
+		//GamePlay(Chap2)	
 		if (scene == 8)
 		{
 			//지워질 씬이라 변수 따로 안 만들었어요
-			clear_background(0);			
+			clear_background(0);
 			draw_text("Please keep your eyes on us!", 200, 400);
 			push_settings();
 			draw_text("Thank you", 600, 600);
