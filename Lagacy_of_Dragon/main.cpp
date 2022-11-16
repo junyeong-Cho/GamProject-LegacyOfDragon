@@ -3,10 +3,23 @@
 #include <vector>
 #include <string>
 #include <cmath>
-#include "library.h"
+#include "Player.h"
+#include "Map_setting.h"
+#include "Shooting.h"
+#include "Enemy.h"
+#include "Window_setting.h"
 
 using namespace std;
 using namespace doodle;
+
+static constexpr int bullet_x = -200;
+static constexpr int bullet_y = -200;
+static constexpr int bullet_vel = 5;
+static constexpr int bullet_size = 10;
+
+static constexpr int enemyMin = -800;
+static constexpr int enemyMax = 800;
+static constexpr int enemySize = 30;
 
 //--------------------------------// First scene
 constexpr int digipen_width = 1000;
@@ -92,136 +105,36 @@ constexpr int enemyHeight = 10;
 constexpr int bulletSize = 10;
 //--------------------------------// bool
 bool not_clicked = false;
-bool moveW = false;
-bool moveA = false;
-bool moveS = false;
-bool moveD = false;
 
 bool enemy_check = false;
 bool bullet_draw_check = false;
 bool player_die_check = false;
 bool tutorial_scene3 = false;
 
-void on_key_pressed(KeyboardButtons button) {
-	if (button == KeyboardButtons::W) {
-		moveW = true;
-	}
-	if (button == KeyboardButtons::A) {
-		moveA = true;
-	}
-	if (button == KeyboardButtons::S) {
-		moveS = true;
-	}
-	if (button == KeyboardButtons::D) {
-		moveD = true;
-	}
-}
-void on_key_released(KeyboardButtons button) {
-	if (button == KeyboardButtons::W) {
-		moveW = false;
-	}
-	if (button == KeyboardButtons::A) {
-		moveA = false;
-	}
-	if (button == KeyboardButtons::S) {
-		moveS = false;
-	}
-	if (button == KeyboardButtons::D) {
-		moveD = false;
-	}
-}
 
+const Image Nest{ "nest.png" };
 
-//Player Structures
-struct Player {
-	int chara_pos_x = 0;
-	int chara_pos_y = 0;
-	double speed = 2.0;
+const Image DigipenLogo{ "UIdesign/DigipenLogo.jpg" };
+const Image TeamLogo{ "UIdesign/TeamLogo.png" };
+const Image Title{ "UIdesign/Title.png" };
+const Image Gameplay_button{ "UIdesign/GamePlay.png" };
+const Image Gameplay_button_on{ "UIdesign/GamePlayon.png" };
+const Image Credit_button{ "UIdesign/Credit.png" };
+const Image Credit_button_on{ "UIdesign/Crediton.png" };
+const Image Setting_button{ "UIdesign/Setting.png" };
+const Image Setting_button_on{ "UIdesign/Settingon.png" };
+const Image Exit_button{ "UIdesign/Exit.png" };
+const Image Exit_button_on{ "UIdesign/Exiton.png" };
 
-	void draw_chara() {
-		push_settings();
-		set_image_mode(RectMode::Center);
-		draw_image(tiles[map_setting.CHARA], chara_pos_x, chara_pos_y, setting.tile_size, setting.tile_size);
-		pop_settings();
-	}
+Map_setting map_setting;
+Window_setting window_setting;
 
-	void MOVE() {
-		if (moveW == true) {
-			chara_pos_y -= 6;
-		}
-		if (moveA == true) {
-			chara_pos_x -= 6;
-		}
-		if (moveS == true) {
-			chara_pos_y += 6;
-		}
-		if (moveD == true) {
-			chara_pos_x += 6;
-		}
-		//마우스 방향보고 캐릭터 좌우반전
-	}
-};
-
-struct Shooting {
-	int bullet_pos_x = 0;
-	int bullet_pos_y = 0;
-	int size = 0;
-	double radius() {
-		double radius = static_cast<int>(size / 2);
-		return radius;
-	}
-
-	float mouseX = static_cast<float>(get_mouse_x());
-	float mouseY = static_cast<float>(get_mouse_y());
-	float angleX = (mouseX - bullet_pos_x);
-	float angleY = (mouseY - bullet_pos_y);
-
-	void draw()
-	{
-		set_fill_color(HexColor{ 0xff002aff });
-		draw_ellipse(bullet_pos_x, bullet_pos_y, size, size);
-	}
-	void FireBullet()
-	{
-		float aimAngle = atan2(angleY, angleX);
-		float velocityX = (cos(aimAngle) * setting.Bvelocity);
-		float velocityY = (sin(aimAngle) * setting.Bvelocity);
-
-		bullet_pos_x += static_cast<int>(velocityX);
-		bullet_pos_y += static_cast<int>(velocityY);
-	}
-};
-
-
-//Enemy Structures
-struct Enemy {
-	int x = 0;
-	int y = 0;
-	int size = 0;
-
-	void draw()
-	{
-		set_fill_color(HexColor{ 0xffff2aff });
-		draw_ellipse(x, y, size, size);
-	}
-};
-
-struct TutoEnemy {
-	int x = 0;
-	int y = 0;
-	int size = 0;
-
-	void draw()
-	{
-		set_fill_color(HexColor{ 0xffff2aff });
-		draw_ellipse(x, y, size, size);
-	}
-};
+void on_key_pressed(KeyboardButtons button);
+void on_key_released(KeyboardButtons button);
 
 int main()
 {
-	create_window(setting.world_x * setting.tile_size, setting.world_y * setting.tile_size);
-	window_setting.window();
+	window_setting.setting();
 
 	vector<Shooting*> bullets;
 	vector<Enemy*> enemys;
@@ -232,8 +145,8 @@ int main()
 	for (int x = 0; x < 15; x++) {
 		for (int y = 0; y < 10; y++) {
 			if (map_setting.world_map[y][x] == map_setting.CHARA) {
-				player->chara_pos_x = x * setting.tile_size;
-				player->chara_pos_y = y * setting.tile_size;
+				player->chara_pos_x = x * tile_size;
+				player->chara_pos_y = y * tile_size;
 				break;
 			}
 		}
@@ -249,6 +162,7 @@ int main()
 
 		//Game_start
 		//DIGIEPN LOGO
+
 		if (scene == 0)
 		{
 			clear_background(255);
@@ -349,7 +263,7 @@ int main()
 			clear_background(255);
 			for (int x = 0; x < 15; x++) {
 				for (int y = 0; y < 10; y++) {
-					draw_image(tiles[map_setting.PLAI0], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
+					draw_image(tiles[map_setting.PLAI0], x * tile_size, y * tile_size, tile_size, tile_size);
 				}
 			}
 			for (int x = 0; x < 15; x++) {
@@ -361,7 +275,7 @@ int main()
 						tile = map_setting.PLAI0;
 					}
 
-					draw_image(tiles[tile], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
+					draw_image(tiles[tile], x * tile_size, y * tile_size, tile_size, tile_size);
 				}
 			}
 
@@ -522,9 +436,9 @@ int main()
 				{
 					for (; count_enemy_start < tutoMax; count_enemy_start++)
 					{
-						int r_enemy_y = random(setting.enemyMin, setting.enemyMax);
-						int r_enemy_x = random(setting.enemyMin, setting.enemyMax);
-						tutoenemys.push_back(new TutoEnemy{ r_enemy_x, r_enemy_y, setting.enemySize });
+						int r_enemy_y = random(enemyMin, enemyMax);
+						int r_enemy_x = random(enemyMin, enemyMax);
+						tutoenemys.push_back(new TutoEnemy{ r_enemy_x, r_enemy_y, enemySize });
 					}
 				}
 
@@ -636,7 +550,7 @@ int main()
 			//Draw Map
 			for (int x = 0; x < 15; x++) {
 				for (int y = 0; y < 10; y++) {
-					draw_image(tiles[map_setting.PLAI0], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
+					draw_image(tiles[map_setting.PLAI0], x * tile_size, y * tile_size, tile_size, tile_size);
 				}
 			}
 			for (int x = 0; x < 15; x++) {
@@ -648,7 +562,7 @@ int main()
 						tile = map_setting.PLAI0;
 					}
 
-					draw_image(tiles[tile], x * setting.tile_size, y * setting.tile_size, setting.tile_size, setting.tile_size);
+					draw_image(tiles[tile], x * tile_size, y * tile_size, tile_size, tile_size);
 				}
 			}
 
@@ -677,9 +591,9 @@ int main()
 				for (int i = 0; i < Max; i++)
 				{
 					push_settings();
-					int r_enemy_y = random(setting.enemyMin, setting.enemyMax);
-					int r_enemy_x = random(setting.enemyMin, setting.enemyMax);
-					enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, setting.enemySize });
+					int r_enemy_y = random(enemyMin, enemyMax);
+					int r_enemy_x = random(enemyMin, enemyMax);
+					enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, enemySize });
 					pop_settings();
 				}
 				timer_check += 4;
