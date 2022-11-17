@@ -8,6 +8,8 @@ bool moveA = false;
 bool moveS = false;
 bool moveD = false;
 
+extern int center_map_x, center_map_y;
+
 void on_key_pressed(KeyboardButtons button) {
 	if (button == KeyboardButtons::W) {
 		moveW = true;
@@ -49,15 +51,19 @@ void Player::draw_chara() {
 void Player::MOVE() {
 	if (moveW == true) {
 		chara_pos_y -= 6;
+		center_map_y += 6;
 	}
 	if (moveA == true) {
 		chara_pos_x -= 6;
+		center_map_x += 6;
 	}
 	if (moveS == true) {
 		chara_pos_y += 6;
+		center_map_y -= 6;
 	}
 	if (moveD == true) {
 		chara_pos_x += 6;
+		center_map_x -= 6;
 	}
 	//마우스 방향보고 캐릭터 좌우반전
 }

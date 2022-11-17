@@ -8,6 +8,7 @@
 #include "Shooting.h"
 #include "Enemy.h"
 #include "Window_setting.h"
+#include "test_map.h"
 
 using namespace std;
 using namespace doodle;
@@ -141,6 +142,18 @@ const Image Setting_button{ "UIdesign/Setting.png" };
 const Image Setting_button_on{ "UIdesign/Settingon.png" };
 const Image Exit_button{ "UIdesign/Exit.png" };
 const Image Exit_button_on{ "UIdesign/Exiton.png" };
+
+
+//------------------------------------------------------------//
+int center_map_x = 300;
+int center_map_y = 300;
+
+int mov_cam_speed_x = 4;
+int mov_cam_speed_y = 8;
+
+int cam_move_speed = 3;
+//------------------------------------------------------------//
+
 
 Map_setting map_setting;
 Window_setting window_setting;
@@ -713,7 +726,10 @@ int main()
 		{
 			clear_background(255);
 
+			basic_map();
+
 			//Draw Map
+			/*
 			for (int x = 0; x < 15; x++) {
 				for (int y = 0; y < 10; y++) {
 					draw_image(tiles[map_setting.PLAI0], x * tile_size, y * tile_size, tile_size, tile_size);
@@ -731,7 +747,8 @@ int main()
 					draw_image(tiles[tile], x * tile_size, y * tile_size, tile_size, tile_size);
 				}
 			}
-			
+			*/
+
 			player->MOVE();
 			player->draw_chara();
 
@@ -742,7 +759,7 @@ int main()
 				}*/
 
 
-
+			/*
 			if (randomScene == 0)
 			{
 
@@ -788,6 +805,7 @@ int main()
 					box3Check += 0.3;
 				}
 			}
+			
 
 			//임시로 확인용 (멈추기/ 느려지게하기)
 			if (get_mouse_x() > 500 && get_mouse_x() < 1100 && get_mouse_y() > 500 && get_mouse_y() < 700)
@@ -796,6 +814,7 @@ int main()
 			}
 
 			draw_rectangle(500, 500, 600, 200);
+			*/
 		}
 	}
 	return 0;
