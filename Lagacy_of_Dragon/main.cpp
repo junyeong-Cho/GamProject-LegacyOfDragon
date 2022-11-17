@@ -45,7 +45,7 @@ constexpr int tuto_word_y = 200;
 constexpr int nest_size = 100;
 constexpr int nest_loc = 300;
 //--------------------------------// Scene
-int scene = 0;
+int scene = 8;
 int tutorial_scene = 0;
 //--------------------------------// Gamestate
 constexpr int title_x = 250;
@@ -111,9 +111,25 @@ bool bullet_draw_check = false;
 bool player_die_check = false;
 bool tutorial_scene3 = false;
 
+//--------------------------------// RandomSkill
+int randomScene = 0;
+int box_x = 500;
+
+double box_1 = 0;
+double box_2 = 0;
+double box_3 = 0;
+
+double box1Check = 0.2;
+double box2Check = 0.3;
+double box3Check = 0.4;
+
+
+const Image Fire{ "Fire.jpg" };
+const Image Water{ "Water.jpg" };
+const Image Star{ "Star.jpg" };
+
 
 const Image Nest{ "nest.png" };
-
 const Image DigipenLogo{ "UIdesign/DigipenLogo.jpg" };
 const Image TeamLogo{ "UIdesign/TeamLogo.png" };
 const Image Title{ "UIdesign/Title.png" };
@@ -695,12 +711,91 @@ int main()
 		//Tutorial_black scene	
 		if (scene == 8)
 		{
-			//지워질 씬이라 변수 따로 안 만들었어요
-			clear_background(0);
-			draw_text("Please keep your eyes on us!", 200, 400);
-			push_settings();
-			draw_text("Thank you", 600, 600);
-			pop_settings();
+			clear_background(255);
+
+			//Draw Map
+			for (int x = 0; x < 15; x++) {
+				for (int y = 0; y < 10; y++) {
+					draw_image(tiles[map_setting.PLAI0], x * tile_size, y * tile_size, tile_size, tile_size);
+				}
+			}
+			for (int x = 0; x < 15; x++) {
+				for (int y = 0; y < 10; y++) {
+
+					int tile = map_setting.world_map[y][x];
+
+					if (tile == map_setting.CHARA) {
+						tile = map_setting.PLAI0;
+					}
+
+					draw_image(tiles[tile], x * tile_size, y * tile_size, tile_size, tile_size);
+				}
+			}
+			
+			player->MOVE();
+			player->draw_chara();
+
+			/*	if (KeyIsPressed && Key == KeyboardButtons::R)
+				{
+					set_rectangle_mode(RectMode::Center);
+					draw_rectangle(player->chara_pos_x, player->chara_pos_y - 100, 400, 100);
+				}*/
+
+
+
+			if (randomScene == 0)
+			{
+
+				box_1 += DeltaTime;
+				box_2 += DeltaTime;
+				box_3 += DeltaTime;
+
+				draw_image(Fire, 500, 500, 200, 200);
+				draw_image(Water, 700, 500, 200, 200);
+				draw_image(Star, 900, 500, 200, 200);
+
+				//Fire
+				if (box_1 > box1Check)
+				{
+					push_settings();
+					no_fill();
+					set_outline_color(HexColor{ 0xff0000ff });
+					set_outline_width(8.0);
+					draw_rectangle(500, 500, 200, 200);
+					pop_settings();
+					box1Check += 0.3;
+				}
+				//Water
+				if (box_2 > box2Check)
+				{
+					push_settings();
+					no_fill();
+					set_outline_color(HexColor{ 0xff0000ff });
+					set_outline_width(8.0);
+					draw_rectangle(700, 500, 200, 200);
+					pop_settings();
+					box2Check += 0.3;
+				}
+				//Star
+				if (box_3 > box3Check)
+				{
+					push_settings();
+					no_fill();
+					set_outline_color(HexColor{ 0xff0000ff });
+					set_outline_width(8.0);
+					draw_rectangle(900, 500, 200, 200);
+					pop_settings();
+					box3Check += 0.3;
+				}
+			}
+
+			//임시로 확인용 (멈추기/ 느려지게하기)
+			if (get_mouse_x() > 500 && get_mouse_x() < 1100 && get_mouse_y() > 500 && get_mouse_y() < 700)
+			{
+
+			}
+
+			draw_rectangle(500, 500, 600, 200);
 		}
 	}
 	return 0;
