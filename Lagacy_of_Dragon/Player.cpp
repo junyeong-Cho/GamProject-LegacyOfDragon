@@ -61,3 +61,26 @@ void Player::MOVE() {
 	}
 	//마우스 방향보고 캐릭터 좌우반전
 }
+
+void Player_setting::move_limit(Player* player)
+{
+	//Player move limit
+	if (player->chara_pos_x < player_limit_x1)
+	{
+		player->chara_pos_x += 6;
+	}
+	if (player->chara_pos_y > player_limit_y)
+	{
+		player->chara_pos_y -= 6;
+	}
+	if (player->chara_pos_x > player_limit_x)
+	{
+		player->chara_pos_x -= 6;
+	}
+	if (player->chara_pos_y < player_limit_y1)
+	{
+		player->chara_pos_y += 6;
+	}
+	player->draw_chara();
+	player->MOVE();
+}

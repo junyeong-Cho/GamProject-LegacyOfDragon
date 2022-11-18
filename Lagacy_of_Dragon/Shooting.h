@@ -1,10 +1,16 @@
 #pragma once
 #include <doodle\doodle.hpp>
+#include "Player.h"
+#include <vector>
 using namespace doodle;
 
 static constexpr int Pvelocity = 3;
 static constexpr int Bvelocity = 6;
 static constexpr int Player_r = 50;
+
+constexpr int bulletSize = 10;
+
+//extern bool not_clicked;
 
 struct Shooting {
 	int bullet_pos_x = 0;
@@ -19,3 +25,9 @@ struct Shooting {
 	void draw();
 	void FireBullet();
 };
+
+//struct Shooting_update
+//{
+//	void bullet_create(Shooting* bullets, Player* player);
+//
+//};

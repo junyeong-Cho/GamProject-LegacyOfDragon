@@ -2,6 +2,8 @@
 #include <doodle\doodle.hpp>
 using namespace doodle;
 
+//bool not_clicked = false;
+
 double Shooting::radius() {
 	double radius = static_cast<int>(size / 2);
 	return radius;
@@ -22,3 +24,16 @@ void Shooting::FireBullet()
 	bullet_pos_x += static_cast<int>(velocityX);
 	bullet_pos_y += static_cast<int>(velocityY);
 }
+
+//void Shooting_update::bullet_create(Shooting* bullets, Player* player)
+//{
+//	if (!MouseIsPressed) {
+//		not_clicked = true;
+//	}
+//	if (MouseIsPressed && not_clicked == true)
+//	{
+//		//bullet_create
+//		bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
+//		not_clicked = false;
+//	}
+//}
