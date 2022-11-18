@@ -10,7 +10,7 @@ static constexpr int Player_r = 50;
 
 constexpr int bulletSize = 10;
 
-//extern bool not_clicked;
+inline bool not_clicked = false;
 
 struct Shooting {
 	int bullet_pos_x = 0;
@@ -26,8 +26,9 @@ struct Shooting {
 	void FireBullet();
 };
 
-//struct Shooting_update
-//{
-//	void bullet_create(Shooting* bullets, Player* player);
-//
-//};
+struct Shooting_update
+{
+	void bullet_create(std::vector<Shooting*> &bullets, Player* player);
+	void bullet_draw(std::vector<Shooting*> &bullets);
+	void bullet_remove(std::vector<Shooting*> &bullets);
+};

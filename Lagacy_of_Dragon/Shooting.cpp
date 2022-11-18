@@ -2,8 +2,6 @@
 #include <doodle\doodle.hpp>
 using namespace doodle;
 
-//bool not_clicked = false;
-
 double Shooting::radius() {
 	double radius = static_cast<int>(size / 2);
 	return radius;
@@ -25,15 +23,35 @@ void Shooting::FireBullet()
 	bullet_pos_y += static_cast<int>(velocityY);
 }
 
-//void Shooting_update::bullet_create(Shooting* bullets, Player* player)
-//{
-//	if (!MouseIsPressed) {
-//		not_clicked = true;
-//	}
-//	if (MouseIsPressed && not_clicked == true)
-//	{
-//		//bullet_create
-//		bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
-//		not_clicked = false;
-//	}
-//}
+void Shooting_update::bullet_create(std::vector<Shooting*> &bullets, Player* player)
+{
+	if (!MouseIsPressed) {
+		not_clicked = true;
+	}
+	if (MouseIsPressed && not_clicked == true)
+	{
+		bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
+		not_clicked = false;
+	}
+}
+void Shooting_update::bullet_draw(std::vector<Shooting*> &bullets) {
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		push_settings();
+		bullets[i]->draw();
+		bullets[i]->FireBullet();
+		pop_settings();
+	}
+}
+
+
+void Shooting_update::bullet_remove(std::vector<Shooting*>& bullets) {
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		if (bullets[i]->bullet_pos_x > 1400 || bullets[i]->bullet_pos_x < 100 || bullets[i]->bullet_pos_y > 900 || bullets[i]->bullet_pos_y < 100)
+		{
+			delete bullets[i];
+			bullets.erase(bullets.begin() + i);
+		}
+	}
+}

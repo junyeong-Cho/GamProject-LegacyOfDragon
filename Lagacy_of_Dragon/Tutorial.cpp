@@ -19,8 +19,11 @@ void Tutorial::scene2_guideline()
 	pop_settings();
 }
 
-void Tutorial::scene3_guideline()
-{
+void Tutorial::scene3_guideline() {
+	push_settings();
+	draw_text("Kill all the enemies!", 100, 150);
+	draw_text("SCORE: " + std::to_string(score), score_width, score_height);
+	pop_settings();
 }
 
 bool Tutorial::is_clear_scene1(Player* player)

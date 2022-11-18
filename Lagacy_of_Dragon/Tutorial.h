@@ -1,6 +1,7 @@
 #pragma once
 #include <doodle\doodle.hpp>
 #include <vector>
+#include <string>
 #include "Player.h"
 
 using namespace doodle;
@@ -15,6 +16,8 @@ constexpr int tuto_word_y = 200;
 constexpr int nest_size = 100;
 constexpr int nest_loc = 300;
 
+inline int score = 0;
+
 const Image Nest{ "nest.png" };
 
 struct Tutorial
@@ -24,7 +27,6 @@ public:
 	void scene2_guideline();
 	void scene3_guideline();
 	bool is_clear_scene1(Player* player);
-
 };
 
 

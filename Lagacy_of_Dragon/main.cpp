@@ -20,10 +20,6 @@ static constexpr int bullet_y = -200;
 static constexpr int bullet_vel = 5;
 static constexpr int bullet_size = 10;
 
-static constexpr int enemyMin = -800;
-static constexpr int enemyMax = 800;
-static constexpr int enemySize = 30;
-
 //--------------------------------// Timer for scene
 double scene_timer = 0;
 double tutorial_timer = 0;
@@ -37,21 +33,8 @@ constexpr int clicked_success = 3;
 int scene = 0;
 int tutorial_scene = 0;
 
-
-int score = 0;
-
-
 //--------------------------------// Random Enemy
 
-int Max = 3;
-int tutoMax = 6;
-int timer_check = 4;
-double timer = 0;
-constexpr int enemy_vel_min = 1;
-constexpr int enemy_vel_max = 3;
-
-int count_enemy_start = 0;
-int tuto_enemy_max = 3;
 
 int Chap1_Enemy = 0;
 double bulletradius = 5;
@@ -64,7 +47,6 @@ double bullet_timer = 0;
 int bullet_check = 4;
 int bullet_max = 5;
 
-bool not_clicked = false;
 //--------------------------------// Enemy const
 constexpr int enemyWidth = 10;
 constexpr int enemyHeight = 10;
@@ -96,7 +78,8 @@ Logos logos;
 Main_menu main_menu;
 Tutorial tutorial;
 Player_setting player_setting;
-//Shooting_update shooting_update;
+Shooting_update shooting_update;
+Enemy_update enemy_update;
 
 void on_key_pressed(KeyboardButtons button);
 void on_key_released(KeyboardButtons button);
@@ -107,7 +90,7 @@ int main()
 
 	vector<Shooting*> bullets;
 	vector<Enemy*> enemys;
-	vector<TutoEnemy*> tutoenemys;
+	vector<Enemy*> tutoenemys;
 
 	Player* player = new Player{ 0, 0 };
 
@@ -233,16 +216,7 @@ int main()
 				player_setting.move_limit(player);
 
 				//bullet_create
-				//shooting_update.bullet_create(bullets, player);
-				if (!MouseIsPressed) {
-					not_clicked = true;
-				}
-				if (MouseIsPressed && not_clicked == true)
-				{
-					//bullet_create
-					bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
-					not_clicked = false;
-				}
+				shooting_update.bullet_create(bullets, player);
 
 				if (bullets.size() >= 5)
 				{
@@ -250,103 +224,35 @@ int main()
 				}
 
 				//bullet draw
-				for (int i = 0; i < bullets.size(); i++)
-				{
-					push_settings();
-					bullets[i]->draw();
-					bullets[i]->FireBullet();
-					doodle::pop_settings();
-				}
+				shooting_update.bullet_draw(bullets);
 
 				//Bullet Remove
-				for (int i = 0; i < bullets.size(); i++)
-				{
-					if (bullets[i]->bullet_pos_x > 1400 || bullets[i]->bullet_pos_x < 100 || bullets[i]->bullet_pos_y > 900 || bullets[i]->bullet_pos_y < 100)
-					{
-						delete bullets[i];
-						bullets.erase(bullets.begin() + i);
-					}
-				}
+				shooting_update.bullet_remove(bullets);
 			}
 
 			//Fourth Scene (Kill Enemies)
 			if (tutorial_scene == 3)
 			{
-				push_settings();
-				draw_text("Kill all the enemies!", 100, 150);
-				draw_text("SCORE: " + to_string(score), score_width, score_height);
-				pop_settings();
+				tutorial.scene3_guideline();
 
 				//Player move limit
 				player_setting.move_limit(player);
 
 				//Bullet_shooting
-				if (!MouseIsPressed) {
-					not_clicked = true;
-				}
-				if (MouseIsPressed && not_clicked == true)
-				{
-					bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
-					not_clicked = false;
-				}
+				shooting_update.bullet_create(bullets, player);
 
 
 				//Create Enemy
-				if (timer > timer_check)
-				{
-					for (; count_enemy_start < tutoMax; count_enemy_start++)
-					{
-						int r_enemy_y = random(enemyMin, enemyMax);
-						int r_enemy_x = random(enemyMin, enemyMax);
-						tutoenemys.push_back(new TutoEnemy{ r_enemy_x, r_enemy_y, enemySize });
-					}
-				}
+				enemy_update.tuto_enemy_create(tutoenemys);
 
 				//Enemy Move
-				for (int i = 0; i < tutoenemys.size(); i++)
-				{
-					push_settings();
-					tutoenemys[i]->draw();
-					doodle::pop_settings();
-
-					if (tutoenemys[i]->x >= player->chara_pos_x)
-					{
-						tutoenemys[i]->x -= random(enemy_vel_min, enemy_vel_max);
-					}
-					if (tutoenemys[i]->x <= player->chara_pos_x)
-					{
-						tutoenemys[i]->x += random(enemy_vel_min, enemy_vel_max);
-					}
-					if (tutoenemys[i]->y >= player->chara_pos_y)
-					{
-						tutoenemys[i]->y -= random(enemy_vel_min, enemy_vel_max);
-					}
-					if (tutoenemys[i]->y <= player->chara_pos_y)
-					{
-						tutoenemys[i]->y += random(enemy_vel_min, enemy_vel_max);
-					}
-
-				}
+				enemy_update.enemy_move(tutoenemys, player);
 
 				//bullet draw
-				for (int i = 0; i < bullets.size(); i++)
-				{
-					push_settings();
-					bullets[i]->draw();
-					bullets[i]->FireBullet();
-					doodle::pop_settings();
-
-				}
+				shooting_update.bullet_draw(bullets);
 
 				//Bullet Remove
-				for (int i = 0; i < bullets.size(); i++)
-				{
-					if (bullets[i]->bullet_pos_x > 1400 || bullets[i]->bullet_pos_x < 100 || bullets[i]->bullet_pos_y > 900 || bullets[i]->bullet_pos_y < 100)
-					{
-						delete bullets[i];
-						bullets.erase(bullets.begin() + i);
-					}
-				}
+				shooting_update.bullet_remove(bullets);
 
 				//Bullet Enemy Check
 				for (int i = 0; i < bullets.size(); i++)
@@ -398,14 +304,7 @@ int main()
 		if (scene == 7)
 		{
 			//Bullet_shooting
-			if (!MouseIsPressed) {
-				not_clicked = true;
-			}
-			if (MouseIsPressed && not_clicked == true)
-			{
-				bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
-				not_clicked = false;
-			}
+			shooting_update.bullet_create(bullets, player);
 
 			//Draw Map
 			for (int x = 0; x < 15; x++) {
@@ -427,23 +326,12 @@ int main()
 			}
 
 			//Create bullet
-			for (int i = 0; i < bullets.size(); i++)
-			{
-				push_settings();
-				bullets[i]->draw();
-				bullets[i]->FireBullet();
-				doodle::pop_settings();
-			}
+			shooting_update.bullet_create(bullets, player);
+
+			shooting_update.bullet_draw(bullets);
 
 			//Bullet Remove
-			for (int i = 0; i < bullets.size(); i++)
-			{
-				if (bullets[i]->bullet_pos_x > 1400 || bullets[i]->bullet_pos_x < 100 || bullets[i]->bullet_pos_y > 900 || bullets[i]->bullet_pos_y < 100)
-				{
-					delete bullets[i];
-					bullets.erase(bullets.begin() + i);
-				}
-			}
+			shooting_update.bullet_remove(bullets);
 
 			//Random enemy
 			if (timer > timer_check)
@@ -460,28 +348,7 @@ int main()
 			}
 
 			//Enemy move
-			for (int i = 0; i < enemys.size(); i++)
-			{
-				enemys[i]->draw();
-
-				if (enemys[i]->x >= player->chara_pos_x)
-				{
-					enemys[i]->x -= random(enemy_vel_min, enemy_vel_max);
-				}
-				if (enemys[i]->x <= player->chara_pos_x)
-				{
-					enemys[i]->x += random(enemy_vel_min, enemy_vel_max);
-				}
-				if (enemys[i]->y >= player->chara_pos_y)
-				{
-					enemys[i]->y -= random(enemy_vel_min, enemy_vel_max);
-				}
-				if (enemys[i]->y <= player->chara_pos_y)
-				{
-					enemys[i]->y += random(enemy_vel_min, enemy_vel_max);
-				}
-
-			}
+			enemy_update.enemy_move(enemys, player);
 
 			//Me Enemy check
 			for (int j = 0; j < enemys.size(); j++)
@@ -519,22 +386,7 @@ int main()
 			}
 
 			//Player move limit
-			if (player->chara_pos_x < player_limit_x1)//Right 
-			{
-				player->chara_pos_x += 6;
-			}
-			if (player->chara_pos_y > player_limit_y)//Down
-			{
-				player->chara_pos_y -= 6;
-			}
-			if (player->chara_pos_x > player_limit_x)//Left
-			{
-				player->chara_pos_x -= 6;
-			}
-			if (player->chara_pos_y < player_limit_y1)//Up
-			{
-				player->chara_pos_y += 6;
-			}
+			player_setting.move_limit(player);
 
 			//Move next chapter
 			if (chap1_point == 0)
@@ -544,8 +396,8 @@ int main()
 
 			//Draw point
 			push_settings();
-			doodle::draw_text(to_string(chap1_point) + " / 20", score_width, score_height);
-			doodle::pop_settings();
+			draw_text(to_string(chap1_point) + " / 20", score_width, score_height);
+			pop_settings();
 
 			player->MOVE();
 			player->draw_chara();
@@ -555,27 +407,8 @@ int main()
 		//Tutorial_black scene	
 		if (scene == 8)
 		{
-			clear_background(255);
+			map_setting.map_creating();
 
-			//Draw Map
-			for (int x = 0; x < 15; x++) {
-				for (int y = 0; y < 10; y++) {
-					draw_image(tiles[map_setting.PLAI0], x * tile_size, y * tile_size, tile_size, tile_size);
-				}
-			}
-			for (int x = 0; x < 15; x++) {
-				for (int y = 0; y < 10; y++) {
-
-					int tile = map_setting.world_map[y][x];
-
-					if (tile == map_setting.CHARA) {
-						tile = map_setting.PLAI0;
-					}
-
-					draw_image(tiles[tile], x * tile_size, y * tile_size, tile_size, tile_size);
-				}
-			}
-			
 			player->MOVE();
 			player->draw_chara();
 
@@ -584,8 +417,6 @@ int main()
 					set_rectangle_mode(RectMode::Center);
 					draw_rectangle(player->chara_pos_x, player->chara_pos_y - 100, 400, 100);
 				}*/
-
-
 
 			if (randomScene == 0)
 			{
