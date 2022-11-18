@@ -112,17 +112,13 @@ bool player_die_check = false;
 bool tutorial_scene3 = false;
 
 //--------------------------------// RandomSkill
+int randomboxh = 500;
+int randomboxSize = 200;
+int acc_x = 0;
 int randomScene = 0;
-int box_x = 500;
-
-double box_1 = 0;
-double box_2 = 0;
-double box_3 = 0;
-
-double box1Check = 0.2;
-double box2Check = 0.3;
-double box3Check = 0.4;
-
+double box_x = 500;
+double skillTimer = 0;
+double SkillTimeCheck = 5;
 
 const Image Fire{ "Fire.jpg" };
 const Image Water{ "Water.jpg" };
@@ -151,7 +147,9 @@ void on_key_released(KeyboardButtons button);
 int main()
 {
 	window_setting.setting();
-
+	
+	vector<int> randomboxloc = { 500, 700, 900 };
+	
 	vector<Shooting*> bullets;
 	vector<Enemy*> enemys;
 	vector<TutoEnemy*> tutoenemys;
@@ -222,7 +220,7 @@ int main()
 			draw_image(Exit_button, mainmenu_x, exit_y);
 
 			//Gameplay
-			if ((get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x+click_gap_x && get_mouse_y() > click_gameplay_y && get_mouse_y() < click_gameplay_y + click_gap_y ) && MouseIsPressed)
+			if ((get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_gameplay_y && get_mouse_y() < click_gameplay_y + click_gap_y) && MouseIsPressed)
 			{
 				scene = 6;
 			}
@@ -731,7 +729,6 @@ int main()
 					draw_image(tiles[tile], x * tile_size, y * tile_size, tile_size, tile_size);
 				}
 			}
-			
 			player->MOVE();
 			player->draw_chara();
 
@@ -741,61 +738,92 @@ int main()
 					draw_rectangle(player->chara_pos_x, player->chara_pos_y - 100, 400, 100);
 				}*/
 
-
-
 			if (randomScene == 0)
 			{
+				//무기 위치
+				draw_image(Fire, randomboxloc[0], randomboxh, randomboxSize, randomboxSize);
+				draw_image(Water, randomboxloc[1], randomboxh, randomboxSize, randomboxSize);
+				draw_image(Star, randomboxloc[2], randomboxh, randomboxSize, randomboxSize);
 
-				box_1 += DeltaTime;
-				box_2 += DeltaTime;
-				box_3 += DeltaTime;
-
-				draw_image(Fire, 500, 500, 200, 200);
-				draw_image(Water, 700, 500, 200, 200);
-				draw_image(Star, 900, 500, 200, 200);
-
-				//Fire
-				if (box_1 > box1Check)
+				for (int i = 0; i < 1; i++)
 				{
+					//룰렛
 					push_settings();
 					no_fill();
 					set_outline_color(HexColor{ 0xff0000ff });
 					set_outline_width(8.0);
-					draw_rectangle(500, 500, 200, 200);
+					draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
 					pop_settings();
-					box1Check += 0.3;
+
+					//룰렛 속도
+					acc_x = 30;
+					box_x += acc_x;
+
+					//룰렛 범위
+					if (box_x < randomboxloc[0] || box_x > randomboxloc[2])
+					{
+						box_x = randomboxloc[0];
+					}
+
+					//룰렛 작동
+					if (get_mouse_x() > randomboxloc[0] && get_mouse_x() < randomboxloc[2] + randomboxSize && get_mouse_y() > randomboxh && get_mouse_y() < randomboxh + randomboxSize)
+					{
+
+						skillTimer += DeltaTime;
+						//시간 비례해서 속도 곱해줌(현재 속도는 30이라 skillTimer = 5, 속도 6곱해줌
+						if (skillTimer < SkillTimeCheck)
+						{
+							box_x -= skillTimer * 6; // 이건 acc_x값과 같아야함
+
+						}
+						else if (skillTimer > SkillTimeCheck)
+						{
+							//1번째 박스
+							if (box_x <= 675)
+							{
+								box_x = randomboxloc[0];
+								push_settings();
+								no_fill();
+								set_outline_color(HexColor{ 0xff0000ff });
+								set_outline_width(8.0);
+								draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
+								pop_settings();
+							}//2번쨰 박스
+							else if (box_x > 625 || box_x < 825)
+							{
+								box_x = randomboxloc[1];
+								push_settings();
+								no_fill();
+								set_outline_color(HexColor{ 0xff0000ff });
+								set_outline_width(8.0);
+								draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
+								pop_settings();
+							}//3번째 박스
+							else if (box_x >= 825)
+							{
+								box_x = randomboxloc[2];
+								push_settings();
+								no_fill();
+								set_outline_color(HexColor{ 0xff0000ff });
+								set_outline_width(8.0);
+								draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
+								pop_settings();
+							}
+						}
+					}
 				}
-				//Water
-				if (box_2 > box2Check)
+				//일단 초기화
+				if (get_mouse_x() > 1200)
 				{
-					push_settings();
-					no_fill();
-					set_outline_color(HexColor{ 0xff0000ff });
-					set_outline_width(8.0);
-					draw_rectangle(700, 500, 200, 200);
-					pop_settings();
-					box2Check += 0.3;
+					skillTimer = 0;
+					randomScene = 0;
 				}
-				//Star
-				if (box_3 > box3Check)
-				{
-					push_settings();
-					no_fill();
-					set_outline_color(HexColor{ 0xff0000ff });
-					set_outline_width(8.0);
-					draw_rectangle(900, 500, 200, 200);
-					pop_settings();
-					box3Check += 0.3;
-				}
+
+				draw_line(700, randomboxh, 700, 700);
+				draw_line(900, randomboxh, 900, 700);
+
+				draw_rectangle(randomboxloc[0], randomboxh, 600, randomboxSize);
 			}
-
-			//임시로 확인용 (멈추기/ 느려지게하기)
-			if (get_mouse_x() > 500 && get_mouse_x() < 1100 && get_mouse_y() > 500 && get_mouse_y() < 700)
-			{
-
-			}
-
-			draw_rectangle(500, 500, 600, 200);
 		}
 	}
 	return 0;
