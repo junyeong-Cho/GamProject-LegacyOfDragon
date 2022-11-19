@@ -30,12 +30,10 @@ int tutorial_check = 2;
 int clicked_check = 0;
 constexpr int clicked_success = 3;
 //--------------------------------// Scene
-int scene = 0;
+int scene = 7;
 int tutorial_scene = 0;
 
 //--------------------------------// Random Enemy
-
-
 int Chap1_Enemy = 0;
 double bulletradius = 5;
 double enemyradius = 15;
@@ -57,15 +55,16 @@ bool player_die_check = false;
 bool tutorial_scene3 = false;
 //--------------------------------// RandomSkill
 int randomScene = 0;
-int box_x = 500;
-
-
-
+double box_x = 500;
 int randomboxh = 500;
 int randomboxSize = 200;
 int acc_x = 0;
 double skillTimer = 0;
 double SkillTimeCheck = 5;
+//--------------------------------// MeEnemyCollision
+bool player_enemy_check = false;
+double hp_timer = 0.0;
+double hp_time_check = 0.7;
 
 const Image Fire{ "Fire.jpg" };
 const Image Water{ "Water.jpg" };
@@ -178,7 +177,6 @@ int main()
 			return 0;
 		}
 
-
 		//Gameplay_start
 		//Tutorial
 		if (scene == 6)
@@ -277,17 +275,24 @@ int main()
 				}
 
 				//Me Enemy check
-				for (int j = 0; j < tutoenemys.size(); j++)
+				for (int j = 0; j < enemys.size(); j++)
 				{
-					for (int i = 0; i < bullets.size(); i++)
-					{
-						double a = player->chara_pos_x - tutoenemys[j]->x;
-						double b = player->chara_pos_y - tutoenemys[j]->y;
-						double distance = sqrt(a * a + b * b);
+					double a = player->chara_pos_x - enemys[j]->x;
+					double b = player->chara_pos_y - enemys[j]->y;
+					double distance = sqrt(a * a + b * b);
 
-						if (distance < chararadius + enemyradius)
+					if (distance < chararadius + enemyradius)
+					{
+						hp_timer += DeltaTime;
+						if (hp_timer >= hp_time_check)
 						{
-							player_die_check = true;
+							player->hp -= 1;
+							hp_time_check += 0.7;
+						}
+
+						if (player->hp == 0)
+						{
+							return 0;
 						}
 					}
 				}
@@ -347,9 +352,20 @@ int main()
 
 				if (distance < chararadius + enemyradius)
 				{
-					player_die_check = true;
+					hp_timer += DeltaTime;
+					if (hp_timer >= hp_time_check)
+					{
+						player->hp -= 1;
+						hp_time_check += 0.7;
+					}
+
+					if (player->hp == 0)
+					{
+						return 0;
+					}
 				}
 			}
+
 
 			//Bullet Enemy Check
 			for (int i = 0; i < bullets.size(); i++)
@@ -374,7 +390,6 @@ int main()
 			}
 
 
-
 			//Move next chapter
 			if (chap1_point == 0)
 			{
@@ -388,7 +403,7 @@ int main()
 
 			player->MOVE();
 			player->draw_chara();
-
+			player->hp_chara();
 		}
 
 		//Tutorial_black scene   
@@ -401,6 +416,7 @@ int main()
 
 			player->MOVE();
 			player->draw_chara();
+			player->hp_chara();
 
 			if (randomScene == 0)
 			{

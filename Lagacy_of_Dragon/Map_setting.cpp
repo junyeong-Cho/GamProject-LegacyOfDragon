@@ -22,9 +22,6 @@ void Map_setting::map_creating()
 		}
 	}
 }
-
-
-
 void Map_setting::char_pos(Player* player)
 {
 	for (int x = 0; x < 15; x++) {

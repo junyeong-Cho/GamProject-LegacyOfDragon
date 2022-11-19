@@ -40,10 +40,20 @@ void on_key_released(KeyboardButtons button) {
 
 
 void Player::draw_chara() {
-	push_settings();
-	set_image_mode(RectMode::Center);
-	draw_image(tiles[map_setting.CHARA], chara_pos_x, chara_pos_y, tile_size, tile_size);
-	pop_settings();
+	if (get_mouse_x() >= chara_pos_x)
+	{
+		push_settings();
+		set_image_mode(RectMode::Center);
+		draw_image(tiles[map_setting.CHARAR], chara_pos_x, chara_pos_y, tile_size, tile_size);
+		pop_settings();
+	}
+	else if (get_mouse_x() < chara_pos_x)
+	{
+		push_settings();
+		set_image_mode(RectMode::Center);
+		draw_image(tiles[map_setting.CHARA], chara_pos_x, chara_pos_y, tile_size, tile_size);
+		pop_settings();
+	}
 }
 
 void Player::MOVE() {
@@ -83,4 +93,18 @@ void Player_setting::move_limit(Player* player)
 	}
 	player->draw_chara();
 	player->MOVE();
+}
+
+void Player::hp_chara()
+{
+	set_rectangle_mode(RectMode::Center);
+	push_settings();
+	no_fill();
+	draw_rectangle(1300, 200, 300, 50);
+	pop_settings();
+
+	push_settings();
+	set_fill_color(HexColor{ 0xFF0000FF });
+	draw_rectangle(1300, 200, 60 * hp, 50);
+	pop_settings();
 }

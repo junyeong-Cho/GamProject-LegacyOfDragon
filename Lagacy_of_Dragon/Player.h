@@ -21,9 +21,11 @@ struct Player {
 	int chara_pos_x = 0;
 	int chara_pos_y = 0;
 	double speed = 2.0;
+	int hp = 5;
 
 	void draw_chara();
 	void MOVE();
+	void hp_chara();
 };
 
 struct Player_setting
