@@ -316,7 +316,9 @@ int main()
 			shooting_update.bullet_create(bullets, player);
 
 			//Draw Map
-			map_setting.map_creating();
+			//map_setting.map_creating();
+			map_setting.stage1_creating();
+
 
 			//Create bullet
 			shooting_update.bullet_create(bullets, player);

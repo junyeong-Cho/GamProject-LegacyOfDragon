@@ -135,6 +135,10 @@
     <ClCompile Include="Map_setting.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Shooting.cpp" />
+    <ClCompile Include="stage1.cpp" />
+    <ClCompile Include="stage2.cpp" />
+    <ClCompile Include="stage3.cpp" />
+    <ClCompile Include="stage4.cpp" />
     <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="Window_setting.cpp" />
   </ItemGroup>
