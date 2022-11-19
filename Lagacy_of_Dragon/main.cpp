@@ -8,6 +8,9 @@
 #include "Shooting.h"
 #include "Enemy.h"
 #include "Window_setting.h"
+#include "Logos.h"
+#include "Main_menu.h"
+#include "Tutorial.h"
 
 using namespace std;
 using namespace doodle;
@@ -17,15 +20,6 @@ static constexpr int bullet_y = -200;
 static constexpr int bullet_vel = 5;
 static constexpr int bullet_size = 10;
 
-static constexpr int enemyMin = -800;
-static constexpr int enemyMax = 800;
-static constexpr int enemySize = 30;
-
-//--------------------------------// First scene
-constexpr int digipen_width = 1000;
-constexpr int digipen_height = 700;
-constexpr int teamlogo_width = 2500;
-constexpr int teamlogo_height = 1500;
 //--------------------------------// Timer for scene
 double scene_timer = 0;
 double tutorial_timer = 0;
@@ -35,59 +29,13 @@ int tutorial_check = 2;
 //--------------------------------// Tutorial Scene 
 int clicked_check = 0;
 constexpr int clicked_success = 3;
-constexpr int score_width = 1000;
-constexpr int score_height = 150;
-constexpr int tuto_move_line = 1000;
-constexpr int tuto_move_line2 = 1000;
-constexpr int tuto_word_x = 500;
-constexpr int tuto_word_y = 200;
-
-constexpr int nest_size = 100;
-constexpr int nest_loc = 300;
 //--------------------------------// Scene
-int scene = 8;
+int scene = 0;
 int tutorial_scene = 0;
-//--------------------------------// Gamestate
-constexpr int title_x = 250;
-constexpr int title_y = 50;
-constexpr int mainmenu_x = 1000;
-
-constexpr int gameplay_y = 800;
-constexpr int setting_y = 950;
-constexpr int credit_y = 1100;
-constexpr int exit_y = 1250;
-constexpr int maxvolume_x = 600;
-constexpr int maxvolume_y = 400;
-
-constexpr int click_mainmenu_x = 610;
-constexpr int click_gap_x = 300;
-
-constexpr int click_gameplay_y = 500;
-constexpr int click_setting_y = 570;
-constexpr int click_credit_y = 650;
-constexpr int click_exit_y = 730;
-
-constexpr int click_gap_y = 50;
-//--------------------------------// Player Move limit
-constexpr int player_limit_x = 1400;
-constexpr int player_limit_x1 = 100;
-constexpr int player_limit_y = 800;
-constexpr int player_limit_y1 = 100;
-
 
 //--------------------------------// Random Enemy
 
-int Max = 3;
-int tutoMax = 6;
-int timer_check = 4;
-double timer = 0;
-constexpr int enemy_vel_min = 1;
-constexpr int enemy_vel_max = 3;
 
-int count_enemy_start = 0;
-int tuto_enemy_max = 3;
-
-int score = 0;
 int Chap1_Enemy = 0;
 double bulletradius = 5;
 double enemyradius = 15;
@@ -102,48 +50,35 @@ int bullet_max = 5;
 //--------------------------------// Enemy const
 constexpr int enemyWidth = 10;
 constexpr int enemyHeight = 10;
-constexpr int bulletSize = 10;
 //--------------------------------// bool
-bool not_clicked = false;
-
 bool enemy_check = false;
 bool bullet_draw_check = false;
 bool player_die_check = false;
 bool tutorial_scene3 = false;
-
 //--------------------------------// RandomSkill
 int randomScene = 0;
 int box_x = 500;
 
-double box_1 = 0;
-double box_2 = 0;
-double box_3 = 0;
 
-double box1Check = 0.2;
-double box2Check = 0.3;
-double box3Check = 0.4;
 
+int randomboxh = 500;
+int randomboxSize = 200;
+int acc_x = 0;
+double skillTimer = 0;
+double SkillTimeCheck = 5;
 
 const Image Fire{ "Fire.jpg" };
 const Image Water{ "Water.jpg" };
 const Image Star{ "Star.jpg" };
 
-
-const Image Nest{ "nest.png" };
-const Image DigipenLogo{ "UIdesign/DigipenLogo.jpg" };
-const Image TeamLogo{ "UIdesign/TeamLogo.png" };
-const Image Title{ "UIdesign/Title.png" };
-const Image Gameplay_button{ "UIdesign/GamePlay.png" };
-const Image Gameplay_button_on{ "UIdesign/GamePlayon.png" };
-const Image Credit_button{ "UIdesign/Credit.png" };
-const Image Credit_button_on{ "UIdesign/Crediton.png" };
-const Image Setting_button{ "UIdesign/Setting.png" };
-const Image Setting_button_on{ "UIdesign/Settingon.png" };
-const Image Exit_button{ "UIdesign/Exit.png" };
-const Image Exit_button_on{ "UIdesign/Exiton.png" };
-
 Map_setting map_setting;
 Window_setting window_setting;
+Logos logos;
+Main_menu main_menu;
+Tutorial tutorial;
+Player_setting player_setting;
+Shooting_update shooting_update;
+Enemy_update enemy_update;
 
 void on_key_pressed(KeyboardButtons button);
 void on_key_released(KeyboardButtons button);
@@ -154,19 +89,12 @@ int main()
 
 	vector<Shooting*> bullets;
 	vector<Enemy*> enemys;
-	vector<TutoEnemy*> tutoenemys;
+	vector<Enemy*> tutoenemys;
+	vector<int> randomboxloc = { 500, 700, 900 };
 
 	Player* player = new Player{ 0, 0 };
 
-	for (int x = 0; x < 15; x++) {
-		for (int y = 0; y < 10; y++) {
-			if (map_setting.world_map[y][x] == map_setting.CHARA) {
-				player->chara_pos_x = x * tile_size;
-				player->chara_pos_y = y * tile_size;
-				break;
-			}
-		}
-	}
+	map_setting.char_pos(player);
 
 	while (!is_window_closed())
 	{
@@ -178,15 +106,9 @@ int main()
 
 		//Game_start
 		//DIGIEPN LOGO
-
 		if (scene == 0)
 		{
-			clear_background(255);
-			push_settings();
-			set_image_mode(RectMode::Center);
-			apply_scale(0.7);
-			draw_image(DigipenLogo, digipen_width, digipen_height);
-			pop_settings();
+			logos.digipen_logo();
 			if (scene_timer > digipenlogo_check)
 			{
 				scene += 1;
@@ -196,13 +118,7 @@ int main()
 		//TEAM HATCHLING
 		if (scene == 1)
 		{
-			clear_background(255);
-			push_settings();
-			apply_scale(0.3);
-			set_image_mode(RectMode::Center);
-			draw_image(TeamLogo, teamlogo_width, teamlogo_height);
-			pop_settings();
-
+			logos.team_logo();
 			if (scene_timer > teamlogo_check)
 			{
 				scene += 1;
@@ -212,32 +128,25 @@ int main()
 		//Main Menu
 		if (scene == 2)
 		{
-			clear_background(255);
-			draw_image(Title, title_x, title_y);
-
-			apply_scale(0.5);
-			draw_image(Gameplay_button, mainmenu_x, gameplay_y);
-			draw_image(Setting_button, mainmenu_x, setting_y);
-			draw_image(Credit_button, mainmenu_x, credit_y);
-			draw_image(Exit_button, mainmenu_x, exit_y);
+			main_menu.main_UI();
 
 			//Gameplay
-			if ((get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x+click_gap_x && get_mouse_y() > click_gameplay_y && get_mouse_y() < click_gameplay_y + click_gap_y ) && MouseIsPressed)
+			if (main_menu.is_gameplay())
 			{
 				scene = 6;
 			}
 			//Settings
-			if ((get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_setting_y && get_mouse_y() < click_setting_y + click_gap_y) && MouseIsPressed)
+			if (main_menu.is_setting())
 			{
 				scene = 3;
 			}
 			//Credits
-			if ((get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_credit_y && get_mouse_y() < click_credit_y + click_gap_y) && MouseIsPressed)
+			if (main_menu.is_credit())
 			{
 				scene = 4;
 			}
 			//Exit
-			if ((get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_exit_y && get_mouse_y() < click_exit_y + click_gap_y) && MouseIsPressed)
+			if (main_menu.is_exit())
 			{
 				scene = 5;
 			}
@@ -246,9 +155,8 @@ int main()
 		//Settings
 		if (scene == 3)
 		{
-			clear_background(0x7E5873FF);
-			draw_text("Back", maxvolume_x, maxvolume_y);
-			if ((get_mouse_x() > 600 && get_mouse_x() < 750 && get_mouse_y() > 320 && get_mouse_y() < 330 + click_gap_y) && MouseIsPressed)
+			main_menu.in_setting();
+			if (main_menu.is_in_setting())
 			{
 				scene = 2;
 			}
@@ -257,9 +165,8 @@ int main()
 		//Credits
 		if (scene == 4)
 		{
-			clear_background(0x7E5873FF);
-			draw_text("Back", maxvolume_x, maxvolume_y);
-			if ((get_mouse_x() > 600 && get_mouse_x() < 750 && get_mouse_y() > 320 && get_mouse_y() < 330 + click_gap_y) && MouseIsPressed)
+			main_menu.in_credit();
+			if (main_menu.is_in_credit())
 			{
 				scene = 2;
 			}
@@ -276,24 +183,7 @@ int main()
 		//Tutorial
 		if (scene == 6)
 		{
-			clear_background(255);
-			for (int x = 0; x < 15; x++) {
-				for (int y = 0; y < 10; y++) {
-					draw_image(tiles[map_setting.PLAI0], x * tile_size, y * tile_size, tile_size, tile_size);
-				}
-			}
-			for (int x = 0; x < 15; x++) {
-				for (int y = 0; y < 10; y++) {
-
-					int tile = map_setting.world_map[y][x];
-
-					if (tile == map_setting.CHARA) {
-						tile = map_setting.PLAI0;
-					}
-
-					draw_image(tiles[tile], x * tile_size, y * tile_size, tile_size, tile_size);
-				}
-			}
+			map_setting.map_creating();
 
 			//First Scene
 			if (tutorial_scene == 0)
@@ -310,36 +200,10 @@ int main()
 			//Second Scene(Move)
 			if (tutorial_scene == 1)
 			{
-				push_settings();
-				set_outline_color(HexColor{ 0x00ff85ff });
-				set_outline_width(4.0);
-				draw_line(tuto_move_line, 0, tuto_move_line, tuto_move_line2);
-				draw_text("Use W A S D", tuto_word_x, tuto_word_y);
-				set_image_mode(RectMode::Center);
-				draw_image(Nest, nest_loc, nest_loc, nest_size, nest_size);
-				pop_settings();
+				tutorial.scene1_guideline();
+				player_setting.move_limit(player);
 
-				//Player move limit
-				if (player->chara_pos_x < player_limit_x1)
-				{
-					player->chara_pos_x += 6;
-				}
-				if (player->chara_pos_y > player_limit_y)
-				{
-					player->chara_pos_y -= 6;
-				}
-				if (player->chara_pos_x > player_limit_x)
-				{
-					player->chara_pos_x -= 6;
-				}
-				if (player->chara_pos_y < player_limit_y1)
-				{
-					player->chara_pos_y += 6;
-				}
-				player->draw_chara();
-				player->MOVE();
-
-				if (player->chara_pos_x > tuto_move_line)
+				if (tutorial.is_clear_scene1(player))
 				{
 					tutorial_scene = 2;
 				}
@@ -348,161 +212,47 @@ int main()
 			//Third Scene(Shoot)			
 			if (tutorial_scene == 2)
 			{
-				push_settings();
-				draw_text("Use mouse to shoot Bullet!", tuto_word_x, tuto_word_y);
-				pop_settings();
+				tutorial.scene2_guideline();
+				player_setting.move_limit(player);
 
-				//Player move limit
-				if (player->chara_pos_x < player_limit_x1)
-				{
-					player->chara_pos_x += 6;
-				}
-				if (player->chara_pos_y > player_limit_y)
-				{
-					player->chara_pos_y -= 6;
-				}
-				if (player->chara_pos_x > player_limit_x)
-				{
-					player->chara_pos_x -= 6;
-				}
-				if (player->chara_pos_y < player_limit_y1)
-				{
-					player->chara_pos_y += 6;
-				}
+				//bullet_create
+				shooting_update.bullet_create(bullets, player);
 
-				player->draw_chara();
-				player->MOVE();
-
-				if (!MouseIsPressed) {
-					not_clicked = true;
-				}
-				if (MouseIsPressed && not_clicked == true)
+				if (bullets.size() >= 5)
 				{
-					//bullet_create
-					bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
-
-					if (bullets.size() >= 5)
-					{
-						tutorial_scene = 3;
-					}
-					not_clicked = false;
+					tutorial_scene = 3;
 				}
 
 				//bullet draw
-				for (int i = 0; i < bullets.size(); i++)
-				{
-					push_settings();
-					bullets[i]->draw();
-					bullets[i]->FireBullet();
-					pop_settings();
-				}
+				shooting_update.bullet_draw(bullets);
 
 				//Bullet Remove
-				for (int i = 0; i < bullets.size(); i++)
-				{
-					if (bullets[i]->bullet_pos_x > 1400 || bullets[i]->bullet_pos_x < 100 || bullets[i]->bullet_pos_y > 900 || bullets[i]->bullet_pos_y < 100)
-					{
-						delete bullets[i];
-						bullets.erase(bullets.begin() + i);
-					}
-				}
+				shooting_update.bullet_remove(bullets);
 			}
 
 			//Fourth Scene (Kill Enemies)
 			if (tutorial_scene == 3)
 			{
-				push_settings();
-				draw_text("Kill all the enemies!", 100, 150);
-				draw_text("SCORE: " + to_string(score), score_width, score_height);
-				pop_settings();
+				tutorial.scene3_guideline();
 
 				//Player move limit
-				if (player->chara_pos_x < player_limit_x1)//Right 
-				{
-					player->chara_pos_x += 6;
-				}
-				if (player->chara_pos_y > player_limit_y)//Down
-				{
-					player->chara_pos_y -= 6;
-				}
-				if (player->chara_pos_x > player_limit_x)//Left
-				{
-					player->chara_pos_x -= 6;
-				}
-				if (player->chara_pos_y < player_limit_y1)//Up
-				{
-					player->chara_pos_y += 6;
-				}
-				player->draw_chara();
-				player->MOVE();
+				player_setting.move_limit(player);
 
 				//Bullet_shooting
-				if (!MouseIsPressed) {
-					not_clicked = true;
-				}
-				if (MouseIsPressed && not_clicked == true)
-				{
-					bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
-					not_clicked = false;
-				}
+				shooting_update.bullet_create(bullets, player);
 
 
 				//Create Enemy
-				if (timer > timer_check)
-				{
-					for (; count_enemy_start < tutoMax; count_enemy_start++)
-					{
-						int r_enemy_y = random(enemyMin, enemyMax);
-						int r_enemy_x = random(enemyMin, enemyMax);
-						tutoenemys.push_back(new TutoEnemy{ r_enemy_x, r_enemy_y, enemySize });
-					}
-				}
+				enemy_update.tuto_enemy_create(tutoenemys);
 
 				//Enemy Move
-				for (int i = 0; i < tutoenemys.size(); i++)
-				{
-					push_settings();
-					tutoenemys[i]->draw();
-					pop_settings();
-
-					if (tutoenemys[i]->x >= player->chara_pos_x)
-					{
-						tutoenemys[i]->x -= random(enemy_vel_min, enemy_vel_max);
-					}
-					if (tutoenemys[i]->x <= player->chara_pos_x)
-					{
-						tutoenemys[i]->x += random(enemy_vel_min, enemy_vel_max);
-					}
-					if (tutoenemys[i]->y >= player->chara_pos_y)
-					{
-						tutoenemys[i]->y -= random(enemy_vel_min, enemy_vel_max);
-					}
-					if (tutoenemys[i]->y <= player->chara_pos_y)
-					{
-						tutoenemys[i]->y += random(enemy_vel_min, enemy_vel_max);
-					}
-
-				}
+				enemy_update.enemy_move(tutoenemys, player);
 
 				//bullet draw
-				for (int i = 0; i < bullets.size(); i++)
-				{
-					push_settings();
-					bullets[i]->draw();
-					bullets[i]->FireBullet();
-					pop_settings();
-
-				}
+				shooting_update.bullet_draw(bullets);
 
 				//Bullet Remove
-				for (int i = 0; i < bullets.size(); i++)
-				{
-					if (bullets[i]->bullet_pos_x > 1400 || bullets[i]->bullet_pos_x < 100 || bullets[i]->bullet_pos_y > 900 || bullets[i]->bullet_pos_y < 100)
-					{
-						delete bullets[i];
-						bullets.erase(bullets.begin() + i);
-					}
-				}
+				shooting_update.bullet_remove(bullets);
 
 				//Bullet Enemy Check
 				for (int i = 0; i < bullets.size(); i++)
@@ -553,53 +303,23 @@ int main()
 		//Tutorial_last
 		if (scene == 7)
 		{
+
+			//Player move limit
+			player_setting.move_limit(player);
+
 			//Bullet_shooting
-			if (!MouseIsPressed) {
-				not_clicked = true;
-			}
-			if (MouseIsPressed && not_clicked == true)
-			{
-				bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
-				not_clicked = false;
-			}
+			shooting_update.bullet_create(bullets, player);
 
 			//Draw Map
-			for (int x = 0; x < 15; x++) {
-				for (int y = 0; y < 10; y++) {
-					draw_image(tiles[map_setting.PLAI0], x * tile_size, y * tile_size, tile_size, tile_size);
-				}
-			}
-			for (int x = 0; x < 15; x++) {
-				for (int y = 0; y < 10; y++) {
-
-					int tile = map_setting.world_map[y][x];
-
-					if (tile == map_setting.CHARA) {
-						tile = map_setting.PLAI0;
-					}
-
-					draw_image(tiles[tile], x * tile_size, y * tile_size, tile_size, tile_size);
-				}
-			}
+			map_setting.map_creating();
 
 			//Create bullet
-			for (int i = 0; i < bullets.size(); i++)
-			{
-				push_settings();
-				bullets[i]->draw();
-				bullets[i]->FireBullet();
-				pop_settings();
-			}
+			shooting_update.bullet_create(bullets, player);
+
+			shooting_update.bullet_draw(bullets);
 
 			//Bullet Remove
-			for (int i = 0; i < bullets.size(); i++)
-			{
-				if (bullets[i]->bullet_pos_x > 1400 || bullets[i]->bullet_pos_x < 100 || bullets[i]->bullet_pos_y > 900 || bullets[i]->bullet_pos_y < 100)
-				{
-					delete bullets[i];
-					bullets.erase(bullets.begin() + i);
-				}
-			}
+			shooting_update.bullet_remove(bullets);
 
 			//Random enemy
 			if (timer > timer_check)
@@ -610,34 +330,13 @@ int main()
 					int r_enemy_y = random(enemyMin, enemyMax);
 					int r_enemy_x = random(enemyMin, enemyMax);
 					enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, enemySize });
-					pop_settings();
+					doodle::pop_settings();
 				}
 				timer_check += 4;
 			}
 
 			//Enemy move
-			for (int i = 0; i < enemys.size(); i++)
-			{
-				enemys[i]->draw();
-
-				if (enemys[i]->x >= player->chara_pos_x)
-				{
-					enemys[i]->x -= random(enemy_vel_min, enemy_vel_max);
-				}
-				if (enemys[i]->x <= player->chara_pos_x)
-				{
-					enemys[i]->x += random(enemy_vel_min, enemy_vel_max);
-				}
-				if (enemys[i]->y >= player->chara_pos_y)
-				{
-					enemys[i]->y -= random(enemy_vel_min, enemy_vel_max);
-				}
-				if (enemys[i]->y <= player->chara_pos_y)
-				{
-					enemys[i]->y += random(enemy_vel_min, enemy_vel_max);
-				}
-
-			}
+			enemy_update.enemy_move(enemys, player);
 
 			//Me Enemy check
 			for (int j = 0; j < enemys.size(); j++)
@@ -674,23 +373,7 @@ int main()
 				}
 			}
 
-			//Player move limit
-			if (player->chara_pos_x < player_limit_x1)//Right 
-			{
-				player->chara_pos_x += 6;
-			}
-			if (player->chara_pos_y > player_limit_y)//Down
-			{
-				player->chara_pos_y -= 6;
-			}
-			if (player->chara_pos_x > player_limit_x)//Left
-			{
-				player->chara_pos_x -= 6;
-			}
-			if (player->chara_pos_y < player_limit_y1)//Up
-			{
-				player->chara_pos_y += 6;
-			}
+
 
 			//Move next chapter
 			if (chap1_point == 0)
@@ -708,95 +391,105 @@ int main()
 
 		}
 
-		//Tutorial_black scene	
+		//Tutorial_black scene   
 		if (scene == 8)
 		{
 			clear_background(255);
 
 			//Draw Map
-			for (int x = 0; x < 15; x++) {
-				for (int y = 0; y < 10; y++) {
-					draw_image(tiles[map_setting.PLAI0], x * tile_size, y * tile_size, tile_size, tile_size);
-				}
-			}
-			for (int x = 0; x < 15; x++) {
-				for (int y = 0; y < 10; y++) {
+			map_setting.map_creating();
 
-					int tile = map_setting.world_map[y][x];
-
-					if (tile == map_setting.CHARA) {
-						tile = map_setting.PLAI0;
-					}
-
-					draw_image(tiles[tile], x * tile_size, y * tile_size, tile_size, tile_size);
-				}
-			}
-			
 			player->MOVE();
 			player->draw_chara();
 
-			/*	if (KeyIsPressed && Key == KeyboardButtons::R)
-				{
-					set_rectangle_mode(RectMode::Center);
-					draw_rectangle(player->chara_pos_x, player->chara_pos_y - 100, 400, 100);
-				}*/
-
-
-
 			if (randomScene == 0)
 			{
+				//무기 위치
+				draw_image(Fire, randomboxloc[0], randomboxh, randomboxSize, randomboxSize);
+				draw_image(Water, randomboxloc[1], randomboxh, randomboxSize, randomboxSize);
+				draw_image(Star, randomboxloc[2], randomboxh, randomboxSize, randomboxSize);
 
-				box_1 += DeltaTime;
-				box_2 += DeltaTime;
-				box_3 += DeltaTime;
-
-				draw_image(Fire, 500, 500, 200, 200);
-				draw_image(Water, 700, 500, 200, 200);
-				draw_image(Star, 900, 500, 200, 200);
-
-				//Fire
-				if (box_1 > box1Check)
+				for (int i = 0; i < 1; i++)
 				{
+					//룰렛
 					push_settings();
 					no_fill();
 					set_outline_color(HexColor{ 0xff0000ff });
 					set_outline_width(8.0);
-					draw_rectangle(500, 500, 200, 200);
+					draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
 					pop_settings();
-					box1Check += 0.3;
+
+					//룰렛 속도
+					acc_x = 30;
+					box_x += acc_x;
+
+					//룰렛 범위
+					if (box_x < randomboxloc[0] || box_x > randomboxloc[2])
+					{
+						box_x = randomboxloc[0];
+					}
+
+					//룰렛 작동
+					if (get_mouse_x() > randomboxloc[0] && get_mouse_x() < randomboxloc[2] + randomboxSize && get_mouse_y() > randomboxh && get_mouse_y() < randomboxh + randomboxSize)
+					{
+
+						skillTimer += DeltaTime;
+						//시간 비례해서 속도 곱해줌(현재 속도는 30이라 skillTimer = 5, 속도 6곱해줌
+						if (skillTimer < SkillTimeCheck)
+						{
+							box_x -= skillTimer * 6; // 이건 acc_x값과 같아야함
+						}
+						else if (skillTimer > SkillTimeCheck)
+						{
+							//1번째 박스
+							if (box_x <= 675)
+							{
+								box_x = randomboxloc[0];
+								push_settings();
+								no_fill();
+								set_outline_color(HexColor{ 0xff0000ff });
+								set_outline_width(8.0);
+								draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
+								pop_settings();
+							}//2번쨰 박스
+							else if (box_x > 625 || box_x < 825)
+							{
+								box_x = randomboxloc[1];
+								push_settings();
+								no_fill();
+								set_outline_color(HexColor{ 0xff0000ff });
+								set_outline_width(8.0);
+								draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
+								pop_settings();
+							}//3번째 박스
+							else if (box_x >= 825)
+							{
+								box_x = randomboxloc[2];
+								push_settings();
+								no_fill();
+								set_outline_color(HexColor{ 0xff0000ff });
+								set_outline_width(8.0);
+								draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
+								pop_settings();
+							}
+						}
+					}
 				}
-				//Water
-				if (box_2 > box2Check)
+				//R 초기화
+				if (KeyIsPressed && Key == KeyboardButtons::R)
 				{
-					push_settings();
-					no_fill();
-					set_outline_color(HexColor{ 0xff0000ff });
-					set_outline_width(8.0);
-					draw_rectangle(700, 500, 200, 200);
-					pop_settings();
-					box2Check += 0.3;
+					skillTimer = 0;
+					randomScene = 0;
 				}
-				//Star
-				if (box_3 > box3Check)
-				{
-					push_settings();
-					no_fill();
-					set_outline_color(HexColor{ 0xff0000ff });
-					set_outline_width(8.0);
-					draw_rectangle(900, 500, 200, 200);
-					pop_settings();
-					box3Check += 0.3;
-				}
+
+				draw_line(700, randomboxh, 700, 700);
+				draw_line(900, randomboxh, 900, 700);
+
+				draw_rectangle(randomboxloc[0], randomboxh, 600, randomboxSize);
 			}
 
-			//임시로 확인용 (멈추기/ 느려지게하기)
-			if (get_mouse_x() > 500 && get_mouse_x() < 1100 && get_mouse_y() > 500 && get_mouse_y() < 700)
-			{
-
-			}
-
-			draw_rectangle(500, 500, 600, 200);
 		}
+
 	}
 	return 0;
 

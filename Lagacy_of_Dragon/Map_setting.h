@@ -1,5 +1,7 @@
 #pragma once
 #include <doodle\doodle.hpp>
+#include <vector>
+#include "Player.h"
 using namespace doodle;
 
 static constexpr int world_x = 15;
@@ -89,6 +91,9 @@ struct Map_setting {
 		{ TR258, PLAI0, PLAI3, PLAI0, PLAI0, PLAI3, PLAI0, PLAI0, PLAI3, PLAI0, PLAI0, PLAI0, PLAI0, PLAI2, TR258 },
 		{ TR568, TR456, TR456, TR456, TR456, TR456, TR456, TR456, TR456, TR456, TR456, TR456, TR456, TR456, TR458 },
 	};
+
+	void map_creating();
+	void char_pos(Player* player);
 };
 
 extern Map_setting map_setting;

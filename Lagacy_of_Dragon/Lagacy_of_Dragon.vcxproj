@@ -131,17 +131,21 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Logos.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Main_menu.cpp" />
     <ClCompile Include="Map_setting.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Shooting.cpp" />
+    <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="Window_setting.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Logos.h" />
+    <ClInclude Include="Main_menu.h" />
     <ClInclude Include="Map_setting.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shooting.h" />
+    <ClInclude Include="Tutorial.h" />
     <ClInclude Include="Window_setting.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
