@@ -15,10 +15,7 @@
 using namespace std;
 using namespace doodle;
 
-static constexpr int bullet_x = -200;
-static constexpr int bullet_y = -200;
-static constexpr int bullet_vel = 5;
-static constexpr int bullet_size = 10;
+
 
 //--------------------------------// Timer for scene
 double scene_timer = 0;
@@ -28,11 +25,9 @@ int teamlogo_check = 7;
 int tutorial_check = 2;
 //--------------------------------// Tutorial Scene 
 int clicked_check = 0;
-constexpr int clicked_success = 3;
 //--------------------------------// Scene
-int scene = 7;
+int scene = 9;
 int tutorial_scene = 0;
-
 //--------------------------------// Random Enemy
 int Chap1_Enemy = 0;
 double bulletradius = 5;
@@ -44,7 +39,6 @@ int chap1_point = 20;
 double bullet_timer = 0;
 int bullet_check = 4;
 int bullet_max = 5;
-
 //--------------------------------// Enemy const
 constexpr int enemyWidth = 10;
 constexpr int enemyHeight = 10;
@@ -79,6 +73,7 @@ Player_setting player_setting;
 Shooting_update shooting_update;
 Enemy_update enemy_update;
 
+//Diagonal move
 void on_key_pressed(KeyboardButtons button);
 void on_key_released(KeyboardButtons button);
 
@@ -316,9 +311,7 @@ int main()
 			shooting_update.bullet_create(bullets, player);
 
 			//Draw Map
-			//map_setting.map_creating();
-			map_setting.stage1_creating();
-
+			map_setting.map_creating();
 
 			//Create bullet
 			shooting_update.bullet_create(bullets, player);
@@ -418,18 +411,27 @@ int main()
 
 			player->MOVE();
 			player->draw_chara();
-			player->hp_chara();
 
 			if (randomScene == 0)
 			{
-				//¹«±â À§Ä¡
+				//Just for test function
+
+				push_settings();
+				apply_scale(0.8);
+				draw_text("Choose your weapon!", 100, 150);
+				draw_text("Put your mouse into the roulette", 100, 250);
+				draw_text("R : Initialization", 100, 350);
+				draw_text("Q : Next stage", 100, 450);
+				pop_settings();
+
+				//Weapon Draw
 				draw_image(Fire, randomboxloc[0], randomboxh, randomboxSize, randomboxSize);
 				draw_image(Water, randomboxloc[1], randomboxh, randomboxSize, randomboxSize);
 				draw_image(Star, randomboxloc[2], randomboxh, randomboxSize, randomboxSize);
 
 				for (int i = 0; i < 1; i++)
 				{
-					//·ê·¿
+					//Roulette
 					push_settings();
 					no_fill();
 					set_outline_color(HexColor{ 0xff0000ff });
@@ -437,29 +439,29 @@ int main()
 					draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
 					pop_settings();
 
-					//·ê·¿ ¼Óµµ
+					//Speed
 					acc_x = 30;
 					box_x += acc_x;
 
-					//·ê·¿ ¹üÀ§
+					//Range
 					if (box_x < randomboxloc[0] || box_x > randomboxloc[2])
 					{
 						box_x = randomboxloc[0];
 					}
 
-					//·ê·¿ ÀÛµ¿
+					//Operator
 					if (get_mouse_x() > randomboxloc[0] && get_mouse_x() < randomboxloc[2] + randomboxSize && get_mouse_y() > randomboxh && get_mouse_y() < randomboxh + randomboxSize)
-					{
+					    {
 
 						skillTimer += DeltaTime;
-						//½Ã°£ ºñ·ÊÇØ¼­ ¼Óµµ °öÇØÁÜ(ÇöÀç ¼Óµµ´Â 30ÀÌ¶ó skillTimer = 5, ¼Óµµ 6°öÇØÁÜ
+						//Speed is on proportion with Time (ÇöÀç ¼Óµµ´Â 30ÀÌ¶ó skillTimer = 5, ¼Óµµ 6°öÇØÁÜ
 						if (skillTimer < SkillTimeCheck)
 						{
-							box_x -= skillTimer * 6; // ÀÌ°Ç acc_x°ª°ú °°¾Æ¾ßÇÔ
+							box_x -= skillTimer * 5.7; // Same as acc_x
 						}
 						else if (skillTimer > SkillTimeCheck)
 						{
-							//1¹øÂ° ¹Ú½º
+							//First box
 							if (box_x <= 675)
 							{
 								box_x = randomboxloc[0];
@@ -469,8 +471,12 @@ int main()
 								set_outline_width(8.0);
 								draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
 								pop_settings();
-							}//2¹ø¤Š ¹Ú½º
-							else if (box_x > 625 || box_x < 825)
+								
+								draw_text("You select Fire weapon!", randomboxloc[0], 500);
+
+
+							}//Second box
+							else if (box_x > 625 || box_x < 820)
 							{
 								box_x = randomboxloc[1];
 								push_settings();
@@ -479,8 +485,10 @@ int main()
 								set_outline_width(8.0);
 								draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
 								pop_settings();
-							}//3¹øÂ° ¹Ú½º
-							else if (box_x >= 825)
+								draw_text("You select Water weapon!", randomboxloc[0], 500);
+
+							}//Third box
+							else if (box_x >= 820)
 							{
 								box_x = randomboxloc[2];
 								push_settings();
@@ -489,25 +497,120 @@ int main()
 								set_outline_width(8.0);
 								draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
 								pop_settings();
+								draw_text("You select Dark weapon!", randomboxloc[0], 500);
+
 							}
 						}
 					}
 				}
-				//R ÃÊ±âÈ­
+				//Initialization = Z
 				if (KeyIsPressed && Key == KeyboardButtons::R)
 				{
 					skillTimer = 0;
 					randomScene = 0;
 				}
 
+				//Draw Random box guard
 				draw_line(700, randomboxh, 700, 700);
 				draw_line(900, randomboxh, 900, 700);
 
-				draw_rectangle(randomboxloc[0], randomboxh, 600, randomboxSize);
+				draw_rectangle(randomboxloc[0], randomboxh, randomboxSize * 3, randomboxSize);
 			}
 
+			//Next stage 
+			if (KeyIsPressed && Key == KeyboardButtons::P)
+			{
+				scene = 9;
+			}
 		}
 
+		//BigSize Map 36 * 36 (Its lagging ,its under development) -- Try to Release Mod 
+		if (scene == 9)
+		{
+			//Player move limit
+			player_setting.move_limit(player);
+
+			//Bullet_shooting
+			shooting_update.bullet_create(bullets, player);
+
+			//Draw Map
+			map_setting.stage1_creating();
+
+			//Create bullet
+			shooting_update.bullet_create(bullets, player);
+
+			shooting_update.bullet_draw(bullets);
+
+			//Bullet Remove
+			shooting_update.bullet_remove(bullets);
+
+			//Random enemy
+			if (timer > timer_check)
+			{
+				for (int i = 0; i < Max; i++)
+				{
+					push_settings();
+					int r_enemy_y = random(enemyMin, enemyMax);
+					int r_enemy_x = random(enemyMin, enemyMax);
+					enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, enemySize });
+					doodle::pop_settings();
+				}
+				timer_check += 4;
+			}
+
+			//Enemy move
+			enemy_update.enemy_move(enemys, player);
+
+			//Me Enemy check
+			for (int j = 0; j < enemys.size(); j++)
+			{
+				double a = player->chara_pos_x - enemys[j]->x;
+				double b = player->chara_pos_y - enemys[j]->y;
+				double distance = sqrt(a * a + b * b);
+
+				if (distance < chararadius + enemyradius)
+				{
+					hp_timer += DeltaTime;
+					if (hp_timer >= hp_time_check)
+					{
+						player->hp -= 1;
+						hp_time_check += 0.7;
+					}
+
+					if (player->hp == 0)
+					{
+						return 0;
+					}
+				}
+			}
+
+			//Bullet Enemy Check
+			for (int i = 0; i < bullets.size(); i++)
+			{
+				for (int j = 0; j < enemys.size(); j++)
+				{
+					double a = bullets[i]->bullet_pos_x - enemys[j]->x;
+					double b = bullets[i]->bullet_pos_y - enemys[j]->y;
+					double distance = sqrt(a * a + b * b);
+
+					if (distance < bulletradius + enemyradius)
+					{
+						chap1_point--;
+						delete bullets[i];
+						bullets.erase(bullets.begin() + i);
+
+						delete enemys[j];
+						enemys.erase(enemys.begin() + j);
+						break;
+					}
+				}
+			}
+
+			player->MOVE();
+			player->draw_chara();
+			player->hp_chara();
+		
+		}
 	}
 	return 0;
 

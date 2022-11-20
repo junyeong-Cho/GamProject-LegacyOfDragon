@@ -12,6 +12,7 @@ constexpr int teamlogo_height = 1500;
 const Image DigipenLogo{ "UIdesign/DigipenLogo.jpg" };
 const Image TeamLogo{ "UIdesign/TeamLogo.png" };
 
+//Draw logo 
 struct Logos {
 	void digipen_logo();
 	void team_logo();

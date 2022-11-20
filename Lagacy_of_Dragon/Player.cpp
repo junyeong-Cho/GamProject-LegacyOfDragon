@@ -38,7 +38,6 @@ void on_key_released(KeyboardButtons button) {
 	}
 }
 
-
 void Player::draw_chara() {
 	if (get_mouse_x() >= chara_pos_x)
 	{
