@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ENEMY_H
+#define ENEMY_H
+
 #include <vector>
 #include "Player.h"
 
@@ -28,3 +30,5 @@ struct Enemy_update {
 	void enemy_move(std::vector<Enemy*>& enemys, Player* player);
 }; 
 extern Enemy_update enemy_update;
+
+#endif

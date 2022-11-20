@@ -1,4 +1,6 @@
-#pragma once
+#ifndef PLAYER_H
+#define PLAYER_H
+
 #include <doodle\doodle.hpp>
 #include <vector>
 using namespace doodle;
@@ -34,3 +36,4 @@ struct Player_setting
 };
 extern Player_setting player_setting;
 
+#endif

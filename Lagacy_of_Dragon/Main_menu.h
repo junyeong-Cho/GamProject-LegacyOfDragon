@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MENU_H
+#define MENU_H
+
 #include <doodle\doodle.hpp>
 using namespace doodle;
 
@@ -45,4 +47,6 @@ struct Main_menu {
 	bool is_in_credit();
 };
 extern Main_menu main_menu;
+
+#endif
 

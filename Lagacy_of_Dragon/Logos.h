@@ -1,4 +1,6 @@
-#pragma once
+#ifndef LOGOS_H
+#define LOGOS_H
+
 #include <doodle\doodle.hpp>
 using namespace doodle;
 
@@ -15,3 +17,4 @@ struct Logos {
 	void team_logo();
 };
 extern Logos logos;
+#endif

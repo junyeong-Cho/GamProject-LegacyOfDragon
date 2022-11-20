@@ -1,4 +1,6 @@
-#pragma once
+#ifndef TUTO_H
+#define TUTO_H
+
 #include <doodle\doodle.hpp>
 #include <vector>
 #include <string>
@@ -31,3 +33,5 @@ public:
 
 
 extern Tutorial tutorial;
+
+#endif

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MAPS_H
+#define MAPS_H
+
 #include <doodle\doodle.hpp>
 #include <vector>
 #include "Player.h"
@@ -312,3 +314,5 @@ struct Map_setting {
 };
 
 extern Map_setting map_setting;
+
+#endif

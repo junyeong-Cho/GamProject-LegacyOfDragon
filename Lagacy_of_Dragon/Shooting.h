@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SHOOT_H
+#define SHOOT_H
+
 #include <doodle\doodle.hpp>
 #include "Player.h"
 #include <vector>
@@ -32,3 +34,4 @@ struct Shooting_update
 	void bullet_draw(std::vector<Shooting*> &bullets);
 	void bullet_remove(std::vector<Shooting*> &bullets);
 };
+#endif
