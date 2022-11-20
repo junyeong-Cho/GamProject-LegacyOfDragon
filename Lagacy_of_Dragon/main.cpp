@@ -26,7 +26,7 @@ int tutorial_check = 2;
 //--------------------------------// Tutorial Scene 
 int clicked_check = 0;
 //--------------------------------// Scene
-int scene = 0;
+int scene = 8;
 int tutorial_scene = 0;
 //--------------------------------// Random Enemy
 int Chap1_Enemy = 0;
@@ -421,7 +421,7 @@ int main()
 				draw_text("Choose your weapon!", 100, 150);
 				draw_text("Put your mouse into the roulette", 100, 250);
 				draw_text("R : Initialization", 100, 350);
-				draw_text("Q : Next stage", 100, 450);
+				draw_text("Blue Button : Next stage", 100, 450);
 				pop_settings();
 
 				//Weapon Draw
@@ -503,7 +503,7 @@ int main()
 						}
 					}
 				}
-				//Initialization = Z
+				//Initialization = R
 				if (KeyIsPressed && Key == KeyboardButtons::R)
 				{
 					skillTimer = 0;
@@ -517,8 +517,14 @@ int main()
 				draw_rectangle(randomboxloc[0], randomboxh, randomboxSize * 3, randomboxSize);
 			}
 
+			//Next stage
+			push_settings();
+			set_fill_color(HexColor{ 0x0000FFFF });
+			draw_rectangle(1200, 700, 100, 50);
+			pop_settings();
+
 			//Next stage 
-			if (KeyIsPressed && Key == KeyboardButtons::P)
+			if (get_mouse_x() > 1200 && get_mouse_x() < 1300 + randomboxSize && get_mouse_y() > 700 && get_mouse_y() < 750 && MouseIsPressed)
 			{
 				scene = 9;
 			}
