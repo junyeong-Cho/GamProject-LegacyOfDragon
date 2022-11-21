@@ -27,25 +27,27 @@ void HaeTae1_update::HaeTae1_move(std::vector<HaeTae1*>& HaeTae1, Player* player
 {
 	for (int i = 0; i < HaeTae1.size(); i++)
 	{
+		double H1_vel = 2.5;
+
 		push_settings();
 		HaeTae1[i]->draw();
 		pop_settings();
 
 		if (HaeTae1[i]->x >= player->chara_pos_x)
 		{
-			HaeTae1[i]->x -= random(HaeTae1_vel_min, HaeTae1_vel_max);
+			HaeTae1[i]->x -= H1_vel;
 		}
 		if (HaeTae1[i]->x <= player->chara_pos_x)
 		{
-			HaeTae1[i]->x += random(HaeTae1_vel_min, HaeTae1_vel_max);
+			HaeTae1[i]->x += H1_vel;
 		}
 		if (HaeTae1[i]->y >= player->chara_pos_y)
 		{
-			HaeTae1[i]->y -= random(HaeTae1_vel_min, HaeTae1_vel_max);
+			HaeTae1[i]->y -= H1_vel;
 		}
 		if (HaeTae1[i]->y <= player->chara_pos_y)
 		{
-			HaeTae1[i]->y += random(HaeTae1_vel_min, HaeTae1_vel_max);
+			HaeTae1[i]->y += H1_vel;
 		}
 
 	}
