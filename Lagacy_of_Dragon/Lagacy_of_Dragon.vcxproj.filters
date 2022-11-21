@@ -54,6 +54,12 @@
     <ClCompile Include="stage4.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="HaeTae1.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="HaeTae2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -78,6 +84,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Tutorial.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="HaeTae1.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="HaeTae2.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

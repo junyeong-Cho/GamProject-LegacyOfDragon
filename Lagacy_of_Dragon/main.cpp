@@ -11,6 +11,9 @@
 #include "Logos.h"
 #include "Main_menu.h"
 #include "Tutorial.h"
+#include "HaeTae1.h"
+#include "HaeTae2.h"
+
 
 using namespace std;
 using namespace doodle;
@@ -59,6 +62,15 @@ double SkillTimeCheck = 5;
 bool player_enemy_check = false;
 double hp_timer = 0.0;
 double hp_time_check = 0.7;
+//------------------------------------HaeTae1Collision
+double HaeTae1radius = 30;
+double H1_hp_timer = 0.0;
+double H1_hp_time_check = 1.5;
+//------------------------------------HaeTae2Collision
+double HaeTae2radius = 30;
+double H2_hp_timer = 0.0;
+double H2_hp_time_check = 1.5;
+
 
 const Image Fire{ "Fire.jpg" };
 const Image Water{ "Water.jpg" };
@@ -72,6 +84,7 @@ Tutorial tutorial;
 Player_setting player_setting;
 Shooting_update shooting_update;
 Enemy_update enemy_update;
+HaeTae1_update haetae1_update;
 
 //Diagonal move
 void on_key_pressed(KeyboardButtons button);
@@ -84,6 +97,8 @@ int main()
 	vector<Shooting*> bullets;
 	vector<Enemy*> enemys;
 	vector<Enemy*> tutoenemys;
+	vector<HaeTae1*> HaeTae1;
+	vector<HaeTae2*> HaeTae2;
 	vector<int> randomboxloc = { 500, 700, 900 };
 
 	Player* player = new Player{ 0, 0 };
@@ -360,6 +375,56 @@ int main()
 					}
 				}
 			}
+            //Me HaeTae1 check 
+			for (int i = 0; i < HaeTae1.size(); i++) 
+			{
+				double a = HaeTae1[i]->x - player->chara_pos_x;
+				double b = HaeTae1[i]->y - player->chara_pos_y;
+				double distance = sqrt(a * a + b * b);
+
+				if (distance < chararadius + HaeTae1radius)
+				{
+					hp_timer += DeltaTime;
+					if (H1_hp_timer >= H1_hp_time_check)
+					{
+						player->hp -= 1;
+						H1_hp_time_check += 1.5;
+					}
+
+					if (player->hp == 0)
+					{
+						return 0;
+					}
+				}
+
+			}
+			//Me HaeTae2 check 
+			for (int i = 0; i < HaeTae2.size(); i++)
+			{
+				double a = HaeTae2[i]->x - player->chara_pos_x;
+				double b = HaeTae2[i]->y - player->chara_pos_y;
+				double distance = sqrt(a * a + b * b);
+
+				if (distance < chararadius + HaeTae2radius)
+				{
+					H2_hp_timer += DeltaTime;
+					if (H2_hp_timer >= H2_hp_time_check)
+					{
+						player->hp -= 3;
+						H2_hp_time_check += 1.5;
+					}
+
+					if (player->hp == 0)
+					{
+						return 0;
+					}
+				}
+
+			}
+
+
+
+
 
 
 			//Bullet Enemy Check
