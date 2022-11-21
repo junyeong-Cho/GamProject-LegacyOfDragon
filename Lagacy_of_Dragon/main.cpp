@@ -16,7 +16,6 @@ using namespace std;
 using namespace doodle;
 
 
-
 //--------------------------------// Timer for scene
 double scene_timer = 0;
 double tutorial_timer = 0;
@@ -26,7 +25,7 @@ int tutorial_check = 2;
 //--------------------------------// Tutorial Scene 
 int clicked_check = 0;
 //--------------------------------// Scene
-int scene = 0;
+int scene = 8;
 int tutorial_scene = 0;
 //--------------------------------// Random Enemy
 int Chap1_Enemy = 0;
@@ -50,11 +49,14 @@ bool tutorial_scene3 = false;
 //--------------------------------// RandomSkill
 int randomScene = 0;
 double box_x = 500;
-int randomboxh = 500;
-int randomboxSize = 200;
+int randomboxh = 100;
+int randomboxSize = 150;
 int acc_x = 0;
 double skillTimer = 0;
 double SkillTimeCheck = 5;
+
+bool rouletteCheck = false;
+int readyRoulette = 0;
 //--------------------------------// MeEnemyCollision
 bool player_enemy_check = false;
 double hp_timer = 0.0;
@@ -84,7 +86,7 @@ int main()
 	vector<Shooting*> bullets;
 	vector<Enemy*> enemys;
 	vector<Enemy*> tutoenemys;
-	vector<int> randomboxloc = { 500, 700, 900 };
+	vector<int> randomboxloc = { 500, 650, 800 };
 
 	Player* player = new Player{ 0, 0 };
 
@@ -330,7 +332,7 @@ int main()
 					int r_enemy_y = random(enemyMin, enemyMax);
 					int r_enemy_x = random(enemyMin, enemyMax);
 					enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, enemySize });
-					doodle::pop_settings();
+					pop_settings();
 				}
 				timer_check += 4;
 			}
@@ -411,19 +413,15 @@ int main()
 
 			player->MOVE();
 			player->draw_chara();
-
-			if (randomScene == 0)
+			
+			if (KeyIsPressed && Key == KeyboardButtons::Q)
 			{
-				//Just for test function
-
-				push_settings();
-				apply_scale(0.8);
-				draw_text("Choose your weapon!", 100, 150);
-				draw_text("Put your mouse into the roulette", 100, 250);
-				draw_text("R : Initialization", 100, 350);
-				draw_text("Blue Button : Next stage", 100, 450);
-				pop_settings();
-
+				randomScene = 1;
+				readyRoulette = 1;
+			}
+			
+			if (randomScene == 1)
+			{
 				//Weapon Draw
 				draw_image(Fire, randomboxloc[0], randomboxh, randomboxSize, randomboxSize);
 				draw_image(Water, randomboxloc[1], randomboxh, randomboxSize, randomboxSize);
@@ -450,9 +448,8 @@ int main()
 					}
 
 					//Operator
-					if (get_mouse_x() > randomboxloc[0] && get_mouse_x() < randomboxloc[2] + randomboxSize && get_mouse_y() > randomboxh && get_mouse_y() < randomboxh + randomboxSize)
-					    {
-
+					if (Key == KeyboardButtons::Q )
+					{
 						skillTimer += DeltaTime;
 						//Speed is on proportion with Time (현재 속도는 30이라 skillTimer = 5, 속도 6곱해줌
 						if (skillTimer < SkillTimeCheck)
@@ -462,7 +459,7 @@ int main()
 						else if (skillTimer > SkillTimeCheck)
 						{
 							//First box
-							if (box_x <= 675)
+							if (box_x <= 575)
 							{
 								box_x = randomboxloc[0];
 								push_settings();
@@ -471,12 +468,12 @@ int main()
 								set_outline_width(8.0);
 								draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
 								pop_settings();
-								
+
 								draw_text("You select Fire weapon!", randomboxloc[0], 500);
 
 
 							}//Second box
-							else if (box_x > 625 || box_x < 820)
+							else if (box_x > 575 || box_x < 725)
 							{
 								box_x = randomboxloc[1];
 								push_settings();
@@ -488,7 +485,7 @@ int main()
 								draw_text("You select Water weapon!", randomboxloc[0], 500);
 
 							}//Third box
-							else if (box_x >= 820)
+							else if (box_x >= 725)
 							{
 								box_x = randomboxloc[2];
 								push_settings();
@@ -500,6 +497,7 @@ int main()
 								draw_text("You select Dark weapon!", randomboxloc[0], 500);
 
 							}
+							readyRoulette = 0;
 						}
 					}
 				}
@@ -511,8 +509,8 @@ int main()
 				}
 
 				//Draw Random box guard
-				draw_line(700, randomboxh, 700, 700);
-				draw_line(900, randomboxh, 900, 700);
+				draw_line(650, randomboxh, 650, randomboxh + randomboxSize);
+				draw_line(800, randomboxh, 800, randomboxh + randomboxSize);
 
 				draw_rectangle(randomboxloc[0], randomboxh, randomboxSize * 3, randomboxSize);
 			}
