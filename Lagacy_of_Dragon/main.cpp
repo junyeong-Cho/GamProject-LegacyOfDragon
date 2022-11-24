@@ -11,11 +11,11 @@
 #include "Logos.h"
 #include "Main_menu.h"
 #include "Tutorial.h"
+#include "Interaction.h"
+#include "UIsetting.h"
 
 using namespace std;
 using namespace doodle;
-
-
 
 //--------------------------------// Timer for scene
 double scene_timer = 0;
@@ -28,13 +28,6 @@ int clicked_check = 0;
 //--------------------------------// Scene
 int scene = 0;
 int tutorial_scene = 0;
-//--------------------------------// Random Enemy
-int Chap1_Enemy = 0;
-double bulletradius = 5;
-double enemyradius = 15;
-double chararadius = 25;
-
-int chap1_point = 20;
 //--------------------------------//Bullet
 double bullet_timer = 0;
 int bullet_check = 4;
@@ -47,22 +40,10 @@ bool enemy_check = false;
 bool bullet_draw_check = false;
 bool player_die_check = false;
 bool tutorial_scene3 = false;
-//--------------------------------// RandomSkill
-int randomScene = 0;
-double box_x = 500;
-int randomboxh = 500;
-int randomboxSize = 200;
-int acc_x = 0;
-double skillTimer = 0;
-double SkillTimeCheck = 5;
 //--------------------------------// MeEnemyCollision
 bool player_enemy_check = false;
-double hp_timer = 0.0;
-double hp_time_check = 0.7;
 
-const Image Fire{ "Fire.jpg" };
-const Image Water{ "Water.jpg" };
-const Image Star{ "Star.jpg" };
+
 
 Map_setting map_setting;
 Window_setting window_setting;
@@ -72,6 +53,8 @@ Tutorial tutorial;
 Player_setting player_setting;
 Shooting_update shooting_update;
 Enemy_update enemy_update;
+Interaction interaction;
+UIsetting uisetting;
 
 //Diagonal move
 void on_key_pressed(KeyboardButtons button);
@@ -82,8 +65,12 @@ int main()
 	window_setting.setting();
 
 	vector<Shooting*> bullets;
-	vector<Enemy*> enemys;
-	vector<Enemy*> tutoenemys;
+	vector<Enemy_tuto*> enemys_tuto;
+	vector<Enemy_1_1*> enemys_1_1;
+	vector<Enemy_1_3*> enemys_1_3;
+	vector<Enemy_2_1*> enemys_2_1;
+	vector<Enemy_attack*> enemy_attack;
+
 	vector<int> randomboxloc = { 500, 700, 900 };
 
 	Player* player = new Player{ 0, 0 };
@@ -93,10 +80,12 @@ int main()
 	while (!is_window_closed())
 	{
 		timer += DeltaTime;
+		int_timer = +DeltaTime;
 		bullet_timer += DeltaTime;
 		scene_timer += DeltaTime;
 		update_window();
 
+		//cout << scene << endl;
 
 		//Game_start
 		//DIGIEPN LOGO
@@ -210,7 +199,6 @@ int main()
 
 				//bullet_create
 				shooting_update.bullet_create(bullets, player);
-
 				if (bullets.size() >= 5)
 				{
 					tutorial_scene = 3;
@@ -236,10 +224,20 @@ int main()
 
 
 				//Create Enemy
-				enemy_update.tuto_enemy_create(tutoenemys);
+				enemy_update.enemy_create(enemys_tuto);
+				enemy_update.enemy_create(enemys_1_3, 3);
+				enemy_update.enemy_create(enemys_2_1, 5);
+
 
 				//Enemy Move
-				enemy_update.enemy_move(tutoenemys, player);
+				enemy_update.enemy_move(enemys_tuto, player);
+				enemy_update.enemy_move(enemys_1_3, player);
+				enemy_update.enemy_move(enemys_2_1, player);
+
+				//Enemy attack
+				enemy_update.attack_create(enemy_attack, enemys_1_3, *player);
+				enemy_update.attack_draw(enemy_attack);
+				enemy_update.attack_remove(enemy_attack);
 
 				//bullet draw
 				shooting_update.bullet_draw(bullets);
@@ -248,49 +246,12 @@ int main()
 				shooting_update.bullet_remove(bullets);
 
 				//Bullet Enemy Check
-				for (int i = 0; i < bullets.size(); i++)
-				{
-					for (int j = 0; j < tutoenemys.size(); j++)
-					{
-						double a = bullets[i]->bullet_pos_x - tutoenemys[j]->x;
-						double b = bullets[i]->bullet_pos_y - tutoenemys[j]->y;
-						double distance = sqrt(a * a + b * b);
-
-						if (distance < bulletradius + enemyradius)
-						{
-							score += 1;
-							delete bullets[i];
-							delete tutoenemys[j];
-
-							bullets.erase(bullets.begin() + i);
-							tutoenemys.erase(tutoenemys.begin() + j);
-							break;
-						}
-					}
-				}
+				interaction.bullet_enemy_interaction(enemys_tuto, bullets);
+				interaction.bullet_enemy_interaction(enemys_1_3, bullets);
+				interaction.bullet_enemy_interaction(enemys_2_1, bullets);
 
 				//Me Enemy check
-				for (int j = 0; j < enemys.size(); j++)
-				{
-					double a = player->chara_pos_x - enemys[j]->x;
-					double b = player->chara_pos_y - enemys[j]->y;
-					double distance = sqrt(a * a + b * b);
-
-					if (distance < chararadius + enemyradius)
-					{
-						hp_timer += DeltaTime;
-						if (hp_timer >= hp_time_check)
-						{
-							player->hp -= 1;
-							hp_time_check += 0.7;
-						}
-
-						if (player->hp == 0)
-						{
-							return 0;
-						}
-					}
-				}
+				interaction.player_enemy_interaction(enemys_1_1, player);
 
 				//Move to Tutorial_last
 				if (score >= tuto_enemy_max)
@@ -315,75 +276,23 @@ int main()
 
 			//Create bullet
 			shooting_update.bullet_create(bullets, player);
-
 			shooting_update.bullet_draw(bullets);
 
 			//Bullet Remove
 			shooting_update.bullet_remove(bullets);
 
 			//Random enemy
-			if (timer > timer_check)
-			{
-				for (int i = 0; i < Max; i++)
-				{
-					push_settings();
-					int r_enemy_y = random(enemyMin, enemyMax);
-					int r_enemy_x = random(enemyMin, enemyMax);
-					enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, enemySize });
-					doodle::pop_settings();
-				}
-				timer_check += 4;
-			}
+			enemy_update.enemy_create(enemys_1_1, 10);
 
 			//Enemy move
-			enemy_update.enemy_move(enemys, player);
+			enemy_update.enemy_move(enemys_1_1, player);
 
 			//Me Enemy check
-			for (int j = 0; j < enemys.size(); j++)
-			{
-				double a = player->chara_pos_x - enemys[j]->x;
-				double b = player->chara_pos_y - enemys[j]->y;
-				double distance = sqrt(a * a + b * b);
-
-				if (distance < chararadius + enemyradius)
-				{
-					hp_timer += DeltaTime;
-					if (hp_timer >= hp_time_check)
-					{
-						player->hp -= 1;
-						hp_time_check += 0.7;
-					}
-
-					if (player->hp == 0)
-					{
-						return 0;
-					}
-				}
-			}
+			interaction.player_enemy_interaction(enemys_1_1, player);
 
 
 			//Bullet Enemy Check
-			for (int i = 0; i < bullets.size(); i++)
-			{
-				for (int j = 0; j < enemys.size(); j++)
-				{
-					double a = bullets[i]->bullet_pos_x - enemys[j]->x;
-					double b = bullets[i]->bullet_pos_y - enemys[j]->y;
-					double distance = sqrt(a * a + b * b);
-
-					if (distance < bulletradius + enemyradius)
-					{
-						chap1_point--;
-						delete bullets[i];
-						bullets.erase(bullets.begin() + i);
-
-						delete enemys[j];
-						enemys.erase(enemys.begin() + j);
-						break;
-					}
-				}
-			}
-
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
 
 			//Move next chapter
 			if (chap1_point == 0)
@@ -392,13 +301,11 @@ int main()
 			}
 
 			//Draw point
-			push_settings();
-			draw_text(to_string(chap1_point) + " / 20", score_width, score_height);
-			pop_settings();
+			uisetting.ui_point();
 
 			player->MOVE();
 			player->draw_chara();
-			player->hp_chara();
+			player->hp_chara(&scene);
 		}
 
 		//Tutorial_black scene   
@@ -411,110 +318,9 @@ int main()
 
 			player->MOVE();
 			player->draw_chara();
-
 			if (randomScene == 0)
 			{
-				//Just for test function
-
-				push_settings();
-				apply_scale(0.8);
-				draw_text("Choose your weapon!", 100, 150);
-				draw_text("Put your mouse into the roulette", 100, 250);
-				draw_text("R : Initialization", 100, 350);
-				draw_text("Blue Button : Next stage", 100, 450);
-				pop_settings();
-
-				//Weapon Draw
-				draw_image(Fire, randomboxloc[0], randomboxh, randomboxSize, randomboxSize);
-				draw_image(Water, randomboxloc[1], randomboxh, randomboxSize, randomboxSize);
-				draw_image(Star, randomboxloc[2], randomboxh, randomboxSize, randomboxSize);
-
-				for (int i = 0; i < 1; i++)
-				{
-					//Roulette
-					push_settings();
-					no_fill();
-					set_outline_color(HexColor{ 0xff0000ff });
-					set_outline_width(8.0);
-					draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
-					pop_settings();
-
-					//Speed
-					acc_x = 30;
-					box_x += acc_x;
-
-					//Range
-					if (box_x < randomboxloc[0] || box_x > randomboxloc[2])
-					{
-						box_x = randomboxloc[0];
-					}
-
-					//Operator
-					if (get_mouse_x() > randomboxloc[0] && get_mouse_x() < randomboxloc[2] + randomboxSize && get_mouse_y() > randomboxh && get_mouse_y() < randomboxh + randomboxSize)
-					    {
-
-						skillTimer += DeltaTime;
-						//Speed is on proportion with Time (현재 속도는 30이라 skillTimer = 5, 속도 6곱해줌
-						if (skillTimer < SkillTimeCheck)
-						{
-							box_x -= skillTimer * 5.7; // Same as acc_x
-						}
-						else if (skillTimer > SkillTimeCheck)
-						{
-							//First box
-							if (box_x <= 675)
-							{
-								box_x = randomboxloc[0];
-								push_settings();
-								no_fill();
-								set_outline_color(HexColor{ 0xff0000ff });
-								set_outline_width(8.0);
-								draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
-								pop_settings();
-								
-								draw_text("You select Fire weapon!", randomboxloc[0], 500);
-
-
-							}//Second box
-							else if (box_x > 625 || box_x < 820)
-							{
-								box_x = randomboxloc[1];
-								push_settings();
-								no_fill();
-								set_outline_color(HexColor{ 0xff0000ff });
-								set_outline_width(8.0);
-								draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
-								pop_settings();
-								draw_text("You select Water weapon!", randomboxloc[0], 500);
-
-							}//Third box
-							else if (box_x >= 820)
-							{
-								box_x = randomboxloc[2];
-								push_settings();
-								no_fill();
-								set_outline_color(HexColor{ 0xff0000ff });
-								set_outline_width(8.0);
-								draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
-								pop_settings();
-								draw_text("You select Dark weapon!", randomboxloc[0], 500);
-
-							}
-						}
-					}
-				}
-				//Initialization = R
-				if (KeyIsPressed && Key == KeyboardButtons::R)
-				{
-					skillTimer = 0;
-					randomScene = 0;
-				}
-
-				//Draw Random box guard
-				draw_line(700, randomboxh, 700, 700);
-				draw_line(900, randomboxh, 900, 700);
-
-				draw_rectangle(randomboxloc[0], randomboxh, randomboxSize * 3, randomboxSize);
+				uisetting.roulette(randomboxloc);
 			}
 
 			//Next stage
@@ -551,71 +357,21 @@ int main()
 			shooting_update.bullet_remove(bullets);
 
 			//Random enemy
-			if (timer > timer_check)
-			{
-				for (int i = 0; i < Max; i++)
-				{
-					push_settings();
-					int r_enemy_y = random(enemyMin, enemyMax);
-					int r_enemy_x = random(enemyMin, enemyMax);
-					enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, enemySize });
-					doodle::pop_settings();
-				}
-				timer_check += 4;
-			}
+			enemy_update.enemy_create(enemys_1_1, 20);
 
 			//Enemy move
-			enemy_update.enemy_move(enemys, player);
+			enemy_update.enemy_move(enemys_1_1, player);
 
 			//Me Enemy check
-			for (int j = 0; j < enemys.size(); j++)
-			{
-				double a = player->chara_pos_x - enemys[j]->x;
-				double b = player->chara_pos_y - enemys[j]->y;
-				double distance = sqrt(a * a + b * b);
-
-				if (distance < chararadius + enemyradius)
-				{
-					hp_timer += DeltaTime;
-					if (hp_timer >= hp_time_check)
-					{
-						player->hp -= 1;
-						hp_time_check += 0.7;
-					}
-
-					if (player->hp == 0)
-					{
-						return 0;
-					}
-				}
-			}
+			interaction.player_enemy_interaction(enemys_1_1, player);
 
 			//Bullet Enemy Check
-			for (int i = 0; i < bullets.size(); i++)
-			{
-				for (int j = 0; j < enemys.size(); j++)
-				{
-					double a = bullets[i]->bullet_pos_x - enemys[j]->x;
-					double b = bullets[i]->bullet_pos_y - enemys[j]->y;
-					double distance = sqrt(a * a + b * b);
-
-					if (distance < bulletradius + enemyradius)
-					{
-						chap1_point--;
-						delete bullets[i];
-						bullets.erase(bullets.begin() + i);
-
-						delete enemys[j];
-						enemys.erase(enemys.begin() + j);
-						break;
-					}
-				}
-			}
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
 
 			player->MOVE();
 			player->draw_chara();
-			player->hp_chara();
-		
+			player->hp_chara(&scene);
+
 		}
 	}
 	return 0;

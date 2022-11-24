@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "Map_setting.h"
 #include <doodle\doodle.hpp>
+using namespace std;
+#include <iostream>
 using namespace doodle;
 
 bool moveW = false;
@@ -94,16 +96,21 @@ void Player_setting::move_limit(Player* player)
 	player->MOVE();
 }
 
-void Player::hp_chara()
+void Player::hp_chara(int* scene)
 {
-	set_rectangle_mode(RectMode::Center);
+	set_rectangle_mode(RectMode::Corner);
 	push_settings();
 	no_fill();
-	draw_rectangle(1100, 100, 300, 50);
+	draw_rectangle(200, 100, 300, 50);
 	pop_settings();
 
 	push_settings();
 	set_fill_color(HexColor{ 0xFF0000FF });
-	draw_rectangle(1100, 100, 60 * hp, 50);
+	draw_rectangle(200, 100, 60 * hp, 50);
 	pop_settings();
+	if (hp <= 0)
+	{
+		scene = 0;
+		close_window();
+	}
 }

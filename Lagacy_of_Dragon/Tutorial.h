@@ -8,8 +8,6 @@
 
 using namespace doodle;
 
-constexpr int score_width = 1000;
-constexpr int score_height = 150;
 constexpr int tuto_move_line = 1000;
 constexpr int tuto_move_line2 = 1000;
 constexpr int tuto_word_x = 500;

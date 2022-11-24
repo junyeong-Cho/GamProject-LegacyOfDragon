@@ -27,7 +27,7 @@ struct Player {
 
 	void draw_chara();
 	void MOVE();
-	void hp_chara();
+	void hp_chara(int* scene);
 };
 
 struct Player_setting

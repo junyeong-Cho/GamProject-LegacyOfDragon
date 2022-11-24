@@ -1,5 +1,6 @@
 #include "Tutorial.h"
 #include "Player.h"
+#include "UIsetting.h"
 void Tutorial::scene1_guideline()
 {
 	push_settings();
