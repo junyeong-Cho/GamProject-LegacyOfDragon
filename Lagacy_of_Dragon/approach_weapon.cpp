@@ -14,14 +14,15 @@ void Approach_update::approach_create(std::vector<Approach*>& approachs, Player*
 {
 	if (!MouseIsPressed) {
 		not_clicked_app = true;
+		attack_timer = 0;
 	}
 	if (MouseIsPressed && not_clicked_app == true)
 	{
+		attack_timer += DeltaTime;
 		if (attack_timer > attack_check)
 		{
 			approachs.push_back(new Approach{ player->chara_pos_x, player->chara_pos_y, approachSize });
 			not_clicked_app = false;
-			attack_check += 1.5;
 		}
 		
 	}

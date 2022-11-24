@@ -9,19 +9,18 @@ using namespace doodle;
 
 
 static constexpr int Bvelocity = 6;
-
 constexpr int stormSize = 40;
-
+inline double st_attack_timer = 0;
+inline double st_attack_check = 3.0;
 inline bool not_clicked_sto = false;
 
 struct Storm {
 	int bullet_pos_x = 0;
 	int bullet_pos_y = 0;
 	int size = 0;
+
 	float mouseX = static_cast<float>(get_mouse_x());
 	float mouseY = static_cast<float>(get_mouse_y());
-	float angleX = (mouseX - bullet_pos_x);
-	float angleY = (mouseY - bullet_pos_y);
 
 	void draw();
 	void FireBullet();

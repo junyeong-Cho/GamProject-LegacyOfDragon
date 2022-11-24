@@ -9,6 +9,10 @@ using namespace doodle;
 static constexpr int world_x = 15;
 static constexpr int world_y = 10;
 
+static constexpr int boss_x = 10;
+static constexpr int boss_y = 10;
+
+
 static constexpr int stage_x = 36;
 static constexpr int stage_y= 36;
 
@@ -132,6 +136,7 @@ struct Map_setting {
 		{ TR258, PLAI0, SHRU1, PLAI0, PLAI2, TREE5, PLAI2, SHRU1, PLAI0, PLAI0, PLAI0, PLAI0, PLAI0, PLAI0, TR258 },
 		{ TR258, PLAI1, PLAI0, PLAI0, PLAI0, PLAI0, PLAI0, PLAI0, PLAI4, PLAI0, SHRU1, PLAI0, PLAI2, PLAI0, TR258 },
 		{ TR258, PLAI0, PLAI4, PLAI0, SHRU0, PLAI0, PLAI1, PLAI0, PLAI0, PLAI0, PLAI0, PLAI3, PLAI0, PLAI4, TR258 },
+		{ TR258, PLAI2, PLAI0, PLAI1, PLAI2, PLAI2, CHARA, PLAI2, PLAI0, PLAI4, PLAI2, PLAI0, SHRU1, PLAI0, TR258 },
 		{ TR258, PLAI2, PLAI0, PLAI1, PLAI2, PLAI2, CHARA, PLAI2, PLAI0, PLAI4, PLAI2, PLAI0, SHRU1, PLAI0, TR258 },
 		{ TR258, PLAI0, PLAI3, PLAI0, PLAI0, PLAI3, PLAI0, PLAI0, PLAI3, PLAI0, PLAI0, PLAI0, PLAI0, PLAI2, TR258 },
 		{ TR568, TR456, TR456, TR456, TR456, TR456, TR456, TR456, TR456, TR456, TR456, TR456, TR456, TR456, TR458 },
@@ -298,13 +303,28 @@ struct Map_setting {
 	  { BANK, BANK, BANK, MAPLE, BANK, BANK, BANK, BANK, MAPLE, BANK, BANK, BANK, BANK, MAPLE, BANK, BANK, BANK, BANK, BANK, MAPLE, BANK, MAPLE, BANK, BANK, BANK, BANK, BANK, BANK, MAPLE, BANK, BANK, BANK, BANK, MAPLE, BANK, MAPLE },
 	};
 
+	const int boss1_map[boss_y][boss_x] = {
+		{ TR256, TR456, TR456, TR456, TR456, TR456, TR456, TR456, TR456 },
+		{ TR258, PLAI0, PLAI0, PLAI1, PLAI0, PLAI4, PLAI0, PLAI0, SHRU0 },
+		{ TR258, TREE5, PLAI0, PLAI2, PLAI0, PLAI3, PLAI0, PLAI0, PLAI0 },
+		{ TR258, PLAI0, SHRU1, PLAI0, PLAI2, TREE5, PLAI2, SHRU1, PLAI0 },
+		{ TR258, PLAI1, PLAI0, PLAI0, PLAI0, PLAI0, PLAI0, PLAI0, PLAI4 },
+		{ TR258, PLAI0, PLAI4, PLAI0, SHRU0, PLAI0, PLAI1, PLAI0, PLAI0 },
+		{ TR258, PLAI2, PLAI0, PLAI1, PLAI2, PLAI2, CHARA, PLAI2, PLAI0 },
+		{ TR258, PLAI0, PLAI3, PLAI0, PLAI0, PLAI3, PLAI0, PLAI0, PLAI3 },
+		{ TR258, PLAI0, PLAI3, PLAI0, PLAI0, PLAI3, PLAI0, PLAI0, PLAI3 },
+		{ TR568, TR456, TR456, TR456, TR456, TR456, TR456, TR456, TR456 },
+	};
+
 	void map_creating();
+	void boss1_creating();
 	void stage1_creating();
 	void stage2_creating();
 	void stage3_creating();
 	void stage4_creating();
 
-	void char_pos(Player* player);
+	void char_pos(Player* player); 
+	void char_pos_boss1(Player* player);
 	void char_pos1(Player* player);
 	void char_pos2(Player* player);
 	void char_pos3(Player* player);

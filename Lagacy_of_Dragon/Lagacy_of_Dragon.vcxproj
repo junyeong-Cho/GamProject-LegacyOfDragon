@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="approach_weapon.cpp" />
+    <ClCompile Include="boss1.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="ice_weapon.cpp" />
     <ClCompile Include="Logos.cpp" />
