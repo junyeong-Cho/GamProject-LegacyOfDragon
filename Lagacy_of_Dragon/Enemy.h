@@ -29,6 +29,7 @@ struct Enemy_update {
 	void tuto_enemy_create(std::vector<Enemy*> & tutoenemys);
 	void enemy_move(std::vector<Enemy*>& enemys, Player* player);
 }; 
+
 extern Enemy_update enemy_update;
 
 #endif

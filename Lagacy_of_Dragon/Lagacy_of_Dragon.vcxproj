@@ -128,7 +128,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="approach_weapon.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="ice_weapon.cpp" />
     <ClCompile Include="Logos.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Main_menu.cpp" />
@@ -136,19 +138,25 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Shooting.cpp" />
     <ClCompile Include="stage1.cpp" />
+    <ClCompile Include="stage1_boss.cpp" />
     <ClCompile Include="stage2.cpp" />
     <ClCompile Include="stage3.cpp" />
     <ClCompile Include="stage4.cpp" />
+    <ClCompile Include="storm_wepon.cpp" />
     <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="Window_setting.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="approach_weapon.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="ice_weapon.h" />
     <ClInclude Include="Logos.h" />
     <ClInclude Include="Main_menu.h" />
     <ClInclude Include="Map_setting.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shooting.h" />
+    <ClInclude Include="stage1_boss.h" />
+    <ClInclude Include="storm_weapon.h" />
     <ClInclude Include="Tutorial.h" />
     <ClInclude Include="Window_setting.h" />
   </ItemGroup>

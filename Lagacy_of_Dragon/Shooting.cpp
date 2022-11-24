@@ -44,7 +44,7 @@ void Shooting_update::bullet_draw(std::vector<Shooting*> &bullets) {
 	}
 }
 
-
+//여기 범위 지정하는거 gam100 23일 수업에 나온거처럼 수정!!!
 void Shooting_update::bullet_remove(std::vector<Shooting*>& bullets) {
 	for (int i = 0; i < bullets.size(); i++)
 	{

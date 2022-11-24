@@ -11,6 +11,10 @@
 #include "Logos.h"
 #include "Main_menu.h"
 #include "Tutorial.h"
+#include "approach_weapon.h"
+#include "ice_weapon.h"
+
+
 
 using namespace std;
 using namespace doodle;
@@ -25,7 +29,7 @@ int tutorial_check = 2;
 //--------------------------------// Tutorial Scene 
 int clicked_check = 0;
 //--------------------------------// Scene
-int scene = 8;
+int scene = 7;
 int tutorial_scene = 0;
 //--------------------------------// Random Enemy
 int Chap1_Enemy = 0;
