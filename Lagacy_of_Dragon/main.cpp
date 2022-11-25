@@ -83,6 +83,7 @@ Enemy_update enemy_update;
 void on_key_pressed(KeyboardButtons button);
 void on_key_released(KeyboardButtons button);
 
+
 int main()
 {
 	window_setting.setting();
