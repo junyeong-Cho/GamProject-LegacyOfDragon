@@ -43,7 +43,7 @@ struct Enemy_tuto : public Enemy {
 	float speed = 0.5;
 	static const int enemysize = 30;
 
-	void draw(std::vector<Enemy_tuto*>& enemys);
+	void draw_tuto();
 };
 
 struct Enemy_1_1 : public Enemy {
@@ -52,7 +52,7 @@ struct Enemy_1_1 : public Enemy {
 	float speed = 1;
 	static const int enemysize = 30;
 
-	void draw(std::vector<Enemy_1_1*>& enemys);
+	void draw_1_1();
 };
 
 struct Enemy_1_3 : public Enemy {
@@ -61,7 +61,7 @@ struct Enemy_1_3 : public Enemy {
 	float speed = 1.5;
 	static const int enemysize = 90;
 
-	void draw(std::vector<Enemy_1_3*>& enemys);
+	void draw_1_3();
 };
 
 struct Enemy_2_1 : public Enemy {
@@ -70,7 +70,7 @@ struct Enemy_2_1 : public Enemy {
 	float speed = 4;
 	static const int enemysize = 30;
 	
-	void draw(std::vector<Enemy_2_1*>& enemys);
+	void draw_2_1();
 };
 
 struct Enemy_2_2 : public Enemy {
@@ -79,7 +79,7 @@ struct Enemy_2_2 : public Enemy {
 	float speed = 4;
 	static const int enemysize = 30;
 
-	void draw(std::vector<Enemy_2_2*>& enemys);
+	void draw_2_2();
 };
 
 struct Enemy_2_3 : public Enemy {
@@ -88,7 +88,7 @@ struct Enemy_2_3 : public Enemy {
 	float speed = 2.5;
 	static const int enemysize = 30;
 
-	void draw(std::vector<Enemy_2_3*>& enemys);
+	void draw_2_3();
 };
 
 struct Enemy_attack {

@@ -26,7 +26,7 @@ int tutorial_check = 2;
 //--------------------------------// Tutorial Scene 
 int clicked_check = 0;
 //--------------------------------// Scene
-int scene = 0;
+int scene = 6;
 int tutorial_scene = 0;
 //--------------------------------//Bullet
 double bullet_timer = 0;
@@ -42,7 +42,6 @@ bool player_die_check = false;
 bool tutorial_scene3 = false;
 //--------------------------------// MeEnemyCollision
 bool player_enemy_check = false;
-
 
 
 Map_setting map_setting;
@@ -80,7 +79,7 @@ int main()
 	while (!is_window_closed())
 	{
 		timer += DeltaTime;
-		int_timer = +DeltaTime;
+		int_timer += DeltaTime;
 		bullet_timer += DeltaTime;
 		scene_timer += DeltaTime;
 		update_window();
@@ -161,47 +160,72 @@ int main()
 			return 0;
 		}
 
-		//Gameplay_start
-		//Tutorial
+		//Tutorial with story telling
 		if (scene == 6)
 		{
 			map_setting.map_creating();
-
-			//First Scene
-			if (tutorial_scene == 0)
+			if (textbox == 0)
 			{
-				not_clicked = true;
-				player->chara_pos_x = 300;
-				player->chara_pos_y = 300;
-				player->draw_chara();
-
-				tutorial_scene += 1;
-
+				tutorial.textbox1();
 			}
+			if (textbox == 1)
+			{
+				tutorial.textbox2();
+			}
+			if (textbox == 2)
+			{
+				tutorial.textbox3();
+			}
+			if (textbox == 3)
+			{
+				tutorial.textbox4();
+			}
+			if (textbox == 4)
+			{
+				tutorial.textbox5();
+			}
+			if (textbox == 5)
+			{
+				tutorial.textbox6();
+			}
+			if (textbox == 6)
+			{
+				tutorial.textbox7();
+			}
+			if (textbox == 7)
+			{
+				tutorial.textbox8();
+			}
+			if (textbox == 8)
+			{
+				tutorial.textbox9();
+			}
+			if (textbox == 9)
+			{
+				tutorial_scene = 1;
+				scene = 7;
+			}
+		}
 
-			//Second Scene(Move)
+		//Tutorial
+		if (scene == 7)
+		{
+			map_setting.map_creating();
+
+			//First Scene(Shoot)			
 			if (tutorial_scene == 1)
 			{
+				player->chara_pos_x = 300;
+				player->chara_pos_y = 300;
+	
 				tutorial.scene1_guideline();
-				player_setting.move_limit(player);
-
-				if (tutorial.is_clear_scene1(player))
-				{
-					tutorial_scene = 2;
-				}
-			}
-
-			//Third Scene(Shoot)			
-			if (tutorial_scene == 2)
-			{
-				tutorial.scene2_guideline();
 				player_setting.move_limit(player);
 
 				//bullet_create
 				shooting_update.bullet_create(bullets, player);
 				if (bullets.size() >= 5)
 				{
-					tutorial_scene = 3;
+					tutorial_scene = 2;
 				}
 
 				//bullet draw
@@ -212,9 +236,9 @@ int main()
 			}
 
 			//Fourth Scene (Kill Enemies)
-			if (tutorial_scene == 3)
+			if (tutorial_scene == 2)
 			{
-				tutorial.scene3_guideline();
+				tutorial.scene2_guideline();
 
 				//Player move limit
 				player_setting.move_limit(player);
@@ -256,13 +280,13 @@ int main()
 				//Move to Tutorial_last
 				if (score >= tuto_enemy_max)
 				{
-					scene = 7;
+					scene = 8;
 				}
 			}
 		}
 
 		//Tutorial_last
-		if (scene == 7)
+		if (scene == 8)
 		{
 
 			//Player move limit
@@ -297,7 +321,7 @@ int main()
 			//Move next chapter
 			if (chap1_point == 0)
 			{
-				scene = 8;
+				scene = 9;
 			}
 
 			//Draw point
@@ -309,7 +333,7 @@ int main()
 		}
 
 		//Tutorial_black scene   
-		if (scene == 8)
+		if (scene == 9)
 		{
 			clear_background(255);
 
@@ -332,12 +356,12 @@ int main()
 			//Next stage 
 			if (get_mouse_x() > 1200 && get_mouse_x() < 1300 + randomboxSize && get_mouse_y() > 700 && get_mouse_y() < 750 && MouseIsPressed)
 			{
-				scene = 9;
+				scene = 10;
 			}
 		}
 
 		//BigSize Map 36 * 36 (Its lagging ,its under development) -- Try to Release Mod 
-		if (scene == 9)
+		if (scene == 10)
 		{
 			//Player move limit
 			player_setting.move_limit(player);

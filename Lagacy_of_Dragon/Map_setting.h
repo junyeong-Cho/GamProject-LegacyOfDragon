@@ -49,8 +49,8 @@ const Image tiles[] = {
 	Image{"plain/plain4.png"},		  //32 = PLAIN 4
 	Image{"charaR.png"},			  //33 = Chara Right
 	Image{"ROAD.jpg"},			      //34 = ROAD 
-	Image{"NEST.jpg"},			      //35 = NEST
-	Image{"PORTAL.jpg"},			  //36 = PORTAL
+	Image{"map/nest.png"},			  //35 = NEST
+	Image{"map/potal.png"},			  //36 = PORTAL
 	Image{"JEWEL.jpg"},			      //37 = JEWEL
 	Image{"SEA.jpg"},			      //38 = SEA
 	Image{"SAND.jpg"},			      //39 = SAND
@@ -60,7 +60,9 @@ const Image tiles[] = {
 	Image{"MAPLE.jpg"},			      //43 = MAPLE
 	Image{"BANK.jpg"},			      //44 = BANK
 	Image{"BROWN.jpg"},			      //45 = BROWN
-	Image{"ROCK.jpg"},			      //456= ROCK
+	Image{"map/rock1.png"},			  //46= ROCK1
+	Image{"map/rock2.png"},			  //47= ROCK2
+
 
 };
 
@@ -114,6 +116,7 @@ struct Map_setting {
 		BANK = 44,
 		BROWN = 45,
 		ROCK = 46,
+		ROCK2 = 47,
 
 	};
 

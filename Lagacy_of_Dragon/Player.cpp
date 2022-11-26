@@ -10,6 +10,7 @@ bool moveA = false;
 bool moveS = false;
 bool moveD = false;
 
+
 void on_key_pressed(KeyboardButtons button) {
 	if (button == KeyboardButtons::W) {
 		moveW = true;
@@ -41,11 +42,12 @@ void on_key_released(KeyboardButtons button) {
 }
 
 void Player::draw_chara() {
+
 	if (get_mouse_x() >= chara_pos_x)
 	{
 		push_settings();
 		set_image_mode(RectMode::Center);
-		draw_image(tiles[map_setting.CHARAR], chara_pos_x, chara_pos_y, tile_size, tile_size);
+		draw_image(tiles[map_setting.CHARA], chara_pos_x, chara_pos_y, -tile_size, tile_size);
 		pop_settings();
 	}
 	else if (get_mouse_x() < chara_pos_x)

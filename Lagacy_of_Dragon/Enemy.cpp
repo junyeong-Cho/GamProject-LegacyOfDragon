@@ -5,32 +5,32 @@ using namespace std;
 using namespace doodle;
 
 
-void Enemy_tuto::draw(std::vector<Enemy_tuto*>& enemys)
+void Enemy_tuto::draw_tuto()
 {
 	set_fill_color(HexColor{ 0xffff2aff });
 	draw_ellipse(x, y, enemysize, enemysize);
 }
-void Enemy_1_1::draw(std::vector<Enemy_1_1*>& enemys)
+void Enemy_1_1::draw_1_1()
 {
 	set_fill_color(HexColor{ 0xffff2aff });
 	draw_ellipse(x, y, enemysize, enemysize);
 }
-void Enemy_1_3::draw(std::vector<Enemy_1_3*>& enemys)
+void Enemy_1_3::draw_1_3()
 {
 	set_fill_color(HexColor{ 0xff0000ff });
 	draw_ellipse(x, y, enemysize, enemysize);
 }
-void Enemy_2_1::draw(std::vector<Enemy_2_1*>& enemys)
+void Enemy_2_1::draw_2_1()
 {
 	set_fill_color(HexColor{ 0x888888ff });
 	draw_ellipse(x, y, enemysize, enemysize);
 }
-void Enemy_2_2::draw(std::vector<Enemy_2_2*>& enemys)
+void Enemy_2_2::draw_2_2()
 {
 	set_fill_color(HexColor{ 0x888888ff });
 	draw_ellipse(x, y, enemysize, enemysize);
 }
-void Enemy_2_3::draw(std::vector<Enemy_2_3*>& enemys)
+void Enemy_2_3::draw_2_3()
 {
 	set_fill_color(HexColor{ 0x888888ff });
 	draw_ellipse(x, y, enemysize, enemysize);
@@ -144,7 +144,7 @@ void Enemy_update::enemy_move(std::vector<Enemy_tuto*>& enemys, Player* player)
 	for (int i = 0; i < enemys.size(); i++)
 	{
 		push_settings();
-		enemys[i]->draw(enemys);
+		enemys[i]->draw_tuto();
 		pop_settings();
 
 		if (enemys[i]->x >= player->chara_pos_x)
@@ -171,7 +171,7 @@ void Enemy_update::enemy_move(std::vector<Enemy_1_1*>& enemys, Player* player)
 	for (int i = 0; i < enemys.size(); i++)
 	{
 		push_settings();
-		enemys[i]->draw(enemys);
+		enemys[i]->draw_1_1();
 		pop_settings();
 
 		if (enemys[i]->x >= player->chara_pos_x)
@@ -198,7 +198,7 @@ void Enemy_update::enemy_move(std::vector<Enemy_1_3*>& enemys, Player* player)
 	for (int i = 0; i < enemys.size(); i++)
 	{
 		push_settings();
-		enemys[i]->draw(enemys);
+		enemys[i]->draw_1_3();
 		pop_settings();
 
 		if (enemys[i]->x >= player->chara_pos_x - avoid_gap)
@@ -225,7 +225,7 @@ void Enemy_update::enemy_move(std::vector<Enemy_2_1*>& enemys, Player* player)
 	for (int i = 0; i < enemys.size(); i++)
 	{
 		push_settings();
-		enemys[i]->draw(enemys);
+		enemys[i]->draw_2_1();
 		pop_settings();
 
 		if (enemys[i]->x >= player->chara_pos_x)
@@ -252,7 +252,7 @@ void Enemy_update::enemy_move(std::vector<Enemy_2_2*>& enemys, Player* player)
 	for (int i = 0; i < enemys.size(); i++)
 	{
 		push_settings();
-		enemys[i]->draw(enemys);
+		enemys[i]->draw_2_2();
 		pop_settings();
 
 		if (enemys[i]->x >= player->chara_pos_x)
@@ -279,7 +279,7 @@ void Enemy_update::enemy_move(std::vector<Enemy_2_3*>& enemys, Player* player)
 	for (int i = 0; i < enemys.size(); i++)
 	{
 		push_settings();
-		enemys[i]->draw(enemys);
+		enemys[i]->draw_2_3();
 		pop_settings();
 
 		if (enemys[i]->x >= player->chara_pos_x)
