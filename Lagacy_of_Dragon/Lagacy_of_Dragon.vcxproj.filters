@@ -60,6 +60,9 @@
     <ClCompile Include="UIsetting.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="stage1_boss.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -90,6 +93,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="UIsetting.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="stage1_boss.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,6 +14,8 @@
 #include "Interaction.h"
 #include "UIsetting.h"
 
+#include "stage1_boss.h"
+
 using namespace std;
 using namespace doodle;
 
@@ -26,7 +28,7 @@ int tutorial_check = 2;
 //--------------------------------// Tutorial Scene 
 int clicked_check = 0;
 //--------------------------------// Scene
-int scene = 6;
+int scene = 20;
 int tutorial_scene = 0;
 //--------------------------------//Bullet
 double bullet_timer = 0;
@@ -55,6 +57,8 @@ Enemy_update enemy_update;
 Interaction interaction;
 UIsetting uisetting;
 
+Stage1_boss stage1_boss;
+
 //Diagonal move
 void on_key_pressed(KeyboardButtons button);
 void on_key_released(KeyboardButtons button);
@@ -73,6 +77,7 @@ int main()
 	vector<int> randomboxloc = { 500, 700, 900 };
 
 	Player* player = new Player{ 0, 0 };
+	Stage1_boss* stage1_boss = new Stage1_boss{ 500, 300, 30, 50 };
 
 	map_setting.char_pos(player);
 
@@ -396,6 +401,41 @@ int main()
 			player->draw_chara();
 			player->hp_chara(&scene);
 
+		}
+
+		//Experiment boss
+		if (scene == 20)
+		{
+			//Player move limit
+			player_setting.move_limit(player);
+
+			//Bullet_shooting
+			shooting_update.bullet_create(bullets, player);
+
+			//Draw Map
+			map_setting.map_creating();
+
+			//Create bullet
+			shooting_update.bullet_create(bullets, player);
+			shooting_update.bullet_draw(bullets);
+
+			//Bullet Remove
+			shooting_update.bullet_remove(bullets);
+
+			//Boss move
+			stage1_boss->draw();
+			stage1_boss->move();
+
+
+			//Me Enemy check
+			//interaction.player_enemy_interaction(enemys_1_1, player);
+
+			//Bullet Enemy Check
+			//interaction.bullet_b_interaction(enemys_1_1, bullets);
+
+			player->MOVE();
+			player->draw_chara();
+			player->hp_chara(&scene);
 		}
 	}
 	return 0;
