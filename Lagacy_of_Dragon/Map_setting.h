@@ -17,23 +17,24 @@ const Image tiles[] = {
 	Image{"plain/plain0.png"},		  //0 = PLAI0
 	Image{"chara.png"},				  //1 = CHARA
 	Image{"shrub/shrub1.png"},		  //2 = SHRUB
-	Image{"trees/trees2.png"},        //3 = TREES 2
-	Image{"trees/trees4.png"},        //4 = TREES 4
-	Image{"trees/trees5.png"},        //5 = TREES 5
-	Image{"trees/trees6.png"},        //6 = TREES 6
-	Image{"trees/trees8.png"},        //7 = TREES 8
-	Image{"trees/trees25.png"},       //8 = TREES 25
-	Image{"trees/trees45.png"},       //9 = TREES 45
-	Image{"trees/trees56.png"},       //10 = TREES 56
-	Image{"trees/trees58.png"},       //11 = TREES 58
-	Image{"trees/trees245.png"},      //12 = TREES 245
-	Image{"trees/trees256.png"},      //13 = TREES 256
-	Image{"trees/trees258.png"},      //14 = TREES 258
-	Image{"trees/trees456.png"},      //15 = TREES 456
-	Image{"trees/trees458.png"},      //16 = TREES 458
-	Image{"trees/trees568.png"},      //17 = TREES 568
-	Image{"trees/trees0.png"},        //18 = TREES 0
+	Image{"trees/green/trees2.png"},        //3 = TREES 2
+	Image{"trees/green/trees4.png"},        //4 = TREES 4
+	Image{"trees/green/trees5.png"},        //5 = TREES 5
+	Image{"trees/green/trees6.png"},        //6 = TREES 6
+	Image{"trees/green/trees8.png"},        //7 = TREES 8
+	Image{"trees/green/trees25.png"},       //8 = TREES 25
+	Image{"trees/green/trees45.png"},       //9 = TREES 45
+	Image{"trees/green/trees56.png"},       //10 = TREES 56
+	Image{"trees/green/trees58.png"},       //11 = TREES 58
+	Image{"trees/green/trees245.png"},      //12 = TREES 245
+	Image{"trees/green/trees256.png"},      //13 = TREES 256
+	Image{"trees/green/trees258.png"},      //14 = TREES 258
+	Image{"trees/green/trees456.png"},      //15 = TREES 456
+	Image{"trees/green/trees458.png"},      //16 = TREES 458
+	Image{"trees/green/trees568.png"},      //17 = TREES 568
+	Image{"trees/green/trees0.png"},        //18 = TREES 0
 	Image{"shrub/shrub2.png"},		  //19 = SHRUB2
+
 	Image{"road/road0.png"},		  //20 = ROAD 0
 	Image{"road/road1.png"},		  //21 = ROAD 1
 	Image{"road/road3.png"},		  //22 = ROAD 3
@@ -43,11 +44,106 @@ const Image tiles[] = {
 	Image{"road/road147.png"},		  //26 = ROAD 147
 	Image{"road/road369.png"},		  //27 = ROAD 369
 	Image{"road/road789.png"},		  //28 = ROAD 789
+
 	Image{"plain/plain1.png"},		  //29 = PLAIN 1
 	Image{"plain/plain2.png"},		  //30 = PLAIN 2
 	Image{"plain/plain3.png"},		  //31 = PLAIN 3
 	Image{"plain/plain4.png"},		  //32 = PLAIN 4
-	Image{"charaR.png"},			  //33 = Chara Right
+
+	Image{"cliff/cliff0.png"},		  //33 = CLIFF 0
+	Image{"cliff/cliff1.png"},		  //34 = CLIFF 1
+	Image{"cliff/cliff2.png"},		  //35 = CLIFF 2
+	Image{"cliff/cliff3.png"},		  //36 = CLIFF 3
+	Image{"cliff/cliff48.png"},		  //37 = CLIFF 48
+	Image{"cliff/cliff68.png"},		  //38 = CLIFF 68
+	Image{"cliff/cliff123.png"},	  //39 = CLIFF 123
+
+	Image{"brdige/brdige1.png"},	  //40 = BRIDGE 1
+	Image{"brdige/brdige2.png"},	  //41 = BRIDGE 2
+	Image{"brdige/brdige3.png"},	  //42 = BRIDGE 3
+	Image{"brdige/brdige4.png"},	  //43 = BRIDGE 4
+	Image{"brdige/brdige5.png"},	  //44 = BRIDGE 5
+
+	Image{"sea/sand0.png"},	          //45 = SAND 0
+	Image{"sea/sand123~.png"},	      //46 = SAND 123
+	Image{"sea/sand124~.png"},	      //47 = SAND 124
+	Image{"sea/sand147~.png"},	      //48 = SAND 147
+	Image{"sea/sand236~.png"},	      //49 = SAND 236
+	Image{"sea/sand369~.png"},	      //50 = SAND 369
+	Image{"sea/sand478~.png"},	      //51 = SAND 478
+	Image{"sea/sand689~.png"},	      //52 = SAND 689
+	Image{"sea/sand789~.png"},	      //53 = SAND 789
+	Image{"sea/sea0.png"},	          //54 = SEA 0
+	Image{"sea/sea123~.png"},	      //55 = SEA 123
+	Image{"sea/sea124~.png"},	      //56 = SEA 124
+	Image{"sea/sea147~.png"},	      //57 = SEA 147
+	Image{"sea/sea236~.png"},	      //58 = SEA 236
+	Image{"sea/sea369~.png"},	      //59 = SEA 369
+	Image{"sea/sea478~.png"},	      //60 = SEA 478
+	Image{"sea/sea689~.png"},	      //61 = SEA 689
+	Image{"sea/sea789~.png"},	      //62 = SEA 789
+	Image{"sea/searock.png"},	      //63 = SEAROCK
+	
+	Image{"shrub/shrub_brown.png"},	  //64 = SHRUB BROWN
+
+	Image{"road/road245.png"},		  //65 = ROAD 245
+	Image{"road/road256.png"},		  //66 = ROAD 256
+	Image{"road/road258.png"},		  //67 = ROAD 258
+	Image{"road/road456.png"},		  //68 = ROAD 456
+	Image{"road/road458.png"},		  //69 = ROAD 458
+	Image{"road/road567.png"},		  //70 = ROAD 567
+	Image{"road/road24568.png"},      //71 = ROAD 24568
+
+	Image{"trees/bank/ginkgo0.png"},  //72 = GINKGO 0
+	Image{"trees/bank/ginkgo2.png"},  //73 = GINKGO 2
+	Image{"trees/bank/ginkgo4.png"},  //74 = GINKGO 4
+	Image{"trees/bank/ginkgo6.png"},  //75 = GINKGO 6
+	Image{"trees/bank/ginkgo8.png"},  //76 = GINKGO 8
+	Image{"trees/bank/ginkgo25.png"}, //77 = GINKGO 25
+	Image{"trees/bank/ginkgo45.png"}, //78 = GINKGO 45
+	Image{"trees/bank/ginkgo56.png"}, //79 = GINKGO 56
+	Image{"trees/bank/ginkgo58.png"}, //80 = GINKGO 58
+	Image{"trees/bank/ginkgo258.png"},//81 = GINKGO 258
+	Image{"trees/bank/ginkgo456.png"},//82 = GINKGO 456
+
+	Image{"trees/maple/maple0.png"},  //83 = MAPLE 0
+	Image{"trees/maple/maple2.png"},  //84 = MAPLE 2
+	Image{"trees/maple/maple4.png"},  //85 = MAPLE 3
+	Image{"trees/maple/maple6.png"},  //86 = MAPLE 6
+	Image{"trees/maple/maple8.png"},  //87 = MAPLE 8
+	Image{"trees/maple/maple25.png"}, //88 = MAPLE 25
+	Image{"trees/maple/maple45.png"}, //89 = MAPLE 45
+	Image{"trees/maple/maple56.png"}, //90 = MAPLE 56
+	Image{"trees/maple/maple58.png" },//91 = MAPLE 58
+	Image{"trees/maple/maple258.png"},//92 = MAPLE 258
+	Image{"trees/maple/maple456.png"},//93 = MAPLE 456
+
+	Image{ "trees/mixtree/mixtree(2)58.png" },//94 = MIXTREE 258
+	Image{ "trees/mixtree/mixtree(4)56.png" },//95 = MIXTREE 456
+	Image{ "trees/mixtree/mixtree2(5)8.png" },//96 = MIXTREE 258
+	Image{ "trees/mixtree/mixtree4(5)6.png" },//97 = MIXTREE 456
+	Image{ "trees/mixtree/mixtree25(8).png" },//98 = MIXTREE 258
+	Image{ "trees/mixtree/mixtree45(6).png" },//99 = MIXTREE 456
+
+
+	Image{ "etc/potal.png" },                 //100 = POTAL
+	Image{ "etc/rock1.png" },                 //101 = ROCK 1
+	Image{ "etc/rock2.png" },                 //102 = ROCK 2
+	Image{ "etc/meat.png" },                  //103 = MEAT
+	Image{ "etc/redjewery.png" },             //104 = RED JEWEL
+	Image{ "etc/bluejewery.png" },            //105 = BLUE JEWEL
+	Image{ "etc/greenjewery.png" },           //106 = GREEN JEWEL
+	Image{ "etc/nests/nest1.png" },           //107 = NEST 1
+	Image{ "etc/nests/nest2.png" },           //108 = NEST 2
+	Image{ "etc/nests/nest3.png" },           //109 = NEST 3
+	Image{ "etc/nests/nest4.png" },           //110 = NEST 4
+	Image{ "etc/nests/nest5.png" },           //111 = NEST 5
+	Image{ "etc/nests/nest6.png" },           //112 = NEST 6
+	Image{ "etc/nests/nest7.png" },           //113 = NEST 7
+	Image{ "etc/nests/nest8.png" },           //114 = NEST 8
+
+
+
 	Image{"ROAD.jpg"},			      //34 = ROAD 
 	Image{"map/nest.png"},			  //35 = NEST
 	Image{"map/potal.png"},			  //36 = PORTAL
@@ -65,6 +161,8 @@ const Image tiles[] = {
 
 
 };
+
+//
 
 struct Map_setting {
 	

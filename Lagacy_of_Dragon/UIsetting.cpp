@@ -25,7 +25,7 @@ void UIsetting::roulette(vector<int> randomboxloc) {
 	//Weapon Draw
 	draw_image(Fire, randomboxloc[0], randomboxh, randomboxSize, randomboxSize);
 	draw_image(Water, randomboxloc[1], randomboxh, randomboxSize, randomboxSize);
-	draw_image(Star, randomboxloc[2], randomboxh, randomboxSize, randomboxSize);
+	draw_image(Wind, randomboxloc[2], randomboxh, randomboxSize, randomboxSize);
 
 	for (int i = 0; i < 1; i++)
 	{

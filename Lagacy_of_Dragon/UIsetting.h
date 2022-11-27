@@ -19,9 +19,9 @@ inline double box_x = 500;
 inline int randomboxh = 500;
 inline int randomboxSize = 200;
 
-const Image Fire{ "Fire.jpg" };
-const Image Water{ "Water.jpg" };
-const Image Star{ "Star.jpg" };
+const Image Fire{ "etc/redjewery.png" };
+const Image Water{ "etc/bluejewery.png" };
+const Image Wind{ "etc/greenjewery.png" };
 
 struct UIsetting
 {

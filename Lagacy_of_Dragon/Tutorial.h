@@ -99,8 +99,8 @@ inline double jewel_check1 = 0.1;
 inline double jewel_check2 = 0.2;
 //------------------------//
 
-const Image meat{ "map/meat.png" };
-const Image Nest{ "map/nest.png" };
+const Image meat{ "etc/meat.png" };
+const Image Nest{ "etc/nest.png" };
 const Image green_dragon{ "chara.png" };
 const Image red_dragon{ "red_dragon.png" };
 
