@@ -15,7 +15,7 @@ constexpr int tuto_move_line2 = 1000;
 constexpr int tuto_word_x = 500;
 constexpr int tuto_word_y = 200;
 inline int score = 0;
-inline int textbox = 0;
+inline int textbox = 9;
 constexpr int dragons_vel = 5;
 
 constexpr int tuto_size = 100;

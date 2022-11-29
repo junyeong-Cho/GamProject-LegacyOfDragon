@@ -28,7 +28,7 @@ int tutorial_check = 2;
 //--------------------------------// Tutorial Scene 
 int clicked_check = 0;
 //--------------------------------// Scene
-int scene = 20;
+int scene = 1;
 int tutorial_scene = 0;
 //--------------------------------//Bullet
 double bullet_timer = 0;
@@ -56,6 +56,13 @@ Shooting_update shooting_update;
 Enemy_update enemy_update;
 Interaction interaction;
 UIsetting uisetting;
+Enemy_update_tuto enemy_update_tuto;
+Enemy_update_1_1 enemy_update_1_1;
+Enemy_update_1_2 enemy_update_1_2;
+Enemy_update_1_3 enemy_update_1_3;
+Enemy_update_2_1 enemy_update_2_1;
+Enemy_update_2_2 enemy_update_2_2;
+Enemy_update_2_3 enemy_update_2_3;
 
 Stage1_boss stage1_boss;
 
@@ -68,10 +75,10 @@ int main()
 	window_setting.setting();
 
 	vector<Shooting*> bullets;
-	vector<Enemy_tuto*> enemys_tuto;
-	vector<Enemy_1_1*> enemys_1_1;
-	vector<Enemy_1_3*> enemys_1_3;
-	vector<Enemy_2_1*> enemys_2_1;
+	vector<Enemy*> enemys_tuto;
+	vector<Enemy*> enemys_1_1;
+	vector<Enemy*> enemys_1_3;
+	vector<Enemy*> enemys_2_1;
 	vector<Enemy_attack*> enemy_attack;
 
 	vector<int> randomboxloc = { 500, 700, 900 };
@@ -84,7 +91,7 @@ int main()
 	while (!is_window_closed())
 	{
 		timer += DeltaTime;
-		int_timer += DeltaTime;
+		int_timer += static_cast<int>(DeltaTime);
 		bullet_timer += DeltaTime;
 		scene_timer += DeltaTime;
 		update_window();
@@ -251,17 +258,15 @@ int main()
 				//Bullet_shooting
 				shooting_update.bullet_create(bullets, player);
 
-
 				//Create Enemy
-				enemy_update.enemy_create(enemys_tuto);
-				enemy_update.enemy_create(enemys_1_3, 3);
-				enemy_update.enemy_create(enemys_2_1, 5);
-
+				enemy_update_tuto.enemy_create(enemys_tuto, 5);
+				enemy_update_1_3.enemy_create(enemys_1_3, 3);
+				enemy_update_2_1.enemy_create(enemys_2_1, 5);
 
 				//Enemy Move
-				enemy_update.enemy_move(enemys_tuto, player);
-				enemy_update.enemy_move(enemys_1_3, player);
-				enemy_update.enemy_move(enemys_2_1, player);
+				enemy_update_tuto.enemy_move(enemys_tuto, player);
+				enemy_update_1_3.enemy_move(enemys_1_3, player);
+				enemy_update_2_1.enemy_move(enemys_2_1, player);
 
 				//Enemy attack
 				enemy_update.attack_create(enemy_attack, enemys_1_3, *player);
@@ -311,14 +316,13 @@ int main()
 			shooting_update.bullet_remove(bullets);
 
 			//Random enemy
-			enemy_update.enemy_create(enemys_1_1, 10);
+			enemy_update_1_1.enemy_create(enemys_1_1, 10);
 
 			//Enemy move
-			enemy_update.enemy_move(enemys_1_1, player);
+			enemy_update_1_1.enemy_move(enemys_1_1, player);
 
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
-
 
 			//Bullet Enemy Check
 			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
