@@ -14,6 +14,15 @@
 #include "Interaction.h"
 #include "UIsetting.h"
 
+
+#include "bomb_weapon.h"
+#include "back_weapon.h"
+#include "ice_weapon.h"
+#include "breath_weapon.h"
+#include "approach_weapon.h"
+#include "storm_weapon.h"
+
+
 #include "stage1_boss.h"
 
 using namespace std;
@@ -68,6 +77,14 @@ int main()
 	window_setting.setting();
 
 	vector<Shooting*> bullets;
+	vector<BombWeapon*> bombs;
+	vector<BackWeapon*> knockback;
+	vector<IceWeapon*> ice;
+	vector<BreathWeapon*> breath;
+	vector<Storm*> storm;
+	vector<Approach*> approach;
+
+
 	vector<Enemy_tuto*> enemys_tuto;
 	vector<Enemy_1_1*> enemys_1_1;
 	vector<Enemy_1_3*> enemys_1_3;

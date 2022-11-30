@@ -128,7 +128,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="approach_weapon.cpp" />
+    <ClCompile Include="auto_weapon.cpp" />
+    <ClCompile Include="back_weapon.cpp" />
+    <ClCompile Include="bomb_weapon.cpp" />
+    <ClCompile Include="breath_weapon.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="ice_weapon.cpp" />
     <ClCompile Include="Interaction.cpp" />
     <ClCompile Include="Logos.cpp" />
     <ClCompile Include="main.cpp" />
@@ -141,12 +147,19 @@
     <ClCompile Include="stage2.cpp" />
     <ClCompile Include="stage3.cpp" />
     <ClCompile Include="stage4.cpp" />
+    <ClCompile Include="storm_weapon.cpp" />
     <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="UIsetting.cpp" />
     <ClCompile Include="Window_setting.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="approach_weapon.h" />
+    <ClInclude Include="auto_weapon.h" />
+    <ClInclude Include="back_weapon.h" />
+    <ClInclude Include="bomb_weapon.h" />
+    <ClInclude Include="breath_weapon.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="ice_weapon.h" />
     <ClInclude Include="Interaction.h" />
     <ClInclude Include="Logos.h" />
     <ClInclude Include="Main_menu.h" />
@@ -154,6 +167,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shooting.h" />
     <ClInclude Include="stage1_boss.h" />
+    <ClInclude Include="storm_weapon.h" />
     <ClInclude Include="Tutorial.h" />
     <ClInclude Include="UIsetting.h" />
     <ClInclude Include="Window_setting.h" />

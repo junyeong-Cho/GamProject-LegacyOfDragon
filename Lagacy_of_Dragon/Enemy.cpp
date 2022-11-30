@@ -314,14 +314,12 @@ void Enemy_update::attack_create(std::vector<Enemy_attack*>& attack, std::vector
 }
 void Enemy_update::attack_draw(std::vector<Enemy_attack*>& attack)
 {
+	for (int i = 0; i < attack.size(); i++)
 	{
-		for (int i = 0; i < attack.size(); i++)
-		{
-			push_settings();
-			attack[i]->draw_enemy_attack_1_3();
-			attack[i]->fire_attack_1_3();
-			pop_settings();
-		}
+		push_settings();
+		attack[i]->draw_enemy_attack_1_3();
+		attack[i]->fire_attack_1_3();
+		pop_settings();
 	}
 }
 void Enemy_update::attack_remove(std::vector<Enemy_attack*>& attack)

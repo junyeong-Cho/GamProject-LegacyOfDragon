@@ -26,7 +26,6 @@ void Interaction::player_enemy_interaction(std::vector<Enemy_1_1*>& enemys, Play
 		}
 	}
 }
-
 void Interaction::bullet_enemy_interaction(std::vector<Enemy_tuto*>& enemys, std::vector<Shooting*>& bullets) {
 	{
 		for (int i = 0; i < bullets.size(); i++)
@@ -136,8 +135,6 @@ void Interaction::bullet_enemy_interaction(std::vector<Enemy_2_1*>& enemys, std:
 		}
 	}
 }
-
-
 void bullet_s1boss_interaction(Stage1_boss* stage1_boss, std::vector<Shooting*>& bullets)
 {
 	{

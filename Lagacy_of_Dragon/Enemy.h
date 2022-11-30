@@ -31,7 +31,6 @@ constexpr int enemy_vel_max_2_1 = 6;
 static constexpr int E_Bvelocity = 6;
 static constexpr int attack_delay = 2;
 
-
 struct Enemy {
 	int x = 0;
 	int y = 0;

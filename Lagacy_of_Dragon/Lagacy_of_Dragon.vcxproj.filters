@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\Weapon">
+      <UniqueIdentifier>{72197353-e6d7-4839-81dc-c8353b06d3bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Weapon">
+      <UniqueIdentifier>{da889272-8203-48c7-9f2f-a7aa293c5b0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Stage">
+      <UniqueIdentifier>{c59a13ee-d5cd-41c7-b1de-ba828adb504f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -22,9 +31,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Map_setting.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Shooting.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
@@ -42,18 +48,6 @@
     <ClCompile Include="Tutorial.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="stage1.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="stage2.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="stage3.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="stage4.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Interaction.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -63,15 +57,48 @@
     <ClCompile Include="stage1_boss.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="back_weapon.cpp">
+      <Filter>소스 파일\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="bomb_weapon.cpp">
+      <Filter>소스 파일\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="breath_weapon.cpp">
+      <Filter>소스 파일\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooting.cpp">
+      <Filter>소스 파일\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="stage1.cpp">
+      <Filter>소스 파일\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="stage2.cpp">
+      <Filter>소스 파일\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="stage3.cpp">
+      <Filter>소스 파일\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="stage4.cpp">
+      <Filter>소스 파일\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="ice_weapon.cpp">
+      <Filter>소스 파일\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="approach_weapon.cpp">
+      <Filter>소스 파일\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="storm_weapon.cpp">
+      <Filter>소스 파일\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="auto_weapon.cpp">
+      <Filter>소스 파일\Weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Map_setting.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Shooting.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
@@ -97,6 +124,30 @@
     </ClInclude>
     <ClInclude Include="stage1_boss.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="back_weapon.h">
+      <Filter>헤더 파일\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="bomb_weapon.h">
+      <Filter>헤더 파일\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="breath_weapon.h">
+      <Filter>헤더 파일\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Shooting.h">
+      <Filter>헤더 파일\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="ice_weapon.h">
+      <Filter>헤더 파일\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="approach_weapon.h">
+      <Filter>헤더 파일\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="storm_weapon.h">
+      <Filter>헤더 파일\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="auto_weapon.h">
+      <Filter>헤더 파일\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

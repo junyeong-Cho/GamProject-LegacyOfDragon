@@ -23,6 +23,6 @@ struct Interaction
 	void bullet_enemy_interaction(std::vector<Enemy_2_1*>& enemys, std::vector<Shooting*>& bullets);
 
 	void bullet_s1boss_interaction(std::vector<Stage1_boss*>& stage1_boss, std::vector<Shooting*>& bullets);
-
 };
+
 extern Interaction interaction;
