@@ -8,7 +8,7 @@
 using namespace doodle;
 
 
-static constexpr int Bvelocity = 6;
+static constexpr int stvelocity = 6;
 constexpr int stormSize = 40;
 inline double st_attack_timer = 0;
 inline double st_attack_check = 3;

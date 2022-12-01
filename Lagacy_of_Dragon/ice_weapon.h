@@ -9,10 +9,9 @@ using namespace doodle;
 
 static constexpr int Ivelocity = 10;
 
-constexpr int backSize = 5;
-constexpr int backSize1 = 20;
+constexpr int iceSize = 5;
 
-constexpr int backdamage = 1;
+constexpr int icedamage = 1;
 
 inline bool not_clicked_ice = false;
 
@@ -31,7 +30,7 @@ struct IceWeapon {
 	void FireBullet();
 };
 
-struct ice_update
+struct Ice_update
 {
 	void bullet_create(std::vector<IceWeapon*>& bullets, Player* player);
 	void bullet_draw(std::vector<IceWeapon*>& bullets);

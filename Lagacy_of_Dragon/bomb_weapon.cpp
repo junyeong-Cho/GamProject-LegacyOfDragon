@@ -5,7 +5,7 @@ using namespace doodle;
 
 void BombWeapon::draw()
 {
-    draw_ellipse(mouseX, mouseY, size, size);
+    draw_ellipse(x, y, size, size);
 }
 
 void Bomb_update::bullet_draw(std::vector<BombWeapon*>& bullets) {
@@ -21,20 +21,14 @@ void Bomb_update::bullet_create(std::vector<BombWeapon*>& bullets, Player* playe
 {
     if (!MouseIsPressed) {
         not_clicked_bomb = true;
-        bomb_timer = 0;
     }
     if (MouseIsPressed && not_clicked_bomb == true)
     {   
-        bomb_timer += DeltaTime;
         not_clicked_bomb = false;
 
         for (int i = 0; i < bullets.size(); i++)
         {
-            if (bomb_timer > bomb_time_check)
-            {
-                bullets.push_back(new BombWeapon{ player->chara_pos_x, player->chara_pos_y, bombSize, bombDamage });
-                bomb_time_check += 4;
-            }
+            bullets.push_back(new BombWeapon{ player->chara_pos_x - 10, player->chara_pos_y, bombSize, bombDamage });
         }
     }
 }

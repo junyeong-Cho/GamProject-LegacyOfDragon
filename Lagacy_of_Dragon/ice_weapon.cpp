@@ -18,7 +18,7 @@ void IceWeapon::FireBullet()
 	bullet_pos_y += static_cast<int>(velocityY);
 }
 
-void ice_update::bullet_create(std::vector<IceWeapon*>& bullets, Player* player)
+void Ice_update::bullet_create(std::vector<IceWeapon*>& bullets, Player* player)
 {
 	if (!MouseIsPressed) {
 		not_clicked_ice = true;
@@ -29,7 +29,7 @@ void ice_update::bullet_create(std::vector<IceWeapon*>& bullets, Player* player)
 		not_clicked_ice = false;
 	}
 }
-void ice_update::bullet_draw(std::vector<IceWeapon*>& bullets) {
+void Ice_update::bullet_draw(std::vector<IceWeapon*>& bullets) {
 	for (int i = 0; i < bullets.size(); i++)
 	{
 		push_settings();
@@ -38,7 +38,7 @@ void ice_update::bullet_draw(std::vector<IceWeapon*>& bullets) {
 		pop_settings();
 	}
 }
-void ice_update::bullet_remove(std::vector<IceWeapon*>& bullets) {
+void Ice_update::bullet_remove(std::vector<IceWeapon*>& bullets) {
 	for (int i = 0; i < bullets.size(); i++)
 	{
 		if (bullets[i]->bullet_pos_x > 1400 || bullets[i]->bullet_pos_x < 100 || bullets[i]->bullet_pos_y > 900 || bullets[i]->bullet_pos_y < 100)

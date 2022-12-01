@@ -20,8 +20,3 @@ void Stage1_boss::move()
 		x -= s1_boss_vel;
 	}
 }
-
-void Stage1_update::boss1_create(std::vector<Stage1_boss*>& boss1)
-{
-	boss1.push_back(new Stage1_boss{ boss1_x, boss1_y, s1bossSize, boss1_hp});
-}

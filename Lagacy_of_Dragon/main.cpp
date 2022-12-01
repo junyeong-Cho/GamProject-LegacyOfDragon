@@ -54,7 +54,6 @@ bool tutorial_scene3 = false;
 //--------------------------------// MeEnemyCollision
 bool player_enemy_check = false;
 
-
 Map_setting map_setting;
 Window_setting window_setting;
 Logos logos;
@@ -65,6 +64,22 @@ Shooting_update shooting_update;
 Enemy_update enemy_update;
 Interaction interaction;
 UIsetting uisetting;
+
+Bomb_update bomb_update;
+
+
+//실험 완료
+Ice_update ice_update; 
+
+Enemy_update_tuto enemy_update_tuto;
+Enemy_update_1_1 enemy_update_1_1;
+Enemy_update_1_2 enemy_update_1_2;
+Enemy_update_1_3 enemy_update_1_3;
+Enemy_update_2_1 enemy_update_2_1;
+Enemy_update_2_2 enemy_update_2_2;
+Enemy_update_2_3 enemy_update_2_3;
+
+
 
 Stage1_boss stage1_boss;
 
@@ -84,17 +99,17 @@ int main()
 	vector<Storm*> storm;
 	vector<Approach*> approach;
 
-
-	vector<Enemy_tuto*> enemys_tuto;
-	vector<Enemy_1_1*> enemys_1_1;
-	vector<Enemy_1_3*> enemys_1_3;
-	vector<Enemy_2_1*> enemys_2_1;
+	vector<Stage1_boss*> boss1;
+	vector<Enemy*> enemys_tuto;
+	vector<Enemy*> enemys_1_1;
+	vector<Enemy*> enemys_1_3;
+	vector<Enemy*> enemys_2_1;
 	vector<Enemy_attack*> enemy_attack;
 
 	vector<int> randomboxloc = { 500, 700, 900 };
 
 	Player* player = new Player{ 0, 0 };
-	Stage1_boss* stage1_boss = new Stage1_boss{ 500, 300, 30, 50 };
+	
 
 	map_setting.char_pos(player);
 
@@ -239,7 +254,7 @@ int main()
 			{
 				player->chara_pos_x = 300;
 				player->chara_pos_y = 300;
-	
+
 				tutorial.scene1_guideline();
 				player_setting.move_limit(player);
 
@@ -268,17 +283,15 @@ int main()
 				//Bullet_shooting
 				shooting_update.bullet_create(bullets, player);
 
-
 				//Create Enemy
-				enemy_update.enemy_create(enemys_tuto);
-				enemy_update.enemy_create(enemys_1_3, 3);
-				enemy_update.enemy_create(enemys_2_1, 5);
-
+				enemy_update_tuto.enemy_create(enemys_tuto, 5);
+				enemy_update_1_3.enemy_create(enemys_1_3, 3);
+				enemy_update_2_1.enemy_create(enemys_2_1, 5);
 
 				//Enemy Move
-				enemy_update.enemy_move(enemys_tuto, player);
-				enemy_update.enemy_move(enemys_1_3, player);
-				enemy_update.enemy_move(enemys_2_1, player);
+				enemy_update_tuto.enemy_move(enemys_tuto, player);
+				enemy_update_1_3.enemy_move(enemys_1_3, player);
+				enemy_update_2_1.enemy_move(enemys_2_1, player);
 
 				//Enemy attack
 				enemy_update.attack_create(enemy_attack, enemys_1_3, *player);
@@ -427,28 +440,22 @@ int main()
 			player_setting.move_limit(player);
 
 			//Bullet_shooting
-			shooting_update.bullet_create(bullets, player);
+			bomb_update.bullet_create(bombs, player);
 
 			//Draw Map
 			map_setting.map_creating();
 
 			//Create bullet
-			shooting_update.bullet_create(bullets, player);
-			shooting_update.bullet_draw(bullets);
+			bomb_update.bullet_create(bombs, player);
+			bomb_update.bullet_draw(bombs);
 
 			//Bullet Remove
-			shooting_update.bullet_remove(bullets);
+			//bomb_update.bullet_remove(bombs);
 
 			//Boss move
-			stage1_boss->draw();
-			stage1_boss->move();
+			stage1_boss.draw();
+			stage1_boss.move();
 
-
-			//Me Enemy check
-			//interaction.player_enemy_interaction(enemys_1_1, player);
-
-			//Bullet Enemy Check
-			//interaction.bullet_b_interaction(enemys_1_1, bullets);
 
 			player->MOVE();
 			player->draw_chara();
