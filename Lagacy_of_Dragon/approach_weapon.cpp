@@ -10,28 +10,35 @@ void Approach::draw()
 	draw_ellipse(x, y, size, size);
 }
 
-void Approach_update::approach_create(std::vector<Approach*>& approachs, Player* player)
+void Approach_update::bullet_create(std::vector<Approach*>& approachs, Player* player)
 {
 	if (!MouseIsPressed) {
 		not_clicked_app = true;
-		attack_timer = 0;
 	}
 	if (MouseIsPressed && not_clicked_app == true)
 	{
-		attack_timer += DeltaTime;
-		if (attack_timer > attack_check)
-		{
-			approachs.push_back(new Approach{ player->chara_pos_x, player->chara_pos_y, approachSize });
-			not_clicked_app = false;
-		}
+		approachs.push_back(new Approach{ player->chara_pos_x, player->chara_pos_y, approachSize });
+		not_clicked_app = false;
 	}
 }
 
-void Approach_update::approach_draw(std::vector<Approach*>& approachs) {
+void Approach_update::bullet_draw(std::vector<Approach*>& approachs) {
 	for (int i = 0; i < approachs.size(); i++)
 	{
 		push_settings();
 		approachs[i]->draw();
 		pop_settings();
+	}
+}
+
+void Approach_update::bullet_remove(std::vector<Approach*>& bullets)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		if (not_clicked_app = true)
+		{
+			delete bullets[i];
+			bullets.erase(bullets.begin() + i);
+		}
 	}
 }

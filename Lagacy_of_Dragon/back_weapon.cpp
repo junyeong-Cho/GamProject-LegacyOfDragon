@@ -24,6 +24,7 @@ void Back_update::bullet_draw(std::vector<BackWeapon*>& bullets)
     {
         push_settings();
         bullets[i]->draw();
+        bullets[i]->FireBullet();
         pop_settings();
     }
 }
@@ -37,11 +38,6 @@ void Back_update::bullet_create(std::vector<BackWeapon*>& bullets, Player* playe
     {
         not_clicked_back = false;
         bullets.push_back(new BackWeapon{ player->chara_pos_x, player->chara_pos_y, backSize, backSize1 });
-
-        //if (enemy_x < bullet_pos_x && enemy_x > bullet_pos_x + backSize)
-        //{
-        //    //일정 시간동안 뒤로 이동
-        //}
     }
 }
 
@@ -56,7 +52,6 @@ void Back_update::bullet_remove(std::vector<BackWeapon*>& bullets)
             delete bullets[i];
             bullets.erase(bullets.begin() + i);
             back_timer = 0;
-            back_time_check = 0;
         }
     }
 }

@@ -8,8 +8,8 @@ using namespace doodle;
 
 inline bool not_clicked_back = false;
 
-inline int backSize = 5;
-inline int backSize1 = 20;
+inline int backSize = 100;
+inline int backSize1 = 50;
 
 inline int backDamage = 3;
 inline int Bavelocity = 5;

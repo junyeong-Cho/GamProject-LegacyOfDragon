@@ -7,7 +7,7 @@
 
 using namespace doodle;
 
-constexpr int approachSize = 30;
+constexpr int approachSize = 200;
 
 inline double attack_timer = 0;
 inline double attack_check = 1.5;
@@ -24,7 +24,9 @@ struct Approach {
 
 struct Approach_update
 {
-	void approach_create(std::vector<Approach*>& approachs, Player* player);
-	void approach_draw(std::vector<Approach*>& approachs);
+	void bullet_create(std::vector<Approach*>& approachs, Player* player);
+	void bullet_draw(std::vector<Approach*>& approachs);
+	void bullet_remove(std::vector<Approach*>& approachs);
+
 };
 #endif

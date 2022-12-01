@@ -6,18 +6,15 @@
 #include <vector>
 using namespace doodle;
 
-
 static constexpr int Brvelocity = 10;
 
 
-constexpr int breathSize = 5;
-constexpr int breathSize1 = 20;
+constexpr int breathSize = 500;
+constexpr int breathSize1 = 50;
 constexpr int breathdamage = 5;
 
 inline double breath_timer = 0;
 inline double breath_time_check = 5;
-
-
 
 inline bool not_clicked_breath = false;
 
@@ -33,14 +30,15 @@ struct BreathWeapon {
 	float angleX = (mouseX - bullet_pos_x);
 	float angleY = (mouseY - bullet_pos_y);
 
-	void draw();
-	void FireBullet();
+	void drawR();
+	void drawL();
+
 };
 
 struct Breath_update
 {
 	void bullet_create(std::vector<BreathWeapon*>& bullets, Player* player);
-	void bullet_draw(std::vector<BreathWeapon*>& bullets);
+	void bullet_draw(std::vector<BreathWeapon*>& bullets, Player* player);
 	void bullet_remove(std::vector<BreathWeapon*>& bullets);
 };
 

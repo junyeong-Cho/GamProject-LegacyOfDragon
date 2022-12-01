@@ -21,6 +21,7 @@
 #include "breath_weapon.h"
 #include "approach_weapon.h"
 #include "storm_weapon.h"
+#include "auto_weapon.h"
 
 
 #include "stage1_boss.h"
@@ -60,16 +61,26 @@ Logos logos;
 Main_menu main_menu;
 Tutorial tutorial;
 Player_setting player_setting;
-Shooting_update shooting_update;
+
 Enemy_update enemy_update;
 Interaction interaction;
 UIsetting uisetting;
 
+
+//실험 미완료
 Bomb_update bomb_update;
+Auto_update auto_update; // 개발중
 
 
 //실험 완료
 Ice_update ice_update; 
+Breath_update breath_update;
+Approach_update approach_update;
+Storm_update storm_update;
+Back_update back_update;
+Shooting_update shooting_update;
+
+
 
 Enemy_update_tuto enemy_update_tuto;
 Enemy_update_1_1 enemy_update_1_1;
@@ -98,6 +109,7 @@ int main()
 	vector<BreathWeapon*> breath;
 	vector<Storm*> storm;
 	vector<Approach*> approach;
+	vector<AutoWeapon*> autos;
 
 	vector<Stage1_boss*> boss1;
 	vector<Enemy*> enemys_tuto;
@@ -440,17 +452,23 @@ int main()
 			player_setting.move_limit(player);
 
 			//Bullet_shooting
-			bomb_update.bullet_create(bombs, player);
+			//bomb_update.bullet_create(bombs, player);
 
 			//Draw Map
 			map_setting.map_creating();
+			enemy_update.enemy_move(enemys_1_1, player);
+
+			enemy_update.enemy_create(enemys_1_1, 20);
+
 
 			//Create bullet
-			bomb_update.bullet_create(bombs, player);
-			bomb_update.bullet_draw(bombs);
+			breath_update.bullet_create(breath, player);
+			breath_update.bullet_draw(breath, player);
+			
+			//breath_update.bullet_move(autos, enemys_1_1, player);  only for auto weapon
 
 			//Bullet Remove
-			//bomb_update.bullet_remove(bombs);
+			breath_update.bullet_remove(breath);
 
 			//Boss move
 			stage1_boss.draw();
