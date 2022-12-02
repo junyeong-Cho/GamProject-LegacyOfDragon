@@ -1,8 +1,9 @@
 #include "Player.h"
 #include "Map_setting.h"
 #include <doodle\doodle.hpp>
-using namespace std;
 #include <iostream>
+
+using namespace std;
 using namespace doodle;
 
 bool moveW = false;
@@ -47,55 +48,56 @@ void Player::draw_chara() {
 	{
 		push_settings();
 		set_image_mode(RectMode::Center);
-		draw_image(tiles[map_setting.CHARA], chara_pos_x, chara_pos_y, -tile_size, tile_size);
+		draw_image(tiles[map_setting.CHARA], Width / 2, Height / 2, -tile_size, tile_size);
 		pop_settings();
 	}
 	else if (get_mouse_x() < chara_pos_x)
 	{
 		push_settings();
 		set_image_mode(RectMode::Center);
-		draw_image(tiles[map_setting.CHARA], chara_pos_x, chara_pos_y, tile_size, tile_size);
+		draw_image(tiles[map_setting.CHARA], Width / 2, Height / 2, tile_size, tile_size);
 		pop_settings();
 	}
 }
 
 void Player::MOVE() {
 	if (moveW == true) {
-		chara_pos_y -= 6;
+		chara_pos_y -= DeltaTime * 150 * 2;
 	}
 	if (moveA == true) {
-		chara_pos_x -= 6;
+		chara_pos_x -= DeltaTime * 150 * 2;
 	}
 	if (moveS == true) {
-		chara_pos_y += 6;
+		chara_pos_y += DeltaTime * 150 * 2;
 	}
 	if (moveD == true) {
-		chara_pos_x += 6;
+		chara_pos_x += DeltaTime * 150 * 2;
 	}
 	//마우스 방향보고 캐릭터 좌우반전
 }
+
 
 void Player_setting::move_limit(Player* player)
 {
 	//Player move limit
 	if (player->chara_pos_x < player_limit_x1)
 	{
-		player->chara_pos_x += 6;
+		player->chara_pos_x += DeltaTime * 150 * 2;
 	}
 	if (player->chara_pos_y > player_limit_y)
 	{
-		player->chara_pos_y -= 6;
+		player->chara_pos_y -= DeltaTime * 150 * 2;
 	}
 	if (player->chara_pos_x > player_limit_x)
 	{
-		player->chara_pos_x -= 6;
+		player->chara_pos_x -= DeltaTime * 150 * 2;
 	}
 	if (player->chara_pos_y < player_limit_y1)
 	{
-		player->chara_pos_y += 6;
+		player->chara_pos_y += DeltaTime * 150 * 2;
 	}
-	player->draw_chara();
-	player->MOVE();
+	//player->draw_chara();
+	//player->MOVE();
 }
 
 void Player::hp_chara(int* scene)

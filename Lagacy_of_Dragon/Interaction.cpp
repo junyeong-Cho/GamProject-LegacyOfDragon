@@ -58,7 +58,7 @@ void Interaction::bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 		}
 	}
 }
-
+/*
 void bullet_s1boss_interaction(Stage1_boss* stage1_boss, std::vector<Shooting*>& bullets)
 {
 	{
@@ -85,6 +85,6 @@ void bullet_s1boss_interaction(Stage1_boss* stage1_boss, std::vector<Shooting*>&
 				}
 			
 		}
-	}
-
+	 }
 }
+*/

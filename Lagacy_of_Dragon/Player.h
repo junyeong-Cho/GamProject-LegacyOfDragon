@@ -20,6 +20,8 @@ constexpr int player_limit_y = 800;
 constexpr int player_limit_y1 = 100;
 
 struct Player {
+	int WorldX = Width/2;
+	int WorldY = Height/2;
 	int chara_pos_x = 0;
 	int chara_pos_y = 0;
 	double speed = 2.0;
@@ -29,6 +31,7 @@ struct Player {
 	void MOVE();
 	void hp_chara(int* scene);
 };
+
 
 struct Player_setting
 {

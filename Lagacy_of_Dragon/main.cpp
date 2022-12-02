@@ -28,7 +28,7 @@ int tutorial_check = 2;
 //--------------------------------// Tutorial Scene 
 int clicked_check = 0;
 //--------------------------------// Scene
-int scene = 1;
+int scene = 10;
 int tutorial_scene = 0;
 //--------------------------------//Bullet
 double bullet_timer = 0;
@@ -70,10 +70,11 @@ Stage1_boss stage1_boss;
 void on_key_pressed(KeyboardButtons button);
 void on_key_released(KeyboardButtons button);
 
+
+
+
 int main()
 {
-	window_setting.setting();
-
 	vector<Shooting*> bullets;
 	vector<Enemy*> enemys_tuto;
 	vector<Enemy*> enemys_1_1;
@@ -83,10 +84,12 @@ int main()
 
 	vector<int> randomboxloc = { 500, 700, 900 };
 
-	Player* player = new Player{ 0, 0 };
-	Stage1_boss* stage1_boss = new Stage1_boss{ 500, 300, 30, 50 };
+	Player* player = new Player{ Width/2, Height/2, 0, 0};
 
-	map_setting.char_pos(player);
+	window_setting.setting();
+	//Stage1_boss* stage1_boss = new Stage1_boss{ 500, 300, 30, 50 };
+
+	map_setting.char_pos1(player);
 
 	while (!is_window_closed())
 	{
@@ -298,7 +301,6 @@ int main()
 		//Tutorial_last
 		if (scene == 8)
 		{
-
 			//Player move limit
 			player_setting.move_limit(player);
 
@@ -372,6 +374,8 @@ int main()
 		//BigSize Map 36 * 36 (Its lagging ,its under development) -- Try to Release Mod 
 		if (scene == 10)
 		{
+
+
 			//Player move limit
 			player_setting.move_limit(player);
 
@@ -379,7 +383,7 @@ int main()
 			shooting_update.bullet_create(bullets, player);
 
 			//Draw Map
-			map_setting.stage1_creating();
+			map_setting.stage1_creating(player);
 
 			//Create bullet
 			shooting_update.bullet_create(bullets, player);
@@ -405,6 +409,7 @@ int main()
 			player->draw_chara();
 			player->hp_chara(&scene);
 
+
 		}
 
 		//Experiment boss
@@ -427,8 +432,8 @@ int main()
 			shooting_update.bullet_remove(bullets);
 
 			//Boss move
-			stage1_boss->draw();
-			stage1_boss->move();
+			//stage1_boss->draw();
+			//stage1_boss->move();
 
 
 			//Me Enemy check
