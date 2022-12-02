@@ -29,6 +29,7 @@ void Ice_update::bullet_create(std::vector<IceWeapon*>& bullets, Player* player)
 		not_clicked_ice = false;
 	}
 }
+
 void Ice_update::bullet_draw(std::vector<IceWeapon*>& bullets) {
 	for (int i = 0; i < bullets.size(); i++)
 	{
@@ -38,6 +39,7 @@ void Ice_update::bullet_draw(std::vector<IceWeapon*>& bullets) {
 		pop_settings();
 	}
 }
+
 void Ice_update::bullet_remove(std::vector<IceWeapon*>& bullets) {
 	for (int i = 0; i < bullets.size(); i++)
 	{

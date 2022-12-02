@@ -21,26 +21,21 @@ void Auto_update::bullet_create(std::vector<AutoWeapon*>& bullets, Player* playe
 	}
 }
 
-void Auto_update::bullet_draw(std::vector<AutoWeapon*>& bullets) {
-	for (int i = 0; i < bullets.size(); i++)
-	{
-		push_settings();
-		bullets[i]->draw();
-		pop_settings();
-	}
-}
-
 void Auto_update::bullet_move(std::vector<AutoWeapon*>& bullets, std::vector<Enemy*> enemys, Player* player)
 {
 	for (int j = 0; j < enemys.size(); j++)
 	{
 		for (int i = 0; bullets.size(); i++)
 		{
+			push_settings();
+			bullets[i]->draw();
+			pop_settings();
+
 			double a = player->chara_pos_x - enemys[j]->x;
 			double b = player->chara_pos_y - enemys[j]->y;
 			double distance = sqrt(a * a + b * b);
 
-			if (distance < auto_range)
+			if (distance < auto_range / 2 + enemys[j]->enemysize / 2)
 			{
 				if (bullets[i]->bullet_pos_x >= enemys[j]->x)
 				{

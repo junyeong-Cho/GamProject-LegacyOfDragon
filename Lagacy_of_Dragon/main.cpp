@@ -67,17 +67,17 @@ Interaction interaction;
 UIsetting uisetting;
 
 
-//실험 미완료
-Bomb_update bomb_update;
-Auto_update auto_update; // 개발중
+//미완성
+Bomb_update bomb_update; // 여러마리 죽이는 방법 찾는중
+Auto_update auto_update; // 벡터 범위 문제
+Breath_update breath_update; //충돌체크
+Approach_update approach_update; //재정의 오류
+Back_update back_update; // 밀려나고 다시 속도가 안바뀜
 
 
-//실험 완료
-Ice_update ice_update; 
-Breath_update breath_update;
-Approach_update approach_update;
+//완성
 Storm_update storm_update;
-Back_update back_update;
+Ice_update ice_update;
 Shooting_update shooting_update;
 
 
@@ -91,8 +91,21 @@ Enemy_update_2_2 enemy_update_2_2;
 Enemy_update_2_3 enemy_update_2_3;
 
 
-
 Stage1_boss stage1_boss;
+
+enum Weapons
+{
+	Shootings = 0,
+	Storms = 1,
+	Ices = 2,
+	Knockbacks = 3,
+	Bombs = 4,
+	Approachs = 5,
+	Autos = 6,
+	Breaths = 7,
+};
+
+Weapons state = Weapons::Breaths;
 
 //Diagonal move
 void on_key_pressed(KeyboardButtons button);
@@ -460,19 +473,38 @@ int main()
 
 			enemy_update.enemy_create(enemys_1_1, 20);
 
-
-			//Create bullet
-			breath_update.bullet_create(breath, player);
+		
+			/*breath_update.bullet_create(breath, player);
 			breath_update.bullet_draw(breath, player);
-			
-			//breath_update.bullet_move(autos, enemys_1_1, player);  only for auto weapon
-
-			//Bullet Remove
 			breath_update.bullet_remove(breath);
 
+			storm_update.bullet_create(storm, player);
+			storm_update.bullet_draw(storm);
+			storm_update.bullet_remove(storm);*/
+
+			
+			/*auto_update.bullet_create(autos, player);
+			auto_update.bullet_move(autos, enemys_1_1, player);*/
+
+			bomb_update.bullet_draw(bombs);
+			bomb_update.bullet_create(bombs, player);
+			
+			
+
+
+			//interaction.approach_enemy_interaction(enemys_1_1, approach);
+			interaction.storm_enemy_interaction(enemys_1_1,storm);
+			interaction.ice_enemy_interaction(enemys_1_1, ice);
+			interaction.back_enemy_interaction(enemys_1_1, knockback);
+			interaction.breath_enemy_interaction(enemys_1_1, breath, player);
+			interaction.auto_enemy_interaction(enemys_1_1, autos);
+			interaction.bomb_enemy_interaction(enemys_1_1, bombs);
+
+
+
 			//Boss move
-			stage1_boss.draw();
-			stage1_boss.move();
+		    //stage1_boss.draw();
+			//stage1_boss.move();
 
 
 			player->MOVE();

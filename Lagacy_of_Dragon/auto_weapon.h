@@ -25,7 +25,6 @@ struct AutoWeapon {
 struct Auto_update
 {
 	void bullet_create(std::vector<AutoWeapon*>& bullets, Player* player);
-	void bullet_draw(std::vector<AutoWeapon*>& bullets);
 	void bullet_move(std::vector<AutoWeapon*>& bullets, std::vector<Enemy*> enemys, Player* player);
 };
 #endif

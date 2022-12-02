@@ -7,12 +7,9 @@
 
 using namespace doodle;
 
-constexpr int approachSize = 200;
+inline int approachSize = 200;
 
-inline double attack_timer = 0;
-inline double attack_check = 1.5;
 inline bool not_clicked_app = false;
-
 
 struct Approach {
 	int x = 0;
@@ -24,9 +21,9 @@ struct Approach {
 
 struct Approach_update
 {
-	void bullet_create(std::vector<Approach*>& approachs, Player* player);
-	void bullet_draw(std::vector<Approach*>& approachs);
-	void bullet_remove(std::vector<Approach*>& approachs);
-
+	void bullet_create(std::vector<Approach*>& bullets, Player* player);
+	void bullet_draw(std::vector<Approach*>& bullets);
+	void bullet_remove(std::vector<Approach*>& bullets);
 };
+
 #endif

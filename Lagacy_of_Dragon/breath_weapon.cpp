@@ -26,7 +26,7 @@ void Breath_update::bullet_create(std::vector<BreathWeapon*>& bullets, Player* p
 	}
 	if (MouseIsPressed && not_clicked_breath == true)
 	{
-		bullets.push_back(new BreathWeapon{ player->chara_pos_x + 250, player->chara_pos_y, breathSize, breathSize1, breathdamage });
+		bullets.push_back(new BreathWeapon{ player->chara_pos_x + breathSize / 2, player->chara_pos_y, breathSize, breathSize1, breathdamage });
 	}
 }
 

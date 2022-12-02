@@ -5,7 +5,7 @@ using namespace doodle;
 void BackWeapon::draw()
 {
     set_fill_color(HexColor{ 0x0000ffff });
-    draw_ellipse(bullet_pos_x, bullet_pos_y, size, size1);
+    draw_ellipse(bullet_pos_x, bullet_pos_y, size, size);
 }
 
 void BackWeapon::FireBullet()
@@ -37,7 +37,7 @@ void Back_update::bullet_create(std::vector<BackWeapon*>& bullets, Player* playe
     if (MouseIsPressed && not_clicked_back == true)
     {
         not_clicked_back = false;
-        bullets.push_back(new BackWeapon{ player->chara_pos_x, player->chara_pos_y, backSize, backSize1 });
+        bullets.push_back(new BackWeapon{ player->chara_pos_x, player->chara_pos_y, backSize, Bavelocity, Ba1velocity });
     }
 }
 
@@ -47,11 +47,12 @@ void Back_update::bullet_remove(std::vector<BackWeapon*>& bullets)
     {
         back_timer += DeltaTime;
 
-        if(back_timer > back_time_check)
+        if(back_timer >= back_time_check)
         {
             delete bullets[i];
             bullets.erase(bullets.begin() + i);
             back_timer = 0;
+            
         }
     }
 }

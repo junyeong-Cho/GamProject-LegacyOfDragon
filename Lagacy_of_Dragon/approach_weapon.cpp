@@ -1,4 +1,3 @@
-#include "Player.h"
 #include "approach_weapon.h"
 #include <doodle\doodle.hpp>
 
@@ -10,23 +9,23 @@ void Approach::draw()
 	draw_ellipse(x, y, size, size);
 }
 
-void Approach_update::bullet_create(std::vector<Approach*>& approachs, Player* player)
+void Approach_update::bullet_create(std::vector<Approach*>& bullets, Player* player)
 {
 	if (!MouseIsPressed) {
 		not_clicked_app = true;
 	}
 	if (MouseIsPressed && not_clicked_app == true)
 	{
-		approachs.push_back(new Approach{ player->chara_pos_x, player->chara_pos_y, approachSize });
+		bullets.push_back(new Approach{ player->chara_pos_x, player->chara_pos_y, approachSize });
 		not_clicked_app = false;
 	}
 }
 
-void Approach_update::bullet_draw(std::vector<Approach*>& approachs) {
-	for (int i = 0; i < approachs.size(); i++)
+void Approach_update::bullet_draw(std::vector<Approach*>& bullets) {
+	for (int i = 0; i < bullets.size(); i++)
 	{
 		push_settings();
-		approachs[i]->draw();
+		bullets[i]->draw();
 		pop_settings();
 	}
 }
@@ -35,7 +34,7 @@ void Approach_update::bullet_remove(std::vector<Approach*>& bullets)
 {
 	for (int i = 0; i < bullets.size(); i++)
 	{
-		if (not_clicked_app = true)
+		if (not_clicked_app == true)
 		{
 			delete bullets[i];
 			bullets.erase(bullets.begin() + i);

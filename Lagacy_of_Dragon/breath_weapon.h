@@ -4,13 +4,15 @@
 #include <doodle\doodle.hpp>
 #include "Player.h"
 #include <vector>
+
+
 using namespace doodle;
 
 static constexpr int Brvelocity = 10;
 
 
-constexpr int breathSize = 500;
-constexpr int breathSize1 = 50;
+constexpr int breathSize = 3600;
+constexpr int breathSize1 = 100;
 constexpr int breathdamage = 5;
 
 inline double breath_timer = 0;

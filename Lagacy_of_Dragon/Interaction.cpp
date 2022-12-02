@@ -1,4 +1,11 @@
 #include "Interaction.h"
+#include "ice_weapon.h"
+#include "auto_weapon.h"
+#include "back_weapon.h"
+#include "bomb_weapon.h"
+#include "breath_weapon.h"
+#include "storm_weapon.h"
+#include "approach_weapon.h"
 
 void Interaction::player_enemy_interaction(std::vector<Enemy*>& enemys, Player* player)
 {
@@ -28,16 +35,155 @@ void Interaction::player_enemy_interaction(std::vector<Enemy*>& enemys, Player* 
 }
 
 void Interaction::bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Shooting*>& bullets) {
+	
+	for (int i = 0; i < bullets.size(); i++)
 	{
-		for (int i = 0; i < bullets.size(); i++)
+		for (int j = 0; j < enemys.size(); j++)
 		{
-			for (int j = 0; j < enemys.size(); j++)
-			{
-				double a = bullets[i]->bullet_pos_x - enemys[j]->x;
-				double b = bullets[i]->bullet_pos_y - enemys[j]->y;
-				double distance = sqrt(a * a + b * b);
+			double a = bullets[i]->bullet_pos_x - enemys[j]->x;
+			double b = bullets[i]->bullet_pos_y - enemys[j]->y;
+			double distance = sqrt(a * a + b * b);
 
-				if (distance < bulletradius + enemys[j]->enemysize)
+			if (distance < bullets[i]->size + enemys[j]->enemysize)
+			{
+				if (enemys[j]->health - 3 == 0)
+				{
+					delete bullets[i];
+					delete enemys[j];
+
+					bullets.erase(bullets.begin() + i);
+					enemys.erase(enemys.begin() + j);
+					break;
+				}
+				else {
+					delete bullets[i];
+					bullets.erase(bullets.begin() + i);
+					enemys[j]->health--;
+				}
+			}
+		}
+	}
+}
+
+void Interaction::ice_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<IceWeapon*>& bullets) 
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		for (int j = 0; j < enemys.size(); j++)
+		{
+			double a = bullets[i]->bullet_pos_x - enemys[j]->x;
+			double b = bullets[i]->bullet_pos_y - enemys[j]->y;
+			double distance = sqrt(a * a + b * b);
+
+			if (distance < bullets[i]->size + enemys[j]->enemysize)
+			{
+				if (enemys[j]->health - 1 == 0)
+				{
+					delete bullets[i];
+					delete enemys[j];
+
+					bullets.erase(bullets.begin() + i);
+					enemys.erase(enemys.begin() + j);
+					break;
+				}
+				else {
+					delete bullets[i];
+					bullets.erase(bullets.begin() + i);
+					enemys[j]->health --;
+				}
+			}
+		}
+	}
+}
+
+void Interaction::storm_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Storm*>& bullets)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		for (int j = 0; j < enemys.size(); j++)
+		{
+			double a = bullets[i]->bullet_pos_x - enemys[j]->x;
+			double b = bullets[i]->bullet_pos_y - enemys[j]->y;
+			double distance = sqrt(a * a + b * b);
+
+			if (distance < bullets[i]->size / static_cast<double>(2) + enemys[j]->enemysize)
+			{
+				if (enemys[j]->x <= bullets[i]->bullet_pos_x)
+				{
+					enemys[j]->x += bullets[i]->velocity;
+				}
+				if (enemys[j]->x >= bullets[i]->bullet_pos_x)
+				{
+					enemys[j]->x -= bullets[i]->velocity;
+				}
+				if (enemys[j]->y <= bullets[i]->bullet_pos_y)
+				{
+					enemys[j]->y += bullets[i]->velocity;
+				}
+				if (enemys[j]->y >= bullets[i]->bullet_pos_y)
+				{
+					enemys[j]->y -= bullets[i]->velocity;
+				}
+				
+				/*if (enemys[j]->health - 1 == 0)
+				{
+					delete enemys[j];
+					enemys.erase(enemys.begin() + j);
+					break;
+				}
+				else {
+					enemys[j]->health--;
+				}*/
+			}
+		}
+	}
+}
+
+void Interaction::back_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<BackWeapon*>& bullets)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		for (int j = 0; j < enemys.size(); j++)
+		{
+			double a = bullets[i]->bullet_pos_x - enemys[j]->x;
+			double b = bullets[i]->bullet_pos_y - enemys[j]->y;
+			double distance = sqrt(a * a + b * b);
+
+			if (distance < bullets[i]->size + enemys[j]->enemysize)
+			{
+				back_timers += DeltaTime;
+				if (back_timers < back_time_checks)
+				{
+					enemys[j]->speed -= DeltaTime * bullets[i]->velocity1;
+				}
+				else if (back_timers > back_time_checks)
+				{
+					back_timers = 0;
+				}
+
+				
+			}
+		}
+	}
+}
+
+void Interaction::bomb_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<BombWeapon*>& bullets)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		for (int j = 0; j < enemys.size(); j++)
+		{
+			double a = bullets[i]->bullet_pos_x - enemys[j]->x;
+			double b = bullets[i]->bullet_pos_y - enemys[j]->y;
+			double distance = sqrt(a * a + b * b);
+
+			if (distance < bullets[i]->size / 2 + enemys[j]->enemysize / 2)
+			{
+				double c = bullets[i]->bullet_pos_x + bullets[i]->range - enemys[j]->x;
+				double d = bullets[i]->bullet_pos_y + bullets[i]->range - enemys[j]->y;
+				double disrange = sqrt(c * c + d * d);
+
+				if (disrange < enemys[j]->enemysize + bullets[i]->range)
 				{
 					if (enemys[j]->health - 1 == 0)
 					{
@@ -48,7 +194,8 @@ void Interaction::bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 						enemys.erase(enemys.begin() + j);
 						break;
 					}
-					else {
+					else
+					{
 						delete bullets[i];
 						bullets.erase(bullets.begin() + i);
 						enemys[j]->health--;
@@ -59,32 +206,108 @@ void Interaction::bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 	}
 }
 
-void bullet_s1boss_interaction(Stage1_boss* stage1_boss, std::vector<Shooting*>& bullets)
+void Interaction::auto_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<AutoWeapon*>& bullets)
 {
+	for (int i = 0; i < bullets.size(); i++)
 	{
-		for (int i = 0; i < bullets.size(); i++)
+		for (int j = 0; j < enemys.size(); j++)
 		{
-			double a = bullets[i]->bullet_pos_x - stage1_boss->x;
-			double b = bullets[i]->bullet_pos_y - stage1_boss->y;
+			double a = bullets[i]->bullet_pos_x - enemys[j]->x;
+			double b = bullets[i]->bullet_pos_y - enemys[j]->y;
 			double distance = sqrt(a * a + b * b);
 
-			if (distance < bulletradius + stage1_boss->size)
+			if (distance < bullets[i]->size + enemys[j]->enemysize)
 			{
-				if (stage1_boss->health - 1 == 0)
+				if (enemys[j]->health - 1 == 0)
 				{
 					delete bullets[i];
-					delete stage1_boss;
+					delete enemys[j];
+
 					bullets.erase(bullets.begin() + i);
+					enemys.erase(enemys.begin() + j);
 					break;
 				}
 				else {
 					delete bullets[i];
 					bullets.erase(bullets.begin() + i);
-					stage1_boss->health--;
+					enemys[j]->health--;
 				}
 			}
-
 		}
 	}
-
 }
+
+void Interaction::breath_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<BreathWeapon*>& bullets, Player* player)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		for (int j = 0; j < enemys.size(); j++)
+		{
+			if (get_mouse_x() < player->chara_pos_x)
+			{
+				if (enemys[j]->x < bullets[i]->bullet_pos_x && enemys[j]->y < bullets[i]->bullet_pos_y + bullets[i]->size1 / 2 && enemys[j]->y > bullets[i]->bullet_pos_y - bullets[i]->size1 / 2)
+				{
+					if (enemys[j]->health - 1 == 0)
+					{
+						delete enemys[j];
+						enemys.erase(enemys.begin() + j);
+						break;
+					}
+					else {
+						enemys[j]->health--;
+					}
+				}
+			}
+			
+			else if (get_mouse_x() > player->chara_pos_x)
+			{
+				if (enemys[j]->x > bullets[i]->bullet_pos_x && enemys[j]->y < bullets[i]->bullet_pos_y + bullets[i]->size1 / 2 && enemys[j]->y > bullets[i]->bullet_pos_y - bullets[i]->size1 / 2)
+				{
+					if (enemys[j]->health - 1 == 0)
+					{
+						delete enemys[j];
+						enemys.erase(enemys.begin() + j);
+						break;
+					}
+					else {
+						enemys[j]->health--;
+					}
+				}
+			}
+			
+
+
+			
+				
+			
+		}
+	}
+}
+
+void Interaction::approach_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Approach*>& bullets)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		for (int j = 0; j < enemys.size(); j++)
+		{
+			double a = bullets[i]->x - enemys[j]->x;
+			double b = bullets[i]->y - enemys[j]->y;
+			double distance = sqrt(a * a + b * b);
+
+			if (distance < bullets[i]->size + enemys[j]->enemysize)
+			{
+				if (enemys[j]->health - 1 == 0)
+				{
+					delete enemys[j];
+	                enemys.erase(enemys.begin() + j);
+					break;
+				}
+				else {
+					enemys[j]->health--;
+				}
+			}
+		}
+	}
+}
+
+

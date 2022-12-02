@@ -7,7 +7,9 @@
 
 using namespace doodle;
 
-constexpr int stormSize = 100;
+
+constexpr int stvelocity = 2;
+constexpr int stormSize = 200;
 inline double st_attack_timer = 0;
 inline double st_attack_check = 3;
 inline bool not_clicked_sto = false;
@@ -20,9 +22,11 @@ struct Storm {
 	int bullet_pos_x = 0;
 	int bullet_pos_y = 0;
 	int size = 0;
+	int velocity = 0;
 
 	float mouseX = static_cast<float>(get_mouse_x());
 	float mouseY = static_cast<float>(get_mouse_y());
+	
 	void draw();
 	void FireBullet();
 };

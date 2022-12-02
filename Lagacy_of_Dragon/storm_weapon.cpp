@@ -4,7 +4,7 @@ using namespace doodle;
 
 void Storm::draw()
 {
-	set_fill_color(HexColor{ 0xff002aff });
+	set_fill_color(HexColor{ 0xff002a55 });
 	draw_ellipse(bullet_pos_x, bullet_pos_y, size, size);
 }
 
@@ -21,7 +21,7 @@ void Storm_update::bullet_create(std::vector<Storm*>& storms, Player* player)
 	}
 	if (MouseIsPressed && not_clicked_sto == true)
 	{
-		storms.push_back(new Storm{ player->chara_pos_x, player->chara_pos_y, stormSize});
+		storms.push_back(new Storm{ player->chara_pos_x, player->chara_pos_y, stormSize, stvelocity });
 		not_clicked_sto = false;
 	}
 }

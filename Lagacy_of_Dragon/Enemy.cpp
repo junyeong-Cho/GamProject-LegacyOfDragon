@@ -124,7 +124,7 @@ void Enemy_update_1_1::enemy_create(std::vector<Enemy*>& enemys, int regen)
 			push_settings();
 			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
 			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
-			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 1, 1, 0.5, 30, 0xffffffff, 1 });
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 5, 1, 0.5, 30, 0xffffffff, 1 });
 			pop_settings();
 		}
 		count_once = int_timer;
