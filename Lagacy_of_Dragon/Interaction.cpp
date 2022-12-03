@@ -1,4 +1,5 @@
 #include "Interaction.h"
+
 #include "ice_weapon.h"
 #include "auto_weapon.h"
 #include "back_weapon.h"
@@ -243,9 +244,11 @@ void Interaction::breath_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 	{
 		for (int j = 0; j < enemys.size(); j++)
 		{
-			if (get_mouse_x() < player->chara_pos_x)
+			if (get_mouse_x() < player->chara_pos_x) // 왼쪽 발사
 			{
-				if (enemys[j]->x < bullets[i]->bullet_pos_x && enemys[j]->y < bullets[i]->bullet_pos_y + bullets[i]->size1 / 2 && enemys[j]->y > bullets[i]->bullet_pos_y - bullets[i]->size1 / 2)
+				if (enemys[j]->x < bullets[i]->bullet_pos_x //적이 왼쪽에 있을 때
+					&& enemys[j]->y < bullets[i]->bullet_pos_y + bullets[i]->size1 / 2 
+					&& enemys[j]->y > bullets[i]->bullet_pos_y - bullets[i]->size1 / 2)
 				{
 					if (enemys[j]->health - 1 == 0)
 					{
@@ -259,9 +262,11 @@ void Interaction::breath_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 				}
 			}
 			
-			else if (get_mouse_x() > player->chara_pos_x)
+			else if (get_mouse_x() > player->chara_pos_x) // 오른쪽 발사
 			{
-				if (enemys[j]->x > bullets[i]->bullet_pos_x && enemys[j]->y < bullets[i]->bullet_pos_y + bullets[i]->size1 / 2 && enemys[j]->y > bullets[i]->bullet_pos_y - bullets[i]->size1 / 2)
+				if (enemys[j]->x > bullets[i]->bullet_pos_x // 적이 오른쪽에 있을 때
+					&& enemys[j]->y < bullets[i]->bullet_pos_y + bullets[i]->size1 / 2 
+					&& enemys[j]->y > bullets[i]->bullet_pos_y - bullets[i]->size1 / 2)
 				{
 					if (enemys[j]->health - 1 == 0)
 					{
@@ -294,7 +299,7 @@ void Interaction::approach_enemy_interaction(std::vector<Enemy*>& enemys, std::v
 			double b = bullets[i]->y - enemys[j]->y;
 			double distance = sqrt(a * a + b * b);
 
-			if (distance < bullets[i]->size + enemys[j]->enemysize)
+			if (distance < bullets[i]->size / 2 + enemys[j]->enemysize / 2)
 			{
 				if (enemys[j]->health - 1 == 0)
 				{

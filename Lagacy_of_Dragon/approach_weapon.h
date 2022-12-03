@@ -1,5 +1,5 @@
 #ifndef APPROACH_H
-#define APPROaCH_H
+#define APPROACH_H
 
 #include <doodle\doodle.hpp>
 #include "Player.h"
@@ -7,7 +7,7 @@
 
 using namespace doodle;
 
-inline int approachSize = 200;
+inline int approachSize = 160;
 
 inline bool not_clicked_app = false;
 

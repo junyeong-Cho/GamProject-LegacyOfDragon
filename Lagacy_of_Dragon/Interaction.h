@@ -4,7 +4,6 @@
 
 #include "Tutorial.h"
 
-
 #include "Shooting.h"
 #include "ice_weapon.h"
 #include "auto_weapon.h"
@@ -12,6 +11,7 @@
 #include "bomb_weapon.h"
 #include "breath_weapon.h"
 #include "storm_weapon.h"
+
 #include "approach_weapon.h"
 
 constexpr double enemyradius = 15;
