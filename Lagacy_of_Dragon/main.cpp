@@ -22,6 +22,8 @@
 #include "approach_weapon.h"
 #include "storm_weapon.h"
 #include "auto_weapon.h"
+#include "meteor_weapon.h"
+
 
 
 #include "stage1_boss.h"
@@ -68,12 +70,8 @@ UIsetting uisetting;
 
 
 //미완성
-Bomb_update bomb_update; // 여러마리 죽이는 방법 찾는중
 Auto_update auto_update; // 벡터 범위 문제
-
 Breath_update breath_update; //충돌체크
-
-Back_update back_update; // 밀려나고 다시 속도가 안바뀜
 
 
 //완성
@@ -81,6 +79,9 @@ Storm_update storm_update;
 Ice_update ice_update;
 Shooting_update shooting_update;
 Approach_update approach_update; 
+Meteor_update meteor_update;
+Bomb_update bomb_update; // 여러마리 죽이는 방법 찾는중
+Back_update back_update;
 
 
 Enemy_update_tuto enemy_update_tuto;
@@ -124,6 +125,8 @@ int main()
 	vector<Storm*> storm;
 	vector<Approach*> approach;
 	vector<AutoWeapon*> autos;
+	vector<Meteor*> meteor;
+
 
 	vector<Stage1_boss*> boss1;
 	vector<Enemy*> enemys_tuto;
@@ -474,20 +477,20 @@ int main()
 
 			enemy_update.enemy_create(enemys_1_1, 20);
 
-			draw_rectangle(player->chara_pos_x - 100, player->chara_pos_y, 100, 100);
+			//draw_rectangle(player->chara_pos_x - 3600, player->chara_pos_y, 3600, 100);
 
 		
-			breath_update.bullet_create(breath, player);
+			/*breath_update.bullet_create(breath, player);
 			breath_update.bullet_draw(breath, player);
-			breath_update.bullet_remove(breath);
+			breath_update.bullet_remove(breath);*/
 
 		/*	storm_update.bullet_create(storm, player);
 			storm_update.bullet_draw(storm);
 			storm_update.bullet_remove(storm);*/
 
 			
-			/*auto_update.bullet_create(autos, player);
-			auto_update.bullet_move(autos, enemys_1_1, player);*/
+			auto_update.bullet_create(autos, player);
+			auto_update.bullet_draw(autos, enemys_1_1, player);
 
 		    //bomb_update.bullet_draw(bombs);
 			//bomb_update.bullet_create(bombs, player);
@@ -497,8 +500,11 @@ int main()
 			approach_update.bullet_draw(approach);
 			approach_update.bullet_remove(approach);*/
 
+			/*meteor_update.bullet_create(meteor, player);
+			meteor_update.bullet_draw(meteor);
+			meteor_update.bullet_remove(meteor);*/
 
-			//interaction.approach_enemy_interaction(enemys_1_1, approach);
+
 			interaction.storm_enemy_interaction(enemys_1_1,storm);
 			interaction.ice_enemy_interaction(enemys_1_1, ice);
 			interaction.back_enemy_interaction(enemys_1_1, knockback);
@@ -506,7 +512,7 @@ int main()
 			interaction.auto_enemy_interaction(enemys_1_1, autos);
 			interaction.bomb_enemy_interaction(enemys_1_1, bombs);
 			interaction.approach_enemy_interaction(enemys_1_1, approach);
-
+			interaction.meteor_enemy_interaction(enemys_1_1, meteor);
 
 
 			//Boss move

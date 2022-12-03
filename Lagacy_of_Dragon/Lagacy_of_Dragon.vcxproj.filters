@@ -93,6 +93,9 @@
     <ClCompile Include="auto_weapon.cpp">
       <Filter>소스 파일\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="meteor_weapon.cpp">
+      <Filter>소스 파일\Weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -147,6 +150,9 @@
       <Filter>헤더 파일\Weapon</Filter>
     </ClInclude>
     <ClInclude Include="auto_weapon.h">
+      <Filter>헤더 파일\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="meteor_weapon.h">
       <Filter>헤더 파일\Weapon</Filter>
     </ClInclude>
   </ItemGroup>

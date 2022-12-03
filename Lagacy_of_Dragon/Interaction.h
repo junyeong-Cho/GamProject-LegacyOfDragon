@@ -11,6 +11,8 @@
 #include "bomb_weapon.h"
 #include "breath_weapon.h"
 #include "storm_weapon.h"
+#include "meteor_weapon.h"
+
 
 #include "approach_weapon.h"
 
@@ -38,5 +40,7 @@ struct Interaction
 	void auto_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<AutoWeapon*>& bullets);
 	void breath_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<BreathWeapon*>& bullets, Player* player);
 	void approach_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Approach*>& bullets);
+	void meteor_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Meteor*>& bullets);
+
 };
 extern Interaction interaction;

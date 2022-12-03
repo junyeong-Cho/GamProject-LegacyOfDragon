@@ -9,6 +9,30 @@ void AutoWeapon::draw()
 	draw_ellipse(bullet_pos_x, bullet_pos_y, size, size);
 }
 
+void AutoWeapon::FireBullet(std::vector<AutoWeapon*>& bullets, std::vector<Enemy*> enemys, Player* player)
+{
+	for (int j = 0; j < enemys.size(); j++)
+	{
+		if (bullet_pos_x >= enemys[j]->x)
+		{
+			bullet_pos_x -= auvelocity;
+		}
+		if (bullet_pos_x <= enemys[j]->x)
+		{
+			bullet_pos_x += auvelocity;
+		}
+		if (bullet_pos_y >= enemys[j]->y)
+		{
+			bullet_pos_y += auvelocity;
+		}
+		if (bullet_pos_y <= enemys[j]->y)
+		{
+			bullet_pos_y -= auvelocity;
+		}
+	}
+}
+
+
 void Auto_update::bullet_create(std::vector<AutoWeapon*>& bullets, Player* player)
 {
 	if (!MouseIsPressed) {
@@ -21,39 +45,14 @@ void Auto_update::bullet_create(std::vector<AutoWeapon*>& bullets, Player* playe
 	}
 }
 
-void Auto_update::bullet_move(std::vector<AutoWeapon*>& bullets, std::vector<Enemy*> enemys, Player* player)
+void Auto_update::bullet_draw(std::vector<AutoWeapon*>& bullets, std::vector<Enemy*> enemys, Player* player)
 {
-	for (int j = 0; j < enemys.size(); j++)
+	for (int i = 0; bullets.size(); i++)
 	{
-		for (int i = 0; bullets.size(); i++)
-		{
-			push_settings();
-			bullets[i]->draw();
-			pop_settings();
+		push_settings();
+		bullets[i]->draw();
+		bullets[i]->FireBullet(bullets, enemys, player);
+		pop_settings();
 
-			double a = player->chara_pos_x - enemys[j]->x;
-			double b = player->chara_pos_y - enemys[j]->y;
-			double distance = sqrt(a * a + b * b);
-
-			if (distance < auto_range / 2 + enemys[j]->enemysize / 2)
-			{
-				if (bullets[i]->bullet_pos_x >= enemys[j]->x)
-				{
-					bullets[i]->bullet_pos_x -= auvelocity;
-				}
-				if (bullets[i]->bullet_pos_x <= enemys[j]->x)
-				{
-					bullets[i]->bullet_pos_x += auvelocity;
-				}
-				if (bullets[i]->bullet_pos_y >= enemys[j]->y)
-				{
-					bullets[i]->bullet_pos_y += auvelocity;
-				}
-				if (bullets[i]->bullet_pos_y <= enemys[j]->y)
-				{
-					bullets[i]->bullet_pos_y -= auvelocity;
-				}
-			}	
-		}
 	}
 }

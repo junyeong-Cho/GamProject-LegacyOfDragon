@@ -27,11 +27,6 @@ struct BreathWeapon {
 	int size1 = 0;
 	int damage = 0;
 
-	float mouseX = static_cast<float>(get_mouse_x());
-	float mouseY = static_cast<float>(get_mouse_y());
-	float angleX = (mouseX - bullet_pos_x);
-	float angleY = (mouseY - bullet_pos_y);
-
 	void drawR();
 	void drawL();
 

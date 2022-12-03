@@ -20,11 +20,13 @@ struct AutoWeapon {
 	int damage = 0;
 
 	void draw();
+	void FireBullet(std::vector<AutoWeapon*>& bullets, std::vector<Enemy*> enemys, Player* player);
+
 };
 
 struct Auto_update
 {
 	void bullet_create(std::vector<AutoWeapon*>& bullets, Player* player);
-	void bullet_move(std::vector<AutoWeapon*>& bullets, std::vector<Enemy*> enemys, Player* player);
+	void bullet_draw(std::vector<AutoWeapon*>& bullets, std::vector<Enemy*> enemys, Player* player);
 };
 #endif

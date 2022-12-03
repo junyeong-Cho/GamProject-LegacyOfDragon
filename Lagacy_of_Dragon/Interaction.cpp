@@ -7,6 +7,7 @@
 #include "breath_weapon.h"
 #include "storm_weapon.h"
 #include "approach_weapon.h"
+#include "meteor_weapon.h"
 
 void Interaction::player_enemy_interaction(std::vector<Enemy*>& enemys, Player* player)
 {
@@ -244,47 +245,40 @@ void Interaction::breath_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 	{
 		for (int j = 0; j < enemys.size(); j++)
 		{
-			if (get_mouse_x() < player->chara_pos_x) // 왼쪽 발사
-			{
-				if (enemys[j]->x < bullets[i]->bullet_pos_x //적이 왼쪽에 있을 때
-					&& enemys[j]->y < bullets[i]->bullet_pos_y + bullets[i]->size1 / 2 
-					&& enemys[j]->y > bullets[i]->bullet_pos_y - bullets[i]->size1 / 2)
-				{
-					if (enemys[j]->health - 1 == 0)
-					{
-						delete enemys[j];
-						enemys.erase(enemys.begin() + j);
-						break;
-					}
-					else {
-						enemys[j]->health--;
-					}
-				}
-			}
-			
-			else if (get_mouse_x() > player->chara_pos_x) // 오른쪽 발사
-			{
-				if (enemys[j]->x > bullets[i]->bullet_pos_x // 적이 오른쪽에 있을 때
-					&& enemys[j]->y < bullets[i]->bullet_pos_y + bullets[i]->size1 / 2 
-					&& enemys[j]->y > bullets[i]->bullet_pos_y - bullets[i]->size1 / 2)
-				{
-					if (enemys[j]->health - 1 == 0)
-					{
-						delete enemys[j];
-						enemys.erase(enemys.begin() + j);
-						break;
-					}
-					else {
-						enemys[j]->health--;
-					}
-				}
-			}
-			
-
+			double a = enemys[j]->x;
+			double b = enemys[j]->y;
+			double distance = sqrt(a * a + b * b);
 
 			
-				
-			
+			if (enemys[j]->x < player->chara_pos_x
+				&& enemys[j]->y  < player->chara_pos_y + bullets[i]->size1
+				&& enemys[j]->y  > player->chara_pos_y - bullets[i]->size1)
+			{
+				if (enemys[j]->health - 1 == 0)
+				{
+					delete enemys[j];
+					enemys.erase(enemys.begin() + j);
+					break;
+				}
+				else {
+					enemys[j]->health--;
+				}
+			}
+
+			if (enemys[j]->x > player->chara_pos_x
+				&& enemys[j]->y  < player->chara_pos_y + bullets[i]->size1
+				&& enemys[j]->y  > player->chara_pos_y - bullets[i]->size1)
+			{
+				if (enemys[j]->health - 1 == 0)
+				{
+					delete enemys[j];
+					enemys.erase(enemys.begin() + j);
+					break;
+				}
+				else {
+					enemys[j]->health--;
+				}
+			}
 		}
 	}
 }
@@ -305,6 +299,32 @@ void Interaction::approach_enemy_interaction(std::vector<Enemy*>& enemys, std::v
 				{
 					delete enemys[j];
 	                enemys.erase(enemys.begin() + j);
+					break;
+				}
+				else {
+					enemys[j]->health--;
+				}
+			}
+		}
+	}
+}
+
+void Interaction::meteor_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Meteor*>& bullets)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		for (int j = 0; j < enemys.size(); j++)
+		{
+			double a = bullets[i]->bullet_pos_x - enemys[j]->x;
+			double b = bullets[i]->bullet_pos_y - enemys[j]->y;
+			double distance = sqrt(a * a + b * b);
+
+			if (distance < bullets[i]->size / 2 + enemys[j]->enemysize / 2)
+			{
+				if (enemys[j]->health - 1 == 0)
+				{
+					delete enemys[j];
+					enemys.erase(enemys.begin() + j);
 					break;
 				}
 				else {
