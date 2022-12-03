@@ -51,7 +51,7 @@ void Breath_update::bullet_remove(std::vector<BreathWeapon*>& bullets)
 {
 	for (int i = 0; i < bullets.size(); i++)
 	{
-		if (not_clicked_breath = true)
+		if (not_clicked_breath == true)
 		{
 			delete bullets[i];
 			bullets.erase(bullets.begin() + i);

@@ -4,10 +4,29 @@
 using namespace std;
 using namespace doodle;
 
-void Enemy::draw()
+void Enemy::enemy1_draw()
 {
-	set_fill_color(HexColor{ color });
-	draw_ellipse(x, y, enemysize, enemysize);
+	draw_image(enemy1,x, y, enemysize, enemysize);
+}
+void Enemy::enemy2_draw()
+{
+	draw_image(enemy2, x, y, enemysize, enemysize);
+}
+void Enemy::enemy3_draw()
+{
+	draw_image(enemy3, x, y, enemysize, enemysize);
+}
+void Enemy::enemy4_draw()
+{
+	draw_image(enemy4, x, y, enemysize, enemysize);
+}
+void Enemy::enemy5_draw()
+{
+	draw_image(enemy5, x, y, enemysize, enemysize);
+}
+void Enemy::enemy6_draw()
+{
+	draw_image(enemy6, x, y, enemysize, enemysize);
 }
 
 void Enemy_attack::draw_enemy_attack()
@@ -46,9 +65,12 @@ void Enemy_update::enemy_move(std::vector<Enemy*>& enemys, Player* player)
 {
 	for (int i = 0; i < enemys.size(); i++)
 	{
-		push_settings();
-		enemys[i]->draw();
-		pop_settings();
+		enemys[i]->enemy1_draw();
+	/*	enemys[i]->enemy2_draw();
+		enemys[i]->enemy3_draw();
+		enemys[i]->enemy4_draw();
+		enemys[i]->enemy5_draw();
+		enemys[i]->enemy6_draw();*/
 
 		if (enemys[i]->x >= player->chara_pos_x)
 		{
@@ -72,9 +94,7 @@ void Enemy_update_1_3::enemy_move(std::vector<Enemy*>& enemys, Player* player)
 {
 	for (int i = 0; i < enemys.size(); i++)
 	{
-		push_settings();
-		enemys[i]->draw();
-		pop_settings();
+		enemys[i]->enemy3_draw();
 
 		if (enemys[i]->x >= player->chara_pos_x)
 		{
@@ -107,7 +127,7 @@ void Enemy_update_tuto::enemy_create(std::vector<Enemy*>& enemys, int regen)
 			push_settings();
 			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
 			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
-			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 1, 0, 0.5, 30, 0xffffffff, 0 });
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 2, 0, 0.5, 70, 0xffffffff, 0 });
 			pop_settings();
 		}
 		count_once = int_timer;
@@ -124,7 +144,7 @@ void Enemy_update_1_1::enemy_create(std::vector<Enemy*>& enemys, int regen)
 			push_settings();
 			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
 			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
-			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 5, 1, 0.5, 30, 0xffffffff, 1 });
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 5, 1, 0.5, 70, 0xffffffff, 1 });
 			pop_settings();
 		}
 		count_once = int_timer;
@@ -141,7 +161,7 @@ void Enemy_update_1_2::enemy_create(std::vector<Enemy*>& enemys, int regen)
 			push_settings();
 			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
 			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
-			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 1, 0, 0.5, 30, 0xffffffff, 2 });
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 1, 0, 0.5, 70, 0xffffffff, 2 });
 			pop_settings();
 		}
 		count_once = int_timer;
@@ -157,7 +177,7 @@ void Enemy_update_1_3::enemy_create(std::vector<Enemy*>& enemys, int regen)
 			push_settings();
 			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
 			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
-			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 6, 3, 1.5, 90, 0xfff00fff, 3 });
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 6, 3, 1.5, 110, 0xfff00fff, 3 });
 			pop_settings();
 		}
 		count_once = int_timer;
@@ -174,7 +194,7 @@ void Enemy_update_2_1::enemy_create(std::vector<Enemy*>& enemys, int regen)
 			push_settings();
 			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
 			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
-			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 1, 1, 4, 30, 0xf00fffff, 4 });
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 1, 1, 4, 70, 0xf00fffff, 4 });
 			pop_settings();
 		}
 		count_once = int_timer;
@@ -191,7 +211,7 @@ void Enemy_update_2_2::enemy_create(std::vector<Enemy*>& enemys, int regen)
 			push_settings();
 			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
 			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
-			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 2, 2, 4, 30, 0xff00ffff , 5 });
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 2, 2, 4, 70, 0xff00ffff , 5 });
 			pop_settings();
 		}
 		count_once = int_timer;
@@ -208,12 +228,14 @@ void Enemy_update_2_3::enemy_create(std::vector<Enemy*>& enemys, int regen)
 			push_settings();
 			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
 			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
-			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 5, 3, 2.5, 30, 0xf000ffff, 6 });
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 5, 3, 2.5, 70, 0xf000ffff, 6 });
 			pop_settings();
 		}
 		count_once = int_timer;
 	}
 }
+
+
 void Enemy_update::attack_create(std::vector<Enemy_attack*>& attack, std::vector<Enemy*>& enemys, Player player)
 {
 	int_timer = static_cast<int>(timer);

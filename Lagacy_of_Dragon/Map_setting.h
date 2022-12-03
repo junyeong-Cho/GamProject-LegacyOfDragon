@@ -140,6 +140,12 @@ const Image tiles[] = {
 	Image{ "etc/nests/nest6.png" },           //112 = NEST 6
 	Image{ "etc/nests/nest7.png" },           //113 = NEST 7
 	Image{ "etc/nests/nest8.png" },           //114 = NEST 8
+	Image{ "enemy/enemy1.png" },              //115 = ENEMY1
+	Image{ "enemy/enemy2.png" },              //116 = ENEMY2
+	Image{ "enemy/enemy3.png" },              //117 = ENEMY3
+	Image{ "enemy/enemy4.png" },              //118 = ENEMY4
+	Image{ "enemy/enemy5.png" },              //119 = ENEMY5
+	Image{ "enemy/enemy6.png" },              //120 = ENEMY6
 };
 
 
@@ -275,7 +281,12 @@ struct Map_setting {
 		NEST6 = 112,
 		NEST7 = 113,
 		NEST8 = 114,
-
+		ENEMY1 = 115,
+		ENEMY2 = 116,
+		ENEMY3 = 117,
+		ENEMY4 = 118,
+		ENEMY5 = 119,
+		ENEMY6 = 120,
 	};
 
 	const int world_map[world_y][world_x] = {

@@ -20,7 +20,7 @@ struct AutoWeapon {
 	int damage = 0;
 
 	void draw();
-	void FireBullet(std::vector<AutoWeapon*>& bullets, std::vector<Enemy*> enemys, Player* player);
+	void FireBullet(std::vector<Enemy*>& enemys, Player* player);
 
 };
 

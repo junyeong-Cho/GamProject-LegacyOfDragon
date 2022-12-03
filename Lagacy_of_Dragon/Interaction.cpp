@@ -245,9 +245,9 @@ void Interaction::breath_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 	{
 		for (int j = 0; j < enemys.size(); j++)
 		{
-			double a = enemys[j]->x;
+			/*double a = enemys[j]->x;
 			double b = enemys[j]->y;
-			double distance = sqrt(a * a + b * b);
+			double distance = sqrt(a * a + b * b);*/
 
 			
 			if (enemys[j]->x < player->chara_pos_x

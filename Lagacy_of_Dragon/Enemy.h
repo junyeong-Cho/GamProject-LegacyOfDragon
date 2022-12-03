@@ -30,11 +30,17 @@ constexpr int enemy_vel_max_2_1 = 6;
 static constexpr int E_Bvelocity = 6;
 static constexpr int attack_delay = 2;
 
+const Image enemy1{ "enemy/enemy1.png" };             
+const Image enemy2{ "enemy/enemy2.png" };              
+const Image enemy3{ "enemy/enemy3.png" };              
+const Image enemy4{ "enemy/enemy4.png" };             
+const Image enemy5{ "enemy/enemy5.png" };            
+const Image enemy6{ "enemy/enemy6.png" };              
 
 struct Enemy {
 	float x = 0;
 	float y = 0;
-	int health = 1;
+	int health = 2;
 	int deal = 0;
 	float speed = 0.5;
 	int enemysize = 30;
@@ -51,7 +57,13 @@ struct Enemy {
 		color = _color;
 		type = _type;
 	}
-	void draw();
+	void enemy1_draw();
+	void enemy2_draw();
+	void enemy3_draw();
+	void enemy4_draw();
+	void enemy5_draw();
+	void enemy6_draw();
+
 };
 struct Enemy_attack {
 	float attack_pos_x = 0;

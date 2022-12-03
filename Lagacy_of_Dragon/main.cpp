@@ -320,7 +320,7 @@ int main()
 				//Enemy Move
 				enemy_update_tuto.enemy_move(enemys_tuto, player);
 				enemy_update_1_3.enemy_move(enemys_1_3, player);
-				enemy_update_2_1.enemy_move(enemys_2_1, player);
+				//enemy_update_2_1.enemy_move(enemys_2_1, player);
 
 				//Enemy attack
 				enemy_update.attack_create(enemy_attack, enemys_1_3, *player);
@@ -489,16 +489,16 @@ int main()
 			storm_update.bullet_remove(storm);*/
 
 			
-			auto_update.bullet_create(autos, player);
-			auto_update.bullet_draw(autos, enemys_1_1, player);
+			/*auto_update.bullet_create(autos, player);
+			auto_update.bullet_draw(autos, enemys_1_1, player);*/
 
 		    //bomb_update.bullet_draw(bombs);
 			//bomb_update.bullet_create(bombs, player);
 			
 			
-			/*approach_update.bullet_create(approach,player);
+			approach_update.bullet_create(approach,player);
 			approach_update.bullet_draw(approach);
-			approach_update.bullet_remove(approach);*/
+			approach_update.bullet_remove(approach);
 
 			/*meteor_update.bullet_create(meteor, player);
 			meteor_update.bullet_draw(meteor);
