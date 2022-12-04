@@ -489,16 +489,16 @@ int main()
 			storm_update.bullet_remove(storm);*/
 
 			
-			/*auto_update.bullet_create(autos, player);
-			auto_update.bullet_draw(autos, enemys_1_1, player);*/
+			auto_update.bullet_create(autos, enemys_1_1, player);
+			auto_update.bullet_draw(autos, enemys_1_1, player);
 
 		    //bomb_update.bullet_draw(bombs);
 			//bomb_update.bullet_create(bombs, player);
 			
 			
-			approach_update.bullet_create(approach,player);
+			/*approach_update.bullet_create(approach,player);
 			approach_update.bullet_draw(approach);
-			approach_update.bullet_remove(approach);
+			approach_update.bullet_remove(approach);*/
 
 			/*meteor_update.bullet_create(meteor, player);
 			meteor_update.bullet_draw(meteor);

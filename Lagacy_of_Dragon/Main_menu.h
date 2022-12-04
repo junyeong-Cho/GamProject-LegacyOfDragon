@@ -12,8 +12,8 @@ constexpr int gameplay_y = 800;
 constexpr int setting_y = 950;
 constexpr int credit_y = 1100;
 constexpr int exit_y = 1250;
-constexpr int maxvolume_x = 600;
-constexpr int maxvolume_y = 400;
+constexpr int maxvolume_x = 200;
+constexpr int maxvolume_y = 900;
 
 constexpr int click_mainmenu_x = 610;
 constexpr int click_gap_x = 300;

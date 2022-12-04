@@ -17,7 +17,7 @@
 #include "approach_weapon.h"
 
 constexpr double enemyradius = 15;
-constexpr double chararadius = 25;
+constexpr double chararadius = 50;
 constexpr double bulletradius = 5;
 
 constexpr double s1radius = 30;

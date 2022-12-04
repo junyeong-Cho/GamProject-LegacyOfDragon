@@ -18,7 +18,7 @@ void Interaction::player_enemy_interaction(std::vector<Enemy*>& enemys, Player* 
 			double b = player->chara_pos_y - enemys[j]->y;
 			double distance = sqrt(a * a + b * b);
 
-			if (distance < chararadius + enemyradius)
+			if (distance < chararadius + enemys[j]->enemysize)
 			{
 				hp_timer += DeltaTime;
 				if (hp_timer >= hp_time_check)
@@ -218,7 +218,7 @@ void Interaction::auto_enemy_interaction(std::vector<Enemy*>& enemys, std::vecto
 			double b = bullets[i]->bullet_pos_y - enemys[j]->y;
 			double distance = sqrt(a * a + b * b);
 
-			if (distance < bullets[i]->size + enemys[j]->enemysize)
+			if (distance < bullets[i]->size / 2 + enemys[j]->enemysize / 2)
 			{
 				if (enemys[j]->health - 1 == 0)
 				{
@@ -249,7 +249,6 @@ void Interaction::breath_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 			double b = enemys[j]->y;
 			double distance = sqrt(a * a + b * b);*/
 
-			
 			if (enemys[j]->x < player->chara_pos_x
 				&& enemys[j]->y  < player->chara_pos_y + bullets[i]->size1
 				&& enemys[j]->y  > player->chara_pos_y - bullets[i]->size1)
