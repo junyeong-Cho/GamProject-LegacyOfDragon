@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Player.h"
+#include "Camera.h"
 
 inline double timer = 0;
 inline int int_timer = 0;
@@ -10,7 +11,7 @@ inline int int_timer = 0;
 inline int count_enemy_start = 0;
 inline int tuto_enemy_max = 3;
 inline int Max = 6;
-inline int tutoMax = 6;
+inline int count_enemy = 0;
 static constexpr int enemyMin = -800;
 static constexpr int enemyMax = 800;
 static constexpr int enemySize = 30;
@@ -84,6 +85,7 @@ struct Enemy_update {
 	int count_once = 0;
 	virtual void enemy_create(std::vector<Enemy*>& enemys, int regen);
 	virtual void enemy_move(std::vector<Enemy*>& enemys, Player* player);
+	virtual void enemy_move(std::vector<Enemy*>& enemys, Player* player, Camera* camera);
 	virtual void attack_create(std::vector<Enemy_attack*>& attack, std::vector<Enemy*>& enemys, Player player);
 	virtual void attack_draw(std::vector<Enemy_attack*>& attack);
 	virtual void attack_remove(std::vector<Enemy_attack*>& attack);

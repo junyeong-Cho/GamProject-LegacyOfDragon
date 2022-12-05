@@ -15,7 +15,7 @@ constexpr int autodamage = 1;
 inline bool not_clicked_auto = false;
 inline bool is_auto_shoot = false;
 
-std::vector<int> discheck = {};
+//std::vector<int> discheck = {};
 
 struct AutoWeapon {
 	int bullet_pos_x = 0;

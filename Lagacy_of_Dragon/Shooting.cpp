@@ -34,6 +34,7 @@ void Shooting_update::bullet_create(std::vector<Shooting*> &bullets, Player* pla
 		not_clicked = false;
 	}
 }
+
 void Shooting_update::bullet_draw(std::vector<Shooting*> &bullets) {
 	for (int i = 0; i < bullets.size(); i++)
 	{

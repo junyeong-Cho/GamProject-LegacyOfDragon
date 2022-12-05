@@ -14,7 +14,6 @@
 #include "Interaction.h"
 #include "UIsetting.h"
 
-
 #include "bomb_weapon.h"
 #include "back_weapon.h"
 #include "ice_weapon.h"
@@ -27,6 +26,7 @@
 
 
 #include "stage1_boss.h"
+#include "Camera.h"
 
 using namespace std;
 using namespace doodle;
@@ -40,8 +40,8 @@ int tutorial_check = 2;
 //--------------------------------// Tutorial Scene 
 int clicked_check = 0;
 //--------------------------------// Scene
-int scene = 20;
-int tutorial_scene = 0;
+int scene = 10;
+int tutorial_scene = 1;
 //--------------------------------//Bullet
 double bullet_timer = 0;
 int bullet_check = 4;
@@ -127,7 +127,6 @@ int main()
 	vector<AutoWeapon*> autos;
 	vector<Meteor*> meteor;
 
-
 	vector<Stage1_boss*> boss1;
 	vector<Enemy*> enemys_tuto;
 	vector<Enemy*> enemys_1_1;
@@ -137,10 +136,11 @@ int main()
 
 	vector<int> randomboxloc = { 500, 700, 900 };
 
-	Player* player = new Player{ 0, 0 };
-	
+	Player* player = new Player{ Width / 2, Height / 2, 0, 0 };
+	Camera* camera = new Camera{ 0, 0};
 
-	map_setting.char_pos(player);
+	//map_setting.char_pos(player);
+	map_setting.char_pos1(camera);
 
 	while (!is_window_closed())
 	{
@@ -281,8 +281,8 @@ int main()
 			//First Scene(Shoot)			
 			if (tutorial_scene == 1)
 			{
-				player->chara_pos_x = 300;
-				player->chara_pos_y = 300;
+				/*player->chara_pos_x = 300;
+				player->chara_pos_y = 300;*/
 
 				tutorial.scene1_guideline();
 				player_setting.move_limit(player);
@@ -314,18 +314,20 @@ int main()
 
 				//Create Enemy
 				enemy_update_tuto.enemy_create(enemys_tuto, 5);
-				enemy_update_1_3.enemy_create(enemys_1_3, 3);
-				enemy_update_2_1.enemy_create(enemys_2_1, 5);
+				
+				enemy_update_tuto.enemy_move(enemys_tuto, player);
+				//enemy_update_1_3.enemy_create(enemys_1_3, 3);
+				//enemy_update_2_1.enemy_create(enemys_2_1, 5);
 
 				//Enemy Move
-				enemy_update_tuto.enemy_move(enemys_tuto, player);
-				enemy_update_1_3.enemy_move(enemys_1_3, player);
+
+				//enemy_update_1_3.enemy_move(enemys_1_3, player);
 				//enemy_update_2_1.enemy_move(enemys_2_1, player);
 
 				//Enemy attack
-				enemy_update.attack_create(enemy_attack, enemys_1_3, *player);
-				enemy_update.attack_draw(enemy_attack);
-				enemy_update.attack_remove(enemy_attack);
+				//enemy_update.attack_create(enemy_attack, enemys_1_3, *player);
+				//enemy_update.attack_draw(enemy_attack);
+				//enemy_update.attack_remove(enemy_attack);
 
 				//bullet draw
 				shooting_update.bullet_draw(bullets);
@@ -335,11 +337,19 @@ int main()
 
 				//Bullet Enemy Check
 				interaction.bullet_enemy_interaction(enemys_tuto, bullets);
-				interaction.bullet_enemy_interaction(enemys_1_3, bullets);
-				interaction.bullet_enemy_interaction(enemys_2_1, bullets);
+				//interaction.bullet_enemy_interaction(enemys_1_3, bullets);
+				//interaction.bullet_enemy_interaction(enemys_2_1, bullets);
 
 				//Me Enemy check
-				interaction.player_enemy_interaction(enemys_1_1, player);
+				//interaction.player_enemy_interaction(enemys_1_1, player);
+				if (count_enemy - enemys_tuto.size() == 1) {
+					score++;
+					count_enemy = enemys_tuto.size();
+				}
+				else {
+					count_enemy = enemys_tuto.size();
+				}
+
 
 				//Move to Tutorial_last
 				if (score >= tuto_enemy_max)
@@ -381,6 +391,14 @@ int main()
 
 			//Bullet Enemy Check
 			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
+
+			if (count_enemy - enemys_1_1.size() == 1) {
+				chap1_point--;
+				count_enemy = enemys_1_1.size();
+			}
+			else {
+				count_enemy = enemys_1_1.size();
+			}
 
 			//Move next chapter
 			if (chap1_point == 0)
@@ -427,6 +445,9 @@ int main()
 		//BigSize Map 36 * 36 (Its lagging ,its under development) -- Try to Release Mod 
 		if (scene == 10)
 		{
+			player->chara_pos_x = Width / 2;
+			player->chara_pos_y = Height / 2;
+
 			//Player move limit
 			player_setting.move_limit(player);
 
@@ -434,10 +455,13 @@ int main()
 			shooting_update.bullet_create(bullets, player);
 
 			//Draw Map
-			map_setting.stage1_creating();
+			clear_background(255);
+			camera->camera_generate();
+			map_setting.stage1_creating(camera);
 
 			//Create bullet
 			shooting_update.bullet_create(bullets, player);
+			//shooting_update.fix_bullet_create(bullets);
 
 			shooting_update.bullet_draw(bullets);
 
@@ -445,10 +469,10 @@ int main()
 			shooting_update.bullet_remove(bullets);
 
 			//Random enemy
-			enemy_update.enemy_create(enemys_1_1, 20);
+			enemy_update.enemy_create(enemys_1_1, 10);
 
 			//Enemy move
-			enemy_update.enemy_move(enemys_1_1, player);
+			enemy_update.enemy_move(enemys_1_1, player, camera);
 
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
@@ -456,8 +480,10 @@ int main()
 			//Bullet Enemy Check
 			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
 
+			camera->camera_move();
+
 			player->MOVE();
-			player->draw_chara();
+			player->draw_fix_chara();
 			player->hp_chara(&scene);
 
 		}
@@ -466,7 +492,7 @@ int main()
 		if (scene == 20)
 		{
 			//Player move limit
-			player_setting.move_limit(player);
+			//player_setting.move_limit(player);
 
 			//Bullet_shooting
 			//bomb_update.bullet_create(bombs, player);
@@ -484,13 +510,12 @@ int main()
 			breath_update.bullet_draw(breath, player);
 			breath_update.bullet_remove(breath);*/
 
-		/*	storm_update.bullet_create(storm, player);
+			/*storm_update.bullet_create(storm, player);
 			storm_update.bullet_draw(storm);
 			storm_update.bullet_remove(storm);*/
 
-			
-			auto_update.bullet_create(autos, enemys_1_1, player);
-			auto_update.bullet_draw(autos, enemys_1_1, player);
+			/*auto_update.bullet_create(autos, enemys_1_1, player);
+			auto_update.bullet_draw(autos, enemys_1_1, player);*/
 
 		    //bomb_update.bullet_draw(bombs);
 			//bomb_update.bullet_create(bombs, player);

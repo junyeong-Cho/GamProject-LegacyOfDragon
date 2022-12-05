@@ -1,16 +1,17 @@
-#ifndef MAPS_H
+﻿#ifndef MAPS_H
 #define MAPS_H
 
 #include <doodle\doodle.hpp>
 #include <vector>
 #include "Player.h"
+#include "Camera.h"
 using namespace doodle;
 
 static constexpr int world_x = 15;
 static constexpr int world_y = 10;
 
 static constexpr int stage_x = 36;
-static constexpr int stage_y= 36;
+static constexpr int stage_y = 36;
 
 
 const Image tiles[] = {
@@ -52,106 +53,100 @@ const Image tiles[] = {
 
 	Image{"cliff/cliff0.png"},		  //33 = CLIFF 0
 	Image{"cliff/cliff1.png"},		  //34 = CLIFF 1
-//	Image{"cliff/cliff2.png"},		  //35 = CLIFF 2
-	Image{"cliff/cliff3.png"},		  //36 = CLIFF 3
-	Image{"cliff/cliff48.png"},		  //37 = CLIFF 48
-	Image{"cliff/cliff68.png"},		  //38 = CLIFF 68
-	Image{"cliff/cliff123.png"},	  //39 = CLIFF 123
+	Image{"cliff/cliff1.png"},		  //35 = CLIFF 2
+		Image{"cliff/cliff3.png"},		  //36 = CLIFF 3
+		Image{"cliff/cliff48.png"},		  //37 = CLIFF 48
+		Image{"cliff/cliff68.png"},		  //38 = CLIFF 68
+		Image{"cliff/cliff123.png"},	  //39 = CLIFF 123
 
-	Image{"bridge/bridge1.png"},	  //40 = BRIDGE 1
-	Image{"bridge/bridge2.png"},	  //41 = BRIDGE 2
-	Image{"bridge/bridge3.png"},	  //42 = BRIDGE 3
-	Image{"bridge/bridge4.png"},	  //43 = BRIDGE 4
-	Image{"bridge/bridge5.png"},	  //44 = BRIDGE 5
+		Image{"bridge/bridge1.png"},	  //40 = BRIDGE 1
+		Image{"bridge/bridge2.png"},	  //41 = BRIDGE 2
+		Image{"bridge/bridge3.png"},	  //42 = BRIDGE 3
+		Image{"bridge/bridge4.png"},	  //43 = BRIDGE 4
+		Image{"bridge/bridge5.png"},	  //44 = BRIDGE 5
 
-	Image{"sea/sand0.png"},	          //45 = SAND 0
-	Image{"sea/sand123~.png"},	      //46 = SAND 123
-	Image{"sea/sand124~.png"},	      //47 = SAND 124
-	Image{"sea/sand147~.png"},	      //48 = SAND 147
-	Image{"sea/sand236~.png"},	      //49 = SAND 236
-	Image{"sea/sand369~.png"},	      //50 = SAND 369
-	Image{"sea/sand478~.png"},	      //51 = SAND 478
-	Image{"sea/sand689~.png"},	      //52 = SAND 689
-	Image{"sea/sand789~.png"},	      //53 = SAND 789
-	Image{"sea/sea0.png"},	          //54 = SEA 0
-	Image{"sea/sea123~.png"},	      //55 = SEA 123
-	Image{"sea/sea124~.png"},	      //56 = SEA 124
-	Image{"sea/sea147~.png"},	      //57 = SEA 147
-	Image{"sea/sea236~.png"},	      //58 = SEA 236
-	Image{"sea/sea369~.png"},	      //59 = SEA 369
-	Image{"sea/sea478~.png"},	      //60 = SEA 478
-	Image{"sea/sea689~.png"},	      //61 = SEA 689
-	Image{"sea/sea789~.png"},	      //62 = SEA 789
-	Image{"sea/searock.png"},	      //63 = SEA ROCK
-	
-	Image{"shrub/shrub_brown.png"},	  //64 = SHRUB BROWN
+		Image{"sea/sand0.png"},	          //45 = SAND 0
+		Image{"sea/sand123~.png"},	      //46 = SAND 123
+		Image{"sea/sand124~.png"},	      //47 = SAND 124
+		Image{"sea/sand147~.png"},	      //48 = SAND 147
+		Image{"sea/sand236~.png"},	      //49 = SAND 236
+		Image{"sea/sand369~.png"},	      //50 = SAND 369
+		Image{"sea/sand478~.png"},	      //51 = SAND 478
+		Image{"sea/sand689~.png"},	      //52 = SAND 689
+		Image{"sea/sand789~.png"},	      //53 = SAND 789
+		Image{"sea/sea0.png"},	          //54 = SEA 0
+		Image{"sea/sea123~.png"},	      //55 = SEA 123
+		Image{"sea/sea124~.png"},	      //56 = SEA 124
+		Image{"sea/sea147~.png"},	      //57 = SEA 147
+		Image{"sea/sea236~.png"},	      //58 = SEA 236
+		Image{"sea/sea369~.png"},	      //59 = SEA 369
+		Image{"sea/sea478~.png"},	      //60 = SEA 478
+		Image{"sea/sea689~.png"},	      //61 = SEA 689
+		Image{"sea/sea789~.png"},	      //62 = SEA 789
+		Image{"sea/searock.png"},	      //63 = SEA101
 
-	Image{"road/road245.png"},		  //65 = ROAD 245
-	Image{"road/road256.png"},		  //66 = ROAD 256
-	Image{"road/road258.png"},		  //67 = ROAD 258
-	Image{"road/road456.png"},		  //68 = ROAD 456
-	Image{"road/road458.png"},		  //69 = ROAD 458
-	Image{"road/road568.png"},		  //70 = ROAD 568
-	Image{"road/road24568.png"},      //71 = ROAD 24568
+		Image{"shrub/shrub_brown.png"},	  //64 = SHRUB BROWN
 
-	Image{"trees/bank/ginkgo0.png"},  //72 = GINKGO 0
-	Image{"trees/bank/ginkgo2.png"},  //73 = GINKGO 2
-	Image{"trees/bank/ginkgo4.png"},  //74 = GINKGO 4
-	Image{"trees/bank/ginkgo6.png"},  //75 = GINKGO 6
-	Image{"trees/bank/ginkgo8.png"},  //76 = GINKGO 8
-	Image{"trees/bank/ginkgo25.png"}, //77 = GINKGO 25
-	Image{"trees/bank/ginkgo45.png"}, //78 = GINKGO 45
-	Image{"trees/bank/ginkgo56.png"}, //79 = GINKGO 56
-	Image{"trees/bank/ginkgo58.png"}, //80 = GINKGO 58
-	Image{"trees/bank/ginkgo258.png"},//81 = GINKGO 258
-	Image{"trees/bank/ginkgo456.png"},//82 = GINKGO 456
+		Image{"road/road245.png"},		  //65 = ROAD 245
+		Image{"road/road256.png"},		  //66 = ROAD 256
+		Image{"road/road258.png"},		  //67 = ROAD 258
+		Image{"road/road456.png"},		  //68 = ROAD 456
+		Image{"road/road458.png"},		  //69 = ROAD 458
+		Image{"road/road568.png"},		  //70 = ROAD 568
+		Image{"road/road24568.png"},      //71 = ROAD 24568
 
-	Image{"trees/maple/maple0.png"},  //83 = MAPLE 0
-	Image{"trees/maple/maple2.png"},  //84 = MAPLE 2
-	Image{"trees/maple/maple4.png"},  //85 = MAPLE 3
-	Image{"trees/maple/maple6.png"},  //86 = MAPLE 6
-	Image{"trees/maple/maple8.png"},  //87 = MAPLE 8
-	Image{"trees/maple/maple25.png"}, //88 = MAPLE 25
-	Image{"trees/maple/maple45.png"}, //89 = MAPLE 45
-	Image{"trees/maple/maple56.png"}, //90 = MAPLE 56
-	Image{"trees/maple/maple58.png" },//91 = MAPLE 58
-	Image{"trees/maple/maple258.png"},//92 = MAPLE 258
-	Image{"trees/maple/maple456.png"},//93 = MAPLE 456
+		Image{"trees/bank/ginkgo0.png"},  //72 = GINKGO 0
+		Image{"trees/bank/ginkgo2.png"},  //73 = GINKGO 2
+		Image{"trees/bank/ginkgo4.png"},  //74 = GINKGO 4
+		Image{"trees/bank/ginkgo6.png"},  //75 = GINKGO 6
+		Image{"trees/bank/ginkgo8.png"},  //76 = GINKGO 8
+		Image{"trees/bank/ginkgo25.png"}, //77 = GINKGO 25
+		Image{"trees/bank/ginkgo45.png"}, //78 = GINKGO 45
+		Image{"trees/bank/ginkgo56.png"}, //79 = GINKGO 56
+		Image{"trees/bank/ginkgo58.png"}, //80 = GINKGO 58
+		Image{"trees/bank/ginkgo258.png"},//81 = GINKGO 258
+		Image{"trees/bank/ginkgo456.png"},//82 = GINKGO 456
 
-	Image{ "trees/mixtree/mixtree(2)58.png" },//94 = MIXTREE 258
-	Image{ "trees/mixtree/mixtree(4)56.png" },//95 = MIXTREE 456
-	Image{ "trees/mixtree/mixtree2(5)8.png" },//96 = MIXTREE 258
-	Image{ "trees/mixtree/mixtree4(5)6.png" },//97 = MIXTREE 456
-	Image{ "trees/mixtree/mixtree25(8).png" },//98 = MIXTREE 258
-	Image{ "trees/mixtree/mixtree45(6).png" },//99 = MIXTREE 456
+		Image{"trees/maple/maple0.png"},  //83 = MAPLE 0
+		Image{"trees/maple/maple2.png"},  //84 = MAPLE 2
+		Image{"trees/maple/maple4.png"},  //85 = MAPLE 3
+		Image{"trees/maple/maple6.png"},  //86 = MAPLE 6
+		Image{"trees/maple/maple8.png"},  //87 = MAPLE 8
+		Image{"trees/maple/maple25.png"}, //88 = MAPLE 25
+		Image{"trees/maple/maple45.png"}, //89 = MAPLE 45
+		Image{"trees/maple/maple56.png"}, //90 = MAPLE 56
+		Image{"trees/maple/maple58.png" },//91 = MAPLE 58
+		Image{"trees/maple/maple258.png"},//92 = MAPLE 258
+		Image{"trees/maple/maple456.png"},//93 = MAPLE 456
 
-	Image{ "etc/potal.png" },                 //100 = POTAL
-	Image{ "etc/rock1.png" },                 //101 = 101 1
-	Image{ "etc/rock2.png" },                 //102 = 101 2
-	Image{ "etc/meat.png" },                  //103 = MEAT
-	Image{ "etc/redjewery.png" },             //104 = RED JEWEL
-	Image{ "etc/bluejewery.png" },            //105 = BLUE JEWEL
-	Image{ "etc/greenjewery.png" },           //106 = GREEN JEWEL
-	Image{ "etc/nests/nest1.png" },           //107 = NEST 1
-	Image{ "etc/nests/nest2.png" },           //108 = NEST 2
-	Image{ "etc/nests/nest3.png" },           //109 = NEST 3
-	Image{ "etc/nests/nest4.png" },           //110 = NEST 4
-	Image{ "etc/nests/nest5.png" },           //111 = NEST 5
-	Image{ "etc/nests/nest6.png" },           //112 = NEST 6
-	Image{ "etc/nests/nest7.png" },           //113 = NEST 7
-	Image{ "etc/nests/nest8.png" },           //114 = NEST 8
-	Image{ "enemy/enemy1.png" },              //115 = ENEMY1
-	Image{ "enemy/enemy2.png" },              //116 = ENEMY2
-	Image{ "enemy/enemy3.png" },              //117 = ENEMY3
-	Image{ "enemy/enemy4.png" },              //118 = ENEMY4
-	Image{ "enemy/enemy5.png" },              //119 = ENEMY5
-	Image{ "enemy/enemy6.png" },              //120 = ENEMY6
+		Image{ "trees/mixtree/mixtree(2)58.png" },//94 = MIXTREE 258
+		Image{ "trees/mixtree/mixtree(4)56.png" },//95 = MIXTREE 456
+		Image{ "trees/mixtree/mixtree2(5)8.png" },//96 = MIXTREE 258
+		Image{ "trees/mixtree/mixtree4(5)6.png" },//97 = MIXTREE 456
+		Image{ "trees/mixtree/mixtree25(8).png" },//98 = MIXTREE 258
+		Image{ "trees/mixtree/mixtree45(6).png" },//99 = MIXTREE 456
+
+		Image{ "etc/potal.png" },                 //100 = POTAL
+		Image{ "etc/rock1.png" },                 //101 = 101 1
+		Image{ "etc/rock2.png" },                 //102 = 101 2
+		Image{ "etc/meat.png" },                  //103 = MEAT
+		Image{ "etc/redjewery.png" },             //104 = RED JEWEL
+		Image{ "etc/bluejewery.png" },            //105 = BLUE JEWEL
+		Image{ "etc/greenjewery.png" },           //106 = GREEN JEWEL
+		Image{ "etc/nests/nest1.png" },           //107 = NEST 1
+		Image{ "etc/nests/nest2.png" },           //108 = NEST 2
+		Image{ "etc/nests/nest3.png" },           //109 = NEST 3
+		Image{ "etc/nests/nest4.png" },           //110 = NEST 4
+		Image{ "etc/nests/nest5.png" },           //111 = NEST 5
+		Image{ "etc/nests/nest6.png" },           //112 = NEST 6
+		Image{ "etc/nests/nest7.png" },           //113 = NEST 7
+		Image{ "etc/nests/nest8.png" },           //114 = NEST 8
 };
 
 
 
 struct Map_setting {
-	
+
 
 	enum Tiles {
 		PLAI0 = 0,
@@ -224,7 +219,7 @@ struct Map_setting {
 		SEA478 = 60,
 		SEA689 = 61,
 		SEA789 = 62,
-		SEAROCK = 63,
+		SEA101 = 63,
 
 		BROWN = 64,
 		ROAD245 = 65,
@@ -281,13 +276,16 @@ struct Map_setting {
 		NEST6 = 112,
 		NEST7 = 113,
 		NEST8 = 114,
-		ENEMY1 = 115,
-		ENEMY2 = 116,
-		ENEMY3 = 117,
-		ENEMY4 = 118,
-		ENEMY5 = 119,
-		ENEMY6 = 120,
+
 	};
+
+	//BUSH, ROAD, NEST, 100,101, JEWEL Ãß°¡
+
+	//SEA , SAND, MIX
+
+	//UPST, REEF
+
+	//MAPLE, BANK, BROWN
 
 	const int world_map[world_y][world_x] = {
 		{ 13, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 12 },
@@ -302,12 +300,12 @@ struct Map_setting {
 	};
 
 	const int stage1Map[stage_y][stage_x] = {
-	    
+
 		{ 13, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 12 },
 		{ 14, 0,  0,  29, 0,  32, 0,  0,  2,  0,  0,  0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  2,  0,  0,  0,  0,  0,  14 },
 		{ 14, 5,  111,112,113,114,0,  0,  0,  29, 29, 32, 31, 19, 0,  32, 0,  2,  0,  29, 0,  0,  0,  0,  31, 0,  2,  0,  29, 0,  0,  0,  0,  31, 0,  32 },
 		{ 14, 0,  107,108,109,110,30, 19, 0,  0,  0,  0,  0,  0,  0,  19, 0,  30, 5,  30, 19, 0,  0,  0,  0,  0,  0,  30, 19, 0,  0,  0,  0,  0,  0,  14 },
-		{ 14, 0,  0,  0,  0,  0,  0,  0,  2,  0,  0,  0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  2,  0,  0,  0,  0,  0,  14 },
+		{ 14, 0,  0,  0,  1,  0,  0,  0,  2,  0,  0,  0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  2,  0,  0,  0,  0,  0,  14 },
 		{ 14, 5,  0,  30, 0,  31, 0,  0,  0,  29, 29, 32, 31, RED,0,  32, 0,  2,  0,  29, 0,  0,  0,  0,  31, 0,  2,  0,  29, 0,  0,  0,  0,  31, 0,  32 },
 		{ 14, 0,  19, 0,  30, 5,  30, 19, 0,  0,  0,  0,  0,  0,  0,  19, 0,  30, 5,  30, 19, 0,  0,  0,  0,  0,  0,  30, 19, 0,  0,  0,  0,  0,  0,  14 },
 		{ 14, 0,  0,  29, 0,  32, 0,  0,  2,  0,  0,  0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  2,  0,  0,  0,  0,  0,  14 },
@@ -340,85 +338,86 @@ struct Map_setting {
 		{ 14, 5,  0,  30, 0,  31, 0,  0,  0,  29, 29, 32, 31, 19, 0,  32, 0,  2,  0,  29, 0,  0,  0,  0,  31, 0,  2,  101,101,0,  0,  0,  0,  31, 0,  32 },
 		{ 17, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 16 },
 	};
-	
-	const int stage2Map[stage_y][stage_x] = {
+	//
+	//const int stage2Map[stage_y][stage_x] = {
 
-		{ 13, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 12 },
-		{ 14, 0,  0,  29, 0,  32, 0,  0 , 2,  0,  0,  0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  2,  0,  0,  0,  0,  0,  14 },
-		{ 14, 5,  111,112,113,114,0,  0,  0,  29, 29, 32, 31, 19, 0,  32, 0,  2,  0,  29, 0,  0,  0,  0,  31, 0,  2,  0,  29, 0,  0,  0,  0,  31, 0,  32 },
-		{ 14, 0,  107,108,109,110,30, 19, 0,  0,  0,  0,  0,  0,  0,  19, 0,  30, 5,  30, 19, 0,  0,  0,  0,  0,  0,  30, 19, 0,  0,  0,  0,  0,  0,  14 },
-		{ 14, 0,  0,  0,  0,  0,  0,  0,  2,  0,  0,  0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  2,  0,  0,  0,  0,  0,  100 },
-		{ 14, 5,  0,  30, 0,  31, 0,  0,  0,  29, 29, 32, 31, 104,0,  32, 0,  2,  0,  29, 0,  0,  0,  0,  31, 0,  2,  0,  29, 0,  0,  0,  0,  31, 0,  100 },
-		{ 14, 0,  19, 0,  30, 5,  30, 19, 0,  0,  0,  0,  0,  0,  0,  19, 0,  30, 5,  30, 19, 0,  0,  0,  0,  0,  0,  30, 19, 0,  0,  0,  0,  0,  0,  14 },
-		{ 14, 0,  0,  29, 0,  32, 0,  0,  2,  0,  0,  0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  2,  0,  67, 0,  0,  0,  14 },
-		{ 14, 5,  0,  30, 0,  31, 0,  0,  0,  29, 29, 32, 31, 19, 0,  32, 0,  2,  0,  29, 0,  0,  0,  0,  31, 0,  2,  0,  29, 0,  0,  67, 0,  31, 0,  32 },
-		{ 14, 0,  19, 0,  30, 5,  30, 19, 66, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 68, 69, 0,  0,  0,  14 },
-		{ 14, 0,  0,  29, 0,  32, 0,  0,  0,  67, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  14 },
-		{ 14, 5,  0,  30, 0,  31, 0,  0,  0,  67, 29, 32, 31, 19, 0,  32, 0,  0,  30, 29, 0,  0,  0,  0,  31, 0,  2,  0,  29, 0,  0,  0,  0,  31, 0,  32 },
-		{ 14, 0,  19, 0,  30, 5,  30, 19, 0,  67, 0,  0,  0,  0,  0,  19, 0,  29, 29, 30, 19, 0,  0,  0,  0,  0,  0,  30, 19, 0,  0,  0,  0,  0,  0,  14 },
-		{ 14, 0,  0,  29, 0,  32, 0,  0,  0,  67, 0,  0,  0,  0,  0,  0,  29, 29, 30, 0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  2,  0,  0,  0,  0,  0,  14 },
-		{ 14, 5,  0,  30, 0,  31, 0,  0,  0,  67, 29, 32, 31, 19, 0,  32, 0,  0,  29, 29, 0,  0,  0,  0,  31, 0,  2,  0,  29, 0,  0,  0,  0,  31, 0,  32 },
-		{ 14, 0,  19, 0,  30, 5,  30, 19, 0,  67, 0,  0,  0,  0,  0,  19, 0,  30, 0,  30, 19, 0,  0,  0,  0,  0,  0,  30, 19, 0,  0,  0,  0,  0,  0,  14 },
-		{ 14, 5,  0,  30, 0,  31, 0,  0,  0,  67, 29, 32, 31, 19, 0,  32, 0,  30, 30, 29, 0,  0,  0,  0,  31, 0,  2,  0,  29, 0,  0,  0,  0,  31, 0,  32 },
-		{ 14, 0,  19, 0,  30, 5,  30, 19, 0,  67, 0,  0,  0,  0,  0,  19, 0,  0,  0,  30, 19, 0,  0,  0,  0,  0,  0,  30, 19, 0,  0,  0,  0,  0,  0,  14 },
-		{ 14, 0,  0,  29, 0,  32, 0,  0,  0,  67, 0,  0,  0,  0,  0,  0,  29, 29, 29, 0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  2,  0,  0,  0,  0,  0,  14 },
-		{ 14, 5,  0,  30, 0,  31, 0,  0,  0,  67, 29, 32, 31, 19, 0,  32, 0,  29, 29, 29, 0,  0,  0,  0,  31, 0,  2,  0,  29, 0,  0,  0,  0,  31, 0,  32 },
-		{ 14, 0,  19, 0,  30, 5,  30, 19, 0,  67, 0,  0,  0,  0,  0,  19, 0,  0,  0,  30, 19, 0,  0,  0,  0,  0,  0,  30, 19, 0,  0,  0,  0,  0,  0,  14 },
-		{ 14, 0,  0,  29, 0,  32, 0,  0,  0,  67, 0,  0,  0,  0,  0,  0,  29, 29, 29, 0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  2,  0,  0,  0,  0,  0,  14 },
-		{ 14, 5,  0,  30, 0,  31, 0,  0,  0,  67, 29, 32, 31, 19, 0,  32, 0,  29, 0,  29, 0,  0,  0,  0,  31, 0,  2,  0,  29, 0,  0,  0,  0,  31, 0,  32 },
-		{ 14, 0,  19, 0,  30, 5,  30, 19, 0,  67, 0,  0,  0,  0,  0,  19, 0,  30, 30, 30, 19, 0,  0,  0,  0,  0,  0,  30, 19, 0,  0,  0,  0,  0,  0,  14 },
-		{ 14, 0,  0,  29, 0,  32, 0,  0,  0,  67, 0,  0,  0,  0,  0,  0,  29, 29, 0,  30, 0,  0,  0,  0,  29, 0,  32, 0,  0,  2,  0,  0,  0,  0,  0,  14 },
-		{ 14, 5,  0,  30, 0,  31, 0,  0,  0,  67, 29, 32, 31, 19, 0,  0,  0,  30, 30, 29, 0,  0,  0,  0,  31, 0,  2,  0,  29, 0,  0,  0,  0,  31, 0,  32 },
-		{ 14, 0,  19, 0,  0,  0,  0,  0,  0,  67, 0,  0,  0,  0,  0,  19, 0,  29, 0,  30, 19, 0,  0,  0,  0,  0,  0,  30, 19, 0,  0,  0,  0,  101,0,  14 },
-		{ 100,0,  0,  0,  68, 68, 68, 68, 68, 69, 0,  0,  0,  0,  0,  0,  29, 30, 29, 0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  2,  0,  0,  101,0,  0,  14 },
-		{ 100,0,  0,  29, 0,  32, 0,  0,  2,  0,  0,  0,  0,  0,  0,  0,  29, 29, 30, 0,  0,  0,  0,  0,  29, 0,  32, 0,  0,  2,  0,  0,  0,  0,  0,  14 },
-		{ 14, 5,  0,  30, 0,  101,0,  0,  0,  29, 29, 32, 31, 19, 0,  32, 0,  29, 30, 0,  0,  0,  0,  0,  31, 0,  2,  0,  29, 0,  0,  0,  0,  31, 0,  100},
-		{ 49, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 46, 0,  0,  29, 0,  32, 0,  0,  2,  0,  0,  0,  0,  0,  100},
-		{ 49, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45 },
-		{ 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45, 45 },
-		{ 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 56 },
-		{ 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 57 },
-		{ 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54, 54 }
-	};
-	
+ //          // 1   2      3      4      5       6       7     8       9    10       11  12       13     14    15    16       17    18    19       20    21     22    23       24    25    26      27      28      29   30     31      32    33     34     35      36
+	//	{ 13, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 12 },
+	//	{ 14, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 29, 0, 32, 0, 0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 0, 0, 0, 14 },
+	//	{ 14, 5, NEST,  NEST,  NEST,   NEST, 0, 0, 0, 29, 29, 32, 31, 19, 0, 32, 0, 2, 0, 29, 0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 0, 31, 0, 32 },
+	//	{ 14, 0, NEST,  NEST,  NEST,   NEST, 30, 19, 0, 0, 0, 0, 0, 0, 0, 19, 0, 30, 5, 30, 19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 0, 0, 0, 14 },
+	//	{ 14, 0, NEST,  NEST,  NEST,   NEST, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 29, 0, 32, 0, 0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 0, 0, 0, 100 },
+	//	{ 14, 5, 0, 30, 0, 31, 0, 0, 0, 29, 29, 32, 31, JEWEL, 0, 32, 0, 2, 0, 29, 0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 0, 31, 0, 100 },
+	//	{ 14, 0, 19, 0, 30, 5, 30, 19, 0, 0, 0, 0, 0, 0, 0, 19, 0, 30, 5, 30, 19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 0, 0, 0, 14 },
+	//	{ 14, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 29, 0, 32, 0, 0, 0, 0, 0, 29, 0, 32, 0, 0, 2,  ROAD,  ROAD, 0, 0, 0, 14 },
+	//	{ 14, 5, 0, 30, 0, 31, 0, 0, 0, 29, 29, 32, 31, 19, 0, 32, 0, 2, 0, 29, 0, 0, 0, 0, 31, 0, 2, 0, 29, 0,  ROAD,  ROAD, 0, 31, 0, 32 },
+	//	{ 14, 0, 19, 0, 30, 5, 30, 19, ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,   ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD, 0, 0, 0, 14 },
+	//	{ 14, 0, 0, 29, 0, 32, 0, 0, ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,   ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD, 0, 0, 0, 14 },
+	//	{ 14, 5, 0, 30, 0, 31, 0, 0, ROAD,  ROAD, 29, 32, 31, 19, 0, 32, 0, 0,  30, 29,  0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 0, 31, 0, 32 },
+	//	{ 14, 0, 19, 0, 30, 5, 30, 19, ROAD,  ROAD, 0, 0, 0, 0, 0, 19, 0, 29,  29, 30,  19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 0, 0, 0, 14 },
+	//	{ 14, 0, 0, 29, 0, 32, 0, 0, ROAD,  ROAD, 0, 0, 0, 0, 0, 0, 29, 29,  30, 0,  0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 0, 0, 0, 14 },
+	//	{ 14, 5, 0, 30, 0, 31, 0, 0, ROAD,  ROAD, 29, 32, 31, 19, 0, 32, 0, 0,  29, 29,  0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 0, 31, 0, 32 },
+	//	{ 14, 0, 19, 0, 30, 5, 30, 19, ROAD,  ROAD, 0, 0, 0, 0, 0, 19, 0, 30,  0, 30,  19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 0, 0, 0, 14 },
+	//	{ 14, 5, 0, 30, 0, 31, 0, 0, ROAD,  ROAD, 29, 32, 31, 19, 0, 32, 0, 30,  30, 29,  0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 0, 31, 0, 32 },
+	//	{ 14, 0, 19, 0, 30, 5, 30, 19, ROAD,  ROAD, 0, 0, 0, 0, 0, 19, 0, 0,  0, 30,  19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 0, 0, 0, 14 },
+	//	{ 14, 0, 0, 29, 0, 32, 0, 0, ROAD,  ROAD, 0, 0, 0, 0, 0, 0, 29, 29,  29, 0,  0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 0, 0, 0, 14 },
+	//	{ 14, 5, 0, 30, 0, 31, 0, 0, ROAD,  ROAD, 29, 32, 31, 19, 0, 32, 0, 29,  29, 29,  0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 0, 31, 0, 32 },
+	//	{ 14, 0, 19, 0, 30, 5, 30, 19, ROAD,  ROAD, 0, 0, 0, 0, 0, 19, 0, 0,  0, 30,  19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 0, 0, 0, 14 },
+	//	{ 14, 0, 0, 29, 0, 32, 0, 0, ROAD,  ROAD, 0, 0, 0, 0, 0, 0, 29, 29,  29, 0,  0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 0, 0, 0, 14 },
+	//	{ 14, 5, 0, 30, 0, 31, 0, 0, ROAD,  ROAD, 29, 32, 31, 19, 0, 32, 0, 29,  0, 29,  0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 0, 31, 0, 32 },
+	//	{ 14, 0, 19, 0, 30, 5, 30, 19, ROAD,  ROAD, 0, 0, 0, 0, 0, 19, 0, 30,  30, 30,  19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 0, 0, 0, 14 },
+	//	{ 14, 0, 0, 29, 0, 32, 0, 0, ROAD,  ROAD, 0, 0, 0, 0, 0, 0, 29, 29,  0, 30,  0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 0, 0, 0, 14 },
+	//	{ 14, 5, 0, 30, 0, 31, 0, 0, ROAD,  ROAD, 29, 32, 31, 19, 0, 0,  0, 30,  30, 29,  0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 0, 31, 0, 32 },
+	//	{ 14, 0, 19, 0, ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD, 0, 0, 0, 0, 0, 19, 0, 29,  0, 30,  19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 0, 101,  0, 14 },
+	//	{ 100, 0, 0, 0, ROAD, ROAD,  ROAD,  ROAD,  ROAD,  ROAD, 0, 0, 0, 0, 0, 0, 29, 30,  29, 0,  0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 101,  0, 0, 14 },
+	//	{ 100, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 29, 29, 30, 0,  0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 0, 0, 0, 14 },
+	//	{ 14, 5, 0, 30, 0, 101,  0, 0, 0, 29, 29, 32, 31, 19, 0, 32, 0, 29, 30, 0,  0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 0, 31, 0, 100 },
+	//	{ 14, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 29, 0, 32, 0, 0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 0, 0, 0, 100},
+	//	{ 14, MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,  MIX,    MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,   MIX,  MIX },
+	//	{ SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  MIX,   MIX,   SAND,  SAND,  SAND,  SAND,  SAND,   SAND,  SAND,  SAND,  SAND,  SAND,  SAND, SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND },
+	//	{ SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SEA,   SEA,   SEA,   SEA,   SEA,   SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,   SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SEA,   SAND,  SAND,  SAND,  SAND },
+	//	{ SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SAND,  SEA,   SEA,   SAND,  SAND,  SEA,   SEA,   SEA,   SEA,   SEA,   SAND,  SAND,  SAND,  SAND },
+	//	{ SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SAND,  SAND }
+	//};
+	//
 	//const int stage3Map[stage_y][stage_x] = {
-
-	//	{ UPST,  UPST,  UPST,  15, 15, 15, 15, 15, 15, 15, 15, 15, 101,  100,100,101,  15, 15, 15, 15, 15, 15, 15, 15, 59,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  0, 32, 0, 0, 2, 101,  0, 101,  0, 0, 0, 0, 29, 0, 32, 0, 0, 0, 0, 0, 29, 0, 59,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA },
-	//	{ UPST,  UPST,  UPST,  UPST, 0,  0, 0, 0, 0, 29, 29, 32, 31, ROAD,  0, 32, 0, 2, 0, 29, 0, 0, 0, 0, 31, 0, 2, 0, 59,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA },
+	//	// 1   2      3      4      5       6       7     8       9    10       11  12       13     14    15    16       17    18    19       20    21     22    23       24    25    26      27      28      29   30     31      32    33     34     35      36
+	//	{ UPST,  UPST,  UPST,  15, 15, 15, 15, 15, 15, 15, 15, 15, 101,  100,100,101,  15, 15, 15, 15, 15, 15, 15, 15, SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  0, 32, 0, 0, 2, 101,  0, 101,  0, 0, 0, 0, 29, 0, 32, 0, 0, 0, 0, 0, 29, 0, SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST, 0,  0, 0, 0, 0, 29, 29, 32, 31, ROAD,  0, 32, 0, 2, 0, 29, 0, 0, 0, 0, 31, 0, 2, 0, SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA },
 	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  0, 30, 19, 0, 0, 0, 0, 0, ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD , 19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 0, 0, 0, SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 29, 0, 32, ROAD,  0, 0, 0, 0, 29, 0, 32, 0, 59,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 29, 29, 32, 31, JEWEL, 0, 32, 0, 2, 0, ROAD,  0, 0, 0, 0, 31, 0, 2, 0, 29, 59,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 0, 0, 0, 0, 19, 0, 30, 5, ROAD,  19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 59,   SEA,   SEA,   SEA,   SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 29, 0, 32, ROAD,  0, 0, 0, 0, 29, 0, 32, 0, SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 29, 29, 32, 31, JEWEL, 0, 32, 0, 2, 0, ROAD,  0, 0, 0, 0, 31, 0, 2, 0, 29, SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 0, 0, 0, 0, 19, 0, 30, 5, ROAD,  19, 0, 0, 0, 0, 0, 0, 30, 19, 0, SEA,   SEA,   SEA,   SEA,   SEA,   SEA },
 	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 0, 0, 0, 29, 0, 32, ROAD,  0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 0, 0, 0, SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 32, 31, 19, 0, 32, 0, 2, ROAD,  29, 0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 59,   SEA,   SEA,   SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,   29, 29, 31, 29, 29, 32, 29, 29, ROAD,  19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 59,   SEA,   SEA,   SEA,   SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  31, 0, 29, 31, 29, 32, 29, 0, ROAD,  0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 59,   SEA,   SEA,   SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  32, 31, 19, 0, 32, 0, 29, 29, ROAD,  0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 0, 59,   SEA,   SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 0, 0, 19, 0, 29, 29, ROAD,  19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 0, 59,   SEA,   SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 0, 0, 0, 0, 29, 29, 29, ROAD,  0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 0, 59,   54,   SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  29, 29, 32, 31, 19, 0, 32, 0, 29, 29, ROAD,  0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 0, 59,   SEA,   SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 0, 0, 0, 19, 0, 29, 29, ROAD,  19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 0, 0, 59,   SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 0, 0, 0, 0, 29, 29, 29, ROAD,  0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 0, 0, 59,   SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 29, 29, 32, 31, 19, 0, 32, 0, 29, 29, ROAD,  0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 0, 31, 59,   SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 0, 0, 0, 0, 19, 0, 29, 29, ROAD,  19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 0, 0, 59,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 32, 31, 19, 0, 32, 0, 2, ROAD,  29, 0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, SEA,   SEA,   SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,   29, 29, 31, 29, 29, 32, 29, 29, ROAD,  19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, SEA,   SEA,   SEA,   SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  31, 0, 29, 31, 29, 32, 29, 0, ROAD,  0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, SEA,   SEA,   SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  32, 31, 19, 0, 32, 0, 29, 29, ROAD,  0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 0, SEA,   SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 0, 0, 19, 0, 29, 29, ROAD,  19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 0, SEA,   SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 0, 0, 0, 0, 29, 29, 29, ROAD,  0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 0, SEA,   SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  29, 29, 32, 31, 19, 0, 32, 0, 29, 29, ROAD,  0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 0, SEA,   SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 0, 0, 0, 19, 0, 29, 29, ROAD,  19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 0, 0, SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 0, 0, 0, 0, 29, 29, 29, ROAD,  0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 0, 0, SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 29, 29, 32, 31, 19, 0, 32, 0, 29, 29, ROAD,  0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 0, 31, SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 0, 0, 0, 0, 19, 0, 29, 29, ROAD,  19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 0, 0, SEA,   SEA },
 	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 2, 0, 0, ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  ROAD,  0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 0, 0, SEA,   SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 29, 29, ROAD,  31, 19, 0, 32, 0, 29, 29, 29, 0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 0, 31, 59,   SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  5, 30, 19, 0, 0, 0, ROAD,  0, 0, 0, 19, 0, 0, 0, 30, 19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 30, 0, 59,   SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  32, 0, 0, 2, 0, 0, ROAD,  0, 0, 0, 0, 29, 29, 0, 0, 0, 0, 0, 0, 29, 0, 32, 30, 0, 30, 0, 0, 0, 0, 59,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  UPST,  0, 0, 0, 29, 29, ROAD,  31, 19, 0, 32, 0, 29, 29, 29, 0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 0, 31, SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  5, 30, 19, 0, 0, 0, ROAD,  0, 0, 0, 19, 0, 0, 0, 30, 19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 30, 0, SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  32, 0, 0, 2, 0, 0, ROAD,  0, 0, 0, 0, 29, 29, 0, 0, 0, 0, 0, 0, 29, 0, 32, 30, 0, 30, 0, 0, 0, 0, SEA,   SEA },
 	//	{ UPST,  UPST,  UPST,  UPST,  UPST,  31, 0, 0, 0, 29, 29, ROAD,  31, 19, 0, 32, 0, 0, 31, 29, 0, 0, 0, 30, 31, 0, 2, 0, 29, 0, 0, 0, 0, 31, SEA,   SEA },
-	//	{ UPST,  UPST,  UPST,  UPST,  30, 5, 30, 19, 0, 0, 0, ROAD,  0, 0, 0, 19, 0, 29, 0, 31, 19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 30, 0, 0, 0, 59,   SEA },
-	//	{ UPST,  UPST,  UPST,  29, 0, 32, 0, 0, 2, 0, 0, ROAD,  0, 0, 0, 0, 29, 0, 30, 0, 0, 0, 0, 30, 29, 0, 32, 0, 0, 2, 0, 0, 30, 59,   SEA,   SEA },
-	//	{ UPST,  UPST,  0, 30, 0, 31, 0, 0, 0, 29, 29, ROAD,  31, 19, 0, 0,  0, 29, 31, 29, 0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 30, 59,   SEA,   SEA },
-	//	{ 14, 0, 19, 0, 30, 5, 30, 19, 0, 0, 0, ROAD,  0, 0, 0, 19, 0, 0, 31, 31, 19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 0, 59,   SEA,   SEA },
-	//	{ 14, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, ROAD,  0, 0, 0, 0, 29, 29, 0, 31, 0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, 59,   SEA,   SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  UPST,  30, 5, 30, 19, 0, 0, 0, ROAD,  0, 0, 0, 19, 0, 29, 0, 31, 19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 30, 0, 0, 0, SEA,   SEA },
+	//	{ UPST,  UPST,  UPST,  29, 0, 32, 0, 0, 2, 0, 0, ROAD,  0, 0, 0, 0, 29, 0, 30, 0, 0, 0, 0, 30, 29, 0, 32, 0, 0, 2, 0, 0, 30, SEA,   SEA,   SEA },
+	//	{ UPST,  UPST,  0, 30, 0, 31, 0, 0, 0, 29, 29, ROAD,  31, 19, 0, 0,  0, 29, 31, 29, 0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 0, 0, 30, SEA,   SEA,   SEA },
+	//	{ 14, 0, 19, 0, 30, 5, 30, 19, 0, 0, 0, ROAD,  0, 0, 0, 19, 0, 0, 31, 31, 19, 0, 0, 0, 0, 0, 0, 30, 19, 0, 0, 0, 0, SEA,   SEA,   SEA },
+	//	{ 14, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, ROAD,  0, 0, 0, 0, 29, 29, 0, 31, 0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 0, SEA,   SEA,   SEA,   SEA },
 	//	{ 101,  0, 0, 29, 0, 32, 0, 0, 2, 0, 0, ROAD,  0, 0, 0, 0,  29, 29, 31, 29, 29, 29, 29, 0, 29, 0, 32, 0, 0, 2, 0, SEA,   SEA,   SEA,   SEA,   SEA },
 	//	{ 14, 5, 0, 30, 0, 101,  0, 0, 0, 29, 29, ROAD,  31, 19, 0,  32, 0, 0, 29, 31, 29, 29, 29, 0, 31, 0, 2, 0, 29, 0, 0, SEA,   SEA,   SEA,   SEA,   SEA },
-	//	{ 100,0, 0, 29, 0, 32, 0, 0, 2, 0, 0, ROAD,  0, 0, 0, 0, 29, 0, 32, 0, 0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, 59,   SEA,   SEA,   SEA,   SEA},
-	//	{ 100,5, 0, ROAD,  ROAD,  ROAD,  ROAD,  ROAD , ROAD,  ROAD,  ROAD , ROAD,  31, 19, 0, 32, 0, 2, 0, 29, 0, 0, 0, 0, 31, 0, 2, 0, 29, 0, 59,   SEA,   SEA,   SEA,   SEA,   SEA },
-	//	{ 14, 0, 19, 0, 30, 5, 30, 19, 0, 0, 0, 0, 0, 0, 0, 19, 0, 30, 5, 30, 19, 0, 0, 0, 0, 0, 0, 30, 59,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA },
-	//	{ 14, 5, 0, 30, 0, 101,  0, 0, 0, 29, 101,  101,  31, 19, 0, 32, 0, 2, 0, 29, 0, 0, 0, 59,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA },
-	//	{ 17, 15, 15, 15, 101, 15,  15, 15, 101, 15,  15, 15, 101,  15, 15, 15, 15, 15, 15, 15, 59,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA },
+	//	{ 100,0, 0, 29, 0, 32, 0, 0, 2, 0, 0, ROAD,  0, 0, 0, 0, 29, 0, 32, 0, 0, 0, 0, 0, 29, 0, 32, 0, 0, 2, 0, SEA,   SEA,   SEA,   SEA,   SEA},
+	//	{ 100,5, 0, ROAD,  ROAD,  ROAD,  ROAD,  ROAD , ROAD,  ROAD,  ROAD , ROAD,  31, 19, 0, 32, 0, 2, 0, 29, 0, 0, 0, 0, 31, 0, 2, 0, 29, 0, SEA,   SEA,   SEA,   SEA,   SEA,   SEA },
+	//	{ 14, 0, 19, 0, 30, 5, 30, 19, 0, 0, 0, 0, 0, 0, 0, 19, 0, 30, 5, 30, 19, 0, 0, 0, 0, 0, 0, 30, SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA },
+	//	{ 14, 5, 0, 30, 0, 101,  0, 0, 0, 29, 101,  101,  31, 19, 0, 32, 0, 2, 0, 29, 0, 0, 0, SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA },
+	//	{ 17, 15, 15, 15, 101, 15,  15, 15, 101, 15,  15, 15, 101,  15, 15, 15, 15, 15, 15, 15, SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA,   SEA },
 	//};
 
 	//const int stage4Map[stage_y][stage_x] = {
@@ -462,14 +461,14 @@ struct Map_setting {
 	//};
 
 	void map_creating();
-	void stage1_creating();
-	void stage2_creating();
-	/*void stage3_creating();
-	void stage4_creating();*/
+	void stage1_creating(Camera* camera);
+	//void stage2_creating();
+	//void stage3_creating();
+	//void stage4_creating();
 
 	void char_pos(Player* player);
-	void char_pos1(Player* player);
-	void char_pos2(Player* player);
+	void char_pos1(Camera* camera);
+	//void char_pos2(Player* player);
 	//void char_pos3(Player* player);
 	//void char_pos4(Player* player);
 

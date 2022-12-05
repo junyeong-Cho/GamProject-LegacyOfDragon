@@ -34,3 +34,4 @@ void Map_setting::char_pos(Player* player)
 		}
 	}
 }
+

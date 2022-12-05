@@ -48,7 +48,7 @@ void Interaction::bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 
 			if (distance < bullets[i]->size + enemys[j]->enemysize)
 			{
-				if (enemys[j]->health - 3 == 0)
+				if (enemys[j]->health == 0)
 				{
 					delete bullets[i];
 					delete enemys[j];
@@ -61,6 +61,7 @@ void Interaction::bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 					delete bullets[i];
 					bullets.erase(bullets.begin() + i);
 					enemys[j]->health--;
+					break;
 				}
 			}
 		}
@@ -92,6 +93,7 @@ void Interaction::ice_enemy_interaction(std::vector<Enemy*>& enemys, std::vector
 					delete bullets[i];
 					bullets.erase(bullets.begin() + i);
 					enemys[j]->health --;
+					break;
 				}
 			}
 		}
@@ -201,6 +203,7 @@ void Interaction::bomb_enemy_interaction(std::vector<Enemy*>& enemys, std::vecto
 						delete bullets[i];
 						bullets.erase(bullets.begin() + i);
 						enemys[j]->health--;
+						break;
 					}
 				}
 			}
@@ -233,6 +236,7 @@ void Interaction::auto_enemy_interaction(std::vector<Enemy*>& enemys, std::vecto
 					delete bullets[i];
 					bullets.erase(bullets.begin() + i);
 					enemys[j]->health--;
+					break;
 				}
 			}
 		}

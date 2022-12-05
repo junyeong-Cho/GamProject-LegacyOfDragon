@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include <doodle\doodle.hpp>
 #include <iostream>
+#include "Camera.h"
 using namespace std;
 using namespace doodle;
 
@@ -71,6 +72,35 @@ void Enemy_update::enemy_move(std::vector<Enemy*>& enemys, Player* player)
 		enemys[i]->enemy4_draw();
 		enemys[i]->enemy5_draw();
 		enemys[i]->enemy6_draw();*/
+
+		if (enemys[i]->x >= player->chara_pos_x)
+		{
+			enemys[i]->x -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->x <= player->chara_pos_x)
+		{
+			enemys[i]->x += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->y >= player->chara_pos_y)
+		{
+			enemys[i]->y -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->y <= player->chara_pos_y)
+		{
+			enemys[i]->y += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+	}
+}
+void Enemy_update::enemy_move(std::vector<Enemy*>& enemys, Player* player, Camera* camera)
+{
+	for (int i = 0; i < enemys.size(); i++)
+	{
+		enemys[i]->enemy1_draw();
+		/*	enemys[i]->enemy2_draw();
+			enemys[i]->enemy3_draw();
+			enemys[i]->enemy4_draw();
+			enemys[i]->enemy5_draw();
+			enemys[i]->enemy6_draw();*/
 
 		if (enemys[i]->x >= player->chara_pos_x)
 		{
