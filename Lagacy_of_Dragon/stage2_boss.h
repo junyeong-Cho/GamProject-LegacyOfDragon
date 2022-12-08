@@ -47,7 +47,7 @@ struct Stage2_boss {
 
 	void draw();
 	void move();
-	void hp(int* scene);
+	void hp();
 };
 
 struct S2boss_update {

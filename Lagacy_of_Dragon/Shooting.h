@@ -7,7 +7,7 @@
 using namespace doodle;
 
 static constexpr int Pvelocity = 3;
-static constexpr int Bvelocity = 10;
+static constexpr int Bvelocity = 20;
 static constexpr int Player_r = 50;
 
 constexpr int bulletSize = 10;
@@ -36,7 +36,7 @@ struct Shooting_update
 	void bullet_create(std::vector<Shooting*> &bullets, Player* player);
 	void bullet_draw(std::vector<Shooting*> &bullets);
 	void bullet_remove(std::vector<Shooting*> &bullets);
-	void coolTime(std::vector<Shooting*>& bullets, Player* player);
+	void coolTime(Player* player);
 };
 
 extern Shooting_update shooting_update;

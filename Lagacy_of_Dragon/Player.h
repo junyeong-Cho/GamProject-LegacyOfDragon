@@ -22,13 +22,13 @@ constexpr int player_limit_y1 = 100;
 struct Player {
 	int chara_pos_x = 0;
 	int chara_pos_y = 0;
-	double speed = 2.0;
-	int hp = 5;
+	double speed = 0;
+	int hp = 0;
 
 	void draw_chara();
 	void draw_fix_chara();
 	void MOVE();
-	void hp_chara(int* scene);
+	void hp_chara();
 };
 
 struct Player_setting

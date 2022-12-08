@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Map_setting.h"
+#include "Window_setting.h"
 #include <doodle\doodle.hpp>
 #include <iostream>
 
@@ -117,7 +118,7 @@ void Player_setting::move_limit(Player* player)
 	//player->MOVE();
 }
 
-void Player::hp_chara(int* scene)
+void Player::hp_chara()
 {
 	set_rectangle_mode(RectMode::Corner);
 	push_settings();
@@ -129,7 +130,7 @@ void Player::hp_chara(int* scene)
 	set_fill_color(HexColor{ 0xFF0000FF });
 	draw_rectangle(200, 100, 60 * hp, 50);
 	pop_settings();
-	if (hp <= 0)
+	if (hp == 0)
 	{
 		scene = 0;
 		close_window();

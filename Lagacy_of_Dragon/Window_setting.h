@@ -4,6 +4,10 @@
 #include <doodle\doodle.hpp>
 using namespace doodle;
 
+
+inline int scene = 10;
+
+
 struct Window_setting {
 	void setting();
 };

@@ -1,5 +1,6 @@
 #include "stage1_boss.h"
 #include <doodle\doodle.hpp>
+#include "Window_setting.h"
 
 using namespace doodle;
 
@@ -37,7 +38,7 @@ void Stage1_boss::move()
 	}
 }
 
-void Stage1_boss::hp(int* scene)
+void Stage1_boss::hp()
 {
 	set_rectangle_mode(RectMode::Corner);
 	push_settings();
@@ -51,38 +52,6 @@ void Stage1_boss::hp(int* scene)
 	pop_settings();
 	if (health <= 0)
 	{
-		scene = 0;
+		scene = 16;
 	}
 }
-//void Stage1_update::boss_create(std::vector<Stage1_boss*>& boss1)
-//{
-//	boss1.push_back(new Stage1_boss{ boss1_x, boss1_y, s1bossSize, s1_boss_vel, boss1_hp });
-//}
-//
-//void Stage1_update::boss_move(std::vector<Stage1_boss*>& boss1)
-//{
-//	for (int i = 0; i < boss1.size(); i++)
-//	{
-//		boss1[i]->x += boss1[i]->velocity;
-//
-//		if (boss1[i]->x <= 100)
-//		{
-//			boss1[i]->velocity *= -1;
-//		}
-//		if (boss1[i]->x >= 1400)
-//		{
-//			boss1[i]->velocity *= -1;
-//		}
-//	}
-//}
-//
-//void Stage1_update::boss_draw(std::vector<Stage1_boss*>& boss1)
-//{
-//	push_settings();
-//	for (int i = 0; i < boss1.size(); i++)
-//	{
-//		boss1[i]->draw();
-//	}
-//	pop_settings();
-//}
-

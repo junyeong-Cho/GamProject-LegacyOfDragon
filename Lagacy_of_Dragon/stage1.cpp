@@ -1,6 +1,7 @@
 #include "Map_setting.h"
 #include "Player.h"
 #include "Camera.h"
+#include "Window_setting.h"
 
 void Map_setting::stage1_creating(Camera* camera)
 {
@@ -40,6 +41,10 @@ void Map_setting::stage1_creating(Camera* camera)
 			if (tile == map_setting.CHARA)
 			{
 				tile = map_setting.PLAI0;
+			}
+			if (map_setting.CHARA == map_setting.POTAL)
+			{
+				scene += 1;
 			}
 			draw_image(tiles[tile], x * tile_size + camera->offsetX, y * tile_size + camera->offsetY, tile_size, tile_size);
 		}

@@ -3,7 +3,7 @@
 using namespace doodle;
 
 double Shooting::radius() {
-	double radius = static_cast<int>(size / 2);
+	double radius = static_cast<int>(size / static_cast<double>(2));
 	return radius;
 }
 
@@ -67,7 +67,7 @@ void Shooting_update::bullet_remove(std::vector<Shooting*>& bullets) {
 	}
 }
 
-void Shooting_update::coolTime(std::vector<Shooting*>& bullets, Player* player)
+void Shooting_update::coolTime(Player* player)
 {
 	set_rectangle_mode(RectMode::Corner);
 	push_settings();

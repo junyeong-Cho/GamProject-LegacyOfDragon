@@ -49,7 +49,7 @@ struct Interaction
 
 	void player_boss1_interaction(Stage1_boss* boss1, std::vector<Shooting*>& bullets);
 	void player_boss2_interaction(Stage2_boss* boss2, std::vector<Shooting*>& bullets);
-	void boss2_player_interaction(Stage2_boss* boss2, Player* player);
+	void boss2_player_interaction(Player* player);
 };
 extern Interaction interaction;
 

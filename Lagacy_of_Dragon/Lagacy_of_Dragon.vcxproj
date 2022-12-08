@@ -149,6 +149,7 @@
     <ClCompile Include="stage2.cpp" />
     <ClCompile Include="stage2_boss.cpp" />
     <ClCompile Include="stage3.cpp" />
+    <ClCompile Include="stage3_boss.cpp" />
     <ClCompile Include="stage4.cpp" />
     <ClCompile Include="stage5.cpp" />
     <ClCompile Include="stage6.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="Tutorial.h" />
     <ClInclude Include="UIsetting.h" />
     <ClInclude Include="Window_setting.h" />
+    <ClInclude Include="stage3_boss.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

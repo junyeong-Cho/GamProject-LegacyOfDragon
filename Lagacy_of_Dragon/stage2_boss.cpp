@@ -1,4 +1,5 @@
 #include "stage2_boss.h"
+#include "Window_setting.h"
 
 #include <doodle\doodle.hpp>
 
@@ -26,7 +27,7 @@ void Stage2_boss::move()
 		b2_move_timer = 0;
 	}
 }
-void Stage2_boss::hp(int* scene)
+void Stage2_boss::hp()
 {
 	set_rectangle_mode(RectMode::Corner);
 	push_settings();
@@ -40,7 +41,7 @@ void Stage2_boss::hp(int* scene)
 	pop_settings();
 	if (health <= 0)
 	{
-		scene = 0;
+		scene = 1;
 	}
 }
 
@@ -380,5 +381,4 @@ void S2boss_update::s2_boss_attack(Stage2_boss* boss2, Player* player)
 
 
 }
-
 extern S2boss_update s2boss_update;

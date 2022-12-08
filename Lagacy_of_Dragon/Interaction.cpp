@@ -159,7 +159,7 @@ void Interaction::back_enemy_interaction(std::vector<Enemy*>& enemys, std::vecto
 			double d = bullets[i]->bullet_pos_y - enemys[j]->y;
 			double distance = sqrt(c * c + d * d);
 
-			if (distance1 < bullets[i]->size1 / 2 + enemys[j]->enemysize / 2)
+			if (distance1 < bullets[i]->size1 / static_cast<double>(2) + enemys[j]->enemysize / static_cast<double>(2))
 			{
 				back_timers += DeltaTime;
 				if (back_timers < back_time_checks)
@@ -203,7 +203,7 @@ void Interaction::back_enemy_interaction(std::vector<Enemy*>& enemys, std::vecto
 				back_time_checks += 1;
 			}
 
-			if (distance < bullets[i]->size / 2 + enemys[j]->enemysize / 2)
+			if (distance < bullets[i]->size / static_cast<double>(2) + enemys[j]->enemysize / static_cast<double>(2))
 			{
 				if (enemys[j]->health - 1 == 0)
 				{
@@ -235,7 +235,7 @@ void Interaction::bomb_enemy_interaction(std::vector<Enemy*>& enemys, std::vecto
 			double b = bullets[i]->bullet_pos_y - enemys[j]->y;
 			double distance = sqrt(a * a + b * b);
 
-			if (distance < bullets[i]->size / 2 + enemys[j]->enemysize / 2)
+			if (distance < bullets[i]->size / static_cast<double>(2) + enemys[j]->enemysize / static_cast<double>(2))
 			{
 				double c = bullets[i]->bullet_pos_x + bullets[i]->range - enemys[j]->x;
 				double d = bullets[i]->bullet_pos_y + bullets[i]->range - enemys[j]->y;
@@ -274,7 +274,7 @@ void Interaction::breath_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 			double b = bullets[i]->bullet_pos_y - enemys[j]->y;
 			double distance = sqrt(a * a + b * b);
 
-			if (distance < bullets[i]->size1 / 2 + enemys[j]->enemysize / 2)
+			if (distance < bullets[i]->size1 / static_cast<double>(2) + enemys[j]->enemysize / static_cast<double>(2))
 			{
 				if (enemys[j]->health - 1 == 0)
 				{
@@ -300,7 +300,7 @@ void Interaction::approach_enemy_interaction(std::vector<Enemy*>& enemys, std::v
 			double b = bullets[i]->y - enemys[j]->y;
 			double distance = sqrt(a * a + b * b);
 
-			if (distance < bullets[i]->size / 2 + enemys[j]->enemysize / 2)
+			if (distance < bullets[i]->size / static_cast<double>(2) + enemys[j]->enemysize / static_cast<double>(2))
 			{
 				if (enemys[j]->health - 1 == 0)
 				{
@@ -326,7 +326,7 @@ void Interaction::meteor_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 			double b = bullets[i]->bullet_pos_y - enemys[j]->y;
 			double distance = sqrt(a * a + b * b);
 
-			if (distance < bullets[i]->size / 2 + enemys[j]->enemysize / 2)
+			if (distance < bullets[i]->size / static_cast<double>(2) + enemys[j]->enemysize / static_cast<double>(2))
 			{
 				if (enemys[j]->health - 1 == 0)
 				{
@@ -350,7 +350,7 @@ void Interaction::player_boss1_interaction(Stage1_boss* boss1, std::vector<Shoot
 		double b = bullets[i]->bullet_pos_y - boss1->y;
 		double distance = sqrt(a * a + b * b);
 
-		if (distance < bullets[i]->size / 2 + boss1->size / 2)
+		if (distance < bullets[i]->size / static_cast<double>(2) + boss1->size / static_cast<double>(2))
 		{
 			if (boss1->health == 0)
 			{
@@ -377,7 +377,7 @@ void Interaction::player_boss2_interaction(Stage2_boss* boss2, std::vector<Shoot
 		double b = bullets[i]->bullet_pos_y - boss2->y;
 		double distance = sqrt(a * a + b * b);
 
-		if (distance < bullets[i]->size / 2 + boss2->size)
+		if (distance < bullets[i]->size / static_cast<double>(2) + boss2->size)
 		{
 			if (boss2->health - 1 == 0)
 			{
@@ -397,7 +397,7 @@ void Interaction::player_boss2_interaction(Stage2_boss* boss2, std::vector<Shoot
 	}
 }
 
-void Interaction::boss2_player_interaction(Stage2_boss* boss2, Player* player)
+void Interaction::boss2_player_interaction(Player* player)
 {
 	if (is_b2_hit == true)
 	{

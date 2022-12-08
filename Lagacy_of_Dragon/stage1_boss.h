@@ -29,7 +29,7 @@ struct Stage1_boss {
 
 	void draw();
 	void move();
-	void hp(int* scene);
+	void hp();
 };
 
 #endif

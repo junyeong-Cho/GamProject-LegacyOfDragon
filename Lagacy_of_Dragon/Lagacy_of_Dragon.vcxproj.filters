@@ -19,8 +19,14 @@
     <Filter Include="헤더 파일\Weapon">
       <UniqueIdentifier>{da889272-8203-48c7-9f2f-a7aa293c5b0b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Stage">
+    <Filter Include="소스 파일\Enemy">
+      <UniqueIdentifier>{f1ac4ea2-55a3-4110-9018-5e5d0be450d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Map">
       <UniqueIdentifier>{c59a13ee-d5cd-41c7-b1de-ba828adb504f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Enemy">
+      <UniqueIdentifier>{b776ea9e-7ac1-40aa-ade1-9fd8b254a4f6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -28,12 +34,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Map_setting.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Window_setting.cpp">
@@ -54,9 +54,6 @@
     <ClCompile Include="UIsetting.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="stage1_boss.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="back_weapon.cpp">
       <Filter>소스 파일\Weapon</Filter>
     </ClCompile>
@@ -70,16 +67,16 @@
       <Filter>소스 파일\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="stage1.cpp">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>소스 파일\Map</Filter>
     </ClCompile>
     <ClCompile Include="stage2.cpp">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>소스 파일\Map</Filter>
     </ClCompile>
     <ClCompile Include="stage3.cpp">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>소스 파일\Map</Filter>
     </ClCompile>
     <ClCompile Include="stage4.cpp">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>소스 파일\Map</Filter>
     </ClCompile>
     <ClCompile Include="ice_weapon.cpp">
       <Filter>소스 파일\Weapon</Filter>
@@ -96,20 +93,32 @@
     <ClCompile Include="meteor_weapon.cpp">
       <Filter>소스 파일\Weapon</Filter>
     </ClCompile>
-    <ClCompile Include="stage2_boss.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="stage5.cpp">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>소스 파일\Map</Filter>
     </ClCompile>
     <ClCompile Include="stage6.cpp">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>소스 파일\Map</Filter>
     </ClCompile>
     <ClCompile Include="stage7.cpp">
-      <Filter>소스 파일\Stage</Filter>
+      <Filter>소스 파일\Map</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="stage1_boss.cpp">
+      <Filter>소스 파일\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="stage2_boss.cpp">
+      <Filter>소스 파일\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>소스 파일\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Map_setting.cpp">
+      <Filter>소스 파일\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="stage3_boss.cpp">
+      <Filter>소스 파일\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -117,9 +126,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Map_setting.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Window_setting.h">
@@ -138,9 +144,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="UIsetting.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="stage1_boss.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="back_weapon.h">
@@ -170,11 +173,20 @@
     <ClInclude Include="meteor_weapon.h">
       <Filter>헤더 파일\Weapon</Filter>
     </ClInclude>
-    <ClInclude Include="stage2_boss.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>헤더 파일\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="stage1_boss.h">
+      <Filter>헤더 파일\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="stage2_boss.h">
+      <Filter>헤더 파일\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="stage3_boss.h">
+      <Filter>헤더 파일\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

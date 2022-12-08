@@ -371,7 +371,7 @@ void UIsetting::weaponChoice(vector<Shooting*>& bullets, vector<IceWeapon*>& ice
 		shooting_update.bullet_create(bullets, player);
 		shooting_update.bullet_draw(bullets);
 		shooting_update.bullet_remove(bullets);
-		shooting_update.coolTime(bullets, player);
+		shooting_update.coolTime(player);
 
 	}
 
