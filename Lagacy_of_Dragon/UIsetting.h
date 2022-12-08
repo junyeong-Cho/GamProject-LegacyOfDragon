@@ -15,8 +15,6 @@
 #include "meteor_weapon.h"
 
 
-
-
 using namespace doodle;
 using namespace std;
 

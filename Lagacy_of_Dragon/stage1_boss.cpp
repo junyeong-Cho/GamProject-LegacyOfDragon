@@ -48,7 +48,7 @@ void Stage1_boss::hp()
 
 	push_settings();
 	set_fill_color(hp_color_1);
-	draw_rectangle(b1_hp_x, b1_hp_y, 100 * health, b1_hp_h);
+	draw_rectangle(b1_hp_x, b1_hp_y, 10 * health, b1_hp_h);
 	pop_settings();
 	if (health <= 0)
 	{

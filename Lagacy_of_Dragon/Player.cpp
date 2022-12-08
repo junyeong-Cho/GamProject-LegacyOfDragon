@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Map_setting.h"
 #include "Window_setting.h"
+#include "UIsetting.h"
 #include <doodle\doodle.hpp>
 #include <iostream>
 
@@ -11,7 +12,6 @@ bool moveW = false;
 bool moveA = false;
 bool moveS = false;
 bool moveD = false;
-
 
 void on_key_pressed(KeyboardButtons button) {
 	if (button == KeyboardButtons::W) {

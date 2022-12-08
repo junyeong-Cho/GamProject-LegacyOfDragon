@@ -42,12 +42,15 @@ void Map_setting::stage1_creating(Camera* camera)
 			{
 				tile = map_setting.PLAI0;
 			}
-			if (map_setting.CHARA == map_setting.POTAL)
-			{
-				scene += 1;
-			}
 			draw_image(tiles[tile], x * tile_size + camera->offsetX, y * tile_size + camera->offsetY, tile_size, tile_size);
 		}
+	}
+
+	if (camera->x > 3200 && camera->x < 3300 && camera->y > 3000 && camera->y < 3300)
+	{
+		camera->camera_pos_x = 250;
+		camera->camera_pos_y = 250;
+		scene = 11;	
 	}
 }
 void Map_setting::char_pos1(Camera* camera)
@@ -58,6 +61,7 @@ void Map_setting::char_pos1(Camera* camera)
 		{
 			if (map_setting.stage1Map[y][x] == map_setting.CHARA)
 			{
+				clear_background(255);
 				camera->camera_pos_x = x * tile_size;
 				camera->camera_pos_y = y * tile_size;
 				break;

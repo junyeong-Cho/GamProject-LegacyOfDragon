@@ -430,6 +430,12 @@ int main()
 			//Bullet_shooting
 			shooting_update.bullet_create(bullets, player);
 
+
+			uisetting.roulette(randomboxloc);
+			uisetting.roulette_ult(ultraboxloc);
+			uisetting.roulette_six(sixboxloc);
+			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
+
 			//Draw Map
 			clear_background(255);
 			camera->camera_generate();
@@ -456,7 +462,7 @@ int main()
 			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
 
 			camera->camera_move();
-			//cout << camera->camera_pos_x << ", " << camera->camera_pos_y << endl;
+			cout << camera->camera_pos_x << ", " << camera->camera_pos_y << endl;
 
 			player->MOVE();
 			player->draw_fix_chara();
@@ -467,6 +473,7 @@ int main()
 		{
 			player->chara_pos_x = Width / 2;
 			player->chara_pos_y = Height / 2;
+
 
 			weapon_choice = 0;
 			//Player move limit
@@ -492,8 +499,8 @@ int main()
 
 
 			//Me Enemy check
-			interaction.player_enemy_interaction(enemys_1_1, player);
-			interaction.player_enemy_interaction(enemys_1_2, player);
+			//interaction.player_enemy_interaction(enemys_1_1, player);
+			//interaction.player_enemy_interaction(enemys_1_2, player);
 
 
 			//Bullet Enemy Check
@@ -812,8 +819,7 @@ int main()
 			stage_boss1->hp();
 			
 
-			interaction.player_boss1_interaction(stage_boss1, bullets);
-			interaction.player_boss1_interaction(stage_boss1, bullets);
+			//interaction.player_boss1_interaction(stage_boss1, bullets);
 
 
 			player->MOVE();

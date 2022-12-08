@@ -3,6 +3,9 @@
 
 #include <doodle\doodle.hpp>
 #include <iostream>
+
+bool something = false;
+
 using namespace std;
 using namespace doodle;
 
@@ -14,21 +17,23 @@ void UIsetting::ui_point() {
 	}
 }
 
+
+
 void UIsetting::roulette(vector<int> randomboxloc) 
 {
 	if (KeyIsPressed && Key != KeyboardButtons::Q)
 	{
-		is_random = true;
+		is_random = false;
 	}
 
 	if (KeyIsPressed && Key == KeyboardButtons::Q)
 	{
 		is_random = true;
-		randomScene = 1;
+		randomScene += 1;
 		readyRoulette = 1;
 	}
 
-	if (randomScene == 1 && is_random == true)
+	if (is_random == true && readyRoulette == 1)
 	{
 		push_settings();
 		set_outline_width(8.0);
@@ -44,7 +49,6 @@ void UIsetting::roulette(vector<int> randomboxloc)
 		draw_image(StormW, randomboxloc[1]  , randomboxh, randomboxSize, randomboxSize);
 		draw_image(BackW, randomboxloc[2], randomboxh, randomboxSize, randomboxSize);
 
-
 		//Roulette
 		push_settings();
 		no_fill();
@@ -53,6 +57,7 @@ void UIsetting::roulette(vector<int> randomboxloc)
 		draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
 		pop_settings();
 
+	
 		//Speed
 		acc_x = 30;
 		box_x += acc_x;
@@ -63,13 +68,16 @@ void UIsetting::roulette(vector<int> randomboxloc)
 			box_x = randomboxloc[0];
 		}
 
+
 		//Operator
-		if (Key == KeyboardButtons::Q && readyRoulette == 1)
+		if (randomScene == 2 && is_random == true)
 		{
+
 			skillTimer += DeltaTime;
 			//Speed is on proportion with Time (현재 속도는 30이라 skillTimer = 5, 속도 6곱해줌
 			if (skillTimer < SkillTimeCheck)
 			{
+				
 				box_x -= skillTimer * 5.7; // Same as acc_x
 			}
 			else if (skillTimer > SkillTimeCheck)
@@ -119,7 +127,9 @@ void UIsetting::roulette(vector<int> randomboxloc)
 				}
 			}
 		}
+
 	}
+
 }
 
 void UIsetting::roulette_ult(vector<int> ultraboxloc) {
