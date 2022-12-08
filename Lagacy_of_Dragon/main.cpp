@@ -89,6 +89,7 @@ Enemy_update_2_1 enemy_update_2_1;
 Enemy_update_2_2 enemy_update_2_2;
 Enemy_update_2_3 enemy_update_2_3;
 
+
 S2boss_update s2boss_update;
 
 //
