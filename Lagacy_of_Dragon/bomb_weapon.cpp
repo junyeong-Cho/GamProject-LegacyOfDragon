@@ -11,14 +11,25 @@ void BombWeapon::draw()
 
 void Bomb_update::bullet_create(std::vector<BombWeapon*>& bullets, Player* player)
 {
+    if (bo_click_timer < bo_click_check)
+    {
+        bo_click_timer += DeltaTime;
+    }
+
     if (!MouseIsPressed) {
         not_clicked_bomb = true;
     }
-    if (MouseIsPressed && not_clicked_bomb == true)
+
+    if (bo_click_timer >= bo_click_check)
     {
-        bullets.push_back(new BombWeapon{ player->chara_pos_x, player->chara_pos_y, bombSize, bombDamage, bombrange });
-        not_clicked_bomb = false;
+        if (MouseIsPressed && not_clicked_bomb == true)
+        {
+            bullets.push_back(new BombWeapon{ player->chara_pos_x, player->chara_pos_y, bombSize, bombDamage, bombrange });
+            not_clicked_bomb = false;
+            bo_click_timer = 0;
+        }
     }
+   
 }
 
 void Bomb_update::bullet_draw(std::vector<BombWeapon*>& bullets)
@@ -31,3 +42,16 @@ void Bomb_update::bullet_draw(std::vector<BombWeapon*>& bullets)
     }
 }
 
+void Bomb_update::coolTime(std::vector<BombWeapon*>& bullets, Player* player)
+{
+    set_rectangle_mode(RectMode::Corner);
+    push_settings();
+    no_fill();
+    draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 50, 100, 15);
+    pop_settings();
+
+    push_settings();
+    set_fill_color(HexColor{ 0x00FF00FF });
+    draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 50, 200 * bo_click_check, 15);
+    pop_settings();
+}

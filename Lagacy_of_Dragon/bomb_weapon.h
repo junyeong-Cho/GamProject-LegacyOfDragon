@@ -7,7 +7,8 @@
 using namespace doodle;
 
 inline bool not_clicked_bomb = false;
-
+inline double bo_click_timer = 0;
+inline double bo_click_check = 0.5;
 
 inline int bombSize = 50;
 inline int bombDamage = 3;
@@ -27,6 +28,7 @@ struct Bomb_update
 {
 	void bullet_create(std::vector<BombWeapon*>& bullets, Player* player);
 	void bullet_draw(std::vector<BombWeapon*>& bullets);
+	void coolTime(std::vector<BombWeapon*>& bullets, Player* player);
 };
 
 extern Bomb_update bomb_update;

@@ -17,6 +17,9 @@ inline bool not_clicked_sto = false;
 inline double st_remove_timer = 0;
 inline double st_remove_check = 5;
 
+inline double st_click_timer = 0;
+inline double st_click_check = 5;
+
 
 struct Storm {
 	int bullet_pos_x = 0;
@@ -36,6 +39,9 @@ struct Storm_update
 	void bullet_create(std::vector<Storm*>& storms, Player* player);
 	void bullet_draw(std::vector<Storm*>& storms);
 	void bullet_remove(std::vector<Storm*>& storms);
+	void coolTime(std::vector<Storm*>& storms, Player* player);
 };
+
+extern Storm_update storm_update;
 #endif
 

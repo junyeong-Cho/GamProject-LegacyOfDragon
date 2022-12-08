@@ -10,8 +10,10 @@ using namespace doodle;
 static constexpr int Ivelocity = 10;
 
 constexpr int iceSize = 5;
-
 constexpr int icedamage = 1;
+
+inline double ice_timer = 0;
+inline double ice_check = 0.5;
 
 inline bool not_clicked_ice = false;
 
@@ -35,5 +37,9 @@ struct Ice_update
 	void bullet_create(std::vector<IceWeapon*>& bullets, Player* player);
 	void bullet_draw(std::vector<IceWeapon*>& bullets);
 	void bullet_remove(std::vector<IceWeapon*>& bullets);
+	void coolTime(std::vector<IceWeapon*>& bullets, Player* player);
 };
+
+extern Ice_update ice_update;
+
 #endif

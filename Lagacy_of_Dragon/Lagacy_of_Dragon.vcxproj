@@ -133,6 +133,7 @@
     <ClCompile Include="back_weapon.cpp" />
     <ClCompile Include="bomb_weapon.cpp" />
     <ClCompile Include="breath_weapon.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="ice_weapon.cpp" />
     <ClCompile Include="Interaction.cpp" />
@@ -146,8 +147,12 @@
     <ClCompile Include="stage1.cpp" />
     <ClCompile Include="stage1_boss.cpp" />
     <ClCompile Include="stage2.cpp" />
+    <ClCompile Include="stage2_boss.cpp" />
     <ClCompile Include="stage3.cpp" />
     <ClCompile Include="stage4.cpp" />
+    <ClCompile Include="stage5.cpp" />
+    <ClCompile Include="stage6.cpp" />
+    <ClCompile Include="stage7.cpp" />
     <ClCompile Include="storm_weapon.cpp" />
     <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="UIsetting.cpp" />
@@ -159,6 +164,7 @@
     <ClInclude Include="back_weapon.h" />
     <ClInclude Include="bomb_weapon.h" />
     <ClInclude Include="breath_weapon.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="ice_weapon.h" />
     <ClInclude Include="Interaction.h" />
@@ -169,6 +175,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shooting.h" />
     <ClInclude Include="stage1_boss.h" />
+    <ClInclude Include="stage2_boss.h" />
     <ClInclude Include="storm_weapon.h" />
     <ClInclude Include="Tutorial.h" />
     <ClInclude Include="UIsetting.h" />

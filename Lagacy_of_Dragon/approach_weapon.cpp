@@ -11,14 +11,26 @@ void Approach::draw()
 
 void Approach_update::bullet_create(std::vector<Approach*>& bullets, Player* player)
 {
+
+	if (ap_click_timer < ap_click_check)
+	{
+		ap_click_timer += DeltaTime;
+	}
+
 	if (!MouseIsPressed) {
 		not_clicked_app = true;
 	}
-	if (MouseIsPressed && not_clicked_app == true)
+
+	if (ap_click_timer >= ap_click_check)
 	{
-		bullets.push_back(new Approach{ player->chara_pos_x, player->chara_pos_y, approachSize });
-		not_clicked_app = false;
+		if (MouseIsPressed && not_clicked_app == true)
+		{
+			bullets.push_back(new Approach{ player->chara_pos_x, player->chara_pos_y, approachSize });
+			not_clicked_app = false;
+			ap_click_timer = 0;
+		}
 	}
+	
 }
 
 void Approach_update::bullet_draw(std::vector<Approach*>& bullets) {
@@ -40,4 +52,18 @@ void Approach_update::bullet_remove(std::vector<Approach*>& bullets)
 			bullets.erase(bullets.begin() + i);
 		}
 	}
+}
+
+void Approach_update::coolTime(std::vector<Approach*>& bullets, Player* player)
+{
+	set_rectangle_mode(RectMode::Corner);
+	push_settings();
+	no_fill();
+	draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 50, 100, 15);
+	pop_settings();
+
+	push_settings();
+	set_fill_color(HexColor{ 0x00FF00FF });
+	draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 50, 33.3 * ap_click_timer, 15);
+	pop_settings();
 }

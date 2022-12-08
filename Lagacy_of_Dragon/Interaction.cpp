@@ -9,28 +9,30 @@
 #include "approach_weapon.h"
 #include "meteor_weapon.h"
 
+#include "stage1_boss.h"
+#include "stage2_boss.h"
+
+
 void Interaction::player_enemy_interaction(std::vector<Enemy*>& enemys, Player* player)
 {
+	for (int j = 0; j < enemys.size(); j++)
 	{
-		for (int j = 0; j < enemys.size(); j++)
+		double a = player->chara_pos_x - enemys[j]->x;
+		double b = player->chara_pos_y - enemys[j]->y;
+		double distance = sqrt(a * a + b * b);
+
+		if (distance < chararadius + enemys[j]->enemysize)
 		{
-			double a = player->chara_pos_x - enemys[j]->x;
-			double b = player->chara_pos_y - enemys[j]->y;
-			double distance = sqrt(a * a + b * b);
-
-			if (distance < chararadius + enemys[j]->enemysize)
+			hp_timer += DeltaTime;
+			if (hp_timer >= hp_time_check)
 			{
-				hp_timer += DeltaTime;
-				if (hp_timer >= hp_time_check)
-				{
-					player->hp -= 1;
-					hp_time_check += 0.7;
-				}
+				player->hp -= 1;
+				hp_time_check += 0.7;
+			}
 
-				if (player->hp == 0)
-				{
+			if (player->hp == 0)
+			{
 
-				}
 			}
 		}
 	}
@@ -48,7 +50,7 @@ void Interaction::bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 
 			if (distance < bullets[i]->size + enemys[j]->enemysize)
 			{
-				if (enemys[j]->health - 3 == 0)
+				if (enemys[j]->health - 1 == 0)
 				{
 					delete bullets[i];
 					delete enemys[j];
@@ -127,43 +129,97 @@ void Interaction::storm_enemy_interaction(std::vector<Enemy*>& enemys, std::vect
 					enemys[j]->y -= bullets[i]->velocity;
 				}
 				
-				/*if (enemys[j]->health - 1 == 0)
+				if (enemys[j]->health - 0.3 == 0)
 				{
 					delete enemys[j];
 					enemys.erase(enemys.begin() + j);
 					break;
 				}
 				else {
-					enemys[j]->health--;
-				}*/
+					enemys[j]->health -= 0.3;
+				}
 			}
 		}
 	}
 }
 
-void Interaction::back_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<BackWeapon*>& bullets)
+void Interaction::back_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<BackWeapon*>& bullets, Player* player)
 {
 	for (int i = 0; i < bullets.size(); i++)
 	{
 		for (int j = 0; j < enemys.size(); j++)
 		{
+			//Knockback
 			double a = bullets[i]->bullet_pos_x - enemys[j]->x;
 			double b = bullets[i]->bullet_pos_y - enemys[j]->y;
-			double distance = sqrt(a * a + b * b);
+			double distance1 = sqrt(a * a + b * b);
 
-			if (distance < bullets[i]->size + enemys[j]->enemysize)
+			//Damage
+			double c = bullets[i]->bullet_pos_x - enemys[j]->x;
+			double d = bullets[i]->bullet_pos_y - enemys[j]->y;
+			double distance = sqrt(c * c + d * d);
+
+			if (distance1 < bullets[i]->size1 / 2 + enemys[j]->enemysize / 2)
 			{
 				back_timers += DeltaTime;
 				if (back_timers < back_time_checks)
 				{
-					enemys[j]->speed -= DeltaTime * bullets[i]->velocity1;
+					if (enemys[i]->x >= player->chara_pos_x)
+					{
+						enemys[i]->x += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed * bullets[i]->velocity1;
+					}
+					if (enemys[i]->x <= player->chara_pos_x)
+					{
+						enemys[i]->x -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed * bullets[i]->velocity1;
+					}
+					if (enemys[i]->y >= player->chara_pos_y)
+					{
+						enemys[i]->y += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed * bullets[i]->velocity1;
+					}
+					if (enemys[i]->y <= player->chara_pos_y)
+					{
+						enemys[i]->y -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed * bullets[i]->velocity1;
+					}
 				}
-				else if (back_timers > back_time_checks)
+				else if (back_timers >= back_time_checks)
 				{
-					back_timers = 0;
+					if (enemys[i]->x >= player->chara_pos_x)
+					{
+						enemys[i]->x -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+					}
+					if (enemys[i]->x <= player->chara_pos_x)
+					{
+						enemys[i]->x += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+					}
+					if (enemys[i]->y >= player->chara_pos_y)
+					{
+						enemys[i]->y -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+					}
+					if (enemys[i]->y <= player->chara_pos_y)
+					{
+						enemys[i]->y += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+					}
 				}
+				back_time_checks += 1;
+			}
 
-				
+			if (distance < bullets[i]->size / 2 + enemys[j]->enemysize / 2)
+			{
+				if (enemys[j]->health - 1 == 0)
+				{
+					delete enemys[j];
+					enemys.erase(enemys.begin() + j);
+					break;
+				}
+				else
+				{
+					enemys[j]->health--;
+				}
+			}
+
+			if (back_timer == 0)
+			{
+				back_timers = 0;
 			}
 		}
 	}
@@ -208,7 +264,7 @@ void Interaction::bomb_enemy_interaction(std::vector<Enemy*>& enemys, std::vecto
 	}
 }
 
-void Interaction::auto_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<AutoWeapon*>& bullets)
+void Interaction::breath_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<BreathWeapon*>& bullets, Player* player)
 {
 	for (int i = 0; i < bullets.size(); i++)
 	{
@@ -218,59 +274,11 @@ void Interaction::auto_enemy_interaction(std::vector<Enemy*>& enemys, std::vecto
 			double b = bullets[i]->bullet_pos_y - enemys[j]->y;
 			double distance = sqrt(a * a + b * b);
 
-			if (distance < bullets[i]->size / 2 + enemys[j]->enemysize / 2)
+			if (distance < bullets[i]->size1 / 2 + enemys[j]->enemysize / 2)
 			{
 				if (enemys[j]->health - 1 == 0)
 				{
-					delete bullets[i];
-					delete enemys[j];
-
-					bullets.erase(bullets.begin() + i);
-					enemys.erase(enemys.begin() + j);
-					break;
-				}
-				else {
-					delete bullets[i];
-					bullets.erase(bullets.begin() + i);
-					enemys[j]->health--;
-				}
-			}
-		}
-	}
-}
-
-void Interaction::breath_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<BreathWeapon*>& bullets, Player* player)
-{
-	for (int i = 0; i < bullets.size(); i++)
-	{
-		for (int j = 0; j < enemys.size(); j++)
-		{
-			/*double a = enemys[j]->x;
-			double b = enemys[j]->y;
-			double distance = sqrt(a * a + b * b);*/
-
-			if (enemys[j]->x < player->chara_pos_x
-				&& enemys[j]->y  < player->chara_pos_y + bullets[i]->size1
-				&& enemys[j]->y  > player->chara_pos_y - bullets[i]->size1)
-			{
-				if (enemys[j]->health - 1 == 0)
-				{
-					delete enemys[j];
-					enemys.erase(enemys.begin() + j);
-					break;
-				}
-				else {
-					enemys[j]->health--;
-				}
-			}
-
-			if (enemys[j]->x > player->chara_pos_x
-				&& enemys[j]->y  < player->chara_pos_y + bullets[i]->size1
-				&& enemys[j]->y  > player->chara_pos_y - bullets[i]->size1)
-			{
-				if (enemys[j]->health - 1 == 0)
-				{
-					delete enemys[j];
+					delete enemys[j];				
 					enemys.erase(enemys.begin() + j);
 					break;
 				}
@@ -334,4 +342,75 @@ void Interaction::meteor_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 	}
 }
 
+void Interaction::player_boss1_interaction(Stage1_boss* boss1, std::vector<Shooting*>& bullets)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		double a = bullets[i]->bullet_pos_x - boss1->x;
+		double b = bullets[i]->bullet_pos_y - boss1->y;
+		double distance = sqrt(a * a + b * b);
 
+		if (distance < bullets[i]->size / 2 + boss1->size / 2)
+		{
+			if (boss1->health == 0)
+			{
+				delete bullets[i];
+				delete boss1;
+				bullets.erase(bullets.begin() + i);
+				break;
+			}
+			else {
+				delete bullets[i];
+				bullets.erase(bullets.begin() + i);
+				boss1->health--;
+				break;
+			}
+		}	
+	}
+}
+
+void Interaction::player_boss2_interaction(Stage2_boss* boss2, std::vector<Shooting*>& bullets)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{	
+		double a = bullets[i]->bullet_pos_x - boss2->x;
+		double b = bullets[i]->bullet_pos_y - boss2->y;
+		double distance = sqrt(a * a + b * b);
+
+		if (distance < bullets[i]->size / 2 + boss2->size)
+		{
+			if (boss2->health - 1 == 0)
+			{
+				delete bullets[i];
+				delete boss2;
+				bullets.erase(bullets.begin() + i);
+				break;
+			}
+			else 
+			{
+				delete bullets[i];
+				bullets.erase(bullets.begin() + i);
+				boss2->health--;
+				break;
+			}
+		}
+	}
+}
+
+void Interaction::boss2_player_interaction(Stage2_boss* boss2, Player* player)
+{
+	if (is_b2_hit == true)
+	{
+		hp_timer += DeltaTime;
+		if (hp_timer >= hp_time_check)
+		{
+			player->hp -= 1;
+			hp_time_check += 0.7;
+		}
+
+		if (player->hp == 0)
+		{
+
+		}
+	}
+}

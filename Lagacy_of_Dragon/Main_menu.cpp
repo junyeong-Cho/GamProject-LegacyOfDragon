@@ -38,10 +38,10 @@ void Main_menu::in_credit()
 
 bool Main_menu::is_in_setting()
 {
-	return (get_mouse_x() > 600 && get_mouse_x() < 750 && get_mouse_y() > 320 && get_mouse_y() < 330 + click_gap_y) && MouseIsPressed;
+	return (get_mouse_x() > maxvolume_x && get_mouse_x() < maxvolume_x + 150 && get_mouse_y() > maxvolume_y && get_mouse_y() < maxvolume_y + click_gap_y + 10) && MouseIsPressed;
 }
 
 bool Main_menu::is_in_credit()
 {
-	return (get_mouse_x() > 600 && get_mouse_x() < 750 && get_mouse_y() > 320 && get_mouse_y() < 330 + click_gap_y) && MouseIsPressed;
+	return (get_mouse_x() > maxvolume_x && get_mouse_x() < maxvolume_x + 150 && get_mouse_y() > maxvolume_y && get_mouse_y() < maxvolume_y + click_gap_y + 10) && MouseIsPressed;
 }

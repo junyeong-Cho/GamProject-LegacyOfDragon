@@ -11,9 +11,10 @@ inline int count_enemy_start = 0;
 inline int tuto_enemy_max = 3;
 inline int Max = 6;
 inline int tutoMax = 6;
+inline int count_enemy = 0;
 static constexpr int enemyMin = -800;
 static constexpr int enemyMax = 800;
-static constexpr int enemySize = 30;
+static constexpr int enemySize = 50;
 static constexpr int avoid_gap = 200;
 
 constexpr int attackSize = 20;
@@ -40,7 +41,7 @@ const Image enemy6{ "enemy/enemy6.png" };
 struct Enemy {
 	float x = 0;
 	float y = 0;
-	int health = 2;
+	float health = 3;
 	int deal = 0;
 	float speed = 0.5;
 	int enemysize = 30;
@@ -84,6 +85,14 @@ struct Enemy_update {
 	int count_once = 0;
 	virtual void enemy_create(std::vector<Enemy*>& enemys, int regen);
 	virtual void enemy_move(std::vector<Enemy*>& enemys, Player* player);
+	virtual void enemy_move_1_2(std::vector<Enemy*>& enemys, Player* player);
+	virtual void enemy_move_1_3(std::vector<Enemy*>& enemys, Player* player);
+	virtual void enemy_move_2_1(std::vector<Enemy*>& enemys, Player* player);
+	virtual void enemy_move_2_2(std::vector<Enemy*>& enemys, Player* player);
+	virtual void enemy_move_2_3(std::vector<Enemy*>& enemys, Player* player);
+
+
+
 	virtual void attack_create(std::vector<Enemy_attack*>& attack, std::vector<Enemy*>& enemys, Player player);
 	virtual void attack_draw(std::vector<Enemy_attack*>& attack);
 	virtual void attack_remove(std::vector<Enemy_attack*>& attack);

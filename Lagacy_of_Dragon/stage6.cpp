@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "Camera.h"
 
-void Map_setting::stage4_creating(Camera* camera)
+void Map_setting::stage6_creating(Camera* camera)
 {
 	for (int x = camera->xs - 1; x < camera->xe + 1; x++)
 	{
@@ -35,7 +35,7 @@ void Map_setting::stage4_creating(Camera* camera)
 				continue;
 			}
 
-			int tile = map_setting.stage4Map[y][x];
+			int tile = map_setting.stage6Map[y][x];
 
 			if (tile == map_setting.CHARA)
 			{
@@ -47,13 +47,13 @@ void Map_setting::stage4_creating(Camera* camera)
 }
 
 
-void Map_setting::char_pos4(Camera* camera)
+void Map_setting::char_pos6(Camera* camera)
 {
 	for (int x = 0; x < 36; x++)
 	{
 		for (int y = 0; y < 36; y++)
 		{
-			if (map_setting.stage4Map[y][x] == map_setting.CHARA)
+			if (map_setting.stage6Map[y][x] == map_setting.CHARA)
 			{
 				camera->camera_pos_x = x * tile_size;
 				camera->camera_pos_y = y * tile_size;

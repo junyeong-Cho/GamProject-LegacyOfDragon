@@ -4,22 +4,32 @@
 #include <vector>
 #include "Player.h"
 
+const Image Boss1r{ "enemy/enemy1.png" };
 
-constexpr int boss1_x = 750;
-constexpr int boss1_y = 200;
-constexpr int s1bossSize = 200;
-constexpr int boss1_hp = 200;
-constexpr int s1_boss_vel = 4;
+inline bool boss1_move_check = false;
+inline int boss1_x = 750;
+inline int boss1_y = 200;
+inline int s1bossSize = 100;
+inline int boss1_hp = 100;
+inline int s1_boss_vel = 7;
+
+constexpr int b1_hp_x = 250;
+constexpr int b1_hp_y = 800;
+constexpr int b1_hp_w = 1000;
+constexpr int b1_hp_h = 10;
+
+inline Color hp_color_1 = HexColor{ 0xfff000ff };
 
 struct Stage1_boss {
-	int x = boss1_x;
-	int y = boss1_y;
-	int size = s1bossSize;
-	int health = boss1_hp;
+	int x = 0;
+	int y = 0;
+	int size = 0;
+	int health = 0;
+	int velocity = 0;
+
 	void draw();
 	void move();
+	void hp(int* scene);
 };
-
-extern Stage1_boss stage1_boss;
 
 #endif
