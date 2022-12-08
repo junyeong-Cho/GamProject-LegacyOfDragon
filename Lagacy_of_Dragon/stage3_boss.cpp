@@ -1,6 +1,7 @@
 #include "stage3_boss.h"
 #include <doodle\doodle.hpp>
 #include "Window_setting.h"
+#include <iostream>
 
 using namespace doodle;
 
@@ -65,27 +66,30 @@ void Boss_attack::fire_attack()
 	attack_pos_y += static_cast<int>(velocityY);
 }
 
-void S3boss_update::attack_create(std::vector<Boss_attack*>& attack, std::vector<Stage3_boss*>& stage3_boss, Player* player)
+void S3boss_update::attack_create(std::vector<Boss_attack*>& attack, Stage3_boss* stage3_boss, Player* player)
 {
+
 	boss3_timer = static_cast<int>(boss3_timers);
+//	std::cout << (boss3_timer % b3_attack_delay == 0 && count_once != boss3_timer) << std::endl;
+	std::cout << (boss3_timer) << std::endl;
 	if (boss3_timer % b3_attack_delay == 0 && count_once != boss3_timer) {
-		for (int i = 0; i < stage3_boss.size(); i++) {
-			attack.push_back(new Boss_attack{ stage3_boss[i]->x , stage3_boss[i]->y, b3_attackSize, static_cast<float>(player->chara_pos_x), static_cast<float>(player->chara_pos_y) });
-		}
+		
+		attack.push_back(new Boss_attack{ stage3_boss->x , stage3_boss->y, b3_attackSize, static_cast<float>(player->chara_pos_x), static_cast<float>(player->chara_pos_y) });
+		std::cout << "fire_attack" << std::endl;
+		
 		count_once = boss3_timer;
 	}
 }
 void S3boss_update::attack_draw(std::vector<Boss_attack*>& attack)
 {
+	for (int i = 0; i < attack.size(); i++)
 	{
-		for (int i = 0; i < attack.size(); i++)
-		{
-			push_settings();
-			attack[i]->draw_enemy_attack();
-			attack[i]->fire_attack();
-			pop_settings();
-		}
+		push_settings();
+		attack[i]->draw_enemy_attack();
+		attack[i]->fire_attack();
+		pop_settings();
 	}
+
 }
 void S3boss_update::attack_remove(std::vector<Boss_attack*>& attack)
 {

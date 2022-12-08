@@ -59,7 +59,7 @@ struct S3boss_update {
 	int timer_check = 4;
 	int regen_delay = 4;
 	int count_once = 0;
-	void attack_create(std::vector<Boss_attack*>& attack, std::vector<Stage3_boss*>& stage3_boss, Player* player);
+	void attack_create(std::vector<Boss_attack*>& attack, Stage3_boss* stage3_boss, Player* player);
 	void attack_draw(std::vector<Boss_attack*>& attack);
 	void attack_remove(std::vector<Boss_attack*>& attack);
 };

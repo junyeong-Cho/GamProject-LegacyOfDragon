@@ -159,6 +159,7 @@ int main()
 		int_timer += DeltaTime;
 		bullet_timer += DeltaTime;
 		scene_timer += DeltaTime;
+		boss3_timers += DeltaTime;
 		update_window();
 	
 		//Game_start
@@ -442,11 +443,11 @@ int main()
 			//Bullet Remove
 			shooting_update.bullet_remove(bullets);
 
-			//Random enemy
-			enemy_update.enemy_create(enemys_1_1, 20);
+			////Random enemy
+			//enemy_update.enemy_create(enemys_1_1, 20);
 
-			//Enemy move
-			enemy_update.enemy_fix_move(enemys_1_1, player);
+			////Enemy move
+			//enemy_update.enemy_fix_move(enemys_1_1, player);
 
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
@@ -455,6 +456,7 @@ int main()
 			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
 
 			camera->camera_move();
+			//cout << camera->camera_pos_x << ", " << camera->camera_pos_y << endl;
 
 			player->MOVE();
 			player->draw_fix_chara();
@@ -846,7 +848,7 @@ int main()
 		//Boss1
 		if (scene == 19)
 		{
-			/*player_setting.move_limit(player);
+			player_setting.move_limit(player);
 			map_setting.map_creating();
 
 
@@ -856,11 +858,11 @@ int main()
 
 			stage_boss3->draw();
 			stage_boss3->move(player);
-			stage_boss3->hp(&scene);
+			stage_boss3->hp();
 
 			player->MOVE();
 			player->draw_chara();
-			player->hp_chara(&scene);*/
+			player->hp_chara();
 		}
 
 	}
