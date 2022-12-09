@@ -1,19 +1,20 @@
 #include "Map_setting.h"
+#include "Window_setting.h"
 #include "Player.h"
 #include "Camera.h"
-
+//2-1
 void Map_setting::stage4_creating(Camera* camera)
 {
 	for (int x = camera->xs - 1; x < camera->xe + 1; x++)
 	{
-		if (x < 0 || x > 36)
+		if (x < 0 || x > 35)
 		{
 			continue;
 		}
 
 		for (int y = camera->ys - 1; y < camera->ye + 1; y++)
 		{
-			if (y < 0 || y > 36)
+			if (y < 0 || y > 35)
 			{
 				continue;
 			}
@@ -23,14 +24,14 @@ void Map_setting::stage4_creating(Camera* camera)
 
 	for (int x = camera->xs - 1; x < camera->xe + 1; x++)
 	{
-		if (x < 0 || x > 36)
+		if (x < 0 || x > 35)
 		{
 			continue;
 		}
 
 		for (int y = camera->ys - 1; y < camera->ye + 1; y++)
 		{
-			if (y < 0 || y > 36)
+			if (y < 0 || y > 35)
 			{
 				continue;
 			}
@@ -43,6 +44,12 @@ void Map_setting::stage4_creating(Camera* camera)
 			}
 			draw_image(tiles[tile], x * tile_size + camera->offsetX, y * tile_size + camera->offsetY, tile_size, tile_size);
 		}
+	}
+	if (camera->x > -300 && camera->x < -150 && camera->y > 400 && camera->y < 700)
+	{
+		camera->camera_pos_x = -120;
+		camera->camera_pos_y = 1900;
+		scene = 14;
 	}
 }
 

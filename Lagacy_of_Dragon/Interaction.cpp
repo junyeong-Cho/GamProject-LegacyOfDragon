@@ -11,6 +11,7 @@
 
 #include "stage1_boss.h"
 #include "stage2_boss.h"
+#include "stage3_boss.h"
 
 
 void Interaction::player_enemy_interaction(std::vector<Enemy*>& enemys, Player* player)
@@ -392,6 +393,66 @@ void Interaction::player_boss2_interaction(Stage2_boss* boss2, std::vector<Shoot
 				bullets.erase(bullets.begin() + i);
 				boss2->health--;
 				break;
+			}
+		}
+	}
+}
+
+void Interaction::player_boss3_interaction(Stage3_boss* boss3, std::vector<Shooting*>& bullets)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		double a = bullets[i]->bullet_pos_x - boss3->x;
+		double b = bullets[i]->bullet_pos_y - boss3->y;
+		double distance = sqrt(a * a + b * b);
+
+		if (distance < bullets[i]->size / static_cast<double>(2) + boss3->size)
+		{
+			if (boss3->health - 1 == 0)
+			{
+				delete bullets[i];
+				delete boss3;
+				bullets.erase(bullets.begin() + i);
+				break;
+			}
+			else
+			{
+				delete bullets[i];
+				bullets.erase(bullets.begin() + i);
+				boss3->health--;
+				break;
+			}
+		}
+	}
+}
+
+
+void Interaction::bullet_dead_interaction(std::vector<Boss_dead*>& dead, std::vector<Shooting*>& bullets)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		for (int j = 0; j < dead.size(); j++)
+		{
+			double a = bullets[i]->bullet_pos_x - dead[j]->x;
+			double b = bullets[i]->bullet_pos_y - dead[j]->y;
+			double distance = sqrt(a * a + b * b);
+
+			if (distance < bullets[i]->size / static_cast<double>(2) + dead[j]->size / static_cast<double>(2))
+			{
+				if (dead[j]->health - 1 == 0)
+				{
+					delete bullets[i];
+					delete dead[j];
+					bullets.erase(bullets.begin() + j);
+					dead.erase(dead.begin() + j);
+					break;
+				}
+				else {
+					delete bullets[i];
+					dead[j]->health--;
+					bullets.erase(bullets.begin() + j);
+
+				}
 			}
 		}
 	}

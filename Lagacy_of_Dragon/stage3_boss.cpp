@@ -33,7 +33,7 @@ void Stage3_boss::move(Player* player)
 		y += velocity;
 	}
 }
-void Stage3_boss::hp()
+void Stage3_boss::hp(std::vector<Boss_dead*>& dead)
 {
 	set_rectangle_mode(RectMode::Corner);
 	push_settings();
@@ -45,10 +45,16 @@ void Stage3_boss::hp()
 	set_fill_color(hp_color_3);
 	draw_rectangle(b3_hp_x, b3_hp_y, 20 * health, b3_hp_h);
 	pop_settings();
-	if (health <= 0)
+
+	if (health <=0 && dead_hp <= 0)
 	{
 		scene = 13;
 	}
+}
+void Boss_dead::draw()
+{
+	set_fill_color(HexColor{ 0xff6a00ff });
+	draw_ellipse(x, y, size, size);
 }
 
 void Boss_attack::draw_enemy_attack()
@@ -56,6 +62,7 @@ void Boss_attack::draw_enemy_attack()
 	set_fill_color(HexColor{ 0xff6a00ff });
 	draw_ellipse(attack_pos_x, attack_pos_y, attack_size, attack_size);
 }
+
 void Boss_attack::fire_attack()
 {
 	float aimAngle = atan2(angleY, angleX);
@@ -66,21 +73,33 @@ void Boss_attack::fire_attack()
 	attack_pos_y += static_cast<int>(velocityY);
 }
 
-void S3boss_update::attack_create(std::vector<Boss_attack*>& attack, Stage3_boss* stage3_boss, Player* player)
+void S3boss_update::attack_create(std::vector<Boss_attack*>& attack, Stage3_boss* stage3_boss,Player* player)
 {
-
 	boss3_timer = static_cast<int>(boss3_timers);
-//	std::cout << (boss3_timer % b3_attack_delay == 0 && count_once != boss3_timer) << std::endl;
-	std::cout << (boss3_timer) << std::endl;
 	if (boss3_timer % b3_attack_delay == 0 && count_once != boss3_timer) {
 		
 		attack.push_back(new Boss_attack{ stage3_boss->x , stage3_boss->y, b3_attackSize, static_cast<float>(player->chara_pos_x), static_cast<float>(player->chara_pos_y) });
-		std::cout << "fire_attack" << std::endl;
 		
 		count_once = boss3_timer;
 	}
 }
-void S3boss_update::attack_draw(std::vector<Boss_attack*>& attack)
+
+void S3boss_update::dead_create(Stage3_boss* stage3_boss,std::vector<Boss_dead*>& dead)
+{
+	if (stage3_boss->health <= 0)
+	{
+		dead_timer += DeltaTime;
+		dead_x = random(100, 1300);
+		dead_y = random(100, 800);
+		dead.push_back(new Boss_dead{ dead_x , dead_y, dead_size, dead_hp });
+	}
+
+	if (dead_timer > dead_time_check)
+	{
+		stage3_boss->health = 1;
+	}
+}
+void S3boss_update::attack_draw(std::vector<Boss_attack*>& attack, std::vector<Boss_dead*>& dead)
 {
 	for (int i = 0; i < attack.size(); i++)
 	{
@@ -90,6 +109,12 @@ void S3boss_update::attack_draw(std::vector<Boss_attack*>& attack)
 		pop_settings();
 	}
 
+	for (int i = 0; i < dead.size(); i++)
+	{
+		push_settings();
+		dead[i]->draw();
+		pop_settings();
+	}
 }
 void S3boss_update::attack_remove(std::vector<Boss_attack*>& attack)
 {

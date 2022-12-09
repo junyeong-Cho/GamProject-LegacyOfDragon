@@ -45,8 +45,11 @@ void Map_setting::stage2_creating(Camera* camera)
 			draw_image(tiles[tile], x * tile_size + camera->offsetX, y * tile_size + camera->offsetY, tile_size, tile_size);
 		}
 	}
-	if (camera->x > 3200 && camera->x < 3300 && camera->y > 3000 && camera->y < 3300)
+
+	if (camera->x > 3200 && camera->x < 3300 && camera->y > 500 && camera->y < 700)
 	{
+		camera->camera_pos_x = -20;
+		camera->camera_pos_y = 3300;
 		scene = 12;
 	}
 }

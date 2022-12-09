@@ -376,7 +376,7 @@ void UIsetting::roulette_six(vector<int> sixboxloc) {
 void UIsetting::weaponChoice(vector<Shooting*>& bullets, vector<IceWeapon*>& ice, vector<BombWeapon*>& bombs, vector<Storm*>& storm, vector<Approach*>& approach, vector<BackWeapon*>& knockback, vector<BreathWeapon*>& breath, vector<Meteor*>& meteor, Player* player)
 {
 	//Bullets
-	if (weapon_choice == 1)
+	if (weapon_choice == 0)
 	{
 		shooting_update.bullet_create(bullets, player);
 		shooting_update.bullet_draw(bullets);
@@ -386,7 +386,7 @@ void UIsetting::weaponChoice(vector<Shooting*>& bullets, vector<IceWeapon*>& ice
 	}
 
 	//Ice
-	if (weapon_choice == 0)
+	if (weapon_choice == 1)
 	{
 		ice_update.bullet_create(ice, player);
 		ice_update.bullet_draw(ice);

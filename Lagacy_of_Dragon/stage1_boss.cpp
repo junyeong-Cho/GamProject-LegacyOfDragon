@@ -52,6 +52,6 @@ void Stage1_boss::hp()
 	pop_settings();
 	if (health <= 0)
 	{
-		scene = 16;
+		scene = 15;
 	}
 }

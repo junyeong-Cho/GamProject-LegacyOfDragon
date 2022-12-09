@@ -137,6 +137,7 @@ int main()
 
 	vector<Enemy_attack*> enemy_attack;
 	vector<Boss_attack*> boss_attack;
+	vector<Boss_dead*> boss_dead;
 
 	const vector<int> randomboxloc = { 500, 650, 800 };
 	const vector<int> ultraboxloc = { 600, 750 };
@@ -418,6 +419,7 @@ int main()
 			
 		}
 
+
 		//Stage 1-1
 		if (scene == 10)
 		{
@@ -462,7 +464,6 @@ int main()
 			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
 
 			camera->camera_move();
-			cout << camera->camera_pos_x << ", " << camera->camera_pos_y << endl;
 
 			player->MOVE();
 			player->draw_fix_chara();
@@ -545,9 +546,9 @@ int main()
 			enemy_update.enemy_fix_move(enemys_1_3, player);
 
 			//Me Enemy check
-			interaction.player_enemy_interaction(enemys_1_1, player);
+			/*interaction.player_enemy_interaction(enemys_1_1, player);
 			interaction.player_enemy_interaction(enemys_1_2, player);
-			interaction.player_enemy_interaction(enemys_1_3, player);
+			interaction.player_enemy_interaction(enemys_1_3, player);*/
 
 
 			//Bullet Enemy Check
@@ -598,10 +599,10 @@ int main()
 
 
 			//Me Enemy check
-			interaction.player_enemy_interaction(enemys_1_1, player);
+			/*interaction.player_enemy_interaction(enemys_1_1, player);
 			interaction.player_enemy_interaction(enemys_1_2, player);
 			interaction.player_enemy_interaction(enemys_1_3, player);
-			interaction.player_enemy_interaction(enemys_2_1, player);
+			interaction.player_enemy_interaction(enemys_2_1, player);*/
 
 
 
@@ -659,11 +660,11 @@ int main()
 
 
 			//Me Enemy check
-			interaction.player_enemy_interaction(enemys_1_1, player);
+			/*interaction.player_enemy_interaction(enemys_1_1, player);
 			interaction.player_enemy_interaction(enemys_1_2, player);
 			interaction.player_enemy_interaction(enemys_1_3, player);
 			interaction.player_enemy_interaction(enemys_2_1, player);
-			interaction.player_enemy_interaction(enemys_2_2, player);
+			interaction.player_enemy_interaction(enemys_2_2, player);*/
 
 
 
@@ -719,11 +720,11 @@ int main()
 
 
 			//Me Enemy check
-			interaction.player_enemy_interaction(enemys_1_1, player);
+		/*	interaction.player_enemy_interaction(enemys_1_1, player);
 			interaction.player_enemy_interaction(enemys_1_2, player);
 			interaction.player_enemy_interaction(enemys_1_3, player);
 			interaction.player_enemy_interaction(enemys_2_1, player);
-			interaction.player_enemy_interaction(enemys_2_2, player);
+			interaction.player_enemy_interaction(enemys_2_2, player);*/
 
 			//Bullet Enemy Check
 			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
@@ -775,11 +776,11 @@ int main()
 			enemy_update.enemy_fix_move(enemys_2_2, player);
 
 			//Me Enemy check
-			interaction.player_enemy_interaction(enemys_1_1, player);
+			/*interaction.player_enemy_interaction(enemys_1_1, player);
 			interaction.player_enemy_interaction(enemys_1_2, player);
 			interaction.player_enemy_interaction(enemys_1_3, player);
 			interaction.player_enemy_interaction(enemys_2_1, player);
-			interaction.player_enemy_interaction(enemys_2_2, player);
+			interaction.player_enemy_interaction(enemys_2_2, player);*/
 
 			//Bullet Enemy Check
 			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
@@ -857,14 +858,27 @@ int main()
 			player_setting.move_limit(player);
 			map_setting.map_creating();
 
-
+		/*	s3boss_update.dead_create(stage_boss3, boss_dead);
 			s3boss_update.attack_create(boss_attack, stage_boss3, player);
-			s3boss_update.attack_draw(boss_attack);
+			s3boss_update.attack_draw(boss_attack, boss_dead);
 			s3boss_update.attack_remove(boss_attack);
 
 			stage_boss3->draw();
 			stage_boss3->move(player);
-			stage_boss3->hp();
+			stage_boss3->hp(boss_dead);*/
+
+			breath_update.bullet_create(breath, player);
+			breath_update.bullet_draw(breath, player);
+			breath_update.coolTime(breath, player);
+
+		/*	shooting_update.bullet_create(bullets, player);
+			shooting_update.bullet_draw(bullets);
+			shooting_update.bullet_remove(bullets);
+			shooting_update.coolTime(player);*/
+
+		//	interaction.bullet_dead_interaction(boss_dead, bullets);
+		//	interaction.player_boss3_interaction(stage_boss3, bullets);
+				
 
 			player->MOVE();
 			player->draw_chara();

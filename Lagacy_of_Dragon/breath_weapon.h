@@ -38,7 +38,7 @@ struct BreathWeapon {
 	float angleY = (mouseY - bullet_pos_y);
 
 	void draw();
-	void drawrect();
+	void drawrect(Player* player);
 	void FireBullet();
 };
 

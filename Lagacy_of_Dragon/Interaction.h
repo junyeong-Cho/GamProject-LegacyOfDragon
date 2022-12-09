@@ -17,6 +17,7 @@
 #include "meteor_weapon.h"
 #include "stage1_boss.h"
 #include "stage2_boss.h"
+#include "stage3_boss.h"
 
 
 constexpr double enemyradius = 15;
@@ -49,6 +50,9 @@ struct Interaction
 
 	void player_boss1_interaction(Stage1_boss* boss1, std::vector<Shooting*>& bullets);
 	void player_boss2_interaction(Stage2_boss* boss2, std::vector<Shooting*>& bullets);
+	void player_boss3_interaction(Stage3_boss* boss3, std::vector<Shooting*>& bullets);
+
+	void bullet_dead_interaction(std::vector<Boss_dead*>& dead, std::vector<Shooting*>& bullets);
 	void boss2_player_interaction(Player* player);
 };
 extern Interaction interaction;

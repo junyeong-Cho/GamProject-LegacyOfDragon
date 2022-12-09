@@ -1,5 +1,5 @@
 #ifndef BOSS3_H
-#define BOSS_H
+#define BOSS3_H
 
 #include <vector>
 #include "Player.h"
@@ -13,9 +13,9 @@ inline bool boss3_move_check = false;
 inline float boss3_x = 750;
 inline float boss3_y = 500;
 inline int s3bossSize = 150;
-inline int boss3_hp = 50;
+inline int boss3_hp = 1;
 inline int s3_boss_vel = 2;
-inline int s3_bullet_v = 7;
+inline int s3_bullet_v = 10;
 
 constexpr int b3_hp_x = 250;
 constexpr int b3_hp_y = 800;
@@ -27,6 +27,17 @@ inline int boss3_timer = 0;
 inline double boss3_timers = 0;
 static constexpr int b3_attack_delay = 2;
 
+inline int dead_x = 0;
+inline int dead_y = 0;
+inline int dead_size = 200;
+inline int dead_hp = 1;
+
+inline double dead_timer = 0;
+inline double dead_time_check = 30;
+
+inline bool b3_attack_on = false;
+
+struct Boss_dead;
 
 inline Color hp_color_3 = HexColor{ 0xfff000ff };
 
@@ -39,7 +50,7 @@ struct Stage3_boss {
 
 	void draw();
 	void move(Player* player);
-	void hp();
+	void hp(std::vector<Boss_dead*>& dead);
 };
 
 struct Boss_attack {
@@ -55,13 +66,26 @@ struct Boss_attack {
 	void fire_attack();
 };
 
+struct Boss_dead
+{
+	int x = 0;
+	int y = 0;
+	int size = 0;
+	int health = 0;
+
+	void draw();
+};
+
 struct S3boss_update {
 	int timer_check = 4;
 	int regen_delay = 4;
 	int count_once = 0;
+
+	void dead_create(Stage3_boss* stage3_boss, std::vector<Boss_dead*>& dead);
 	void attack_create(std::vector<Boss_attack*>& attack, Stage3_boss* stage3_boss, Player* player);
-	void attack_draw(std::vector<Boss_attack*>& attack);
+	void attack_draw(std::vector<Boss_attack*>& attack, std::vector<Boss_dead*>& dead);
 	void attack_remove(std::vector<Boss_attack*>& attack);
+
 };
 
 extern S3boss_update s3boss_update;

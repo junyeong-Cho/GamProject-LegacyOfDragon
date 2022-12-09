@@ -39,6 +39,9 @@ void Shooting_update::bullet_create(std::vector<Shooting*> &bullets, Player* pla
 		if (MouseIsPressed && not_clicked == true)
 		{
 			bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
+			bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
+			bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
+
 			not_clicked = false;
 			sh_click_timer = 0;
 		}

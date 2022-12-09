@@ -8,14 +8,14 @@ void BreathWeapon::draw()
 	draw_ellipse(bullet_pos_x, bullet_pos_y, size1, size1);
 }
 
-void BreathWeapon::drawrect()
+void BreathWeapon::drawrect(Player* player)
 {
 	float aimAngle = atan2(angleY, angleX);
 	push_settings();
 	set_fill_color(HexColor{ 0x0000ffff });
 	set_rectangle_mode(RectMode::Center);
-	//apply_translate(player->chara_pos_x, player->chara_pos_y);
-	//apply_rotate(aimAngle);
+	apply_translate(player->chara_pos_x, player->chara_pos_y);
+	apply_rotate(aimAngle);
 	draw_rectangle(rect_x - breathSize / 2, rect_y, size, size1);
 	pop_settings();
 
@@ -61,7 +61,7 @@ void Breath_update::bullet_create(std::vector<BreathWeapon*>& bullets, Player* p
 	{
 		for (int i = 0; i < bullets.size(); i++)
 		{
-			bullets[i]->drawrect();
+			bullets[i]->drawrect(player);
 		}
 	}
 	if (breath_timer > breath_time_check)
