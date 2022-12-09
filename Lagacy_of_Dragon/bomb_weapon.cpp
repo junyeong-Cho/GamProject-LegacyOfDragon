@@ -42,6 +42,24 @@ void Bomb_update::bullet_draw(std::vector<BombWeapon*>& bullets)
     }
 }
 
+void Bomb_update::bullet_remove(std::vector<BombWeapon*>& bullets)
+{
+    for (int i = 0; i < bullets.size(); i++)
+    {
+        if (is_bomb_hit == true)
+        {
+            bo_remove_timer += DeltaTime;
+            if (bo_remove_timer > bo_remove_check)
+            {
+                delete bullets[i];
+                bullets.erase(bullets.begin() + i);
+                is_bomb_hit = false;
+                bo_remove_timer = 0;
+            }
+        }    
+    }
+}
+
 void Bomb_update::coolTime(std::vector<BombWeapon*>& bullets, Player* player)
 {
     set_rectangle_mode(RectMode::Corner);

@@ -4,8 +4,29 @@ using namespace doodle;
 
 void Storm::draw()
 {
-	set_fill_color(HexColor{ 0xff002a55 });
-	draw_ellipse(bullet_pos_x, bullet_pos_y, size, size);
+	push_settings();
+
+	storm_timer += DeltaTime;
+	set_image_mode(RectMode::Center);
+
+	if (storm_timer < storm1_check) // 0.5ÃÊ
+	{
+		draw_image(stormImage1, bullet_pos_x, bullet_pos_y, size, size);
+	}
+	if (storm_timer >= storm1_check && storm_timer < storm2_check) //0.5~ 1.0
+	{
+		draw_image(stormImage2, bullet_pos_x, bullet_pos_y, size, size);
+
+	}
+	if (storm_timer >= storm2_check && storm_timer < storm3_check) //1.5~
+	{
+		draw_image(stormImage3, bullet_pos_x, bullet_pos_y, size, size);
+	}
+	if (storm_timer > storm3_check)
+	{
+		storm_timer = 0;
+	}
+	pop_settings();
 }
 
 void Storm::FireBullet()

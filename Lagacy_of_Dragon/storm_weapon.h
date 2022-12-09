@@ -5,7 +5,17 @@
 #include "Player.h"
 #include <vector>
 
+
+inline Image stormImage1{ "attack/storm1.png" };
+inline Image stormImage2{ "attack/storm2.png" };
+inline Image stormImage3{ "attack/storm3.png" };
+
 using namespace doodle;
+
+inline double storm_timer = 0;
+inline double storm1_check = 0.1;
+inline double storm2_check = 0.2;
+inline double storm3_check = 0.3;
 
 
 constexpr int stvelocity = 2;

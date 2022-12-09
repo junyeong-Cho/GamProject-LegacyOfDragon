@@ -120,6 +120,12 @@
     <ClCompile Include="stage3_boss.cpp">
       <Filter>소스 파일\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="boss2.cpp">
+      <Filter>소스 파일\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="boss3.cpp">
+      <Filter>소스 파일\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">

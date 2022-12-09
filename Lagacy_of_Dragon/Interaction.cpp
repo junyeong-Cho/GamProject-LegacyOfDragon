@@ -49,7 +49,7 @@ void Interaction::bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 			double b = bullets[i]->bullet_pos_y - enemys[j]->y;
 			double distance = sqrt(a * a + b * b);
 
-			if (distance < bullets[i]->size + enemys[j]->enemysize)
+			if (distance < bullets[i]->size + enemys[j]->enemysize / 2)
 			{
 				if (enemys[j]->health - 1 == 0)
 				{
@@ -61,9 +61,9 @@ void Interaction::bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 					break;
 				}
 				else {
+					enemys[j]->health--;
 					delete bullets[i];
 					bullets.erase(bullets.begin() + i);
-					enemys[j]->health--;
 				}
 			}
 		}
@@ -235,28 +235,22 @@ void Interaction::bomb_enemy_interaction(std::vector<Enemy*>& enemys, std::vecto
 			double a = bullets[i]->bullet_pos_x - enemys[j]->x;
 			double b = bullets[i]->bullet_pos_y - enemys[j]->y;
 			double distance = sqrt(a * a + b * b);
-
-			if (distance < bullets[i]->size / static_cast<double>(2) + enemys[j]->enemysize / static_cast<double>(2))
+			if (distance < bullets[i]->size + enemys[j]->enemysize / 2)
 			{
-				double c = bullets[i]->bullet_pos_x + bullets[i]->range - enemys[j]->x;
-				double d = bullets[i]->bullet_pos_y + bullets[i]->range - enemys[j]->y;
-				double disrange = sqrt(c * c + d * d);
+				is_bomb_hit = true;
+				double c = bullets[i]->bullet_pos_x - enemys[j]->x;
+				double d = bullets[i]->bullet_pos_y - enemys[j]->y;
+				double distance1 = sqrt(c * c + d * d);
 
-				if (disrange < enemys[j]->enemysize + bullets[i]->range)
+				if (distance1 < bullets[i]->range / 2 + enemys[j]->enemysize / 2)
 				{
 					if (enemys[j]->health - 1 == 0)
 					{
-						delete bullets[i];
 						delete enemys[j];
-
-						bullets.erase(bullets.begin() + i);
 						enemys.erase(enemys.begin() + j);
 						break;
 					}
-					else
-					{
-						delete bullets[i];
-						bullets.erase(bullets.begin() + i);
+					else {
 						enemys[j]->health--;
 					}
 				}
@@ -425,7 +419,6 @@ void Interaction::player_boss3_interaction(Stage3_boss* boss3, std::vector<Shoot
 		}
 	}
 }
-
 
 void Interaction::bullet_dead_interaction(std::vector<Boss_dead*>& dead, std::vector<Shooting*>& bullets)
 {

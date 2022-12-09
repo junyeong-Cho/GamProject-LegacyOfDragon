@@ -4,8 +4,29 @@ using namespace doodle;
 
 void Meteor::draw()
 {
+	push_settings();
+	set_image_mode(RectMode::Center);
+	meteor_timer += DeltaTime;
 	set_fill_color(HexColor{ 0xff002a55 });
-	draw_ellipse(bullet_pos_x, bullet_pos_y, size, size);
+
+	if (meteor_timer < meteor1_check) // 0.5ÃÊ
+	{
+		draw_image(meteorImage1, bullet_pos_x, bullet_pos_y, size, size);
+	}
+	if (meteor_timer >= meteor1_check && meteor_timer < meteor2_check) //0.5~ 1.0
+	{
+		draw_image(meteorImage2, bullet_pos_x, bullet_pos_y, size, size);
+
+	}
+	if (meteor_timer >= meteor2_check && meteor_timer < meteor3_check) //1.5~
+	{
+		draw_image(meteorImage3, bullet_pos_x, bullet_pos_y, size, size);
+	}
+	if (meteor_timer > meteor3_check)
+	{
+		meteor_timer = 0;
+	}
+	pop_settings();
 }
 
 void Meteor::FireBullet()

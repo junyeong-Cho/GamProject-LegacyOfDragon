@@ -1,4 +1,5 @@
 #include "Shooting.h"
+#include "UIsetting.h"
 #include <doodle\doodle.hpp>
 using namespace doodle;
 
@@ -10,7 +11,7 @@ double Shooting::radius() {
 void Shooting::draw()
 {
 	set_fill_color(HexColor{ 0xff002aff });
-	draw_ellipse(bullet_pos_x, bullet_pos_y, size, size);
+	draw_image(shootImage,bullet_pos_x, bullet_pos_y, size, size);
 }
 
 void Shooting::FireBullet()

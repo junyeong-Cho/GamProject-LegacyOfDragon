@@ -1,6 +1,11 @@
 #include "breath_weapon.h"
 #include <doodle\doodle.hpp>
 using namespace doodle;
+ 
+// Rect is just for hide the ellipse
+//Please try to release mode
+//after bullet erase, rect will also earse
+//Call drawrect is 68line
 
 void BreathWeapon::draw()
 {
@@ -8,19 +13,20 @@ void BreathWeapon::draw()
 	draw_ellipse(bullet_pos_x, bullet_pos_y, size1, size1);
 }
 
-void BreathWeapon::drawrect(Player* player)
+void BreathWeapon::drawrect(std::vector<BreathWeapon*>& bullets, Player* player)
 {
-	float aimAngle = atan2(angleY, angleX);
-	push_settings();
-	set_fill_color(HexColor{ 0x0000ffff });
-	set_rectangle_mode(RectMode::Center);
-	apply_translate(player->chara_pos_x, player->chara_pos_y);
-	apply_rotate(aimAngle);
-	draw_rectangle(rect_x - breathSize / 2, rect_y, size, size1);
-	pop_settings();
-
+//	if(is_breath_draw == true)
+//	{
+		float aimAngle = atan2(angleY, angleX);
+		push_settings();
+		set_fill_color(HexColor{ 0x0000ffff });
+		set_rectangle_mode(RectMode::Center);
+		apply_translate(player->chara_pos_x , player->chara_pos_y);
+		apply_rotate(aimAngle);
+		draw_rectangle(rect_x, rect_y, size, size1);
+		pop_settings();
+	//}
 }
-
 
 void BreathWeapon::FireBullet()
 {
@@ -32,7 +38,6 @@ void BreathWeapon::FireBullet()
 	bullet_pos_y += static_cast<int>(velocityY);
 
 }
-
 
 void Breath_update::bullet_create(std::vector<BreathWeapon*>& bullets, Player* player)
 {
@@ -61,11 +66,17 @@ void Breath_update::bullet_create(std::vector<BreathWeapon*>& bullets, Player* p
 	{
 		for (int i = 0; i < bullets.size(); i++)
 		{
-			bullets[i]->drawrect(player);
+			bullets[i]->drawrect(bullets,player);
 		}
 	}
 	if (breath_timer > breath_time_check)
 	{
+		for (int i = 0; i < bullets.size(); i++)
+		{
+			delete bullets[i];
+			bullets.erase(bullets.begin() + i);	
+		}
+		is_breath_draw = false;
 		is_breath = false;
 		breath_timer = 0;
 	}
@@ -78,6 +89,7 @@ void Breath_update::bullet_draw(std::vector<BreathWeapon*>& bullets, Player* pla
 		push_settings();
 		bullets[i]->draw();
 		bullets[i]->FireBullet();
+		//bullets[i]->drawrect(player);
 		pop_settings();
 	}
 }

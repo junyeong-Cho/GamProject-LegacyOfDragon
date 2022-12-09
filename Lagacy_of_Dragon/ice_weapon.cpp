@@ -4,8 +4,7 @@ using namespace doodle;
 
 void IceWeapon::draw()
 {
-	set_fill_color(HexColor{ 0x0000ffff });
-	draw_ellipse(bullet_pos_x, bullet_pos_y, size, size);
+	draw_image(iceImage,bullet_pos_x, bullet_pos_y, size, size);
 }
 
 void IceWeapon::FireBullet()

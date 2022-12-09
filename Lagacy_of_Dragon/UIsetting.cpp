@@ -17,8 +17,6 @@ void UIsetting::ui_point() {
 	}
 }
 
-
-
 void UIsetting::roulette(vector<int> randomboxloc) 
 {
 	if (KeyIsPressed && Key != KeyboardButtons::Q)
@@ -371,7 +369,6 @@ void UIsetting::roulette_six(vector<int> sixboxloc) {
 		}
 	}
 }
-
 
 void UIsetting::weaponChoice(vector<Shooting*>& bullets, vector<IceWeapon*>& ice, vector<BombWeapon*>& bombs, vector<Storm*>& storm, vector<Approach*>& approach, vector<BackWeapon*>& knockback, vector<BreathWeapon*>& breath, vector<Meteor*>& meteor, Player* player)
 {

@@ -132,6 +132,8 @@
     <ClCompile Include="auto_weapon.cpp" />
     <ClCompile Include="back_weapon.cpp" />
     <ClCompile Include="bomb_weapon.cpp" />
+    <ClCompile Include="boss2.cpp" />
+    <ClCompile Include="boss3.cpp" />
     <ClCompile Include="breath_weapon.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Enemy.cpp" />

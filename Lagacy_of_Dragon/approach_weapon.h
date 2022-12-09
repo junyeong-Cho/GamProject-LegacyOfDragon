@@ -5,6 +5,8 @@
 #include "Player.h"
 #include <vector>
 
+inline Image appImage{ "attack/approach.png" };
+
 using namespace doodle;
 
 inline int approachSize = 160;

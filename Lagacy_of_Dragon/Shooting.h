@@ -4,6 +4,8 @@
 #include <doodle\doodle.hpp>
 #include "Player.h"
 #include <vector>
+inline Image shootImage{ "attack/fireball1.png" };
+
 using namespace doodle;
 
 static constexpr int Pvelocity = 3;
@@ -11,7 +13,6 @@ static constexpr int Bvelocity = 20;
 static constexpr int Player_r = 50;
 
 constexpr int bulletSize = 10;
-
 inline bool not_clicked = false;
 
 inline double sh_click_timer = 0;

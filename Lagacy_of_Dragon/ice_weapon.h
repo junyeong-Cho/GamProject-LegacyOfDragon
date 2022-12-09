@@ -6,6 +6,7 @@
 #include <vector>
 using namespace doodle;
 
+inline Image iceImage { "attack/iceweapon.png" };
 
 static constexpr int Ivelocity = 10;
 

@@ -5,6 +5,10 @@
 
 void Map_setting::stage7_creating(Camera* camera)
 {
+	push_settings();
+	set_fill_color(dawn);
+	draw_rectangle(-Width, -Height, Width, Height);
+	pop_settings();
 	for (int x = camera->xs - 1; x < camera->xe + 1; x++)
 	{
 		if (x < 0 || x > 35)
@@ -55,6 +59,10 @@ void Map_setting::stage7_creating(Camera* camera)
 
 void Map_setting::char_pos7(Camera* camera)
 {
+	push_settings();
+	set_fill_color(dawn);
+	draw_rectangle(-Width, -Height, Width, Height);
+	pop_settings();
 	for (int x = 0; x < 36; x++)
 	{
 		for (int y = 0; y < 36; y++)

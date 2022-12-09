@@ -13,6 +13,7 @@ constexpr int breathSize = 3600;
 constexpr int breathSize1 = 100;
 constexpr int breathdamage = 5;
 
+inline bool is_breath_draw = false;
 inline bool is_breath = false;
 inline double breath_timer = 0;
 inline double breath_time_check = 2;
@@ -37,8 +38,8 @@ struct BreathWeapon {
 	float angleX = (mouseX - bullet_pos_x);
 	float angleY = (mouseY - bullet_pos_y);
 
-	void draw();
-	void drawrect(Player* player);
+	void draw(); 
+	void drawrect(std::vector<BreathWeapon*>& bullets, Player* player);
 	void FireBullet();
 };
 

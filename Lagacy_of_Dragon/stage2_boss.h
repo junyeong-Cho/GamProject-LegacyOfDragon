@@ -4,6 +4,10 @@
 #include <vector>
 #include "Player.h"
 const Image Boss2r{ "red_dragon.png" };
+const Image razer_ver{ "attack/bossrazer1.png" };
+const Image razer_ver1{ "attack/bossrazer2.png" }; 
+const Image razer_hori{ "attack/bossrazer3.png" }; // thick
+const Image razer_mid{ "attack/bossbomb.png" };
 
 inline double b2_change_check = 6;
 inline double b2_change_timer = 0;
@@ -13,15 +17,16 @@ inline double b2_move_timer = 0;
 inline double b2_move_check = 4;
 
 inline bool is_b2_hit = false;
-
+inline bool is_b2_draw = false;
 
 inline double b2_blink_timer = 0;
 inline double b2_blink_check = 0.1;
 inline double b2_blink_time = 0.1;
 inline double b2_attack_checked = 3.5;
 
-inline Color blink_color = HexColor{ 0xff000077 };
-inline Color attack_color = HexColor{ 0xfff000ff };
+inline Color blink_color = HexColor{ 0xff000022 };
+inline Color blink_color_1 = HexColor{ 0xff000022 };
+inline Color attack_color = HexColor{ 0x00000001 };
 inline Color hp_color_2 = HexColor{ 0xfff000ff };
 
 

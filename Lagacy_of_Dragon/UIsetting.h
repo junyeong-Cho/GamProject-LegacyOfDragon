@@ -91,13 +91,13 @@ const Image rthree{ "etc/randomthree.png" };
 const Image rsix{ "etc/randomsix.png" };
 
 
+
 struct UIsetting
 {
 	void ui_point();
 	void roulette(std::vector<int> randomboxloc);
 	void roulette_ult(std::vector<int> ultraboxloc);
 	void roulette_six(std::vector<int> sixboxloc);
-	void coolTime();
 	void weaponChoice(vector<Shooting*>& bullets, vector<IceWeapon*>& ice, vector<BombWeapon*>& bombs, vector<Storm*>& storm, vector<Approach*>& approach, vector<BackWeapon*>& knockback, vector<BreathWeapon*>& breath, vector<Meteor*>& meteor, Player* player);
 
 };

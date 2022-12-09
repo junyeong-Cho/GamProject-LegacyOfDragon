@@ -5,8 +5,11 @@ using namespace doodle;
 
 void Approach::draw()
 {
+	push_settings();
+	set_image_mode(RectMode::Center);
 	set_fill_color(HexColor{ 0xff002aff });
-	draw_ellipse(x, y, size, size);
+	draw_image(appImage, x, y, size, size);
+	pop_settings();
 }
 
 void Approach_update::bullet_create(std::vector<Approach*>& bullets, Player* player)

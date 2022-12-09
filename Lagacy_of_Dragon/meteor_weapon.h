@@ -5,7 +5,17 @@
 #include "Player.h"
 #include <vector>
 
+
+inline Image meteorImage1{ "attack/meteor1.png" };
+inline Image meteorImage2{ "attack/meteor2.png" };
+inline Image meteorImage3{ "attack/meteor3.png" };
+
 using namespace doodle;
+
+inline double meteor_timer = 0;
+inline double meteor1_check = 0.2;
+inline double meteor2_check = 0.4;
+inline double meteor3_check = 0.6;
 
 
 constexpr int mevelocity = 2;

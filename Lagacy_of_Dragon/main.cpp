@@ -452,10 +452,10 @@ int main()
 			shooting_update.bullet_remove(bullets);
 
 			////Random enemy
-			//enemy_update.enemy_create(enemys_1_1, 20);
+			enemy_update.enemy_create(enemys_1_1, 20);
 
 			////Enemy move
-			//enemy_update.enemy_fix_move(enemys_1_1, player);
+			enemy_update.enemy_fix_move(enemys_1_1, player);
 
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
@@ -803,7 +803,7 @@ int main()
 			player->draw_fix_chara();
 			player->hp_chara();
 		}
-		//Boss2
+		//Boss2 
 		if (scene == 17)
 		{
 			player_setting.move_limit(player);
@@ -827,11 +827,11 @@ int main()
 			player->draw_chara();
 			player->hp_chara();
 		}
-		//Boss3
+		//Boss3 
 		if (scene == 18)
 		{
 			player_setting.move_limit(player);
-			map_setting.map_creating();
+			map_setting.boss2_creating();
 
 			//Create bullet
 			uisetting.roulette(randomboxloc);
@@ -852,11 +852,11 @@ int main()
 			player->draw_chara();
 			player->hp_chara();
 		}
-		//Boss1
+		//Boss1 
 		if (scene == 19)
 		{
 			player_setting.move_limit(player);
-			map_setting.map_creating();
+			map_setting.boss3_creating();
 
 		/*	s3boss_update.dead_create(stage_boss3, boss_dead);
 			s3boss_update.attack_create(boss_attack, stage_boss3, player);
@@ -867,14 +867,96 @@ int main()
 			stage_boss3->move(player);
 			stage_boss3->hp(boss_dead);*/
 
-			breath_update.bullet_create(breath, player);
-			breath_update.bullet_draw(breath, player);
-			breath_update.coolTime(breath, player);
+			weapon_choice = 6;
 
-		/*	shooting_update.bullet_create(bullets, player);
-			shooting_update.bullet_draw(bullets);
-			shooting_update.bullet_remove(bullets);
-			shooting_update.coolTime(player);*/
+			////Random enemy
+			enemy_update.enemy_create(enemys_1_1, 20);
+
+			////Enemy move
+			enemy_update.enemy_move(enemys_1_1, player);
+
+			//Bullet Enemy Check
+			interaction.ice_enemy_interaction(enemys_1_1, ice);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
+			interaction.approach_enemy_interaction(enemys_1_1, approach);
+			interaction.meteor_enemy_interaction(enemys_1_1, meteor);
+			interaction.storm_enemy_interaction(enemys_1_1, storm);
+			interaction.bomb_enemy_interaction(enemys_1_1, bombs);
+			interaction.breath_enemy_interaction(enemys_1_1, breath, player);
+
+
+			//Bullets
+			if (weapon_choice == 0)
+			{
+				shooting_update.bullet_create(bullets, player);
+				shooting_update.bullet_draw(bullets);
+				shooting_update.bullet_remove(bullets);
+				shooting_update.coolTime(player);
+
+			}
+
+			//Ice
+			if (weapon_choice == 1)
+			{
+				ice_update.bullet_create(ice, player);
+				ice_update.bullet_draw(ice);
+				ice_update.bullet_remove(ice);
+				ice_update.coolTime(ice, player);
+			}
+
+			//bomb
+			if (weapon_choice == 2)
+			{
+				bomb_update.bullet_draw(bombs);
+				bomb_update.bullet_create(bombs, player);
+				bomb_update.bullet_remove(bombs);
+				bomb_update.coolTime(bombs, player);
+			}
+
+			//storm
+			if (weapon_choice == 3)
+			{
+				storm_update.bullet_create(storm, player);
+				storm_update.bullet_draw(storm);
+				storm_update.bullet_remove(storm);
+				storm_update.coolTime(storm, player);
+			}
+
+			//app
+			if (weapon_choice == 4)
+			{
+				approach_update.bullet_create(approach, player);
+				approach_update.bullet_draw(approach);
+				approach_update.bullet_remove(approach);
+				approach_update.coolTime(approach, player);
+			}
+
+			//back
+			if (weapon_choice == 5)
+			{
+				back_update.bullet_create(knockback, player);
+				back_update.bullet_draw(knockback);
+				back_update.bullet_remove(knockback);
+				back_update.coolTime(knockback, player);
+			}
+
+			//breath
+			if (weapon_choice == 6)
+			{
+				breath_update.bullet_create(breath, player);
+				breath_update.bullet_draw(breath, player);
+				breath_update.coolTime(breath, player);
+			}
+
+			//meteor
+			if (weapon_choice == 7)
+			{
+				meteor_update.bullet_create(meteor, player);
+				meteor_update.bullet_draw(meteor);
+				meteor_update.bullet_remove(meteor);
+				meteor_update.coolTime(meteor, player);
+
+			}
 
 		//	interaction.bullet_dead_interaction(boss_dead, bullets);
 		//	interaction.player_boss3_interaction(stage_boss3, bullets);
