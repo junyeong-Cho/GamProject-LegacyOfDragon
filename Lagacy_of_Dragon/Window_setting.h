@@ -5,7 +5,8 @@
 using namespace doodle;
 
 
-inline int scene = 1;
+inline int scene = 19;
+inline int jewel_count = 0;
 
 
 struct Window_setting {

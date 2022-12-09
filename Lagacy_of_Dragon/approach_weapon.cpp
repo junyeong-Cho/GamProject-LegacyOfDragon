@@ -62,11 +62,11 @@ void Approach_update::coolTime(std::vector<Approach*>& bullets, Player* player)
 	set_rectangle_mode(RectMode::Corner);
 	push_settings();
 	no_fill();
-	draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 50, 100, 15);
+	draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 40, 100, 10);
 	pop_settings();
 
 	push_settings();
 	set_fill_color(HexColor{ 0x00FF00FF });
-	draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 50, 33.3 * ap_click_timer, 15);
+	draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 40, 33.3 * ap_click_timer, 10);
 	pop_settings();
 }

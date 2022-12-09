@@ -33,8 +33,9 @@ void Enemy::enemy6_draw()
 void Enemy_attack::draw_enemy_attack()
 {
 	set_fill_color(HexColor{ 0xff6a00ff });
-	draw_ellipse(attack_pos_x, attack_pos_y, attack_size, attack_size);
+	draw_image(g3attack, attack_pos_x, attack_pos_y, attack_size, attack_size);
 }
+
 void Enemy_attack::fire_attack()
 {
 	float aimAngle = atan2(angleY, angleX);

@@ -91,18 +91,37 @@ inline double slide_timer = 0;
 inline double slide_check1 = 0.5;
 inline double slide_check2 = 1;
 
+inline double roulette_init_timer = 0;
+inline double roulette_init_check = 15;
+
+inline double rouletteu_init_timer = 0;
+inline double rouletteu_init_check = 25;
+
+inline double roulettes_init_timer = 0;
+inline double roulettes_init_check = 20;
+
 inline Color box_color = HexColor{ 0xff0000ff };
 inline Color box_color1 = HexColor{ 0xffb7b7ff };
+inline Color r_cool_color = HexColor{ 0xff7f00ff };
+inline Color u_cool_color = HexColor{ 0x9370dbff };
+
+
 
 
 const Image Fire{ "etc/redjewery.png" };
 const Image Water{ "etc/bluejewery.png" };
 const Image Wind{ "etc/greenjewery.png" };
 
-const Image IceW{ "weapon/ice.png" };
-const Image StormW{ "weapon/storm.png" };
-const Image BombW{ "weapon/bomb.png" };
-const Image BackW{ "weapon/knockback.png" };
+const Image ShootW{ "attack/fireball.png" };
+const Image IceW{ "weapon/icew.png" };
+const Image StormW{ "weapon/stormw.png" };
+const Image BombW{ "weapon/bombw.png" };
+const Image BackW{ "weapon/knockbackw.png" };
+const Image RazerW{ "weapon/razerw.png" };
+const Image MeteorW{ "weapon/meteorw.png" };
+const Image ApproW{ "weapon/approachw.png" };
+
+
 
 const Image rtwo{ "etc/randomtwo.png" };
 const Image rthree{ "etc/randomthree.png" };
@@ -121,14 +140,16 @@ const Image Home{ "UIdesign/home.png" };
 const Image Retry{ "UIdesign/retry.png" };
 
 
-
-
 struct UIsetting
 {
 	void ui_point();
 	void roulette(std::vector<int> randomboxloc);
 	void roulette_ult(std::vector<int> ultraboxloc);
 	void roulette_six(std::vector<int> sixboxloc);
+	void RcoolTime(Player* player);
+	void UcoolTime(Player* player);
+	void ScoolTime(Player* player);
+
 	void weaponChoice(vector<Shooting*>& bullets, vector<IceWeapon*>& ice, vector<BombWeapon*>& bombs, vector<Storm*>& storm, vector<Approach*>& approach, vector<BackWeapon*>& knockback, vector<BreathWeapon*>& breath, vector<Meteor*>& meteor, Player* player);
 	void howtoplay(int* scene);
 	void gameover(int* scene);

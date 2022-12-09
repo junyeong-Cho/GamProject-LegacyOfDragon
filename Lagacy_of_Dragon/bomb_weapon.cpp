@@ -5,8 +5,7 @@ using namespace doodle;
 
 void BombWeapon::draw()
 {
-    set_fill_color(HexColor{ 0xffff00ff });
-    draw_ellipse(bullet_pos_x, bullet_pos_y, size, size);
+    draw_image(bombImage1, bullet_pos_x, bullet_pos_y, size, size);
 }
 
 void Bomb_update::bullet_create(std::vector<BombWeapon*>& bullets, Player* player)
@@ -49,6 +48,8 @@ void Bomb_update::bullet_remove(std::vector<BombWeapon*>& bullets)
         if (is_bomb_hit == true)
         {
             bo_remove_timer += DeltaTime;
+            draw_image(bombImage2, bullets[i]->bullet_pos_x, bullets[i]->bullet_pos_y, bullets[i]->size, bullets[i]->size);
+
             if (bo_remove_timer > bo_remove_check)
             {
                 delete bullets[i];
@@ -65,11 +66,11 @@ void Bomb_update::coolTime(std::vector<BombWeapon*>& bullets, Player* player)
     set_rectangle_mode(RectMode::Corner);
     push_settings();
     no_fill();
-    draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 50, 100, 15);
+    draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 50, 100, 10);
     pop_settings();
 
     push_settings();
     set_fill_color(HexColor{ 0x00FF00FF });
-    draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 50, 200 * bo_click_check, 15);
+    draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 50, 200 * bo_click_check, 10);
     pop_settings();
 }

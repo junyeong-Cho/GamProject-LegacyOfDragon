@@ -37,6 +37,8 @@ const Image enemy3{ "enemy/enemy3.png" };
 const Image enemy4{ "enemy/enemy4.png" };
 const Image enemy5{ "enemy/enemy5.png" };
 const Image enemy6{ "enemy/enemy6.png" };
+const Image g3attack{ "attack/g3bullet.png" };
+
 
 struct Enemy {
 	float x = 0;

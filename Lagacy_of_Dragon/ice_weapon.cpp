@@ -64,11 +64,11 @@ void Ice_update::coolTime(std::vector<IceWeapon*>& bullets, Player* player)
 	set_rectangle_mode(RectMode::Corner);
 	push_settings();
 	no_fill();
-	draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 50, 100, 15);
+	draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 50, 100, 10);
 	pop_settings();
 
 	push_settings();
 	set_fill_color(HexColor{ 0x00FF00FF });
-	draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 50, 200 * ice_timer, 15);
+	draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 50, 200 * ice_timer, 10);
 	pop_settings();
 }

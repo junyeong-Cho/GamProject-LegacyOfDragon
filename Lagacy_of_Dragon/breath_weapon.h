@@ -5,6 +5,10 @@
 #include "Player.h"
 #include <vector>
 
+const Image razerImage{ "attack/razer.png" };
+const Image razerImage1{ "attack/razer1.png" };
+const Image razerImage2{ "attack/razer2.png" };
+
 
 using namespace doodle;
 static constexpr int Brvelocity = 15;

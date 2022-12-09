@@ -48,7 +48,7 @@ void Map_setting::stage1_creating(Camera* camera)
 
 	if (camera->x > -150 && camera->x < -50 && camera->y > 3500 && camera->y < 3600)
 	{
-		//·ê·¿ È°¼ºÈ­
+		jewel_count += 1;
 	}
 
 	if (camera->x > 3200 && camera->x < 3300 && camera->y > 3000 && camera->y < 3300)

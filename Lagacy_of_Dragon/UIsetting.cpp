@@ -20,131 +20,140 @@ void UIsetting::ui_point() {
 
 void UIsetting::roulette(vector<int> randomboxloc)
 {
-	readyRoulette = false;
-
-	if (KeyIsPressed && Key != KeyboardButtons::Q)
+	if (roulette_init_timer < roulette_init_check)
 	{
-		is_random = true;
+		roulette_init_timer += DeltaTime;
 	}
 
-	if (KeyIsPressed && Key == KeyboardButtons::Q)
+	if(roulette_init_timer >= roulette_init_check)
 	{
-		is_random = true;
-		randomScene = 1;
-		readyRoulette = 1;
-		rouletteflag = 1;
-	}
+		readyRoulette = false;
 
-	if (randomScene == 1 && is_random == true)
-	{
-		push_settings();
-		set_outline_width(8.0);
-		set_outline_color(box_color1);
-		set_fill_color(255);
-		draw_line(draw_roulette_line_x1, randomboxh, draw_roulette_line_x1, randomboxh + randomboxSize);
-		draw_line(draw_roulette_line_x2, randomboxh, draw_roulette_line_x2, randomboxh + randomboxSize);
-		draw_rectangle(randomboxloc[0], randomboxh, randomboxSize * 3, randomboxSize);
-		pop_settings();
-		;
-		//Weapon Draw
-		draw_image(IceW, randomboxloc[0], randomboxh, randomboxSize, randomboxSize);
-		draw_image(StormW, randomboxloc[1], randomboxh, randomboxSize, randomboxSize);
-		draw_image(BackW, randomboxloc[2], randomboxh, randomboxSize, randomboxSize);
-
-
-		//Roulette
-		push_settings();
-		no_fill();
-		set_outline_color(box_color);
-		set_outline_width(6.0);
-		draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
-		pop_settings();
-
-		//Speed
-		acc_x = 30;
-		if (choice_box_once == 0)
+		if (KeyIsPressed && Key != KeyboardButtons::Q)
 		{
-			box_x += acc_x;
+			is_random = true;
 		}
 
-
-		//Range
-		if (box_x < randomboxloc[0] || box_x > randomboxloc[2])
+		if (KeyIsPressed && Key == KeyboardButtons::Q)
 		{
-			box_x = randomboxloc[0];
+			is_random = true;
+			randomScene = 1;
+			readyRoulette = 1;
+			rouletteflag = 1;
 		}
 
-
-		if (roulette_count_once != readyRoulette) {
-			readyRoulette2++;
-			roulette_count_once = readyRoulette;
-			box_count_once = 0;
-		}
-
-		//Operator
-		if (readyRoulette2 > 2 && rouletteflag)
+		if (randomScene == 1 && is_random == true)
 		{
-			skillTimer += DeltaTime;
-			//Speed is on proportion with Time (현재 속도는 30이라 skillTimer = 5, 속도 6곱해줌
-			if (skillTimer < SkillTimeCheck)
+			push_settings();
+			set_outline_width(8.0);
+			set_outline_color(box_color1);
+			set_fill_color(255);
+			draw_line(draw_roulette_line_x1, randomboxh, draw_roulette_line_x1, randomboxh + randomboxSize);
+			draw_line(draw_roulette_line_x2, randomboxh, draw_roulette_line_x2, randomboxh + randomboxSize);
+			draw_rectangle(randomboxloc[0], randomboxh, randomboxSize * 3, randomboxSize);
+			pop_settings();
+			;
+			//Weapon Draw
+			draw_image(ShootW, randomboxloc[0], randomboxh, randomboxSize, randomboxSize);
+			draw_image(IceW, randomboxloc[1], randomboxh, randomboxSize, randomboxSize);
+			draw_image(StormW, randomboxloc[2], randomboxh, randomboxSize, randomboxSize);
+
+
+			//Roulette
+			push_settings();
+			no_fill();
+			set_outline_color(box_color);
+			set_outline_width(6.0);
+			draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
+			pop_settings();
+
+			//Speed
+			acc_x = 30;
+			if (choice_box_once == 0)
 			{
-				box_x -= skillTimer * 5.7; // Same as acc_x
+				box_x += acc_x;
 			}
-			else if (skillTimer > SkillTimeCheck)
+
+
+			//Range
+			if (box_x < randomboxloc[0] || box_x > randomboxloc[2])
 			{
-
-				if (box_x <= 600 || box_x == randomboxloc[0] && box_x != randomboxloc[1] && box_x != randomboxloc[2])
-				{
-					box_x = randomboxloc[0];//500
-					push_settings();
-					no_fill();
-					set_outline_color(box_color);
-					set_outline_width(6.0);
-					draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
-					pop_settings();
-					weapon_choice = 0;
-					choice_box_once = 1;
-				}//Second box
-				else if (box_x > 600 && box_x < 700 || box_x == randomboxloc[1] && box_x != randomboxloc[0] && box_x != randomboxloc[2])
-				{
-					box_x = randomboxloc[1];//650
-					push_settings();
-					no_fill();
-					set_outline_color(box_color);
-					set_outline_width(6.0);
-					draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
-					pop_settings();
-					weapon_choice = 1;
-					choice_box_once = 1;
+				box_x = randomboxloc[0];
+			}
 
 
-				}//Third box
-				else if (box_x >= 700 || box_x == randomboxloc[2] && box_x != randomboxloc[0] && box_x != randomboxloc[1])
+			if (roulette_count_once != readyRoulette) {
+				readyRoulette2++;
+				roulette_count_once = readyRoulette;
+				box_count_once = 0;
+			}
+
+			//Operator
+			if (readyRoulette2 > 2 && rouletteflag)
+			{
+				skillTimer += DeltaTime;
+				//Speed is on proportion with Time (현재 속도는 30이라 skillTimer = 5, 속도 6곱해줌
+				if (skillTimer < SkillTimeCheck)
 				{
-					box_x = randomboxloc[2];//800
-					push_settings();
-					no_fill();
-					set_outline_color(box_color);
-					set_outline_width(6.0);
-					draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
-					pop_settings();
-					weapon_choice = 2;
-					choice_box_once = 1;
+					box_x -= skillTimer * 5.7; // Same as acc_x
+				}
+				else if (skillTimer > SkillTimeCheck)
+				{
+
+					if (box_x <= 600 || box_x == randomboxloc[0] && box_x != randomboxloc[1] && box_x != randomboxloc[2])
+					{
+						box_x = randomboxloc[0];//500
+						push_settings();
+						no_fill();
+						set_outline_color(box_color);
+						set_outline_width(6.0);
+						draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
+						pop_settings();
+						weapon_choice = 0;
+						choice_box_once = 1;
+					}//Second box
+					else if (box_x > 600 && box_x < 700 || box_x == randomboxloc[1] && box_x != randomboxloc[0] && box_x != randomboxloc[2])
+					{
+						box_x = randomboxloc[1];//650
+						push_settings();
+						no_fill();
+						set_outline_color(box_color);
+						set_outline_width(6.0);
+						draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
+						pop_settings();
+						weapon_choice = 1;
+						choice_box_once = 1;
+
+
+					}//Third box
+					else if (box_x >= 700 || box_x == randomboxloc[2] && box_x != randomboxloc[0] && box_x != randomboxloc[1])
+					{
+						box_x = randomboxloc[2];//800
+						push_settings();
+						no_fill();
+						set_outline_color(box_color);
+						set_outline_width(6.0);
+						draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
+						pop_settings();
+						weapon_choice = 3;
+						choice_box_once = 1;
+
+					}
+
+					if (skillTimer > random_initial_check)
+					{
+						skillTimer = 0;
+						randomScene = 0;
+						readyRoulette = 0;
+						rouletteflag = 0;
+						is_random = false;
+						readyRoulette2 = 0;
+						roulette_count_once = 0;
+						choice_box_once = 0;
+						roulette_init_timer = 0;
+					}
 
 				}
-
-				if (skillTimer > random_initial_check)
-				{
-					skillTimer = 0;
-					randomScene = 0;
-					readyRoulette = 0;
-					rouletteflag = 0;
-					is_random = false;
-					readyRoulette2 = 0;
-					roulette_count_once = 0;
-					choice_box_once = 0;
-				}
-
 			}
 		}
 	}
@@ -152,109 +161,118 @@ void UIsetting::roulette(vector<int> randomboxloc)
 
 void UIsetting::roulette_ult(vector<int> ultraboxloc) {
 
-	readyRoulette_ul = false;
-
-	if (KeyIsPressed && Key != KeyboardButtons::E)
+	if (rouletteu_init_timer < rouletteu_init_check)
 	{
-		is_random_ul = true;
+		rouletteu_init_timer += DeltaTime;
 	}
-	if (KeyIsPressed && Key == KeyboardButtons::E)
+
+	if (rouletteu_init_timer >= rouletteu_init_check)
 	{
-		randomScene_ul = 1;
-		readyRoulette_ul = 1;
-		is_random_ul = true;
-		rouletteflag_ul = 1;
-	}
-	if (randomScene_ul == 1 && is_random_ul == true)
-	{
-		push_settings();
-		set_outline_width(8.0);
-		set_outline_color(box_color1);
-		set_fill_color(255);
-		draw_line(draw_roulette_line_x1, randomboxh, draw_roulette_line_x1, randomboxh + randomboxSize);
-		draw_line(draw_roulette_line_x2, randomboxh, draw_roulette_line_x2, randomboxh + randomboxSize);
-		draw_rectangle(ultraboxloc[0], randomboxh, randomboxSize * 2, randomboxSize);
-		pop_settings();
+		readyRoulette_ul = false;
 
-		draw_image(IceW, ultraboxloc[0], randomboxh, randomboxSize, randomboxSize);
-		draw_image(StormW, ultraboxloc[1], randomboxh, randomboxSize, randomboxSize);
-
-		//Roulette
-		push_settings();
-		no_fill();
-		set_outline_color(box_color);
-		set_outline_width(6.0);
-		draw_rectangle(ultra_box_x, randomboxh, randomboxSize, randomboxSize);
-		pop_settings();
-
-		//Speed
-		acc_ul_x = 15;
-
-		if (choice_box_once_ul == 0)
+		if (KeyIsPressed && Key != KeyboardButtons::E)
 		{
-			ultra_box_x += acc_ul_x;
+			is_random_ul = true;
 		}
-
-		//Range
-		if (ultra_box_x < ultraboxloc[0] || ultra_box_x > ultraboxloc[1])
+		if (KeyIsPressed && Key == KeyboardButtons::E)
 		{
-			ultra_box_x = ultraboxloc[0];
+			randomScene_ul = 1;
+			readyRoulette_ul = 1;
+			is_random_ul = true;
+			rouletteflag_ul = 1;
 		}
-
-		if (roulette_count_once_ul != readyRoulette_ul) {
-			readyRoulette2_ul++;
-			roulette_count_once_ul = readyRoulette_ul;
-			box_count_once_ul = 0;
-		}
-
-		//Operator
-		if (readyRoulette2_ul > 2 && rouletteflag_ul)
+		if (randomScene_ul == 1 && is_random_ul == true)
 		{
+			push_settings();
+			set_outline_width(8.0);
+			set_outline_color(box_color1);
+			set_fill_color(255);
+			draw_line(draw_roulette_line_x1, randomboxh, draw_roulette_line_x1, randomboxh + randomboxSize);
+			draw_line(draw_roulette_line_x2, randomboxh, draw_roulette_line_x2, randomboxh + randomboxSize);
+			draw_rectangle(ultraboxloc[0], randomboxh, randomboxSize * 2, randomboxSize);
+			pop_settings();
 
-			skillTimer_ul += DeltaTime;
-			//Speed is on proportion with Time (현재 속도는 15이라 skillTimer = 5, 속도 5곱해줌
-			if (skillTimer_ul < SkillTimeCheck_ul)
+			draw_image(RazerW, ultraboxloc[0], randomboxh, randomboxSize, randomboxSize);
+			draw_image(MeteorW, ultraboxloc[1], randomboxh, randomboxSize, randomboxSize);
+
+			//Roulette
+			push_settings();
+			no_fill();
+			set_outline_color(box_color);
+			set_outline_width(6.0);
+			draw_rectangle(ultra_box_x, randomboxh, randomboxSize, randomboxSize);
+			pop_settings();
+
+			//Speed
+			acc_ul_x = 15;
+
+			if (choice_box_once_ul == 0)
 			{
-				ultra_box_x -= skillTimer_ul * 4.7; // Same as acc_x
+				ultra_box_x += acc_ul_x;
 			}
-			if (skillTimer_ul > SkillTimeCheck_ul)
+
+			//Range
+			if (ultra_box_x < ultraboxloc[0] || ultra_box_x > ultraboxloc[1])
+			{
+				ultra_box_x = ultraboxloc[0];
+			}
+
+			if (roulette_count_once_ul != readyRoulette_ul) {
+				readyRoulette2_ul++;
+				roulette_count_once_ul = readyRoulette_ul;
+				box_count_once_ul = 0;
+			}
+
+			//Operator
+			if (readyRoulette2_ul > 2 && rouletteflag_ul)
 			{
 
-				//First box
-				if (ultra_box_x < 675 && ultra_box_x != 750)
+				skillTimer_ul += DeltaTime;
+				//Speed is on proportion with Time (현재 속도는 15이라 skillTimer = 5, 속도 5곱해줌
+				if (skillTimer_ul < SkillTimeCheck_ul)
 				{
-					ultra_box_x = ultraboxloc[0];
-					push_settings();
-					no_fill();
-					set_outline_color(box_color);
-					set_outline_width(6.0);
-					draw_rectangle(ultra_box_x, randomboxh, randomboxSize, randomboxSize);
-					pop_settings();
-					weapon_choice = 6;
-					choice_box_once_ul = 1;
-
-				}//Second box
-				if (ultra_box_x >= 675 && ultra_box_x != 600)
-				{
-					ultra_box_x = ultraboxloc[1];
-					push_settings();
-					no_fill();
-					set_outline_color(box_color);
-					set_outline_width(6.0);
-					draw_rectangle(ultra_box_x, randomboxh, randomboxSize, randomboxSize);
-					pop_settings();
-					weapon_choice = 7;
-					choice_box_once_ul = 1;
+					ultra_box_x -= skillTimer_ul * 4.7; // Same as acc_x
 				}
-				if (skillTimer_ul > randomul_initial_check)
+				if (skillTimer_ul > SkillTimeCheck_ul)
 				{
-					skillTimer_ul = 0;
-					randomScene_ul = 0;
-					readyRoulette_ul = 0;
-					readyRoulette2_ul = 0;
-					roulette_count_once_ul = 0;
-					is_random_ul = false;
-					choice_box_once_ul = 0;
+
+					//First box
+					if (ultra_box_x < 675 && ultra_box_x != 750)
+					{
+						ultra_box_x = ultraboxloc[0];
+						push_settings();
+						no_fill();
+						set_outline_color(box_color);
+						set_outline_width(6.0);
+						draw_rectangle(ultra_box_x, randomboxh, randomboxSize, randomboxSize);
+						pop_settings();
+						weapon_choice = 6;
+						choice_box_once_ul = 1;
+
+					}//Second box
+					if (ultra_box_x >= 675 && ultra_box_x != 600)
+					{
+						ultra_box_x = ultraboxloc[1];
+						push_settings();
+						no_fill();
+						set_outline_color(box_color);
+						set_outline_width(6.0);
+						draw_rectangle(ultra_box_x, randomboxh, randomboxSize, randomboxSize);
+						pop_settings();
+						weapon_choice = 7;
+						choice_box_once_ul = 1;
+					}
+					if (skillTimer_ul > randomul_initial_check)
+					{
+						skillTimer_ul = 0;
+						randomScene_ul = 0;
+						readyRoulette_ul = 0;
+						readyRoulette2_ul = 0;
+						roulette_count_once_ul = 0;
+						is_random_ul = false;
+						choice_box_once_ul = 0;
+						rouletteu_init_timer = 0;
+					}
 				}
 			}
 		}
@@ -263,170 +281,223 @@ void UIsetting::roulette_ult(vector<int> ultraboxloc) {
 
 void UIsetting::roulette_six(vector<int> sixboxloc) {
 
-	readyRoulette_six = false;
-
-	if (KeyIsPressed && Key != KeyboardButtons::T)
+	if (roulettes_init_timer < roulettes_init_check)
 	{
-		is_random_six = true;
+		roulettes_init_timer += DeltaTime;
 	}
-	if (KeyIsPressed && Key == KeyboardButtons::T)
+
+	if (roulettes_init_timer >= roulettes_init_check)
 	{
-		randomScene_six = 1;
-		readyRoulette_six = 1;
-		is_random_six = true;
-		rouletteflag_six = 1;
-	}
-	if (randomScene_six == 1 && is_random_six == true)
-	{
-		push_settings();
-		set_outline_width(8.0);
-		set_outline_color(box_color1);
-		set_fill_color(255);
-		draw_rectangle(sixboxloc[0], randomboxh, sixboxSize * 6, sixboxSize);
-		pop_settings();
+		readyRoulette_six = false;
 
-		//Weapon Draw
-		draw_image(IceW, sixboxloc[0], randomboxh, sixboxSize, sixboxSize);
-		draw_image(StormW, sixboxloc[1], randomboxh, sixboxSize, sixboxSize);
-		draw_image(BombW, sixboxloc[2], randomboxh, sixboxSize, sixboxSize);
-		draw_image(BackW, sixboxloc[3], randomboxh, sixboxSize, sixboxSize);
-		draw_image(Wind, sixboxloc[4], randomboxh, sixboxSize, sixboxSize);
-		draw_image(Fire, sixboxloc[5], randomboxh, sixboxSize, sixboxSize);
-
-
-		//Roulette
-		push_settings();
-		no_fill();
-		set_outline_color(box_color);
-		set_outline_width(8.0);
-		draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
-		pop_settings();
-
-		//Speed
-		acc_six_x = 40;
-		if (choice_box_once_six == 0)
+		if (KeyIsPressed && Key != KeyboardButtons::T)
 		{
-			six_box_x += acc_six_x;
+			is_random_six = true;
 		}
-
-		//Range
-		if (six_box_x < sixboxloc[0] || six_box_x > sixboxloc[5])
+		if (KeyIsPressed && Key == KeyboardButtons::T)
 		{
-			six_box_x = sixboxloc[0];
+			randomScene_six = 1;
+			readyRoulette_six = 1;
+			is_random_six = true;
+			rouletteflag_six = 1;
 		}
-		if (roulette_count_once_six != readyRoulette_six) {
-			readyRoulette2_six++;
-			roulette_count_once_six = readyRoulette_six;
-			box_count_once_six = 0;
-		}
-		//Operator
-		if (readyRoulette2_six > 2 && rouletteflag_six)
+		if (randomScene_six == 1 && is_random_six == true)
 		{
+			push_settings();
+			set_outline_width(8.0);
+			set_outline_color(box_color1);
+			set_fill_color(255);
+			draw_rectangle(sixboxloc[0], randomboxh, sixboxSize * 6, sixboxSize);
+			pop_settings();
 
-			skillTimer_six += DeltaTime;
-			//Speed is on proportion with Time (현재 속도는 30이라 skillTimer = 5, 속도 5곱해줌
-			if (skillTimer_six < SkillTimeCheck_six)
+			//Weapon Draw
+			draw_image(ShootW, sixboxloc[0], randomboxh, sixboxSize, sixboxSize);
+			draw_image(IceW, sixboxloc[1], randomboxh, sixboxSize, sixboxSize);
+			draw_image(StormW, sixboxloc[2], randomboxh, sixboxSize, sixboxSize);
+			draw_image(BombW, sixboxloc[3], randomboxh, sixboxSize, sixboxSize);
+			draw_image(ApproW, sixboxloc[4], randomboxh, sixboxSize, sixboxSize);
+			draw_image(BackW, sixboxloc[5], randomboxh, sixboxSize, sixboxSize);
+
+
+			//Roulette
+			push_settings();
+			no_fill();
+			set_outline_color(box_color);
+			set_outline_width(8.0);
+			draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
+			pop_settings();
+
+			//Speed
+			acc_six_x = 40;
+			if (choice_box_once_six == 0)
 			{
-				six_box_x -= skillTimer_six * 5.8; // Same as acc_x
+				six_box_x += acc_six_x;
 			}
-			else if (skillTimer_six > SkillTimeCheck_six)
+
+			//Range
+			if (six_box_x < sixboxloc[0] || six_box_x > sixboxloc[5])
 			{
-				//First box
-				if (six_box_x < 450 + specific_six_gap)
+				six_box_x = sixboxloc[0];
+			}
+			if (roulette_count_once_six != readyRoulette_six) {
+				readyRoulette2_six++;
+				roulette_count_once_six = readyRoulette_six;
+				box_count_once_six = 0;
+			}
+			//Operator
+			if (readyRoulette2_six > 2 && rouletteflag_six)
+			{
+
+				skillTimer_six += DeltaTime;
+				//Speed is on proportion with Time (현재 속도는 30이라 skillTimer = 5, 속도 5곱해줌
+				if (skillTimer_six < SkillTimeCheck_six)
 				{
-					six_box_x = sixboxloc[0];
-					push_settings();
-					no_fill();
-					set_outline_color(box_color);
-					set_outline_width(8.0);
-					draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
-					pop_settings();
-					weapon_choice = 0;
-					choice_box_once_six = 1;
-
-				}//Second box
-				else if (six_box_x >= 450 + specific_six_gap && six_box_x < 450 + specific_six_gap * 2)
-				{
-					six_box_x = sixboxloc[1];
-					push_settings();
-					no_fill();
-					set_outline_color(box_color);
-					set_outline_width(8.0);
-					draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
-					pop_settings();
-					weapon_choice = 1;
-					choice_box_once_six = 1;
-
-
-				}//Third box
-				else if (six_box_x >= 450 + specific_six_gap * 2 && six_box_x < 450 + specific_six_gap * 3)
-				{
-					six_box_x = sixboxloc[2];
-					push_settings();
-					no_fill();
-					set_outline_color(box_color);
-					set_outline_width(8.0);
-					draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
-					pop_settings();
-					weapon_choice = 2;
-					choice_box_once_six = 1;
-
+					six_box_x -= skillTimer_six * 5.8; // Same as acc_x
 				}
-				else if (six_box_x >= 450 + specific_six_gap * 3 && six_box_x < 450 + specific_six_gap * 4)
+				else if (skillTimer_six > SkillTimeCheck_six)
 				{
-					six_box_x = sixboxloc[3];
-					push_settings();
-					no_fill();
-					set_outline_color(box_color);
-					set_outline_width(8.0);
-					draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
-					pop_settings();
-					weapon_choice = 3;
-					choice_box_once_six = 1;
+					//First box
+					if (six_box_x < 450 + specific_six_gap)
+					{
+						six_box_x = sixboxloc[0];
+						push_settings();
+						no_fill();
+						set_outline_color(box_color);
+						set_outline_width(8.0);
+						draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
+						pop_settings();
+						weapon_choice = 0;
+						choice_box_once_six = 1;
+						
 
-				}
-				else if (six_box_x >= 450 + specific_six_gap * 4 || six_box_x < 450 + specific_six_gap * 5)
-				{
-					six_box_x = sixboxloc[4];
-					push_settings();
-					no_fill();
-					set_outline_color(box_color);
-					set_outline_width(8.0);
-					draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
-					pop_settings();
-					weapon_choice = 4;
-					choice_box_once_six = 1;
+					}//Second box
+					else if (six_box_x >= 450 + specific_six_gap && six_box_x < 450 + specific_six_gap * 2)
+					{
+						six_box_x = sixboxloc[1];
+						push_settings();
+						no_fill();
+						set_outline_color(box_color);
+						set_outline_width(8.0);
+						draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
+						pop_settings();
+						weapon_choice = 1;
+						choice_box_once_six = 1;
+						
 
-				}
-				else if (six_box_x >= 450 + specific_six_gap * 5)
-				{
-					six_box_x = sixboxloc[5];
-					push_settings();
-					no_fill();
-					set_outline_color(box_color);
-					set_outline_width(8.0);
-					draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
-					pop_settings();
-					weapon_choice = 5;
-					choice_box_once_six = 1;
+					}//Third box
+					else if (six_box_x >= 450 + specific_six_gap * 2 && six_box_x < 450 + specific_six_gap * 3)
+					{
+						six_box_x = sixboxloc[2];
+						push_settings();
+						no_fill();
+						set_outline_color(box_color);
+						set_outline_width(8.0);
+						draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
+						pop_settings();
+						weapon_choice = 3;
+						choice_box_once_six = 1;
+						
+					}
+					else if (six_box_x >= 450 + specific_six_gap * 3 && six_box_x < 450 + specific_six_gap * 4)
+					{
+						six_box_x = sixboxloc[3];
+						push_settings();
+						no_fill();
+						set_outline_color(box_color);
+						set_outline_width(8.0);
+						draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
+						pop_settings();
+						weapon_choice = 2;
+						
 
-				}
+					}
+					else if (six_box_x >= 450 + specific_six_gap * 4 || six_box_x < 450 + specific_six_gap * 5)
+					{
+						six_box_x = sixboxloc[4];
+						push_settings();
+						no_fill();
+						set_outline_color(box_color);
+						set_outline_width(8.0);
+						draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
+						pop_settings();
+						weapon_choice = 4;
+						choice_box_once_six = 1;
+						
+					}
+					else if (six_box_x >= 450 + specific_six_gap * 5)
+					{
+						six_box_x = sixboxloc[5];
+						push_settings();
+						no_fill();
+						set_outline_color(box_color);
+						set_outline_width(8.0);
+						draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
+						pop_settings();
+						weapon_choice = 5;
+						choice_box_once_six = 1;
+						
+					}
 
 
-				if (skillTimer_six > randomsix_initial_check)
-				{
-					skillTimer_six = 0;
-					randomScene_six = 0;
-					readyRoulette_six = 0;
-					readyRoulette2_six = 0;
-					roulette_count_once_six = 0;
-					is_random_six = false;
-					choice_box_once_six = 0;
+					if (skillTimer_six > randomsix_initial_check)
+					{
+						skillTimer_six = 0;
+						randomScene_six = 0;
+						readyRoulette_six = 0;
+						readyRoulette2_six = 0;
+						roulette_count_once_six = 0;
+						is_random_six = false;
+						choice_box_once_six = 0;
+						roulettes_init_timer = 0;
+					}
 				}
 			}
 		}
 	}
 }
+
+void UIsetting::RcoolTime(Player* player)
+{
+	set_rectangle_mode(RectMode::Corner);
+	push_settings();
+	no_fill();
+	draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 60, 50, 10);
+	pop_settings();
+
+	push_settings();
+	set_fill_color(r_cool_color);
+	draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 60, 3.33 * roulette_init_timer, 10);
+	pop_settings();
+}
+
+void UIsetting::UcoolTime(Player* player)
+{
+	set_rectangle_mode(RectMode::Corner);
+	push_settings();
+	no_fill();
+	draw_rectangle(player->chara_pos_x, player->chara_pos_y - 60, 50, 10);
+	pop_settings();
+
+	push_settings();
+	set_fill_color(u_cool_color);
+	draw_rectangle(player->chara_pos_x, player->chara_pos_y - 60, 2 * rouletteu_init_timer, 10);
+	pop_settings();
+}
+
+void UIsetting::ScoolTime(Player* player)
+{
+	set_rectangle_mode(RectMode::Corner);
+	push_settings();
+	no_fill();
+	draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 60, 50, 10);
+	pop_settings();
+
+	push_settings();
+	set_fill_color(r_cool_color);
+	draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 60, 2.5 * roulettes_init_timer, 10);
+	pop_settings();
+}
+
 
 void UIsetting::weaponChoice(vector<Shooting*>& bullets, vector<IceWeapon*>& ice, vector<BombWeapon*>& bombs, vector<Storm*>& storm, vector<Approach*>& approach, vector<BackWeapon*>& knockback, vector<BreathWeapon*>& breath, vector<Meteor*>& meteor, Player* player)
 {
@@ -437,8 +508,7 @@ void UIsetting::weaponChoice(vector<Shooting*>& bullets, vector<IceWeapon*>& ice
 		shooting_update.bullet_draw(bullets);
 		shooting_update.bullet_remove(bullets);
 		shooting_update.coolTime(player);
-
-	}
+	} 
 
 	//Ice
 	if (weapon_choice == 1)
@@ -583,27 +653,4 @@ void UIsetting::howtoplay(int* scene) {
 	}
 
 	pop_settings();
-}
-
-void UIsetting::gameover(int* scene)
-{
-	clear_background(255);
-	push_settings();
-	set_image_mode(RectMode::Center);
-	draw_image(Game_over, Width / 2, Height / 2, Width, Height);
-	apply_scale(0.5);
-	draw_image(Home, 1500, 1150);
-	draw_image(Retry, 1500, 1350);
-	pop_settings();
-
-	if (!MouseIsPressed) {
-		not_click = true;
-	}
-
-	if ((get_mouse_x() > 600 && get_mouse_x() < 900 && get_mouse_y() > 540 && get_mouse_y() < 610) && (MouseIsPressed && not_click)) {
-		*scene = 2;
-	} else if ((get_mouse_x() > 600 && get_mouse_x() < 900 && get_mouse_y() > 640 && get_mouse_y() < 710) && (MouseIsPressed && not_click)) {
-		*scene = 6;
-	}
-
 }

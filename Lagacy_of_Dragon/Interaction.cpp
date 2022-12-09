@@ -113,6 +113,17 @@ void Interaction::storm_enemy_interaction(std::vector<Enemy*>& enemys, std::vect
 
 			if (distance < bullets[i]->size / static_cast<double>(2) + enemys[j]->enemysize)
 			{
+
+				if (enemys[j]->health - 0.5 == 0)
+				{
+					delete enemys[j];
+					enemys.erase(enemys.begin() + j);
+					break;
+				}
+				else {
+					enemys[j]->health -= 0.5;
+				}
+
 				if (enemys[j]->x <= bullets[i]->bullet_pos_x)
 				{
 					enemys[j]->x += bullets[i]->velocity;
@@ -128,16 +139,6 @@ void Interaction::storm_enemy_interaction(std::vector<Enemy*>& enemys, std::vect
 				if (enemys[j]->y >= bullets[i]->bullet_pos_y)
 				{
 					enemys[j]->y -= bullets[i]->velocity;
-				}
-				
-				if (enemys[j]->health - 0.3 == 0)
-				{
-					delete enemys[j];
-					enemys.erase(enemys.begin() + j);
-					break;
-				}
-				else {
-					enemys[j]->health -= 0.3;
 				}
 			}
 		}
@@ -235,7 +236,7 @@ void Interaction::bomb_enemy_interaction(std::vector<Enemy*>& enemys, std::vecto
 			double a = bullets[i]->bullet_pos_x - enemys[j]->x;
 			double b = bullets[i]->bullet_pos_y - enemys[j]->y;
 			double distance = sqrt(a * a + b * b);
-			if (distance < bullets[i]->size + enemys[j]->enemysize / 2)
+			if (distance < bullets[i]->size / 2 + enemys[j]->enemysize / 2)
 			{
 				is_bomb_hit = true;
 				double c = bullets[i]->bullet_pos_x - enemys[j]->x;

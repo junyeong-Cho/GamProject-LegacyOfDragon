@@ -7,7 +7,10 @@
 #include <vector>
 using namespace doodle;
 
-inline Image shoot{ "attack/fireball.png" };
+
+inline Image bombImage1{ "attack/bomb1.png" };
+inline Image bombImage2{ "attack/bomb2.png" };
+
 
 inline bool is_bomb_hit = false;
 inline bool not_clicked_bomb = false;
@@ -18,7 +21,7 @@ inline double bo_click_check = 0.5;
 inline double bo_remove_timer = 0;
 inline double bo_remove_check = 0.2;
 
-inline int bombSize = 50;
+inline int bombSize = 80;
 inline int bombDamage = 3;
 inline int bombrange = 300;
 

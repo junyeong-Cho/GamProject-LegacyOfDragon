@@ -428,7 +428,6 @@ int main()
 			
 		}
 
-
 		//Stage 1-1
 		if (scene == 10)
 		{
@@ -861,10 +860,13 @@ int main()
 			player_setting.move_limit(player);
 			map_setting.boss3_creating();
 
-			uisetting.roulette(randomboxloc);
+		/*	uisetting.roulette(randomboxloc);
 			uisetting.roulette_ult(ultraboxloc);
 			uisetting.roulette_six(sixboxloc);
 			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
+			uisetting.RcoolTime(player);
+			uisetting.UcoolTime(player);*/
+
 
 		/*	s3boss_update.dead_create(stage_boss3, boss_dead);
 			s3boss_update.attack_create(boss_attack, stage_boss3, player);
@@ -875,7 +877,7 @@ int main()
 			stage_boss3->move(player);
 			stage_boss3->hp(boss_dead);*/
 
-//			weapon_choice = 6;
+			weapon_choice = 2;
 
 			////Random enemy
 			enemy_update.enemy_create(enemys_1_1, 20);
@@ -975,7 +977,6 @@ int main()
 		}
 
 		cout << camera->x << ", " << camera->y << endl;
-
 	}
 	return 0;
 }
