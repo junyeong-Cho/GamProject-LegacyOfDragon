@@ -52,6 +52,11 @@ void Map_setting::stage3_creating(Camera* camera)
 		camera->camera_pos_y = 3500;
 		scene = 19;
 	}
+
+	if (camera->x > 2650 && camera->x < 2750 && camera->y > 1500 && camera->y < 1550)
+	{
+		//·ê·¿ È°¼ºÈ­
+	}
 }
 
 

@@ -46,12 +46,18 @@ void Map_setting::stage1_creating(Camera* camera)
 		}
 	}
 
+	if (camera->x > -150 && camera->x < -50 && camera->y > 3500 && camera->y < 3600)
+	{
+		//·ê·¿ È°¼ºÈ­
+	}
+
 	if (camera->x > 3200 && camera->x < 3300 && camera->y > 3000 && camera->y < 3300)
 	{
 		camera->camera_pos_x = -104;
 		camera->camera_pos_y = 2900;
-		scene = 11;	
+		scene = 11;
 	}
+
 }
 void Map_setting::char_pos1(Camera* camera)
 {

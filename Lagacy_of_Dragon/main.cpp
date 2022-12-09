@@ -885,6 +885,8 @@ int main()
 			player->hp_chara();
 		}
 
+		cout << camera->x << ", " << camera->y << endl;
+
 	}
 	return 0;
 }
