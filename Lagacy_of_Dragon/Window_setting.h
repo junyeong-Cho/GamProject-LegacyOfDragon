@@ -5,7 +5,7 @@
 using namespace doodle;
 
 
-inline int scene = 19;
+inline int scene = 1;
 
 
 struct Window_setting {

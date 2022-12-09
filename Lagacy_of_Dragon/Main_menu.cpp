@@ -1,27 +1,27 @@
 #include "Main_menu.h"
 
 void Main_menu::main_UI() {
-	clear_background(255);
+	clear_background(HexColor{0xffcf69ff});
 	draw_image(Title, title_x, title_y);
 
 	apply_scale(0.5);
 	draw_image(Gameplay_button, mainmenu_x, gameplay_y);
-	draw_image(Setting_button, mainmenu_x, setting_y);
+	draw_image(Howtoplay_button, mainmenu_x, setting_y);
 	draw_image(Credit_button, mainmenu_x, credit_y);
 	draw_image(Exit_button, mainmenu_x, exit_y);
 }
 
 bool Main_menu::is_gameplay() {
-	return (get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_gameplay_y && get_mouse_y() < click_gameplay_y + click_gap_y) && MouseIsPressed;
+	return (get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_gameplay_y && get_mouse_y() < click_gameplay_y + click_gap_y);
 }
 bool Main_menu::is_setting() {
-	return (get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_setting_y && get_mouse_y() < click_setting_y + click_gap_y) && MouseIsPressed;
+	return (get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_setting_y && get_mouse_y() < click_setting_y + click_gap_y);
 }
 bool Main_menu::is_credit() {
-	return (get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_credit_y && get_mouse_y() < click_credit_y + click_gap_y) && MouseIsPressed;
+	return (get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_credit_y && get_mouse_y() < click_credit_y + click_gap_y);
 }
 bool Main_menu::is_exit() {
-	return (get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_exit_y && get_mouse_y() < click_exit_y + click_gap_y) && MouseIsPressed;
+	return (get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_exit_y && get_mouse_y() < click_exit_y + click_gap_y);
 }
 void Main_menu::in_setting()
 {

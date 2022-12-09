@@ -116,7 +116,7 @@ const Image howtoplay3{ "howtoplay/howtoplay3.png" };
 const Image howtoplay4{ "howtoplay/howtoplay4.png" };
 const Image howtoplay5{ "howtoplay/howtoplay5.png" };
 
-const Image Game_over{ "UIdesign/finish.png" };
+const Image Game_over{ "UIdesign/finish.jpg" };
 const Image Home{ "UIdesign/home.png" };
 const Image Retry{ "UIdesign/retry.png" };
 
@@ -131,7 +131,7 @@ struct UIsetting
 	void roulette_six(std::vector<int> sixboxloc);
 	void weaponChoice(vector<Shooting*>& bullets, vector<IceWeapon*>& ice, vector<BombWeapon*>& bombs, vector<Storm*>& storm, vector<Approach*>& approach, vector<BackWeapon*>& knockback, vector<BreathWeapon*>& breath, vector<Meteor*>& meteor, Player* player);
 	void howtoplay(int* scene);
-	void gameover();
+	void gameover(int* scene);
 };
 extern UIsetting uisetting;
 #endif

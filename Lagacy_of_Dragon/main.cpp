@@ -162,6 +162,9 @@ int main()
 		scene_timer += DeltaTime;
 		boss3_timers += DeltaTime;
 		update_window();
+
+		cout << "x:" << get_mouse_x() << endl;
+		cout << "y:" << get_mouse_y() << endl;
 	
 		//Game_start
 		//DIGIEPN LOGO
@@ -189,24 +192,34 @@ int main()
 		{
 			main_menu.main_UI();
 
+
 			//Gameplay
 			if (main_menu.is_gameplay())
 			{
+				draw_image(Gameplay_button_on, mainmenu_x, gameplay_y);
+				if (MouseIsPressed)
 				scene = 6;
 			}
 			//Settings
 			if (main_menu.is_setting())
 			{
+				draw_image(Howtoplay_button_on, mainmenu_x, setting_y);
+				if (MouseIsPressed)
 				scene = 3;
 			}
 			//Credits
 			if (main_menu.is_credit())
 			{
+				draw_image(Credit_button_on, mainmenu_x, credit_y);
+				if (MouseIsPressed)
 				scene = 4;
 			}
 			//Exit
 			if (main_menu.is_exit())
 			{
+
+				draw_image(Exit_button_on, mainmenu_x, exit_y);
+				if (MouseIsPressed)
 				scene = 5;
 			}
 		}
@@ -878,7 +891,6 @@ int main()
 			interaction.storm_enemy_interaction(enemys_1_1, storm);
 			interaction.bomb_enemy_interaction(enemys_1_1, bombs);
 			interaction.breath_enemy_interaction(enemys_1_1, breath, player);
-
 
 			//Bullets
 			if (weapon_choice == 0)

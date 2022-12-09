@@ -34,6 +34,8 @@ const Image Setting_button{ "UIdesign/Setting.png" };
 const Image Setting_button_on{ "UIdesign/Settingon.png" };
 const Image Exit_button{ "UIdesign/Exit.png" };
 const Image Exit_button_on{ "UIdesign/Exiton.png" };
+const Image Howtoplay_button{ "UIdesign/HTP.png" };
+const Image Howtoplay_button_on{ "UIdesign/HTPon.png" };
 
 struct Main_menu {
 	void main_UI();
