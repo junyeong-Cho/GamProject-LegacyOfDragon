@@ -32,9 +32,6 @@ inline double hp_time_check = 0.7;
 inline double boss_timer = 0.0;
 inline double boss_time_check = 0.7;
 
-inline double back_timers = 0;
-inline double back_time_checks = 1;
-
 
 struct Interaction
 {
@@ -49,10 +46,21 @@ struct Interaction
 	void meteor_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Meteor*>& bullets);
 
 	void player_boss1_interaction(Stage1_boss* boss1, std::vector<Shooting*>& bullets);
+	void ice_boss1_interaction(Stage1_boss* boss1, std::vector<IceWeapon*>& bullets);
+	void storm_boss1_interaction(Stage1_boss* boss1, std::vector<Storm*>& bullets);
+
 	void player_boss2_interaction(Stage2_boss* boss2, std::vector<Shooting*>& bullets);
+	void ice_boss2_interaction(Stage2_boss* boss2, std::vector<IceWeapon*>& bullets);
+	void storm_boss2_interaction(Stage2_boss* boss2, std::vector<Storm*>& bullets);
+	void back_boss2_interaction(Stage2_boss* boss2, std::vector<BackWeapon*>& bullets);
+	void approach_boss2_interaction(Stage2_boss* boss2, std::vector<Approach*>& bullets);
+	void bomb_boss2_interaction(Stage2_boss* boss2, std::vector<BombWeapon*>& bullets);
+	void breath_boss2_interaction(Stage2_boss* boss2, std::vector<BreathWeapon*>& bullets);
+	void meteor_boss2_interaction(Stage2_boss* boss2, std::vector<Meteor*>& bullets);
+
+
 	void player_boss3_interaction(Stage3_boss* boss3, std::vector<Shooting*>& bullets);
 
-	void bullet_dead_interaction(std::vector<Boss_dead*>& dead, std::vector<Shooting*>& bullets);
 	void boss2_player_interaction(Player* player);
 };
 extern Interaction interaction;

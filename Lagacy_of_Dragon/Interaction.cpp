@@ -154,36 +154,42 @@ void Interaction::back_enemy_interaction(std::vector<Enemy*>& enemys, std::vecto
 			//Knockback
 			double a = bullets[i]->bullet_pos_x - enemys[j]->x;
 			double b = bullets[i]->bullet_pos_y - enemys[j]->y;
-			double distance1 = sqrt(a * a + b * b);
+			double distance = sqrt(a * a + b * b);
 
-			//Damage
-			double c = bullets[i]->bullet_pos_x - enemys[j]->x;
-			double d = bullets[i]->bullet_pos_y - enemys[j]->y;
-			double distance = sqrt(c * c + d * d);
-
-			if (distance1 < bullets[i]->size1 / static_cast<double>(2) + enemys[j]->enemysize / static_cast<double>(2))
+			if (distance < bullets[i]->size / static_cast<double>(2) + enemys[j]->enemysize / static_cast<double>(2))
 			{
+				if (enemys[j]->health - 0.2 == 0)
+				{
+					delete enemys[j];
+					enemys.erase(enemys.begin() + j);
+					break;
+				}
+				else
+				{
+					enemys[j]->health -= 0.2;
+				}
 				back_timers += DeltaTime;
+
 				if (back_timers < back_time_checks)
 				{
 					if (enemys[i]->x >= player->chara_pos_x)
 					{
-						enemys[i]->x += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed * bullets[i]->velocity1;
+						enemys[i]->x -= bullets[i]->velocity;
 					}
 					if (enemys[i]->x <= player->chara_pos_x)
 					{
-						enemys[i]->x -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed * bullets[i]->velocity1;
+						enemys[i]->x += bullets[i]->velocity;
 					}
 					if (enemys[i]->y >= player->chara_pos_y)
 					{
-						enemys[i]->y += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed * bullets[i]->velocity1;
+						enemys[i]->y -= bullets[i]->velocity;
 					}
 					if (enemys[i]->y <= player->chara_pos_y)
 					{
-						enemys[i]->y -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed * bullets[i]->velocity1;
+						enemys[i]->y += bullets[i]->velocity;
 					}
 				}
-				else if (back_timers >= back_time_checks)
+				else if (back_timers >= back_time_check)
 				{
 					if (enemys[i]->x >= player->chara_pos_x)
 					{
@@ -202,27 +208,7 @@ void Interaction::back_enemy_interaction(std::vector<Enemy*>& enemys, std::vecto
 						enemys[i]->y += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
 					}
 				}
-				back_time_checks += 1;
-			}
-
-			if (distance < bullets[i]->size / static_cast<double>(2) + enemys[j]->enemysize / static_cast<double>(2))
-			{
-				if (enemys[j]->health - 1 == 0)
-				{
-					delete enemys[j];
-					enemys.erase(enemys.begin() + j);
-					break;
-				}
-				else
-				{
-					enemys[j]->health--;
-				}
-			}
-
-			if (back_timer == 0)
-			{
-				back_timers = 0;
-			}
+			}		
 		}
 	}
 }
@@ -338,6 +324,8 @@ void Interaction::meteor_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 	}
 }
 
+
+
 void Interaction::player_boss1_interaction(Stage1_boss* boss1, std::vector<Shooting*>& bullets)
 {
 	for (int i = 0; i < bullets.size(); i++)
@@ -364,7 +352,78 @@ void Interaction::player_boss1_interaction(Stage1_boss* boss1, std::vector<Shoot
 		}	
 	}
 }
+void Interaction::ice_boss1_interaction(Stage1_boss* boss1, std::vector<IceWeapon*>& bullets)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		double a = bullets[i]->bullet_pos_x - boss1->x;
+		double b = bullets[i]->bullet_pos_y - boss1->y;
+		double distance = sqrt(a * a + b * b);
 
+		if (distance < bullets[i]->size / static_cast<double>(2) + boss1->size / static_cast<double>(2))
+		{
+			if (boss1->health == 0)
+			{
+				delete bullets[i];
+				delete boss1;
+				bullets.erase(bullets.begin() + i);
+				break;
+			}
+			else {
+				delete bullets[i];
+				bullets.erase(bullets.begin() + i);
+				boss1->health--;
+				break;
+			}
+		}
+	}
+}
+void Interaction::storm_boss1_interaction(Stage1_boss* boss1, std::vector<Storm*>& bullets)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		double a = bullets[i]->bullet_pos_x - boss1->x;
+		double b = bullets[i]->bullet_pos_y - boss1->y;
+		double distance = sqrt(a * a + b * b);
+
+		if (distance < bullets[i]->size / static_cast<double>(2) + boss1->size / static_cast<double>(2))
+		{
+			if (boss1->health == 0)
+			{
+				delete bullets[i];
+				delete boss1;
+				bullets.erase(bullets.begin() + i);
+				break;
+			}
+			else {
+				delete bullets[i];
+				bullets.erase(bullets.begin() + i);
+				boss1->health--;
+				break;
+			}
+		}
+	}
+}
+
+
+
+void Interaction::boss2_player_interaction(Player* player)
+{
+	if (is_b2_hit == true)
+	{
+		hp_timer += DeltaTime;
+		if (hp_timer >= hp_time_check)
+		{
+			player->hp -= 1;
+			hp_time_check += 0.7;
+		}
+
+		if (player->hp == 0)
+		{
+
+		}
+	}
+}
 void Interaction::player_boss2_interaction(Stage2_boss* boss2, std::vector<Shooting*>& bullets)
 {
 	for (int i = 0; i < bullets.size(); i++)
@@ -392,21 +451,20 @@ void Interaction::player_boss2_interaction(Stage2_boss* boss2, std::vector<Shoot
 		}
 	}
 }
-
-void Interaction::player_boss3_interaction(Stage3_boss* boss3, std::vector<Shooting*>& bullets)
+void Interaction::ice_boss2_interaction(Stage2_boss* boss2, std::vector<IceWeapon*>& bullets)
 {
 	for (int i = 0; i < bullets.size(); i++)
 	{
-		double a = bullets[i]->bullet_pos_x - boss3->x;
-		double b = bullets[i]->bullet_pos_y - boss3->y;
+		double a = bullets[i]->bullet_pos_x - boss2->x;
+		double b = bullets[i]->bullet_pos_y - boss2->y;
 		double distance = sqrt(a * a + b * b);
 
-		if (distance < bullets[i]->size / static_cast<double>(2) + boss3->size)
+		if (distance < bullets[i]->size / static_cast<double>(2) + boss2->size)
 		{
-			if (boss3->health - 1 == 0)
+			if (boss2->health - 1 == 0)
 			{
 				delete bullets[i];
-				delete boss3;
+				delete boss2;
 				bullets.erase(bullets.begin() + i);
 				break;
 			}
@@ -414,58 +472,147 @@ void Interaction::player_boss3_interaction(Stage3_boss* boss3, std::vector<Shoot
 			{
 				delete bullets[i];
 				bullets.erase(bullets.begin() + i);
-				boss3->health--;
+				boss2->health--;
 				break;
 			}
 		}
 	}
 }
-
-void Interaction::bullet_dead_interaction(std::vector<Boss_dead*>& dead, std::vector<Shooting*>& bullets)
+void Interaction::storm_boss2_interaction(Stage2_boss* boss2, std::vector<Storm*>& bullets)
 {
 	for (int i = 0; i < bullets.size(); i++)
 	{
-		for (int j = 0; j < dead.size(); j++)
-		{
-			double a = bullets[i]->bullet_pos_x - dead[j]->x;
-			double b = bullets[i]->bullet_pos_y - dead[j]->y;
-			double distance = sqrt(a * a + b * b);
 
-			if (distance < bullets[i]->size / static_cast<double>(2) + dead[j]->size / static_cast<double>(2))
+		double a = bullets[i]->bullet_pos_x - boss2->x;
+		double b = bullets[i]->bullet_pos_y - boss2->y;
+		double distance = sqrt(a * a + b * b);
+
+		if (distance < bullets[i]->size / static_cast<double>(2) + boss2->size)
+		{
+
+			if (boss2->health - 0.5 == 0)
 			{
-				if (dead[j]->health - 1 == 0)
+				delete boss2;
+				break;
+			}
+			else {
+				boss2->health -= 0.5;
+			}
+
+			if (boss2->x <= bullets[i]->bullet_pos_x)
+			{
+				boss2->x += bullets[i]->velocity;
+			}
+			if (boss2->x >= bullets[i]->bullet_pos_x)
+			{
+				boss2->x -= bullets[i]->velocity;
+			}
+			if (boss2->y <= bullets[i]->bullet_pos_y)
+			{
+				boss2->y += bullets[i]->velocity;
+			}
+			if (boss2->y >= bullets[i]->bullet_pos_y)
+			{
+				boss2->y -= bullets[i]->velocity;
+			}
+		}
+	}
+}
+void Interaction::back_boss2_interaction(Stage2_boss* boss2, std::vector<BackWeapon*>& bullets){}
+void Interaction::approach_boss2_interaction(Stage2_boss* boss2, std::vector<Approach*>& bullets)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		double a = bullets[i]->x - boss2->x;
+		double b = bullets[i]->y - boss2->y;
+		double distance = sqrt(a * a + b * b);
+
+		if (distance < bullets[i]->size / static_cast<double>(2) + boss2->size)
+		{
+			if (boss2->health - 1 == 0)
+			{
+				delete boss2;
+				break;
+			}
+			else
+			{
+				boss2->health--;
+				break;
+			}
+		}
+	}
+}
+void Interaction::bomb_boss2_interaction(Stage2_boss* boss2, std::vector<BombWeapon*>& bullets)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		double a = bullets[i]->bullet_pos_x - boss2->x;
+		double b = bullets[i]->bullet_pos_y - boss2->y;
+		double distance = sqrt(a * a + b * b);
+		if (distance < bullets[i]->size / 2 + boss2->size / 2)
+		{
+			is_bomb_hit = true;
+			double c = bullets[i]->bullet_pos_x - boss2->x;
+			double d = bullets[i]->bullet_pos_y - boss2->y;
+			double distance1 = sqrt(c * c + d * d);
+
+			if (distance1 < bullets[i]->range / 2 + boss2->size / 2)
+			{
+				if (boss2->health - 1 == 0)
 				{
-					delete bullets[i];
-					delete dead[j];
-					bullets.erase(bullets.begin() + j);
-					dead.erase(dead.begin() + j);
+					delete boss2;
 					break;
 				}
 				else {
-					delete bullets[i];
-					dead[j]->health--;
-					bullets.erase(bullets.begin() + j);
-
+					boss2->health--;
 				}
 			}
 		}
 	}
 }
-
-void Interaction::boss2_player_interaction(Player* player)
+void Interaction::breath_boss2_interaction(Stage2_boss* boss2, std::vector<BreathWeapon*>& bullets)
 {
-	if (is_b2_hit == true)
+	for (int i = 0; i < bullets.size(); i++)
 	{
-		hp_timer += DeltaTime;
-		if (hp_timer >= hp_time_check)
-		{
-			player->hp -= 1;
-			hp_time_check += 0.7;
-		}
+		
+			double a = bullets[i]->bullet_pos_x - boss2->x;
+			double b = bullets[i]->bullet_pos_y - boss2->y;
+			double distance = sqrt(a * a + b * b);
 
-		if (player->hp == 0)
-		{
+			if (distance < bullets[i]->size1 / static_cast<double>(2) + boss2->size / static_cast<double>(2))
+			{
+				if (boss2->health - 1 == 0)
+				{
+					delete boss2;
+					break;
+				}
+				else {
+					boss2->health--;
+				}
+			}
+		
+	}
+}
+void Interaction::meteor_boss2_interaction(Stage2_boss* boss2, std::vector<Meteor*>& bullets)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		double a = bullets[i]->bullet_pos_x - boss2->x;
+		double b = bullets[i]->bullet_pos_y - boss2->y;
+		double distance = sqrt(a * a + b * b);
 
+		if (distance < bullets[i]->size / static_cast<double>(2) + boss2->size)
+		{
+			if (boss2->health - 1 == 0)
+			{
+				delete boss2;
+				break;
+			}
+			else
+			{
+				boss2->health--;
+				break;
+			}
 		}
 	}
 }

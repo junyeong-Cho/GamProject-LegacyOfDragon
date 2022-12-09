@@ -27,13 +27,6 @@ inline int boss3_timer = 0;
 inline double boss3_timers = 0;
 static constexpr int b3_attack_delay = 2;
 
-inline int dead_x = 0;
-inline int dead_y = 0;
-inline int dead_size = 200;
-inline int dead_hp = 1;
-
-inline double dead_timer = 0;
-inline double dead_time_check = 30;
 
 inline bool b3_attack_on = false;
 
@@ -45,12 +38,12 @@ struct Stage3_boss {
 	float x = 0;
 	float y = 0;
 	int size = 0;
-	int health = 0;
+	int health = 100;
 	int velocity = 0;
 
 	void draw();
 	void move(Player* player);
-	void hp(std::vector<Boss_dead*>& dead);
+	void hp();
 };
 
 struct Boss_attack {
@@ -81,9 +74,9 @@ struct S3boss_update {
 	int regen_delay = 4;
 	int count_once = 0;
 
-	void dead_create(Stage3_boss* stage3_boss, std::vector<Boss_dead*>& dead);
+	
 	void attack_create(std::vector<Boss_attack*>& attack, Stage3_boss* stage3_boss, Player* player);
-	void attack_draw(std::vector<Boss_attack*>& attack, std::vector<Boss_dead*>& dead);
+	void attack_draw(std::vector<Boss_attack*>& attack);
 	void attack_remove(std::vector<Boss_attack*>& attack);
 
 };

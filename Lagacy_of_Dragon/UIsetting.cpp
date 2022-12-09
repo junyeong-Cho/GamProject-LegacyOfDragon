@@ -654,3 +654,44 @@ void UIsetting::howtoplay(int* scene) {
 
 	pop_settings();
 }
+
+void UIsetting::gameover(int* scene)
+{
+	clear_background(255);
+	push_settings();
+	set_image_mode(RectMode::Center);
+	draw_image(Game_over, Width / 2, Height / 2, Width, Height);
+	apply_scale(0.5);
+	draw_image(Home, 1500, 1150);
+	draw_image(Retry, 1500, 1350);
+	pop_settings();
+
+	if (!MouseIsPressed) {
+		not_click = true;
+	}
+
+	if ((get_mouse_x() > 600 && get_mouse_x() < 900 && get_mouse_y() > 540 && get_mouse_y() < 610) && (MouseIsPressed && not_click)) {
+		*scene = 2;
+	}
+	else if ((get_mouse_x() > 600 && get_mouse_x() < 900 && get_mouse_y() > 640 && get_mouse_y() < 710) && (MouseIsPressed && not_click)) {
+		*scene = 6;
+	}
+
+	set_image_mode(RectMode::Center);
+	draw_image(Game_over, Width / 2, Height / 2, Width, Height);
+	apply_scale(0.5);
+	draw_image(Home, 1500, 1150);
+	draw_image(Retry, 1500, 1350);
+	pop_settings();
+
+	if (!MouseIsPressed) {
+		not_click = true;
+	}
+
+	if ((get_mouse_x() > 600 && get_mouse_x() < 900 && get_mouse_y() > 540 && get_mouse_y() < 610) && (MouseIsPressed && not_click)) {
+		*scene = 2;
+	}
+	else if ((get_mouse_x() > 600 && get_mouse_x() < 900 && get_mouse_y() > 640 && get_mouse_y() < 710) && (MouseIsPressed && not_click)) {
+		*scene = 6;
+	}
+}
