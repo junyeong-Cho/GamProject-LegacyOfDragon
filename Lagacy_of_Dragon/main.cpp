@@ -214,11 +214,7 @@ int main()
 		//Settings
 		if (scene == 3)
 		{
-			main_menu.in_setting();
-			if (main_menu.is_in_setting())
-			{
-				scene = 2;
-			}
+			uisetting.howtoplay(&scene);
 		}
 
 		//Credits
@@ -431,12 +427,6 @@ int main()
 
 			//Bullet_shooting
 			shooting_update.bullet_create(bullets, player);
-
-
-			uisetting.roulette(randomboxloc);
-			uisetting.roulette_ult(ultraboxloc);
-			uisetting.roulette_six(sixboxloc);
-			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
 
 			//Draw Map
 			clear_background(255);
@@ -858,6 +848,11 @@ int main()
 			player_setting.move_limit(player);
 			map_setting.boss3_creating();
 
+			uisetting.roulette(randomboxloc);
+			uisetting.roulette_ult(ultraboxloc);
+			uisetting.roulette_six(sixboxloc);
+			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
+
 		/*	s3boss_update.dead_create(stage_boss3, boss_dead);
 			s3boss_update.attack_create(boss_attack, stage_boss3, player);
 			s3boss_update.attack_draw(boss_attack, boss_dead);
@@ -867,7 +862,7 @@ int main()
 			stage_boss3->move(player);
 			stage_boss3->hp(boss_dead);*/
 
-			weapon_choice = 6;
+//			weapon_choice = 6;
 
 			////Random enemy
 			enemy_update.enemy_create(enemys_1_1, 20);

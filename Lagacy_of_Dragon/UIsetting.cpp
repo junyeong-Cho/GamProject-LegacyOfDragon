@@ -5,6 +5,7 @@
 #include <iostream>
 
 bool something = false;
+bool not_click = false;
 
 using namespace std;
 using namespace doodle;
@@ -17,21 +18,24 @@ void UIsetting::ui_point() {
 	}
 }
 
-void UIsetting::roulette(vector<int> randomboxloc) 
+void UIsetting::roulette(vector<int> randomboxloc)
 {
+	readyRoulette = false;
+
 	if (KeyIsPressed && Key != KeyboardButtons::Q)
 	{
-		is_random = false;
+		is_random = true;
 	}
 
 	if (KeyIsPressed && Key == KeyboardButtons::Q)
 	{
 		is_random = true;
-		randomScene += 1;
+		randomScene = 1;
 		readyRoulette = 1;
+		rouletteflag = 1;
 	}
 
-	if (is_random == true && readyRoulette == 1)
+	if (randomScene == 1 && is_random == true)
 	{
 		push_settings();
 		set_outline_width(8.0);
@@ -41,11 +45,12 @@ void UIsetting::roulette(vector<int> randomboxloc)
 		draw_line(draw_roulette_line_x2, randomboxh, draw_roulette_line_x2, randomboxh + randomboxSize);
 		draw_rectangle(randomboxloc[0], randomboxh, randomboxSize * 3, randomboxSize);
 		pop_settings();
-;
+		;
 		//Weapon Draw
 		draw_image(IceW, randomboxloc[0], randomboxh, randomboxSize, randomboxSize);
-		draw_image(StormW, randomboxloc[1]  , randomboxh, randomboxSize, randomboxSize);
+		draw_image(StormW, randomboxloc[1], randomboxh, randomboxSize, randomboxSize);
 		draw_image(BackW, randomboxloc[2], randomboxh, randomboxSize, randomboxSize);
+
 
 		//Roulette
 		push_settings();
@@ -55,10 +60,13 @@ void UIsetting::roulette(vector<int> randomboxloc)
 		draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
 		pop_settings();
 
-	
 		//Speed
 		acc_x = 30;
-		box_x += acc_x;
+		if (choice_box_once == 0)
+		{
+			box_x += acc_x;
+		}
+
 
 		//Range
 		if (box_x < randomboxloc[0] || box_x > randomboxloc[2])
@@ -67,23 +75,27 @@ void UIsetting::roulette(vector<int> randomboxloc)
 		}
 
 
-		//Operator
-		if (randomScene == 2 && is_random == true)
-		{
+		if (roulette_count_once != readyRoulette) {
+			readyRoulette2++;
+			roulette_count_once = readyRoulette;
+			box_count_once = 0;
+		}
 
+		//Operator
+		if (readyRoulette2 > 2 && rouletteflag)
+		{
 			skillTimer += DeltaTime;
 			//Speed is on proportion with Time (현재 속도는 30이라 skillTimer = 5, 속도 6곱해줌
 			if (skillTimer < SkillTimeCheck)
 			{
-				
 				box_x -= skillTimer * 5.7; // Same as acc_x
 			}
 			else if (skillTimer > SkillTimeCheck)
 			{
-				//First box
-				if (box_x <= 575)
+
+				if (box_x <= 600 || box_x == randomboxloc[0] && box_x != randomboxloc[1] && box_x != randomboxloc[2])
 				{
-					box_x = randomboxloc[0];
+					box_x = randomboxloc[0];//500
 					push_settings();
 					no_fill();
 					set_outline_color(box_color);
@@ -91,11 +103,11 @@ void UIsetting::roulette(vector<int> randomboxloc)
 					draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
 					pop_settings();
 					weapon_choice = 0;
-
+					choice_box_once = 1;
 				}//Second box
-				else if (box_x > 575 || box_x < 675)
+				else if (box_x > 600 && box_x < 700 || box_x == randomboxloc[1] && box_x != randomboxloc[0] && box_x != randomboxloc[2])
 				{
-					box_x = randomboxloc[1];
+					box_x = randomboxloc[1];//650
 					push_settings();
 					no_fill();
 					set_outline_color(box_color);
@@ -103,11 +115,13 @@ void UIsetting::roulette(vector<int> randomboxloc)
 					draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
 					pop_settings();
 					weapon_choice = 1;
+					choice_box_once = 1;
+
 
 				}//Third box
-				else if (box_x >= 675)
+				else if (box_x >= 700 || box_x == randomboxloc[2] && box_x != randomboxloc[0] && box_x != randomboxloc[1])
 				{
-					box_x = randomboxloc[2];
+					box_x = randomboxloc[2];//800
 					push_settings();
 					no_fill();
 					set_outline_color(box_color);
@@ -115,32 +129,41 @@ void UIsetting::roulette(vector<int> randomboxloc)
 					draw_rectangle(box_x, randomboxh, randomboxSize, randomboxSize);
 					pop_settings();
 					weapon_choice = 2;
+					choice_box_once = 1;
+
 				}
+
 				if (skillTimer > random_initial_check)
 				{
 					skillTimer = 0;
 					randomScene = 0;
 					readyRoulette = 0;
+					rouletteflag = 0;
 					is_random = false;
+					readyRoulette2 = 0;
+					roulette_count_once = 0;
+					choice_box_once = 0;
 				}
+
 			}
 		}
-
 	}
-
 }
 
 void UIsetting::roulette_ult(vector<int> ultraboxloc) {
 
+	readyRoulette_ul = false;
+
 	if (KeyIsPressed && Key != KeyboardButtons::E)
 	{
-		is_random_ul = false;
+		is_random_ul = true;
 	}
 	if (KeyIsPressed && Key == KeyboardButtons::E)
 	{
 		randomScene_ul = 1;
 		readyRoulette_ul = 1;
 		is_random_ul = true;
+		rouletteflag_ul = 1;
 	}
 	if (randomScene_ul == 1 && is_random_ul == true)
 	{
@@ -166,7 +189,11 @@ void UIsetting::roulette_ult(vector<int> ultraboxloc) {
 
 		//Speed
 		acc_ul_x = 15;
-		ultra_box_x += acc_ul_x;
+
+		if (choice_box_once_ul == 0)
+		{
+			ultra_box_x += acc_ul_x;
+		}
 
 		//Range
 		if (ultra_box_x < ultraboxloc[0] || ultra_box_x > ultraboxloc[1])
@@ -174,8 +201,14 @@ void UIsetting::roulette_ult(vector<int> ultraboxloc) {
 			ultra_box_x = ultraboxloc[0];
 		}
 
+		if (roulette_count_once_ul != readyRoulette_ul) {
+			readyRoulette2_ul++;
+			roulette_count_once_ul = readyRoulette_ul;
+			box_count_once_ul = 0;
+		}
+
 		//Operator
-		if (Key == KeyboardButtons::E && readyRoulette_ul == 1)
+		if (readyRoulette2_ul > 2 && rouletteflag_ul)
 		{
 
 			skillTimer_ul += DeltaTime;
@@ -186,9 +219,9 @@ void UIsetting::roulette_ult(vector<int> ultraboxloc) {
 			}
 			if (skillTimer_ul > SkillTimeCheck_ul)
 			{
-				
+
 				//First box
-				if (ultra_box_x < 650)
+				if (ultra_box_x < 675 && ultra_box_x != 750)
 				{
 					ultra_box_x = ultraboxloc[0];
 					push_settings();
@@ -198,9 +231,10 @@ void UIsetting::roulette_ult(vector<int> ultraboxloc) {
 					draw_rectangle(ultra_box_x, randomboxh, randomboxSize, randomboxSize);
 					pop_settings();
 					weapon_choice = 6;
+					choice_box_once_ul = 1;
 
 				}//Second box
-				if (ultra_box_x >= 650)
+				if (ultra_box_x >= 675 && ultra_box_x != 600)
 				{
 					ultra_box_x = ultraboxloc[1];
 					push_settings();
@@ -210,13 +244,17 @@ void UIsetting::roulette_ult(vector<int> ultraboxloc) {
 					draw_rectangle(ultra_box_x, randomboxh, randomboxSize, randomboxSize);
 					pop_settings();
 					weapon_choice = 7;
+					choice_box_once_ul = 1;
 				}
 				if (skillTimer_ul > randomul_initial_check)
 				{
 					skillTimer_ul = 0;
 					randomScene_ul = 0;
 					readyRoulette_ul = 0;
+					readyRoulette2_ul = 0;
+					roulette_count_once_ul = 0;
 					is_random_ul = false;
+					choice_box_once_ul = 0;
 				}
 			}
 		}
@@ -225,15 +263,18 @@ void UIsetting::roulette_ult(vector<int> ultraboxloc) {
 
 void UIsetting::roulette_six(vector<int> sixboxloc) {
 
+	readyRoulette_six = false;
+
 	if (KeyIsPressed && Key != KeyboardButtons::T)
 	{
-		is_random_six = false;
+		is_random_six = true;
 	}
 	if (KeyIsPressed && Key == KeyboardButtons::T)
 	{
 		randomScene_six = 1;
 		readyRoulette_six = 1;
 		is_random_six = true;
+		rouletteflag_six = 1;
 	}
 	if (randomScene_six == 1 && is_random_six == true)
 	{
@@ -262,17 +303,24 @@ void UIsetting::roulette_six(vector<int> sixboxloc) {
 		pop_settings();
 
 		//Speed
-		acc_six_x = 30;
-		six_box_x += acc_six_x;
+		acc_six_x = 40;
+		if (choice_box_once_six == 0)
+		{
+			six_box_x += acc_six_x;
+		}
 
 		//Range
 		if (six_box_x < sixboxloc[0] || six_box_x > sixboxloc[5])
 		{
 			six_box_x = sixboxloc[0];
 		}
-
+		if (roulette_count_once_six != readyRoulette_six) {
+			readyRoulette2_six++;
+			roulette_count_once_six = readyRoulette_six;
+			box_count_once_six = 0;
+		}
 		//Operator
-		if (Key == KeyboardButtons::T && readyRoulette_six == 1)
+		if (readyRoulette2_six > 2 && rouletteflag_six)
 		{
 
 			skillTimer_six += DeltaTime;
@@ -284,7 +332,7 @@ void UIsetting::roulette_six(vector<int> sixboxloc) {
 			else if (skillTimer_six > SkillTimeCheck_six)
 			{
 				//First box
-				if (six_box_x < 500)
+				if (six_box_x < 450 + specific_six_gap)
 				{
 					six_box_x = sixboxloc[0];
 					push_settings();
@@ -294,9 +342,10 @@ void UIsetting::roulette_six(vector<int> sixboxloc) {
 					draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
 					pop_settings();
 					weapon_choice = 0;
+					choice_box_once_six = 1;
 
 				}//Second box
-				else if (six_box_x >= 500 || six_box_x < 600)
+				else if (six_box_x >= 450 + specific_six_gap && six_box_x < 450 + specific_six_gap * 2)
 				{
 					six_box_x = sixboxloc[1];
 					push_settings();
@@ -306,9 +355,11 @@ void UIsetting::roulette_six(vector<int> sixboxloc) {
 					draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
 					pop_settings();
 					weapon_choice = 1;
+					choice_box_once_six = 1;
+
 
 				}//Third box
-				else if (six_box_x >= 600 || six_box_x < 700)
+				else if (six_box_x >= 450 + specific_six_gap * 2 && six_box_x < 450 + specific_six_gap * 3)
 				{
 					six_box_x = sixboxloc[2];
 					push_settings();
@@ -318,9 +369,10 @@ void UIsetting::roulette_six(vector<int> sixboxloc) {
 					draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
 					pop_settings();
 					weapon_choice = 2;
+					choice_box_once_six = 1;
 
 				}
-				else if (six_box_x >= 700 || six_box_x < 800)
+				else if (six_box_x >= 450 + specific_six_gap * 3 && six_box_x < 450 + specific_six_gap * 4)
 				{
 					six_box_x = sixboxloc[3];
 					push_settings();
@@ -330,9 +382,10 @@ void UIsetting::roulette_six(vector<int> sixboxloc) {
 					draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
 					pop_settings();
 					weapon_choice = 3;
+					choice_box_once_six = 1;
 
 				}
-				else if (six_box_x >= 800 || six_box_x < 900)
+				else if (six_box_x >= 450 + specific_six_gap * 4 || six_box_x < 450 + specific_six_gap * 5)
 				{
 					six_box_x = sixboxloc[4];
 					push_settings();
@@ -342,9 +395,10 @@ void UIsetting::roulette_six(vector<int> sixboxloc) {
 					draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
 					pop_settings();
 					weapon_choice = 4;
+					choice_box_once_six = 1;
 
 				}
-				else if (six_box_x >= 900)
+				else if (six_box_x >= 450 + specific_six_gap * 5)
 				{
 					six_box_x = sixboxloc[5];
 					push_settings();
@@ -354,6 +408,7 @@ void UIsetting::roulette_six(vector<int> sixboxloc) {
 					draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
 					pop_settings();
 					weapon_choice = 5;
+					choice_box_once_six = 1;
 
 				}
 
@@ -363,7 +418,10 @@ void UIsetting::roulette_six(vector<int> sixboxloc) {
 					skillTimer_six = 0;
 					randomScene_six = 0;
 					readyRoulette_six = 0;
+					readyRoulette2_six = 0;
+					roulette_count_once_six = 0;
 					is_random_six = false;
+					choice_box_once_six = 0;
 				}
 			}
 		}
@@ -443,4 +501,91 @@ void UIsetting::weaponChoice(vector<Shooting*>& bullets, vector<IceWeapon*>& ice
 		meteor_update.coolTime(meteor, player);
 
 	}
+}
+
+void UIsetting::howtoplay(int* scene) {
+	clear_background(255);
+	push_settings();
+	set_image_mode(RectMode::Center);
+
+	if (!MouseIsPressed) {
+		not_click = true;
+	}
+	switch (howtoplay_scene)
+	{
+	case 0:
+		slide_timer += DeltaTime;
+		if (slide_timer >= slide_check1)
+		{
+			draw_image(howtoplay1_1, Width / 2, Height / 2, Width, Height);
+			if (slide_timer >= slide_check2)
+				slide_timer = 0;
+		}
+		else
+		{
+			draw_image(howtoplay1_2, Width / 2, Height / 2, Width, Height);
+		}
+
+		if ((get_mouse_x() > 990 && get_mouse_x() < 1420 && get_mouse_y() > 720 && get_mouse_y() < 810) && (MouseIsPressed && not_click))
+		{
+			howtoplay_scene++;
+			not_click = false;
+		}
+
+		break;
+	case 1:
+		draw_image(howtoplay2_1, Width / 2, Height / 2, Width, Height);
+		if ((get_mouse_x() > 990 && get_mouse_x() < 1420 && get_mouse_y() > 720 && get_mouse_y() < 810) && (MouseIsPressed && not_click))
+		{
+			howtoplay_scene++;
+			not_click = false;
+		}
+
+		break;
+	case 2:
+		draw_image(howtoplay3, Width / 2, Height / 2, Width, Height);
+		if ((get_mouse_x() > 990 && get_mouse_x() < 1420 && get_mouse_y() > 720 && get_mouse_y() < 810) && (MouseIsPressed && not_click))
+		{
+			howtoplay_scene++;
+			not_click = false;
+		}
+
+		break;
+	case 3:
+		draw_image(howtoplay4, Width / 2, Height / 2, Width, Height);
+		if ((get_mouse_x() > 990 && get_mouse_x() < 1420 && get_mouse_y() > 720 && get_mouse_y() < 810) && (MouseIsPressed && not_click))
+		{
+			howtoplay_scene++;
+			not_click = false;
+		}
+
+		break;
+	case 4:
+		draw_image(howtoplay5, Width / 2, Height / 2, Width, Height);
+		if ((get_mouse_x() > 990 && get_mouse_x() < 1420 && get_mouse_y() > 720 && get_mouse_y() < 810) && (MouseIsPressed && not_click))
+		{
+			*scene = 2;
+			howtoplay_scene = 0;
+			not_click = false;
+		}
+		if ((get_mouse_x() > 990 && get_mouse_x() < 1420 && get_mouse_y() > 620 && get_mouse_y() < 710) && (MouseIsPressed && not_click))
+		{
+			*scene = 6;
+			howtoplay_scene = 0;
+			not_click = false;
+		}
+
+		break;
+	default:
+		break;
+
+
+	}
+
+	pop_settings();
+}
+
+void UIsetting::gameover()
+{
+
 }

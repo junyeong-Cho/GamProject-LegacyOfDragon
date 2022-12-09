@@ -23,24 +23,20 @@ bool Main_menu::is_credit() {
 bool Main_menu::is_exit() {
 	return (get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_exit_y && get_mouse_y() < click_exit_y + click_gap_y) && MouseIsPressed;
 }
-
 void Main_menu::in_setting()
 {
 	clear_background(0x7E5873FF);
 	draw_text("Back", maxvolume_x, maxvolume_y);
 }
-
 void Main_menu::in_credit()
 {
 	clear_background(0x7E5873FF);
 	draw_text("Back", maxvolume_x, maxvolume_y);
 }
-
 bool Main_menu::is_in_setting()
 {
 	return (get_mouse_x() > maxvolume_x && get_mouse_x() < maxvolume_x + 150 && get_mouse_y() > maxvolume_y && get_mouse_y() < maxvolume_y + click_gap_y + 10) && MouseIsPressed;
 }
-
 bool Main_menu::is_in_credit()
 {
 	return (get_mouse_x() > maxvolume_x && get_mouse_x() < maxvolume_x + 150 && get_mouse_y() > maxvolume_y && get_mouse_y() < maxvolume_y + click_gap_y + 10) && MouseIsPressed;
