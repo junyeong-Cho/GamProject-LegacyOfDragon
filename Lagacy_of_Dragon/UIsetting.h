@@ -32,14 +32,22 @@ inline double SkillTimeCheck_six = 5;
 //---------------------------------//
 inline int rouletteCheck = 0;
 inline int readyRoulette = 0;
+inline int readyRoulette2 = 0;
+inline int rouletteflag = 0;
 
 
 inline int rouletteCheck_ul = 0;
 inline int readyRoulette_ul = 0;
-
-
+inline int readyRoulette2_ul = 0;
+inline int roulette_count_once_ul = 0;
+inline int box_count_once_ul = 0;
 inline int rouletteCheck_six = 0;
 inline int readyRoulette_six = 0;
+inline int choice_box_once_six = 0;
+inline int readyRoulette2_six = 0;
+inline int roulette_count_once_six = 0;
+inline int box_count_once_six = 0;
+inline int rouletteflag_six = 0;
 //---------------------------------//
 inline int randomScene = 0;
 inline int randomScene_ul = 0;
@@ -56,22 +64,32 @@ inline double box_x = 500;
 inline int randomboxh = 100;
 inline double randomboxSize = 150;
 inline double ultra_box_x = 700;
-
+inline int choice_box_once_ul = 0;
 inline double sixboxSize = 100;
 inline double six_box_x = 450;
-
+constexpr int specific_six_gap = 85;
 //---------------------------------//
 inline bool is_random = false;
 inline bool is_random_ul = false;
 inline bool is_random_six = false;
+inline int rouletteflag_ul = 0;
 //---------------------------------//
 inline double randomul_initial_check = 4;
 inline double random_initial_check = 6;
 inline double randomsix_initial_check = 6;
 //---------------------------------//
+inline int box_count_once = 0;
+inline int roulette_count_once = 0;
+inline int choice_box_once = 0;
 
 inline int random_choices = 0;
 inline int weapon_choice = 0;
+
+inline int howtoplay_scene = 0;
+
+inline double slide_timer = 0;
+inline double slide_check1 = 0.5;
+inline double slide_check2 = 1;
 
 inline Color box_color = HexColor{ 0xff0000ff };
 inline Color box_color1 = HexColor{ 0xffb7b7ff };
@@ -90,6 +108,14 @@ const Image rtwo{ "etc/randomtwo.png" };
 const Image rthree{ "etc/randomthree.png" };
 const Image rsix{ "etc/randomsix.png" };
 
+const Image howtoplay1_1{ "howtoplay/howtoplay1-1.png" };
+const Image howtoplay1_2{ "howtoplay/howtoplay1-2.png" };
+const Image howtoplay2_1{ "howtoplay/howtoplay2-1.png" };
+const Image howtoplay2_2{ "howtoplay/howtoplay2-2.png" };
+const Image howtoplay3{ "howtoplay/howtoplay3.png" };
+const Image howtoplay4{ "howtoplay/howtoplay4.png" };
+const Image howtoplay5{ "howtoplay/howtoplay5.png" };
+
 
 struct UIsetting
 {
@@ -99,6 +125,7 @@ struct UIsetting
 	void roulette_six(std::vector<int> sixboxloc);
 	void coolTime();
 	void weaponChoice(vector<Shooting*>& bullets, vector<IceWeapon*>& ice, vector<BombWeapon*>& bombs, vector<Storm*>& storm, vector<Approach*>& approach, vector<BackWeapon*>& knockback, vector<BreathWeapon*>& breath, vector<Meteor*>& meteor, Player* player);
+	void howtoplay(int* scene);
 
 };
 extern UIsetting uisetting;

@@ -120,6 +120,9 @@
     <ClCompile Include="stage3_boss.cpp">
       <Filter>소스 파일\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Soundeffect.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -187,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="stage3_boss.h">
       <Filter>헤더 파일\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Soundeffect.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

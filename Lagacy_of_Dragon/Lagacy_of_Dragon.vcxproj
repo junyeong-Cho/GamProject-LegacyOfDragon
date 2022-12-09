@@ -102,13 +102,16 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_MBCS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>false</TreatWarningAsError>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\doodle\include;$(SolutionDir)external\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)external\doodle\bin\$(Configuration)\$(Platform);$(SolutionDir)external\SFML\$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>doodle.lib;Opengl32.lib;Gdi32.lib;User32.lib;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -117,14 +120,17 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_MBCS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\doodle\include;$(SolutionDir)external\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)external\doodle\bin\$(Configuration)\$(Platform);$(SolutionDir)external\SFML\$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>doodle.lib;Opengl32.lib;Gdi32.lib;User32.lib;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -144,6 +150,7 @@
     <ClCompile Include="meteor_weapon.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Shooting.cpp" />
+    <ClCompile Include="Soundeffect.cpp" />
     <ClCompile Include="stage1.cpp" />
     <ClCompile Include="stage1_boss.cpp" />
     <ClCompile Include="stage2.cpp" />
@@ -175,6 +182,7 @@
     <ClInclude Include="meteor_weapon.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shooting.h" />
+    <ClInclude Include="Soundeffect.h" />
     <ClInclude Include="stage1_boss.h" />
     <ClInclude Include="stage2_boss.h" />
     <ClInclude Include="storm_weapon.h" />

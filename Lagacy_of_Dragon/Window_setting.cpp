@@ -8,4 +8,7 @@
  set_image_mode(RectMode::Corner);
  no_fill();
  set_outline_width(3.0);
+
+ set_frame_of_reference(FrameOfReference::LeftHanded_OriginTopLeft);
+
 }

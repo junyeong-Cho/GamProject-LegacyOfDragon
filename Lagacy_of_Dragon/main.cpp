@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <cmath>
+#include <SFML/Audio.hpp>
 #include "Player.h"
 #include "Map_setting.h"
 #include "Shooting.h"
@@ -14,7 +15,6 @@
 #include "Interaction.h"
 #include "UIsetting.h"
 #include "Camera.h"
-
 
 #include "bomb_weapon.h"
 #include "back_weapon.h"
@@ -30,6 +30,7 @@
 
 using namespace std;
 using namespace doodle;
+using namespace sf;
 
 //--------------------------------// Timer for scene
 double scene_timer = 0;
@@ -68,7 +69,7 @@ Player_setting player_setting;
 Enemy_update enemy_update;
 Interaction interaction;
 UIsetting uisetting;
-
+Music background_music;
 
 //¹Ì¿Ï¼º
 Breath_update breath_update; 
@@ -151,8 +152,16 @@ int main()
 	Stage3_boss* stage_boss3 = new Stage3_boss{ boss3_x,boss3_y, s3bossSize, boss3_hp, s3_boss_vel };
 
 
-	map_setting.char_pos1(camera);
+	//if (!background_music.openFromFile("soundeffect/bgm/Credit.mp3")) {
+	//	std::cout << "Failed to load the music file: assets/orchestral.ogg" << std::endl;
+	//}
 
+	//background_music.setVolume(5);
+	//background_music.setLoop(true);
+	//background_music.play();
+
+
+	map_setting.char_pos1(camera);
 
 	while (!is_window_closed())
 	{
@@ -214,11 +223,7 @@ int main()
 		//Settings
 		if (scene == 3)
 		{
-			main_menu.in_setting();
-			if (main_menu.is_in_setting())
-			{
-				scene = 2;
-			}
+			uisetting.howtoplay(&scene);
 		}
 
 		//Credits
@@ -416,7 +421,7 @@ int main()
 		//How To Play   
 		if (scene == 9)
 		{
-			
+			uisetting.howtoplay(&scene);
 		}
 
 
