@@ -1140,11 +1140,12 @@ int main()
 			map_setting.boss3_creating();
 
 		
-			uisetting.roulette_ult(ultraboxloc);
+			weapon_choice = 6;
+		/*	uisetting.roulette_ult(ultraboxloc);
 			uisetting.roulette_six(sixboxloc);
 			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
 			uisetting.ScoolTime(player);
-			uisetting.UcoolTime(player);
+			uisetting.UcoolTime(player);*/
 
 			s3boss_update.attack_create(boss_attack, stage_boss3, player);
 			s3boss_update.attack_draw(boss_attack);
@@ -1153,8 +1154,6 @@ int main()
 			stage_boss3->draw();
 			stage_boss3->move(player);
 			stage_boss3->hp();
-
-			weapon_choice = 5;
 
 			////Random enemy
 			enemy_update.enemy_create(enemys_1_1, 20);

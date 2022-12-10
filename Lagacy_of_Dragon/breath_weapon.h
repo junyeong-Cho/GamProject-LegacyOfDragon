@@ -13,7 +13,7 @@ const Image razerImage2{ "attack/razer2.png" };
 using namespace doodle;
 static constexpr int Brvelocity = 15;
 
-constexpr int breathSize = 3600;
+constexpr int breathSize = 700;
 constexpr int breathSize1 = 100;
 constexpr int breathdamage = 5;
 
