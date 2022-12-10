@@ -1,4 +1,5 @@
 #include <doodle/doodle.hpp>
+//#include <SFML/Audio.hpp>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -15,7 +16,6 @@
 #include "UIsetting.h"
 #include "Camera.h"
 
-
 #include "bomb_weapon.h"
 #include "back_weapon.h"
 #include "ice_weapon.h"
@@ -27,6 +27,8 @@
 #include "stage3_boss.h"
 #include "stage2_boss.h"
 #include "stage1_boss.h"
+
+
 
 using namespace std;
 using namespace doodle;
@@ -69,7 +71,6 @@ Enemy_update enemy_update;
 Interaction interaction;
 UIsetting uisetting;
 
-
 //¹Ì¿Ï¼º
 Breath_update breath_update; 
 
@@ -89,10 +90,10 @@ Enemy_update_2_1 enemy_update_2_1;
 Enemy_update_2_2 enemy_update_2_2;
 Enemy_update_2_3 enemy_update_2_3;
 
-
 S2boss_update s2boss_update;
 S3boss_update s3boss_update;
 
+//sf::Music background_music;
 //
 //enum Weapons
 //{
@@ -428,16 +429,14 @@ int main()
 		{
 			player->chara_pos_x = Width / 2;
 			player->chara_pos_y = Height / 2;
-
 			//Player move limit
 			player_setting.move_limit(player);
-
 			//Draw Map
-			clear_background(255);
+			clear_background(HexColor{0xc4d37dff});
 			camera->camera_generate();
 
 			map_setting.stage1_creating(camera);
-
+			map_setting.stage1_controll(camera);
 			//Random enemy
 			enemy_update.enemy_create(enemys_1_1, 20);
 			//Enemy move
@@ -454,6 +453,15 @@ int main()
 			shooting_update.bullet_remove(bullets);
 			shooting_update.coolTime(player);
 
+			//Quest
+			uisetting.enemy_quest(20);
+
+			if(jewel_count ==1){
+			weapon_choice = 0;
+			uisetting.roulette(randomboxloc);
+			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
+			uisetting.RcoolTime(player);
+			}
 
 			camera->camera_move();
 
@@ -472,7 +480,7 @@ int main()
 			player_setting.move_limit(player);
 
 			//Draw Map
-			clear_background(255);
+			clear_background(HexColor{ 0xc4d37dff });
 			camera->camera_generate();
 			map_setting.stage2_creating(camera);
 
@@ -522,7 +530,7 @@ int main()
 			player_setting.move_limit(player);
 
 			//Draw Map
-			clear_background(255);
+			clear_background(HexColor{ 0xc4d37dff });
 			camera->camera_generate();
 			map_setting.stage3_creating(camera);
 
@@ -578,7 +586,7 @@ int main()
 			player_setting.move_limit(player);
 
 			//Draw Map
-			clear_background(255);
+			clear_background(HexColor{ 0xc4d37dff });
 			camera->camera_generate();
 			map_setting.stage4_creating(camera);
 
@@ -663,7 +671,7 @@ int main()
 			player_setting.move_limit(player);
 
 			//Draw Map
-			clear_background(255);
+			clear_background(HexColor{ 0xc4d37dff });
 			camera->camera_generate();
 			map_setting.stage5_creating(camera);
 
@@ -759,7 +767,7 @@ int main()
 			player_setting.move_limit(player);
 
 			//Draw Map
-			clear_background(255);
+			clear_background(HexColor{ 0xc4d37dff });
 			camera->camera_generate();
 			map_setting.stage6_creating(camera);
 
@@ -882,7 +890,7 @@ int main()
 			player_setting.move_limit(player);
 
 			//Draw Map
-			clear_background(255);
+			clear_background(HexColor{ 0xc4d37dff });
 			camera->camera_generate();
 			map_setting.stage7_creating(camera);
 
@@ -1197,7 +1205,9 @@ int main()
 			player->hp_chara();
 		}
 
-		cout << camera->x << ", " << camera->y << endl;
+		//cout << camera->x << ", " << camera->y << endl;
+		//cout << "x:" << get_mouse_x() << "\t y: " << get_mouse_y() << endl;
+		//cout << jewel_count << endl;
 	}
 	return 0;
 }

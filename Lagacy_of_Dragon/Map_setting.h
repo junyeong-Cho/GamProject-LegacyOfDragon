@@ -163,6 +163,7 @@ const Image tiles[] = {
 	Image{ "sea/dsea147.png" },	          //130 = DSEA 147
 	Image{ "sea/dsea7.png" },	          //131 = DSEA 7
 
+	Image{ "etc/nopotal.png" },	          //132 = NOPOTAL
 
 };
 
@@ -314,6 +315,8 @@ struct Map_setting {
 		DSEA1 = 129,
 		DSEA147 = 130,
 		DSEA7 = 131,
+
+		NOPOTAL = 132,
 	};
 
 	const int stage1Map[stage_y][stage_x] = {
@@ -662,6 +665,7 @@ struct Map_setting {
 	void boss2_creating();
 	void boss3_creating();
 
+	void stage1_controll(Camera* camera);
 
 	void char_pos(Player* player);
 	void char_pos1(Camera* camera);

@@ -13,14 +13,15 @@
 #include "breath_weapon.h"
 #include "storm_weapon.h"
 #include "meteor_weapon.h"
+#include "Enemy.h"
 
 
 using namespace doodle;
 using namespace std;
 
 inline int chap1_point = 20;
-constexpr int score_width = 1000;
-constexpr int score_height = 150;
+constexpr int score_width = 1250;
+constexpr int score_height = 180;
 //---------------------------------//
 inline double skillTimer = 0;
 inline double SkillTimeCheck = 5;
@@ -100,6 +101,10 @@ inline double rouletteu_init_check = 25;
 inline double roulettes_init_timer = 0;
 inline double roulettes_init_check = 20;
 
+inline int enemy_1_1_death = 0;
+
+inline bool quest_complite = false;
+
 inline Color box_color = HexColor{ 0xff0000ff };
 inline Color box_color1 = HexColor{ 0xffb7b7ff };
 inline Color r_cool_color = HexColor{ 0xff7f00ff };
@@ -139,6 +144,8 @@ const Image Game_over{ "UIdesign/finish.jpg" };
 const Image Home{ "UIdesign/home.png" };
 const Image Retry{ "UIdesign/retry.png" };
 
+const Image Bubble{ "UIdesign/talkbubble.png" };
+
 
 struct UIsetting
 {
@@ -153,6 +160,9 @@ struct UIsetting
 	void weaponChoice(vector<Shooting*>& bullets, vector<IceWeapon*>& ice, vector<BombWeapon*>& bombs, vector<Storm*>& storm, vector<Approach*>& approach, vector<BackWeapon*>& knockback, vector<BreathWeapon*>& breath, vector<Meteor*>& meteor, Player* player);
 	void howtoplay(int* scene);
 	void gameover(int* scene);
+	void talkbubble(string text);
+
+	void enemy_quest(int demand);
 };
 extern UIsetting uisetting;
 #endif

@@ -2,10 +2,11 @@
 #include "Player.h"
 #include "Camera.h"
 #include "Window_setting.h"
+#include "UIsetting.h"
 
 void Map_setting::stage1_creating(Camera* camera)
 {
-	for (int x = camera->xs - 1; x < camera->xe + 1; x++)
+	for (int x = camera->xs - 1; x < camera->xe + 4; x++)
 	{
 		if (x < 0 || x > 35)
 		{
@@ -22,7 +23,7 @@ void Map_setting::stage1_creating(Camera* camera)
 		}
 	}
 
-	for (int x = camera->xs - 1; x < camera->xe + 1; x++)
+	for (int x = camera->xs - 1; x < camera->xe + 4; x++)
 	{
 		if (x < 0 || x > 35)
 		{
@@ -46,19 +47,39 @@ void Map_setting::stage1_creating(Camera* camera)
 		}
 	}
 
+}
+
+void Map_setting::stage1_controll(Camera* camera) {
+
 	if (camera->x > -150 && camera->x < -50 && camera->y > 3500 && camera->y < 3600)
 	{
-		jewel_count += 1;
+		jewel_count = 1;
+	}
+	if (jewel_count == 1) {
+		int tile = map_setting.PLAI0;
+		draw_image(tiles[tile], 1 * tile_size + camera->offsetX, 34 * tile_size + camera->offsetY, tile_size, tile_size);
 	}
 
-	if (camera->x > 3200 && camera->x < 3300 && camera->y > 3000 && camera->y < 3300)
+	if (jewel_count == 0) {
+		int tile = map_setting.NOPOTAL;
+		draw_image(tiles[tile], 35 * tile_size + camera->offsetX, 29 * tile_size + camera->offsetY, tile_size, tile_size);
+		draw_image(tiles[tile], 35 * tile_size + camera->offsetX, 30 * tile_size + camera->offsetY, tile_size, tile_size);
+	}
+
+	if (camera->x > 3200 && camera->x < 3300 && camera->y > 3000 && camera->y < 3300 )
 	{
-		camera->camera_pos_x = -104;
-		camera->camera_pos_y = 2900;
-		scene = 11;
+		if (jewel_count == 1 && quest_complite) {
+			camera->camera_pos_x = -104;
+			camera->camera_pos_y = 2900;
+			scene = 11;
+		}
+		else
+		{
+			uisetting.talkbubble("Collect the jewels \non the map! \nand kill enemys!");
+		}
 	}
-
 }
+
 void Map_setting::char_pos1(Camera* camera)
 {
 	for (int x = 0; x < 36; x++)

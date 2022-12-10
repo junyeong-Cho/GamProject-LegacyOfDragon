@@ -49,6 +49,8 @@ struct Enemy {
 	int enemysize = 30;
 	unsigned int color = 0xffffffff;
 	int type = 0;
+
+	int death=0;
 	Enemy(float _x, float _y, double _health, int _deal, float _speed, int _enemysize, unsigned int _color, int _type)
 	{
 		x = _x;

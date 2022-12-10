@@ -4,7 +4,7 @@
 void Map_setting::map_creating()
 {
 	clear_background(255);
-	for (int x = 0; x < 15; x++) {
+	for (int x = 0; x < 18; x++) {
 		for (int y = 0; y < 10; y++) {
 			draw_image(tiles[map_setting.PLAI0], x * tile_size, y * tile_size, tile_size, tile_size);
 		}

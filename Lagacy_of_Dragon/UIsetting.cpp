@@ -695,3 +695,25 @@ void UIsetting::gameover(int* scene)
 		*scene = 6;
 	}
 }
+
+void UIsetting::talkbubble(string text)
+{
+	push_settings();
+	set_image_mode(RectMode::Center);
+	draw_image(Bubble, (Width / 2) -110 , (Height / 2) -50);
+	set_font_size(15);
+	draw_text(text, (Width / 2) - 200, (Height / 2) - 115);
+	pop_settings();
+}
+
+void UIsetting::enemy_quest(int demand)
+{
+
+	push_settings();
+	draw_text(to_string(enemy_1_1_death) + " / " + to_string(demand), score_width, score_height);
+	pop_settings();
+	if (enemy_1_1_death <= demand) {
+		quest_complite = true;
+	}
+}
+

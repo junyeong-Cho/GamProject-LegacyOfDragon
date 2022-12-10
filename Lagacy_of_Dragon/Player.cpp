@@ -132,7 +132,6 @@ void Player::hp_chara()
 	pop_settings();
 	if (hp == 0)
 	{
-		scene = 0;
-		close_window();
+		uisetting.gameover(&scene);
 	}
 }

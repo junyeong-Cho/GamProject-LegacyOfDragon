@@ -12,6 +12,7 @@
 #include "stage1_boss.h"
 #include "stage2_boss.h"
 #include "stage3_boss.h"
+#include "UIsetting.h"
 
 
 void Interaction::player_enemy_interaction(std::vector<Enemy*>& enemys, Player* player)
@@ -53,6 +54,7 @@ void Interaction::bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 			{
 				if (enemys[j]->health - 1 == 0)
 				{
+					enemy_1_1_death++;
 					delete bullets[i];
 					delete enemys[j];
 
