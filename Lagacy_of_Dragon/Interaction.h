@@ -32,9 +32,13 @@ inline double hp_time_check = 0.7;
 inline double boss_timer = 0.0;
 inline double boss_time_check = 0.7;
 
+inline double back_timers = 0;
+inline double back_checks = 3;
+inline double back_init = 4;
 
 struct Interaction
 {
+	void player_enemyat_interaction(std::vector<Enemy_attack*>& attack, Player* player);
 	void player_enemy_interaction(std::vector<Enemy*>& enemys, Player* player);
 	void bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Shooting*>& bullets);
 	void ice_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<IceWeapon*>& bullets);
@@ -45,10 +49,23 @@ struct Interaction
 	void approach_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Approach*>& bullets);
 	void meteor_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Meteor*>& bullets);
 
+	// 날라다니는놈 얘도 충돌체크 필ㅇㅅ옶음?
+	void player_boss3_interaction(Stage3_boss* boss3, std::vector<Shooting*>& bullets);
+	void ice_boss3_interaction(Stage3_boss* boss3, std::vector<IceWeapon*>& bullets);
+	void storm_boss3_interaction(Stage3_boss* boss3, std::vector<Storm*>& bullets);
+
+	// 좌우 움직이는놈 2 얘도 충돌체크 필요없음
 	void player_boss1_interaction(Stage1_boss* boss1, std::vector<Shooting*>& bullets);
 	void ice_boss1_interaction(Stage1_boss* boss1, std::vector<IceWeapon*>& bullets);
 	void storm_boss1_interaction(Stage1_boss* boss1, std::vector<Storm*>& bullets);
+	void back_boss1_interaction(Stage1_boss* boss1, std::vector<BackWeapon*>& bullets);
+	void approach_boss1_interaction(Stage1_boss* boss1, std::vector<Approach*>& bullets);
+	void bomb_boss1_interaction(Stage1_boss* boss1, std::vector<BombWeapon*>& bullets);
+	void breath_boss1_interaction(Stage1_boss* boss1, std::vector<BreathWeapon*>& bullets);
+	void meteor_boss1_interaction(Stage1_boss* boss1, std::vector<Meteor*>& bullets);
 
+
+	// 빨갱이 3
 	void player_boss2_interaction(Stage2_boss* boss2, std::vector<Shooting*>& bullets);
 	void ice_boss2_interaction(Stage2_boss* boss2, std::vector<IceWeapon*>& bullets);
 	void storm_boss2_interaction(Stage2_boss* boss2, std::vector<Storm*>& bullets);
@@ -57,11 +74,8 @@ struct Interaction
 	void bomb_boss2_interaction(Stage2_boss* boss2, std::vector<BombWeapon*>& bullets);
 	void breath_boss2_interaction(Stage2_boss* boss2, std::vector<BreathWeapon*>& bullets);
 	void meteor_boss2_interaction(Stage2_boss* boss2, std::vector<Meteor*>& bullets);
-
-
-	void player_boss3_interaction(Stage3_boss* boss3, std::vector<Shooting*>& bullets);
-
 	void boss2_player_interaction(Player* player);
+
 };
 extern Interaction interaction;
 

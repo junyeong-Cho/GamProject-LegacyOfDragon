@@ -306,7 +306,7 @@ void Enemy_update::attack_remove(std::vector<Enemy_attack*>& attack)
 {
 	for (int i = 0; i < attack.size(); i++)
 	{
-		if (attack[i]->attack_pos_x > 1400 || attack[i]->attack_pos_x < 100 || attack[i]->attack_pos_y > 900 || attack[i]->attack_pos_y < 100)
+		if (attack[i]->attack_pos_x > 3500 || attack[i]->attack_pos_x < 100 || attack[i]->attack_pos_y > 100 || attack[i]->attack_pos_y < 3500)
 		{
 			delete attack[i];
 			attack.erase(attack.begin() + i);

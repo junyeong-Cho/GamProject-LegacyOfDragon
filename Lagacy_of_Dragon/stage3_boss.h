@@ -13,7 +13,7 @@ inline bool boss3_move_check = false;
 inline float boss3_x = 750;
 inline float boss3_y = 500;
 inline int s3bossSize = 150;
-inline int boss3_hp = 1;
+inline int boss3_hp = 100;
 inline int s3_boss_vel = 2;
 inline int s3_bullet_v = 10;
 

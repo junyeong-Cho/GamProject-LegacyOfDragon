@@ -12,6 +12,16 @@ void BackWeapon::draw()
     pop_settings();
 }
 
+void BackWeapon::FireBullet()
+{
+    float aimAngle = atan2(angleY, angleX);
+    float velocityX = (cos(aimAngle) * Bavelocity);
+    float velocityY = (sin(aimAngle) * Bavelocity);
+
+    bullet_pos_x += static_cast<int>(velocityX);
+    bullet_pos_y += static_cast<int>(velocityY);
+}
+
 void Back_update::bullet_draw(std::vector<BackWeapon*>& bullets) 
 {
     for (int i = 0; i < bullets.size(); i++)
@@ -36,7 +46,7 @@ void Back_update::bullet_create(std::vector<BackWeapon*>& bullets, Player* playe
     {
         if (MouseIsPressed && not_clicked_back == true)
         {
-            bullets.push_back(new BackWeapon{ player->chara_pos_x, player->chara_pos_y, backSize, backDamage,  Bavelocity });
+            bullets.push_back(new BackWeapon{ player->chara_pos_x, player->chara_pos_y, backSize });
             not_clicked_back = false;
             ba_click_timer = 0;
         }
@@ -53,7 +63,6 @@ void Back_update::bullet_remove(std::vector<BackWeapon*>& bullets)
             delete bullets[i];
             bullets.erase(bullets.begin() + i);
             back_timer = 0;
-            back_timers = 0;
         }
     }
 }
