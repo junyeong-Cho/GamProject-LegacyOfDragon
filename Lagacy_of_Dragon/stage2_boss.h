@@ -26,7 +26,7 @@ inline double b2_attack_checked = 3.5;
 
 inline Color blink_color = HexColor{ 0xff000022 };
 inline Color blink_color_1 = HexColor{ 0xff000022 };
-inline Color attack_color = HexColor{ 0x00000001 };
+inline Color attack_color = HexColor{ 0xffffff00 };
 inline Color hp_color_2 = HexColor{ 0xfff000ff };
 
 

@@ -47,6 +47,8 @@ void Stage2_boss::hp()
 
 void S2boss_update::s2_boss_attack(Stage2_boss* boss2, Player* player)
 {
+	push_settings();
+	set_outline_color(attack_color);
 	
 	b2_change_timer += DeltaTime;
 
@@ -98,7 +100,6 @@ void S2boss_update::s2_boss_attack(Stage2_boss* boss2, Player* player)
 		if (b2_blink_timer > b2_attack_checked)
 		{
 			is_b2_draw = false;
-
 			push_settings();
 			draw_image(razer_hori, 0, 200, Width, 550);
 			pop_settings();
@@ -452,6 +453,6 @@ void S2boss_update::s2_boss_attack(Stage2_boss* boss2, Player* player)
 
 	}
 
-
+	pop_settings();
 }
 extern S2boss_update s2boss_update;
