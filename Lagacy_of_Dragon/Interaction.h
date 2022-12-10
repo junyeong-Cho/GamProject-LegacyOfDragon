@@ -32,9 +32,13 @@ inline double hp_time_check = 0.7;
 inline double boss_timer = 0.0;
 inline double boss_time_check = 0.7;
 
+inline double back_timers = 0;
+inline double back_checks = 3;
+inline double back_init = 4;
 
 struct Interaction
 {
+	void player_enemyat_interaction(std::vector<Enemy_attack*>& attack, Player* player);
 	void player_enemy_interaction(std::vector<Enemy*>& enemys, Player* player);
 	void bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Shooting*>& bullets);
 	void ice_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<IceWeapon*>& bullets);

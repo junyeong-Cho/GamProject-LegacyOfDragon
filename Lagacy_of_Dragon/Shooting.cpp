@@ -14,15 +14,6 @@ void Shooting::draw()
 	draw_ellipse(bullet_pos_x, bullet_pos_y, size, size);
 }
 
-void Shooting::FireBullet()
-{
-	float aimAngle = atan2(angleY, angleX);
-	float velocityX = (cos(aimAngle) * Bvelocity);
-	float velocityY = (sin(aimAngle) * Bvelocity);
-
-	bullet_pos_x += static_cast<int>(velocityX);
-	bullet_pos_y += static_cast<int>(velocityY);
-}
 
 void Shooting_update::bullet_create(std::vector<Shooting*> &bullets, Player* player)
 {
@@ -39,8 +30,6 @@ void Shooting_update::bullet_create(std::vector<Shooting*> &bullets, Player* pla
 	{
 		if (MouseIsPressed && not_clicked == true)
 		{
-			bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
-			bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
 			bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
 
 			not_clicked = false;
