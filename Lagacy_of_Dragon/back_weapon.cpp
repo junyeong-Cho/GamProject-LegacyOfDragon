@@ -12,7 +12,6 @@ void BackWeapon::draw()
     pop_settings();
 }
 
-
 void Back_update::bullet_draw(std::vector<BackWeapon*>& bullets) 
 {
     for (int i = 0; i < bullets.size(); i++)

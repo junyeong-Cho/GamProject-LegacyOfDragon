@@ -30,11 +30,6 @@ struct BackWeapon {
 	int damage = 0;
 	int velocity = 0;
 
-	float mouseX = static_cast<float>(get_mouse_x());
-	float mouseY = static_cast<float>(get_mouse_y());
-	float angleX = (mouseX - bullet_pos_x);
-	float angleY = (mouseY - bullet_pos_y);
-
 	void draw();
 };
 
@@ -44,7 +39,6 @@ struct Back_update
 	void bullet_draw(std::vector<BackWeapon*>& bullets);
 	void bullet_remove(std::vector<BackWeapon*>& bullets);
 	void coolTime(std::vector<BackWeapon*>& bulllets, Player* player);
-
 };
 
 extern Back_update back_update;

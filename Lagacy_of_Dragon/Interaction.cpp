@@ -151,66 +151,43 @@ void Interaction::back_enemy_interaction(std::vector<Enemy*>& enemys, std::vecto
 	{
 		for (int j = 0; j < enemys.size(); j++)
 		{
-			//Knockback
 			double a = bullets[i]->bullet_pos_x - enemys[j]->x;
 			double b = bullets[i]->bullet_pos_y - enemys[j]->y;
 			double distance = sqrt(a * a + b * b);
 
-			if (distance < bullets[i]->size / static_cast<double>(2) + enemys[j]->enemysize / static_cast<double>(2))
+			if (distance < bullets[i]->size / static_cast<double>(2) + enemys[j]->enemysize)
 			{
-				if (enemys[j]->health - 0.2 == 0)
+
+				/*if (enemys[j]->health - 0.5 == 0)
 				{
 					delete enemys[j];
 					enemys.erase(enemys.begin() + j);
 					break;
 				}
-				else
-				{
-					enemys[j]->health -= 0.2;
-				}
-				back_timers += DeltaTime;
+				else {
+					enemys[j]->health -= 0.5;
+				}*/
 
-				if (back_timers < back_time_checks)
+				if (enemys[i]->x >= player->chara_pos_x)
 				{
-					if (enemys[i]->x >= player->chara_pos_x)
-					{
-						enemys[i]->x -= bullets[i]->velocity;
-					}
-					if (enemys[i]->x <= player->chara_pos_x)
-					{
-						enemys[i]->x += bullets[i]->velocity;
-					}
-					if (enemys[i]->y >= player->chara_pos_y)
-					{
-						enemys[i]->y -= bullets[i]->velocity;
-					}
-					if (enemys[i]->y <= player->chara_pos_y)
-					{
-						enemys[i]->y += bullets[i]->velocity;
-					}
+					enemys[i]->x -= 0;
 				}
-				else if (back_timers >= back_time_check)
+				if (enemys[i]->x <= player->chara_pos_x)
 				{
-					if (enemys[i]->x >= player->chara_pos_x)
-					{
-						enemys[i]->x -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
-					}
-					if (enemys[i]->x <= player->chara_pos_x)
-					{
-						enemys[i]->x += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
-					}
-					if (enemys[i]->y >= player->chara_pos_y)
-					{
-						enemys[i]->y -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
-					}
-					if (enemys[i]->y <= player->chara_pos_y)
-					{
-						enemys[i]->y += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
-					}
+					enemys[i]->x += 0;
 				}
-			}		
+				if (enemys[i]->y >= player->chara_pos_y)
+				{
+					enemys[i]->y -= 0;
+				}
+				if (enemys[i]->y <= player->chara_pos_y)
+				{
+					enemys[i]->y += 0;
+				}
+			}
 		}
 	}
+	
 }
 
 void Interaction::bomb_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<BombWeapon*>& bullets)

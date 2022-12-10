@@ -429,7 +429,11 @@ int main()
 			player->chara_pos_x = Width / 2;
 			player->chara_pos_y = Height / 2;
 
-			weapon_choice = 0;
+			shooting_update.bullet_create(bullets, player);
+			shooting_update.bullet_draw(bullets);
+			shooting_update.bullet_remove(bullets);
+			shooting_update.coolTime(player);
+
 
 			//Player move limit
 			player_setting.move_limit(player);
@@ -462,7 +466,6 @@ int main()
 		{
 			player->chara_pos_x = Width / 2;
 			player->chara_pos_y = Height / 2;
-
 			
 		
 			//Player move limit
