@@ -141,7 +141,7 @@ int main()
 	const vector<int> ultraboxloc = { 600, 750 };
 	const vector<int> sixboxloc = { 450, 550, 650, 750, 850, 950};
 
-	Player* player = new Player{ Width / 2, Height / 2, 2, 5 };
+	Player* player = new Player{ Width / 2, Height / 2, 2, 1000 };
 	Camera* camera = new Camera{ 0, 0 };
 
 	Stage1_boss* stage_boss1 = new Stage1_boss{ boss1_x,boss1_y, s1bossSize, boss1_hp, s1_boss_vel };

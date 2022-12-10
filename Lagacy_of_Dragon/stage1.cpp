@@ -7,14 +7,14 @@ void Map_setting::stage1_creating(Camera* camera)
 {
 	for (int x = camera->xs - 1; x < camera->xe + 1; x++)
 	{
-		if (x < 0 || x > 36)
+		if (x < 0 || x > 35)
 		{
 			continue;
 		}
 
 		for (int y = camera->ys - 1; y < camera->ye + 1; y++)
 		{
-			if (y < 0 || y > 36)
+			if (y < 0 || y > 35)
 			{
 				continue;
 			}
@@ -24,14 +24,14 @@ void Map_setting::stage1_creating(Camera* camera)
 
 	for (int x = camera->xs - 1; x < camera->xe + 1; x++)
 	{
-		if (x < 0 || x > 36)
+		if (x < 0 || x > 35)
 		{
 			continue;
 		}
 
 		for (int y = camera->ys - 1; y < camera->ye + 1; y++)
 		{
-			if (y < 0 || y > 36)
+			if (y < 0 || y > 35)
 			{
 				continue;
 			}
