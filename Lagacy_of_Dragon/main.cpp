@@ -429,12 +429,6 @@ int main()
 			player->chara_pos_x = Width / 2;
 			player->chara_pos_y = Height / 2;
 
-			shooting_update.bullet_create(bullets, player);
-			shooting_update.bullet_draw(bullets);
-			shooting_update.bullet_remove(bullets);
-			shooting_update.coolTime(player);
-
-
 			//Player move limit
 			player_setting.move_limit(player);
 
@@ -454,6 +448,12 @@ int main()
 
 			//Bullet Enemy Check
 			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
+
+			shooting_update.bullet_create(bullets, player);
+			shooting_update.bullet_draw(bullets);
+			shooting_update.bullet_remove(bullets);
+			shooting_update.coolTime(player);
+
 
 			camera->camera_move();
 
@@ -986,7 +986,6 @@ int main()
 			player->draw_fix_chara();
 			player->hp_chara();
 		}
-
 		//Boss2 
 		if (scene == 17)
 		{

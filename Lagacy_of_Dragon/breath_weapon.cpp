@@ -23,7 +23,7 @@ void BreathWeapon::drawrect(std::vector<BreathWeapon*>& bullets, Player* player)
 	set_image_mode(RectMode::Center);
 	apply_translate(mouseX, mouseY);
 	apply_rotate(aimAngle);
-	draw_image(razerImage,mouseX / Width + 100, mouseY / Height, size,  size1);
+	draw_image(razerImage, mouseX / Width , mouseY / Height, size,  size1);
 	pop_settings();
 	//}
 }
