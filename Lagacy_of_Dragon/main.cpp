@@ -1,9 +1,12 @@
+#include <Windows.h>
+
 #include <doodle/doodle.hpp>
 //#include <SFML/Audio.hpp>
 #include <iostream>
 #include <vector>
 #include <string>
 #include <cmath>
+
 #include "Player.h"
 #include "Map_setting.h"
 #include "Shooting.h"
@@ -112,10 +115,26 @@ S3boss_update s3boss_update;
 //Diagonal move
 void on_key_pressed(KeyboardButtons button);
 void on_key_released(KeyboardButtons button);
+inline int back_color1=0;
+inline int update = 0;
+
+void cmd_debug_mod(Camera* camera, Player* player) {
+	cout << "width : " << Width << "\t height : " << Height << endl;
+	cout << "player x: " << player->chara_pos_x << "\t player y: " << player->chara_pos_y << endl;
+	cout << "camera x: " << camera->x << "\tcamera x : " << camera->y << endl;
+	cout << "mouse x:" << get_mouse_x() << "\tmouse y: " << get_mouse_y() << endl;
+	cout << "jewel count: "<< jewel_count << endl;
+	cout << "enemy 1-1 death" << enemy_1_1_death << endl;
+	cout << "enemy 1-2 death" << enemy_1_2_death << endl;
+	cout << "enemy 1-3 death" << enemy_1_3_death << endl;
+	cout << "enemy 2-1 death" << enemy_2_1_death << endl;
+	cout << "enemy 2-2 death" << enemy_2_2_death << endl;
+	cout << "enemy 2-3 death" << enemy_2_3_death << endl;
+	system("cls");
+}
 
 int main()
 {
-
 	window_setting.setting();
 
 	vector<Shooting*> bullets;
@@ -155,13 +174,15 @@ int main()
 
 	while (!is_window_closed())
 	{
+		
 		timer += DeltaTime;
 		int_timer += DeltaTime;
 		bullet_timer += DeltaTime;
 		scene_timer += DeltaTime;
 		boss3_timers += DeltaTime;
 		update_window();
-	
+		if (int_timer%2==1)
+		cmd_debug_mod(camera, player);
 		//Game_start
 		//DIGIEPN LOGO
 		if (scene == 0)
@@ -187,7 +208,6 @@ int main()
 		if (scene == 2)
 		{
 			main_menu.main_UI();
-
 
 			//Gameplay
 			if (main_menu.is_gameplay())
@@ -228,7 +248,8 @@ int main()
 
 		//Credits
 		if (scene == 4)
-		{
+		{	
+
 			main_menu.in_credit();
 			if (main_menu.is_in_credit())
 			{
@@ -250,10 +271,10 @@ int main()
 			{
 				tutorial.textbox1();
 			}
-			if (textbox == 1)
+			/*if (textbox == 1)
 			{
 				tutorial.textbox2();
-			}
+			}*/
 			if (textbox == 2)
 			{
 				tutorial.textbox3();
@@ -282,10 +303,12 @@ int main()
 			{
 				tutorial.textbox9();
 			}
-			if (textbox == 9)
+			if (textbox == 1)
 			{
-				//tutorial_scene = 1;
-				scene = 10;
+				tutorial_scene = 1;
+				player->chara_pos_x = 300;
+				player->chara_pos_y = 300;
+				scene = 7;
 			}
 		}
 
@@ -293,19 +316,16 @@ int main()
 		if (scene == 7)
 		{
 			map_setting.map_creating();
-
 			//First Scene(Shoot)			
 			if (tutorial_scene == 1)
 			{
-				player->chara_pos_x = 300;
-				player->chara_pos_y = 300;
 
 				tutorial.scene1_guideline();
 				player_setting.move_limit(player);
 
 				//bullet_create
 				shooting_update.bullet_create(bullets, player);
-				if (bullets.size() >= 5)
+				if (bullets.size() >= 1)
 				{
 					tutorial_scene = 2;
 				}
@@ -343,7 +363,7 @@ int main()
 				shooting_update.bullet_remove(bullets);
 
 				//Bullet Enemy Check
-				interaction.bullet_enemy_interaction(enemys_tuto, bullets);
+				interaction.bullet_enemy_interaction(enemys_tuto, bullets, &enemy_tuto_death);
 
 				if (count_enemy - enemys_tuto.size() == 1) {
 					score++;
@@ -352,14 +372,12 @@ int main()
 				else {
 					count_enemy = enemys_tuto.size();
 				}
+				map_setting.tuto_controll(player);
 				player->MOVE();
 				player->draw_chara();
 				player->hp_chara();
 				//Move to Tutorial_last
-				if (score >= tuto_enemy_max)
-				{
-					scene = 8;
-				}
+				
 			}
 		}
 
@@ -384,17 +402,16 @@ int main()
 			shooting_update.bullet_remove(bullets);
 
 			//Random enemy
-			enemy_update.enemy_create(enemys_1_1, 10);
+			enemy_update_1_1.enemy_create(enemys_1_1, 10);
 
 			//Enemy move
-			enemy_update.enemy_move(enemys_1_1, player);
+			enemy_update_1_1.enemy_move(enemys_1_1, player);
 
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
 
-
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
 
 			if (count_enemy - enemys_1_1.size() == 1) {
 				chap1_point--;
@@ -405,13 +422,14 @@ int main()
 			}
 
 			//Move next chapter
-			if (chap1_point == 0)
+			if (chap1_point <= 0)
 			{
-				scene = 9;
+				scene = 10;
 			}
 
 			//Draw point
 			uisetting.ui_point();
+			
 
 			player->MOVE();
 			player->draw_chara();
@@ -438,23 +456,22 @@ int main()
 			map_setting.stage1_creating(camera);
 			map_setting.stage1_controll(camera);
 			//Random enemy
-			enemy_update.enemy_create(enemys_1_1, 20);
+			enemy_update_1_1.enemy_create(enemys_1_1, 7);
 			//Enemy move
-			enemy_update.enemy_fix_move(enemys_1_1, player);
+			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
 
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
 
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
-
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
 			shooting_update.bullet_create(bullets, player);
 			shooting_update.bullet_draw(bullets);
 			shooting_update.bullet_remove(bullets);
 			shooting_update.coolTime(player);
 
 			//Quest
-			uisetting.enemy_quest(20);
+			uisetting.enemy_quest(&enemy_1_1_death, 5);
 
 			if(jewel_count ==1){
 			weapon_choice = 0;
@@ -462,6 +479,7 @@ int main()
 			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
 			uisetting.RcoolTime(player);
 			}
+			uisetting.this_stage(1, 1);
 
 			camera->camera_move();
 
@@ -491,22 +509,20 @@ int main()
 			uisetting.RcoolTime(player);
 
 			//Random enemy
-			enemy_update.enemy_create(enemys_1_1, 20);
-			enemy_update.enemy_create(enemys_1_2, 20);
+			enemy_update_1_1.enemy_create(enemys_1_1, 10);
+			enemy_update_1_2.enemy_create(enemys_1_2, 5);
 
 			//Enemy move
-			enemy_update.enemy_fix_move(enemys_1_1, player);
-			enemy_update.enemy_fix_move(enemys_1_2, player);
-
+			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
+			enemy_update_1_2.enemy_fix_move(enemys_1_2, player);
 
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
 			interaction.player_enemy_interaction(enemys_1_2, player);
 
-
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
-			interaction.bullet_enemy_interaction(enemys_1_2, bullets);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets,&enemy_1_1_death);
+			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_1_2_death);
 
 			interaction.ice_enemy_interaction(enemys_1_1, ice);
 			interaction.ice_enemy_interaction(enemys_1_2, ice);
@@ -514,6 +530,8 @@ int main()
 			interaction.storm_enemy_interaction(enemys_1_1, storm);
 			interaction.storm_enemy_interaction(enemys_1_2, storm);
 			
+			uisetting.enemy_quest(&enemy_1_1_death, 10, &enemy_1_2_death, 5);
+			uisetting.this_stage(1, 2);
 
 			camera->camera_move();
 			player->MOVE();
@@ -542,25 +560,24 @@ int main()
 
 
 			//Random enemy
-			enemy_update.enemy_create(enemys_1_1, 20);
-			enemy_update.enemy_create(enemys_1_2, 20);
-			enemy_update.enemy_create(enemys_1_3, 20);
+			enemy_update_1_1.enemy_create(enemys_1_1, 10);
+			enemy_update_1_2.enemy_create(enemys_1_2, 3);
+			enemy_update_1_3.enemy_create(enemys_1_3, 2);
 
 			//Enemy move
-			enemy_update.enemy_fix_move(enemys_1_1, player);
-			enemy_update.enemy_fix_move(enemys_1_2, player);
-			enemy_update.enemy_fix_move(enemys_1_3, player);
+			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
+			enemy_update_1_2.enemy_fix_move(enemys_1_2, player);
+			enemy_update_1_3.enemy_fix_move(enemys_1_3, player);
 
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
 			interaction.player_enemy_interaction(enemys_1_2, player);
 			interaction.player_enemy_interaction(enemys_1_3, player);
 
-
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
-			interaction.bullet_enemy_interaction(enemys_1_2, bullets);
-			interaction.bullet_enemy_interaction(enemys_1_3, bullets);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
+			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_1_2_death);
+			interaction.bullet_enemy_interaction(enemys_1_3, bullets, &enemy_1_3_death);
 
 			interaction.ice_enemy_interaction(enemys_1_1, ice);
 			interaction.ice_enemy_interaction(enemys_1_2, ice);
@@ -570,6 +587,7 @@ int main()
 			interaction.storm_enemy_interaction(enemys_1_2, storm);
 			interaction.storm_enemy_interaction(enemys_1_3, storm);
 
+			uisetting.this_stage(1, 3);
 
 			camera->camera_move();
 			player->MOVE();
@@ -596,20 +614,17 @@ int main()
 			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
 			uisetting.ScoolTime(player);
 
-
 			//Random enemy
-			enemy_update.enemy_create(enemys_1_1, 20);
-			enemy_update.enemy_create(enemys_1_2, 20);
-			enemy_update.enemy_create(enemys_1_3, 20);
-			enemy_update.enemy_create(enemys_2_1, 20);
-
+			enemy_update_1_1.enemy_create(enemys_1_1, 7);
+			enemy_update_1_2.enemy_create(enemys_1_2, 3);
+			enemy_update_1_3.enemy_create(enemys_1_3, 3);
+			enemy_update_2_1.enemy_create(enemys_2_1, 7);
 
 			//Enemy move
-			enemy_update.enemy_fix_move(enemys_1_1, player);
-			enemy_update.enemy_fix_move(enemys_1_2, player);
-			enemy_update.enemy_fix_move(enemys_1_3, player);
-			enemy_update.enemy_fix_move(enemys_2_1, player);
-
+			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
+			enemy_update_1_2.enemy_fix_move(enemys_1_2, player);
+			enemy_update_1_3.enemy_fix_move(enemys_1_3, player);
+			enemy_update_2_1.enemy_fix_move(enemys_2_1, player);
 
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
@@ -617,12 +632,11 @@ int main()
 			interaction.player_enemy_interaction(enemys_1_3, player);
 			interaction.player_enemy_interaction(enemys_2_1, player);
 
-
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
-			interaction.bullet_enemy_interaction(enemys_1_2, bullets);
-			interaction.bullet_enemy_interaction(enemys_1_3, bullets);
-			interaction.bullet_enemy_interaction(enemys_2_1, bullets);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
+			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_1_2_death);
+			interaction.bullet_enemy_interaction(enemys_1_3, bullets, &enemy_1_3_death);
+			interaction.bullet_enemy_interaction(enemys_2_1, bullets, &enemy_2_1_death);
 
 
 			interaction.ice_enemy_interaction(enemys_1_1, ice);
@@ -648,13 +662,12 @@ int main()
 			interaction.bomb_enemy_interaction(enemys_1_3, bombs);
 			interaction.bomb_enemy_interaction(enemys_2_1, bombs);
 
-		
 			interaction.back_enemy_interaction(enemys_1_1, knockback, player);
 			interaction.back_enemy_interaction(enemys_1_2, knockback, player);
 			interaction.back_enemy_interaction(enemys_1_3, knockback, player);
 			interaction.back_enemy_interaction(enemys_2_1, knockback, player);
 
-
+			uisetting.this_stage(2, 1);
 
 			camera->camera_move();
 			player->MOVE();
@@ -683,20 +696,20 @@ int main()
 
 
 			//Random enemy
-			enemy_update.enemy_create(enemys_1_1, 20);
-			enemy_update.enemy_create(enemys_1_2, 20);
-			enemy_update.enemy_create(enemys_1_3, 20);
-			enemy_update.enemy_create(enemys_2_1, 20);
-			enemy_update.enemy_create(enemys_2_2, 20);
+			enemy_update_1_1.enemy_create(enemys_1_1, 2);
+			enemy_update_1_2.enemy_create(enemys_1_2, 3);
+			enemy_update_1_3.enemy_create(enemys_1_3, 4);
+			enemy_update_2_1.enemy_create(enemys_2_1, 5);
+			enemy_update_2_2.enemy_create(enemys_2_2, 4);
 
 
 
 			//Enemy move
-			enemy_update.enemy_fix_move(enemys_1_1, player);
-			enemy_update.enemy_fix_move(enemys_1_2, player);
-			enemy_update.enemy_fix_move(enemys_1_3, player);
-			enemy_update.enemy_fix_move(enemys_2_1, player);
-			enemy_update.enemy_fix_move(enemys_2_2, player);
+			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
+			enemy_update_1_2.enemy_fix_move(enemys_1_2, player);
+			enemy_update_1_3.enemy_fix_move(enemys_1_3, player);
+			enemy_update_2_1.enemy_fix_move(enemys_2_1, player);
+			enemy_update_2_2.enemy_fix_move(enemys_2_2, player);
 
 
 
@@ -709,11 +722,11 @@ int main()
 
 
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
-			interaction.bullet_enemy_interaction(enemys_1_2, bullets);
-			interaction.bullet_enemy_interaction(enemys_1_3, bullets);
-			interaction.bullet_enemy_interaction(enemys_2_1, bullets);
-			interaction.bullet_enemy_interaction(enemys_2_2, bullets);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
+			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_1_2_death);
+			interaction.bullet_enemy_interaction(enemys_1_3, bullets, &enemy_1_3_death);
+			interaction.bullet_enemy_interaction(enemys_2_1, bullets, &enemy_2_1_death);
+			interaction.bullet_enemy_interaction(enemys_2_2, bullets, &enemy_2_2_death);
 
 
 			interaction.ice_enemy_interaction(enemys_1_1, ice);
@@ -750,6 +763,7 @@ int main()
 			interaction.back_enemy_interaction(enemys_2_1, knockback, player);
 			interaction.back_enemy_interaction(enemys_2_2, knockback, player);
 
+			uisetting.this_stage(2, 2);
 
 			camera->camera_move();
 			player->MOVE();
@@ -780,21 +794,21 @@ int main()
 
 
 			//Random enemy
-			enemy_update.enemy_create(enemys_1_1, 20);
-			enemy_update.enemy_create(enemys_1_2, 20);
-			enemy_update.enemy_create(enemys_1_3, 20);
-			enemy_update.enemy_create(enemys_2_1, 20);
-			enemy_update.enemy_create(enemys_2_2, 20);
-			enemy_update.enemy_create(enemys_2_3, 20);
+			enemy_update_1_1.enemy_create(enemys_1_1, 4);
+			enemy_update_1_2.enemy_create(enemys_1_2, 5);
+			enemy_update_1_3.enemy_create(enemys_1_3, 4);
+			enemy_update_2_1.enemy_create(enemys_2_1, 10);
+			enemy_update_2_2.enemy_create(enemys_2_2, 5);
+			enemy_update_2_3.enemy_create(enemys_2_3, 3);
 
 
 			//Enemy move
-			enemy_update.enemy_fix_move(enemys_1_1, player);
-			enemy_update.enemy_fix_move(enemys_1_2, player);
-			enemy_update.enemy_fix_move(enemys_1_3, player);
-			enemy_update.enemy_fix_move(enemys_2_1, player);
-			enemy_update.enemy_fix_move(enemys_2_2, player);
-			enemy_update.enemy_fix_move(enemys_2_3, player);
+			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
+			enemy_update_1_2.enemy_fix_move(enemys_1_2, player);
+			enemy_update_1_3.enemy_fix_move(enemys_1_3, player);
+			enemy_update_2_1.enemy_fix_move(enemys_2_1, player);
+			enemy_update_2_2.enemy_fix_move(enemys_2_2, player);
+			enemy_update_2_3.enemy_fix_move(enemys_2_3, player);
 
 
 
@@ -809,12 +823,12 @@ int main()
 
 
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
-			interaction.bullet_enemy_interaction(enemys_1_2, bullets);
-			interaction.bullet_enemy_interaction(enemys_1_3, bullets);
-			interaction.bullet_enemy_interaction(enemys_2_1, bullets);
-			interaction.bullet_enemy_interaction(enemys_2_2, bullets);
-			interaction.bullet_enemy_interaction(enemys_2_3, bullets);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
+			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_1_2_death);
+			interaction.bullet_enemy_interaction(enemys_1_3, bullets, &enemy_1_3_death);
+			interaction.bullet_enemy_interaction(enemys_2_1, bullets, &enemy_2_1_death);
+			interaction.bullet_enemy_interaction(enemys_2_2, bullets, &enemy_2_2_death);
+			interaction.bullet_enemy_interaction(enemys_2_3, bullets, &enemy_2_3_death);
 
 
 
@@ -874,6 +888,7 @@ int main()
 			interaction.breath_enemy_interaction(enemys_2_2, breath, player);
 			interaction.breath_enemy_interaction(enemys_2_3, breath, player);
 
+			uisetting.this_stage(2, 3);
 
 			camera->camera_move();
 			player->MOVE();
@@ -902,18 +917,18 @@ int main()
 			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
 
 			//Random enemy
-			enemy_update.enemy_create(enemys_1_1, 20);
-			enemy_update.enemy_create(enemys_1_2, 20);
-			enemy_update.enemy_create(enemys_1_3, 20);
-			enemy_update.enemy_create(enemys_2_1, 20);
-			enemy_update.enemy_create(enemys_2_2, 20);
+			enemy_update_1_1.enemy_create(enemys_1_1, 20);
+			enemy_update_1_2.enemy_create(enemys_1_2, 20);
+			enemy_update_1_3.enemy_create(enemys_1_3, 20);
+			enemy_update_2_1.enemy_create(enemys_2_1, 20);
+			enemy_update_2_2.enemy_create(enemys_2_2, 20);
 
 			//Enemy move
-			enemy_update.enemy_fix_move(enemys_1_1, player);
-			enemy_update.enemy_fix_move(enemys_1_2, player);
-			enemy_update.enemy_fix_move(enemys_1_3, player);
-			enemy_update.enemy_fix_move(enemys_2_1, player);
-			enemy_update.enemy_fix_move(enemys_2_2, player);
+			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
+			enemy_update_1_2.enemy_fix_move(enemys_1_2, player);
+			enemy_update_1_3.enemy_fix_move(enemys_1_3, player);
+			enemy_update_2_1.enemy_fix_move(enemys_2_1, player);
+			enemy_update_2_2.enemy_fix_move(enemys_2_2, player);
 
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
@@ -923,12 +938,12 @@ int main()
 			interaction.player_enemy_interaction(enemys_2_2, player);
 
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
-			interaction.bullet_enemy_interaction(enemys_1_2, bullets);
-			interaction.bullet_enemy_interaction(enemys_1_3, bullets);
-			interaction.bullet_enemy_interaction(enemys_2_1, bullets);
-			interaction.bullet_enemy_interaction(enemys_2_2, bullets);
-			interaction.bullet_enemy_interaction(enemys_2_3, bullets);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
+			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_1_2_death);
+			interaction.bullet_enemy_interaction(enemys_1_3, bullets, &enemy_1_3_death);
+			interaction.bullet_enemy_interaction(enemys_2_1, bullets, &enemy_2_1_death);
+			interaction.bullet_enemy_interaction(enemys_2_2, bullets, &enemy_2_2_death);
+			interaction.bullet_enemy_interaction(enemys_2_3, bullets, &enemy_2_3_death);
 
 
 
@@ -988,6 +1003,7 @@ int main()
 			interaction.breath_enemy_interaction(enemys_2_2, breath, player);
 			interaction.breath_enemy_interaction(enemys_2_3, breath, player);
 
+			uisetting.this_stage(3, 1);
 
 			camera->camera_move();
 			player->MOVE();
@@ -1001,14 +1017,14 @@ int main()
 			map_setting.map_creating();
 
 			//Random enemy
-			enemy_update.enemy_create(enemys_1_1, 5);
-			enemy_update.enemy_create(enemys_1_2, 5);
-			enemy_update.enemy_create(enemys_1_3, 5);
+			enemy_update_1_1.enemy_create(enemys_1_1, 5);
+			enemy_update_1_2.enemy_create(enemys_1_2, 5);
+			enemy_update_1_3.enemy_create(enemys_1_3, 5);
 
 			//Enemy move
-			enemy_update.enemy_move(enemys_1_1, player);
-			enemy_update.enemy_move(enemys_1_2, player);
-			enemy_update.enemy_move(enemys_1_3, player);
+			enemy_update_1_1.enemy_move(enemys_1_1, player);
+			enemy_update_1_2.enemy_move(enemys_1_2, player);
+			enemy_update_1_3.enemy_move(enemys_1_3, player);
 
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
@@ -1026,9 +1042,9 @@ int main()
 
 
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
-			interaction.bullet_enemy_interaction(enemys_1_2, bullets);
-			interaction.bullet_enemy_interaction(enemys_1_3, bullets);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
+			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_1_2_death);
+			interaction.bullet_enemy_interaction(enemys_1_3, bullets, &enemy_1_3_death);
 
 			interaction.ice_enemy_interaction(enemys_1_1, ice);
 			interaction.ice_enemy_interaction(enemys_1_2, ice);
@@ -1081,15 +1097,15 @@ int main()
 			if (stage_boss2->health <= 50)
 			{
 				//Random enemy
-				enemy_update.enemy_create(enemys_1_2, 7);
-				enemy_update.enemy_create(enemys_2_2, 7);
-				enemy_update.enemy_create(enemys_2_3, 7);
+				enemy_update_1_2.enemy_create(enemys_1_2, 7);
+				enemy_update_2_2.enemy_create(enemys_2_2, 7);
+				enemy_update_2_3.enemy_create(enemys_2_3, 7);
 
 
 				//Enemy move
-				enemy_update.enemy_move(enemys_1_2, player);
-				enemy_update.enemy_move(enemys_2_2, player);
-				enemy_update.enemy_move(enemys_2_3, player);
+				enemy_update_1_2.enemy_move(enemys_1_2, player);
+				enemy_update_2_2.enemy_move(enemys_2_2, player);
+				enemy_update_2_3.enemy_move(enemys_2_3, player);
 
 
 				//Me Enemy check
@@ -1110,9 +1126,9 @@ int main()
 			interaction.boss2_player_interaction(player);
 
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_2, bullets);
-			interaction.bullet_enemy_interaction(enemys_2_2, bullets);
-			interaction.bullet_enemy_interaction(enemys_2_3, bullets);
+			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_1_2_death);
+			interaction.bullet_enemy_interaction(enemys_2_2, bullets, &enemy_2_2_death);
+			interaction.bullet_enemy_interaction(enemys_2_3, bullets, &enemy_2_3_death);
 
 			interaction.ice_enemy_interaction(enemys_1_2, ice);
 			interaction.ice_enemy_interaction(enemys_2_2, ice);
@@ -1163,12 +1179,12 @@ int main()
 			if (stage_boss3->health <= 50)
 			{
 				//Random enemy
-				enemy_update.enemy_create(enemys_1_1, 5);
-				enemy_update.enemy_create(enemys_1_2, 5);
+				enemy_update_1_1.enemy_create(enemys_1_1, 5);
+				enemy_update_1_2.enemy_create(enemys_1_2, 5);
 
 				//Enemy move
-				enemy_update.enemy_move(enemys_1_1, player);
-				enemy_update.enemy_move(enemys_1_2, player);
+				enemy_update_1_1.enemy_move(enemys_1_1, player);
+				enemy_update_1_2.enemy_move(enemys_1_2, player);
 
 				//Me Enemy check
 				interaction.player_enemy_interaction(enemys_1_1, player);
@@ -1185,8 +1201,8 @@ int main()
 			interaction.ice_enemy_interaction(enemys_1_1, ice);
 			interaction.ice_enemy_interaction(enemys_1_2, ice);
 
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
-			interaction.bullet_enemy_interaction(enemys_1_2, bullets);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
+			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_1_2_death);
 
 			interaction.approach_enemy_interaction(enemys_1_1, approach);
 			interaction.approach_enemy_interaction(enemys_1_2, approach);
@@ -1225,14 +1241,14 @@ int main()
 			weapon_choice = 5;
 
 			////Random enemy
-			enemy_update.enemy_create(enemys_1_1, 20);
+			enemy_update_1_1.enemy_create(enemys_1_1, 20);
 
 			////Enemy move
-			enemy_update.enemy_move(enemys_1_1, player);
+			enemy_update_1_1.enemy_move(enemys_1_1, player);
 
 			//Bullet Enemy Check
 			interaction.ice_enemy_interaction(enemys_1_1, ice);
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
 			interaction.approach_enemy_interaction(enemys_1_1, approach);
 			interaction.meteor_enemy_interaction(enemys_1_1, meteor);
 			interaction.storm_enemy_interaction(enemys_1_1, storm);
@@ -1256,16 +1272,15 @@ int main()
 				breath_update.bullet_draw(breath, player);
 				breath_update.coolTime(breath, player);
 			}
+			map_setting.boss3_creating();
 
+			map_setting.fade_out(stage_boss3);
 
 			player->MOVE();
 			player->draw_chara();
 			player->hp_chara();
 		}
 
-		//cout << camera->x << ", " << camera->y << endl;
-		//cout << "x:" << get_mouse_x() << "\t y: " << get_mouse_y() << endl;
-		//cout << jewel_count << endl;
 	}
 	return 0;
 }

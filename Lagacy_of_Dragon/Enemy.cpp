@@ -135,6 +135,236 @@ void Enemy_update::enemy_fix_move(std::vector<Enemy*>& enemys, Player* player)
 
 	}
 }
+
+void Enemy_update_1_1::enemy_fix_move(std::vector<Enemy*>& enemys, Player* player)
+{
+	for (int i = 0; i < enemys.size(); i++)
+	{
+		enemys[i]->enemy1_draw();
+
+		if (enemys[i]->x >= player->chara_pos_x)
+		{
+			enemys[i]->x -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->x <= player->chara_pos_x)
+		{
+			enemys[i]->x += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->y >= player->chara_pos_y)
+		{
+			enemys[i]->y -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->y <= player->chara_pos_y)
+		{
+			enemys[i]->y += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+
+		if (moveW == true) {
+			enemys[i]->y += DeltaTime * 150 * 2;
+		}
+		if (moveA == true) {
+			enemys[i]->x += DeltaTime * 150 * 2;
+		}
+		if (moveS == true) {
+			enemys[i]->y -= DeltaTime * 150 * 2;
+		}
+		if (moveD == true) {
+			enemys[i]->x -= DeltaTime * 150 * 2;
+		}
+
+	}
+}
+void Enemy_update_1_2::enemy_fix_move(std::vector<Enemy*>& enemys, Player* player)
+{
+	for (int i = 0; i < enemys.size(); i++)
+	{
+		enemys[i]->enemy2_draw();
+
+		if (enemys[i]->x >= player->chara_pos_x)
+		{
+			enemys[i]->x -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->x <= player->chara_pos_x)
+		{
+			enemys[i]->x += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->y >= player->chara_pos_y)
+		{
+			enemys[i]->y -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->y <= player->chara_pos_y)
+		{
+			enemys[i]->y += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+
+		if (moveW == true) {
+			enemys[i]->y += DeltaTime * 150 * 2;
+		}
+		if (moveA == true) {
+			enemys[i]->x += DeltaTime * 150 * 2;
+		}
+		if (moveS == true) {
+			enemys[i]->y -= DeltaTime * 150 * 2;
+		}
+		if (moveD == true) {
+			enemys[i]->x -= DeltaTime * 150 * 2;
+		}
+
+	}
+}
+void Enemy_update_1_3::enemy_fix_move(std::vector<Enemy*>& enemys, Player* player)
+{
+	for (int i = 0; i < enemys.size(); i++)
+	{
+		enemys[i]->enemy3_draw();
+
+		if (enemys[i]->x >= player->chara_pos_x)
+		{
+			enemys[i]->x -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->x <= player->chara_pos_x)
+		{
+			enemys[i]->x += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->y >= player->chara_pos_y)
+		{
+			enemys[i]->y -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->y <= player->chara_pos_y)
+		{
+			enemys[i]->y += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+
+		if (moveW == true) {
+			enemys[i]->y += DeltaTime * 150 * 2;
+		}
+		if (moveA == true) {
+			enemys[i]->x += DeltaTime * 150 * 2;
+		}
+		if (moveS == true) {
+			enemys[i]->y -= DeltaTime * 150 * 2;
+		}
+		if (moveD == true) {
+			enemys[i]->x -= DeltaTime * 150 * 2;
+		}
+
+	}
+}
+void Enemy_update_2_1::enemy_fix_move(std::vector<Enemy*>& enemys, Player* player)
+{
+	for (int i = 0; i < enemys.size(); i++)
+	{
+		enemys[i]->enemy4_draw();
+
+		if (enemys[i]->x >= player->chara_pos_x)
+		{
+			enemys[i]->x -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->x <= player->chara_pos_x)
+		{
+			enemys[i]->x += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->y >= player->chara_pos_y)
+		{
+			enemys[i]->y -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->y <= player->chara_pos_y)
+		{
+			enemys[i]->y += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+
+		if (moveW == true) {
+			enemys[i]->y += DeltaTime * 150 * 2;
+		}
+		if (moveA == true) {
+			enemys[i]->x += DeltaTime * 150 * 2;
+		}
+		if (moveS == true) {
+			enemys[i]->y -= DeltaTime * 150 * 2;
+		}
+		if (moveD == true) {
+			enemys[i]->x -= DeltaTime * 150 * 2;
+		}
+
+	}
+}
+void Enemy_update_2_2::enemy_fix_move(std::vector<Enemy*>& enemys, Player* player)
+{
+	for (int i = 0; i < enemys.size(); i++)
+	{
+		enemys[i]->enemy5_draw();
+
+		if (enemys[i]->x >= player->chara_pos_x)
+		{
+			enemys[i]->x -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->x <= player->chara_pos_x)
+		{
+			enemys[i]->x += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->y >= player->chara_pos_y)
+		{
+			enemys[i]->y -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->y <= player->chara_pos_y)
+		{
+			enemys[i]->y += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+
+		if (moveW == true) {
+			enemys[i]->y += DeltaTime * 150 * 2;
+		}
+		if (moveA == true) {
+			enemys[i]->x += DeltaTime * 150 * 2;
+		}
+		if (moveS == true) {
+			enemys[i]->y -= DeltaTime * 150 * 2;
+		}
+		if (moveD == true) {
+			enemys[i]->x -= DeltaTime * 150 * 2;
+		}
+
+	}
+}
+void Enemy_update_2_3::enemy_fix_move(std::vector<Enemy*>& enemys, Player* player)
+{
+	for (int i = 0; i < enemys.size(); i++)
+	{
+		enemys[i]->enemy6_draw();
+
+		if (enemys[i]->x >= player->chara_pos_x)
+		{
+			enemys[i]->x -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->x <= player->chara_pos_x)
+		{
+			enemys[i]->x += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->y >= player->chara_pos_y)
+		{
+			enemys[i]->y -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->y <= player->chara_pos_y)
+		{
+			enemys[i]->y += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+
+		if (moveW == true) {
+			enemys[i]->y += DeltaTime * 150 * 2;
+		}
+		if (moveA == true) {
+			enemys[i]->x += DeltaTime * 150 * 2;
+		}
+		if (moveS == true) {
+			enemys[i]->y -= DeltaTime * 150 * 2;
+		}
+		if (moveD == true) {
+			enemys[i]->x -= DeltaTime * 150 * 2;
+		}
+
+	}
+}
+
 void Enemy_update_1_3::enemy_move(std::vector<Enemy*>& enemys, Player* player)
 {
 	for (int i = 0; i < enemys.size(); i++)
@@ -188,7 +418,7 @@ void Enemy_update_1_1::enemy_create(std::vector<Enemy*>& enemys, int regen)
 			push_settings();
 			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
 			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
-			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 5, 1, 0.5, 70, 0xffffffff, 1 });
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 2, 1, 0.5, 70, 0xffffffff, 1 });
 			pop_settings();
 		}
 		count_once = int_timer;

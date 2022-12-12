@@ -5,6 +5,7 @@
 #include <vector>
 #include "Player.h"
 #include "Camera.h"
+#include "stage3_boss.h"
 
 using namespace doodle;
 
@@ -14,7 +15,7 @@ static constexpr int world_y = 10;
 
 static constexpr int stage_x = 36;
 static constexpr int stage_y = 36;
-
+inline int back_color=0;
 
 const Image tiles[] = {
 	Image{"plain/plain0.png"},		  //0 = 0
@@ -655,6 +656,9 @@ struct Map_setting {
 
 
 	void map_creating();
+
+	void tuto_controll(Player* player);
+
 	void stage1_creating(Camera* camera); // 1-1
 	void stage2_creating(Camera* camera); // 1-2
 	void stage3_creating(Camera* camera); // 1-3
@@ -678,6 +682,7 @@ struct Map_setting {
 	void char_boss2(Player* player);
 	void char_boss3(Player* player);
 
+	void fade_out(Stage3_boss* boss);
 };
 
 extern Map_setting map_setting;

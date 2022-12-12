@@ -19,6 +19,8 @@ constexpr int player_limit_x1 = 100;
 constexpr int player_limit_y = 800;
 constexpr int player_limit_y1 = 100;
 
+const Image HP{ "UIdesign/HP.png" };
+
 struct Player {
 	int chara_pos_x = 0;
 	int chara_pos_y = 0;

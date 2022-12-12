@@ -40,7 +40,7 @@ struct Interaction
 {
 	void player_enemyat_interaction(std::vector<Enemy_attack*>& attack, Player* player);
 	void player_enemy_interaction(std::vector<Enemy*>& enemys, Player* player);
-	void bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Shooting*>& bullets);
+	void bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Shooting*>& bullets, int* death);
 	void ice_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<IceWeapon*>& bullets);
 	void storm_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Storm*>& bullets);
 	void back_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<BackWeapon*>& bullets, Player* player);

@@ -24,6 +24,7 @@ constexpr int click_credit_y = 650;
 constexpr int click_exit_y = 730;
 
 constexpr int click_gap_y = 50;
+inline double credit_timer = 0;
 
 const Image Title{ "UIdesign/Title.png" };
 const Image Gameplay_button{ "UIdesign/GamePlay.png" };
@@ -36,6 +37,10 @@ const Image Exit_button{ "UIdesign/Exit.png" };
 const Image Exit_button_on{ "UIdesign/Exiton.png" };
 const Image Howtoplay_button{ "UIdesign/HTP.png" };
 const Image Howtoplay_button_on{ "UIdesign/HTPon.png" };
+
+const Image Credit1{ "credit/credit1.png" };
+const Image Credit2{ "credit/credit2.png" };
+const Image Credit3{ "credit/credit3.png" };
 
 struct Main_menu {
 	void main_UI();

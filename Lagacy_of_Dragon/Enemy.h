@@ -101,22 +101,28 @@ struct Enemy_update_tuto : public Enemy_update {
 };
 struct Enemy_update_1_1 : public Enemy_update {
 	void enemy_create(std::vector<Enemy*>& enemys, int regen) override;
+	void enemy_fix_move(std::vector<Enemy*>& enemys, Player* player) override;
 };
 struct Enemy_update_1_2 : public Enemy_update {
 	void enemy_create(std::vector<Enemy*>& enemys, int regen) override;
+	void enemy_fix_move(std::vector<Enemy*>& enemys, Player* player) override;
 };
 struct Enemy_update_1_3 : public Enemy_update {
 	void enemy_create(std::vector<Enemy*>& enemys, int regen) override;
 	void enemy_move(std::vector<Enemy*>& enemys, Player* player) override;
+	void enemy_fix_move(std::vector<Enemy*>& enemys, Player* player) override;
 };
 struct Enemy_update_2_1 : public Enemy_update {
 	void enemy_create(std::vector<Enemy*>& enemys, int regen) override;
+	void enemy_fix_move(std::vector<Enemy*>& enemys, Player* player) override;
 };
 struct Enemy_update_2_2 : public Enemy_update {
 	void enemy_create(std::vector<Enemy*>& enemys, int regen) override;
+	void enemy_fix_move(std::vector<Enemy*>& enemys, Player* player) override;
 };
 struct Enemy_update_2_3 : public Enemy_update {
 	void enemy_create(std::vector<Enemy*>& enemys, int regen) override;
+	void enemy_fix_move(std::vector<Enemy*>& enemys, Player* player) override;
 };
 
 

@@ -14,6 +14,15 @@ void Shooting::draw()
 	draw_ellipse(bullet_pos_x, bullet_pos_y, size, size);
 }
 
+void Shooting::FireBullet()
+{
+	float aimAngle = atan2(angleY, angleX);
+	float velocityX = (cos(aimAngle) * Bvelocity);
+	float velocityY = (sin(aimAngle) * Bvelocity);
+
+	bullet_pos_x += static_cast<int>(velocityX);
+	bullet_pos_y += static_cast<int>(velocityY);
+}
 
 void Shooting_update::bullet_create(std::vector<Shooting*> &bullets, Player* player)
 {

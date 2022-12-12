@@ -60,7 +60,7 @@ void Map_setting::stage1_controll(Camera* camera) {
 		draw_image(tiles[tile], 1 * tile_size + camera->offsetX, 34 * tile_size + camera->offsetY, tile_size, tile_size);
 	}
 
-	if (jewel_count == 0) {
+	if (jewel_count == 0 || !quest_complite) {
 		int tile = map_setting.NOPOTAL;
 		draw_image(tiles[tile], 35 * tile_size + camera->offsetX, 29 * tile_size + camera->offsetY, tile_size, tile_size);
 		draw_image(tiles[tile], 35 * tile_size + camera->offsetX, 30 * tile_size + camera->offsetY, tile_size, tile_size);
@@ -69,8 +69,9 @@ void Map_setting::stage1_controll(Camera* camera) {
 	if (camera->x > 3200 && camera->x < 3300 && camera->y > 3000 && camera->y < 3300 )
 	{
 		if (jewel_count == 1 && quest_complite) {
-			camera->camera_pos_x = -104;
+			camera->camera_pos_x = -100;
 			camera->camera_pos_y = 2900;
+			enemy_1_1_death = 0;
 			scene = 11;
 		}
 		else

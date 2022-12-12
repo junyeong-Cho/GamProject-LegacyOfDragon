@@ -106,5 +106,3 @@ void S3boss_update::attack_remove(std::vector<Boss_attack*>& attack)
 	}
 }
 
-
-

@@ -1,4 +1,6 @@
 #include "Main_menu.h"
+#include <iostream>
+#include "Window_setting.h"
 
 void Main_menu::main_UI() {
 	clear_background(HexColor{0xffcf69ff});
@@ -30,8 +32,23 @@ void Main_menu::in_setting()
 }
 void Main_menu::in_credit()
 {
-	clear_background(0x7E5873FF);
-	draw_text("Back", maxvolume_x, maxvolume_y);
+	credit_timer += DeltaTime;
+	clear_background(HexColor{0x000000ff});
+		push_settings();
+		set_image_mode(RectMode::Center);
+		draw_image(Credit1, Width/2, Height/2+700-credit_timer*100);
+		draw_image(Credit2, Width/2, Height/2+1600-credit_timer*100);
+		std::cout << credit_timer << std::endl;
+		if (credit_timer > 23)
+		{
+			draw_image(Credit3, Width / 2, Height / 2);
+		}
+		if (credit_timer > 27)
+		{
+			credit_timer = 0;
+			scene = 2;
+		}
+		pop_settings();
 }
 bool Main_menu::is_in_setting()
 {

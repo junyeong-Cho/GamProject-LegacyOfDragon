@@ -64,7 +64,7 @@ void Interaction::player_enemy_interaction(std::vector<Enemy*>& enemys, Player* 
 		}
 	}
 }
-void Interaction::bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Shooting*>& bullets) {
+void Interaction::bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Shooting*>& bullets, int* death) {
 	
 	for (int i = 0; i < bullets.size(); i++)
 	{
@@ -76,9 +76,9 @@ void Interaction::bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 
 			if (distance < bullets[i]->size + enemys[j]->enemysize / 2)
 			{
-				if (enemys[j]->health - 1 == 0)
+				if (enemys[j]->health - 1 <= 0)
 				{
-					enemy_1_1_death++;
+					(* death)++;
 					delete bullets[i];
 					delete enemys[j];
 

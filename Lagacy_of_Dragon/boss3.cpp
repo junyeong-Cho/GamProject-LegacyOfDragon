@@ -1,5 +1,7 @@
 #include "Map_setting.h"
 #include "Player.h"
+#include "stage3_boss.h"
+#include "Window_setting.h"
 
 void Map_setting::boss3_creating()
 {
@@ -31,6 +33,18 @@ void Map_setting::char_boss3(Player* player)
 				player->chara_pos_y = y * tile_size;
 				break;
 			}
+		}
+	}
+}
+
+void Map_setting::fade_out(Stage3_boss* boss) {
+
+	Color fade = HexColor{ back_color };
+	if (boss->size == 0) {
+		back_color += DeltaTime * 64;
+		clear_background(fade);
+		if (back_color >= 0xff) {
+			scene = 4;
 		}
 	}
 }

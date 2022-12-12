@@ -101,7 +101,15 @@ inline double rouletteu_init_check = 25;
 inline double roulettes_init_timer = 0;
 inline double roulettes_init_check = 20;
 
+inline int enemy_tuto_death = 0;
 inline int enemy_1_1_death = 0;
+inline int enemy_1_2_death = 0;
+inline int enemy_1_3_death = 0;
+inline int enemy_2_1_death = 0;
+inline int enemy_2_2_death = 0;
+inline int enemy_2_3_death = 0;
+inline int enemy_3_1_death = 0;
+inline int enemy_3_2_death = 0;
 
 inline bool quest_complite = false;
 
@@ -145,7 +153,7 @@ const Image Home{ "UIdesign/home.png" };
 const Image Retry{ "UIdesign/retry.png" };
 
 const Image Bubble{ "UIdesign/talkbubble.png" };
-
+const Image Stage{ "UIdesign/stage.png" };
 
 struct UIsetting
 {
@@ -161,8 +169,10 @@ struct UIsetting
 	void howtoplay(int* scene);
 	void gameover(int* scene);
 	void talkbubble(string text);
-
-	void enemy_quest(int demand);
+	void movebubble(string text, Player* player);
+	void enemy_quest(int* death, int demand);
+	void enemy_quest(int* death1, int demand1, int* death2, int demand2);
+	void this_stage(int main_stage, int sub_stage);
 };
 extern UIsetting uisetting;
 #endif

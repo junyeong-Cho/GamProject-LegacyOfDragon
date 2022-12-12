@@ -122,7 +122,8 @@ void Player::hp_chara()
 {
 	push_settings();
 	set_fill_color(HexColor{ 0xFF0000FF });
-	draw_rectangle(100, 100, 50 * hp, 20);
+	draw_rectangle(100, 100, 20 * hp, 20);
+	draw_image(HP, 85, 85, 50, 50);
 	pop_settings();
 	if (hp == 0)
 	{

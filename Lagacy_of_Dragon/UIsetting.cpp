@@ -706,14 +706,56 @@ void UIsetting::talkbubble(string text)
 	pop_settings();
 }
 
-void UIsetting::enemy_quest(int demand)
+void UIsetting::movebubble(string text, Player* player)
+{
+	push_settings();
+	set_image_mode(RectMode::Center);
+	draw_image(Bubble, player->chara_pos_x - 110, player->chara_pos_y - 50);
+	set_font_size(15);
+	draw_text(text, player->chara_pos_x - 200, player->chara_pos_y - 115);
+	pop_settings();
+}
+
+void UIsetting::enemy_quest(int* death, int demand)
 {
 
 	push_settings();
-	draw_text(to_string(enemy_1_1_death) + " / " + to_string(demand), score_width, score_height);
+	apply_scale(0.33);
+	draw_image(enemy1, (Width - 200) * 3, (100)*3);
+	set_font_size(100);
+	draw_text(to_string(*death) + " / " + to_string(demand), (Width - 100) * 3, (150)*3);
+
 	pop_settings();
-	if (enemy_1_1_death <= demand) {
+	if (*death >= demand) {
 		quest_complite = true;
 	}
 }
 
+void UIsetting::enemy_quest(int* death1, int demand1, int* death2, int demand2)
+{
+
+	push_settings();
+	apply_scale(0.33);
+	draw_image(enemy1, (Width - 200) * 3, (100) * 3);
+	draw_image(enemy2, (Width - 200) * 3, (200) * 3);
+	set_font_size(100);
+	draw_text(to_string(*death1) + " / " + to_string(demand2), (Width - 100) * 3, (150) * 3);
+	draw_text(to_string(*death1) + " / " + to_string(demand2), (Width - 100) * 3, (250) * 3);
+
+	pop_settings();
+	if (*death1 >= demand1 && *death2 >= demand2) {
+		quest_complite = true;
+	}
+}
+
+void UIsetting::this_stage(int main_stage, int sub_stage)
+{
+	push_settings();
+	apply_scale(0.7);
+	//set_image_mode(RectMode::Center); 
+	draw_image(Stage, Width / 2, 50);
+	set_font_size(50);
+	set_fill_color(HexColor{0xfbb7b7ff});
+	draw_text(to_string(main_stage) + " - " + to_string(sub_stage), Width/2+37, 190);
+	pop_settings();
+}
