@@ -10,7 +10,7 @@ inline bool boss1_move_check = false;
 inline int boss1_x = 750;
 inline int boss1_y = 200;
 inline int s1bossSize = 100;
-inline int boss1_hp = 100;
+inline double boss1_hp = 100;
 inline int s1_boss_vel = 7;
 
 constexpr int b1_hp_x = 250;

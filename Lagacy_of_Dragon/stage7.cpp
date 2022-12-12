@@ -2,14 +2,16 @@
 #include "Window_setting.h"
 #include "Player.h"
 #include "Camera.h"
+#include "UIsetting.h"
 
 void Map_setting::stage7_creating(Camera* camera)
 {
+	go_next_stage = false;
 	push_settings();
 	set_fill_color(dawn);
 	draw_rectangle(-Width, -Height, Width, Height);
 	pop_settings();
-	for (int x = camera->xs - 1; x < camera->xe + 1; x++)
+	for (int x = camera->xs - 1; x < camera->xe + 4; x++)
 	{
 		if (x < 0 || x > 35)
 		{
@@ -26,7 +28,7 @@ void Map_setting::stage7_creating(Camera* camera)
 		}
 	}
 
-	for (int x = camera->xs - 1; x < camera->xe + 1; x++)
+	for (int x = camera->xs - 1; x < camera->xe + 4; x++)
 	{
 		if (x < 0 || x > 35)
 		{
@@ -49,13 +51,35 @@ void Map_setting::stage7_creating(Camera* camera)
 			draw_image(tiles[tile], x * tile_size + camera->offsetX, y * tile_size + camera->offsetY, tile_size, tile_size);
 		}
 	}
+}
+
+void Map_setting::stage7_controll(Camera* camera) {
+
+	if (!quest_complite) {
+		int tile = map_setting.NOPOTAL;
+		draw_image(tiles[tile], 35 * tile_size + camera->offsetX, 6 * tile_size + camera->offsetY, tile_size, tile_size);
+	}
 
 	if (camera->x > 3250 && camera->x < 3350 && camera->y > 650 && camera->y < 750)
 	{
-		scene = 18;
+		if (quest_complite) {
+			camera->camera_pos_x = 100;
+			camera->camera_pos_y = 2500;
+
+			enemy_death1 = 0;
+			enemy_death2 = 0;
+			enemy_death3 = 0;
+			enemy_death4 = 0;
+
+			quest_complite = false;
+			scene = 18;
+		}
+		else
+		{
+			uisetting.talkbubble("kill enemys!");
+		}
 	}
 }
-
 
 void Map_setting::char_pos7(Camera* camera)
 {

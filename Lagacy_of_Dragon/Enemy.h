@@ -28,6 +28,14 @@ constexpr int enemy_vel_max = 3;
 constexpr int enemy_vel_min_2_1 = 4;
 constexpr int enemy_vel_max_2_1 = 6;
 
+constexpr int remain_max_tuto = 5;
+constexpr int remain_max_1_1 = 15;
+constexpr int remain_max_1_2 = 7;
+constexpr int remain_max_1_3 = 4;
+constexpr int remain_max_2_1 = 20;
+constexpr int remain_max_2_2 = 10;
+constexpr int remain_max_2_3 = 5;
+
 static constexpr int E_Bvelocity = 6;
 static constexpr int attack_delay = 2;
 
@@ -50,7 +58,6 @@ struct Enemy {
 	unsigned int color = 0xffffffff;
 	int type = 0;
 
-	int death=0;
 	Enemy(float _x, float _y, double _health, int _deal, float _speed, int _enemysize, unsigned int _color, int _type)
 	{
 		x = _x;
@@ -94,6 +101,8 @@ struct Enemy_update {
 	virtual void attack_create(std::vector<Enemy_attack*>& attack, std::vector<Enemy*>& enemys, Player player);
 	virtual void attack_draw(std::vector<Enemy_attack*>& attack);
 	virtual void attack_remove(std::vector<Enemy_attack*>& attack);
+
+	virtual void enemy_death(std::vector<Enemy*>& enemys, int* death);
 };
 extern Enemy_update enemy_update;
 struct Enemy_update_tuto : public Enemy_update {

@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Camera.h"
 #include "stage3_boss.h"
+#include "Enemy.h"
 
 using namespace doodle;
 
@@ -16,6 +17,8 @@ static constexpr int world_y = 10;
 static constexpr int stage_x = 36;
 static constexpr int stage_y = 36;
 inline int back_color=0;
+
+static constexpr int info_timer_check = 3;
 
 const Image tiles[] = {
 	Image{"plain/plain0.png"},		  //0 = 0
@@ -670,6 +673,12 @@ struct Map_setting {
 	void boss3_creating();
 
 	void stage1_controll(Camera* camera);
+	void stage2_controll(Camera* camera);
+	void stage3_controll(Camera* camera);
+	void stage4_controll(Camera* camera);
+	void stage5_controll(Camera* camera);
+	void stage6_controll(Camera* camera);
+	void stage7_controll(Camera* camera);
 
 	void char_pos(Player* player);
 	void char_pos1(Camera* camera);

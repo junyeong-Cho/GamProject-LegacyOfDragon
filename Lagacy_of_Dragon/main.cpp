@@ -117,20 +117,22 @@ void on_key_pressed(KeyboardButtons button);
 void on_key_released(KeyboardButtons button);
 inline int back_color1=0;
 inline int update = 0;
+inline int count_once_debug = 0;
 
 void cmd_debug_mod(Camera* camera, Player* player) {
-	cout << "width : " << Width << "\t height : " << Height << endl;
+	system("cls");
+	cout << "width: " << Width << "\t height: " << Height << endl;
 	cout << "player x: " << player->chara_pos_x << "\t player y: " << player->chara_pos_y << endl;
-	cout << "camera x: " << camera->x << "\tcamera x : " << camera->y << endl;
+	cout << "camera x: " << camera->x << "\tcamera y: " << camera->y << endl;
 	cout << "mouse x:" << get_mouse_x() << "\tmouse y: " << get_mouse_y() << endl;
 	cout << "jewel count: "<< jewel_count << endl;
-	cout << "enemy 1-1 death" << enemy_1_1_death << endl;
-	cout << "enemy 1-2 death" << enemy_1_2_death << endl;
-	cout << "enemy 1-3 death" << enemy_1_3_death << endl;
-	cout << "enemy 2-1 death" << enemy_2_1_death << endl;
-	cout << "enemy 2-2 death" << enemy_2_2_death << endl;
-	cout << "enemy 2-3 death" << enemy_2_3_death << endl;
-	system("cls");
+	cout << "enemy death1: " << enemy_death1 << endl;
+	cout << "enemy death2: " << enemy_death2 << endl;
+	cout << "enemy death3: " << enemy_death3 << endl;
+	cout << "quest complite: " << quest_complite << endl;
+	cout << "tile[x]: " << static_cast<int>((camera->x - camera->offsetX)/tile_size) << endl;
+	cout << "tile[y]: " << static_cast<int>((camera->y - camera->offsetY)/tile_size) << endl;
+	cout << "timer" <<timer << endl;
 }
 
 int main()
@@ -164,9 +166,9 @@ int main()
 	Player* player = new Player{ Width / 2, Height / 2, 2, 20 };
 	Camera* camera = new Camera{ 0, 0 };
 
-	Stage1_boss* stage_boss1 = new Stage1_boss{ boss1_x,boss1_y, s1bossSize, boss1_hp, s1_boss_vel };
-	Stage2_boss* stage_boss2 = new Stage2_boss{ boss2_x,boss2_y, s2bossSize, boss2_hp };
-	Stage3_boss* stage_boss3 = new Stage3_boss{ boss3_x,boss3_y, s3bossSize, boss3_hp, s3_boss_vel };
+	Stage1_boss* stage_boss1 = new Stage1_boss{ boss1_x,boss1_y, s1bossSize, (int)boss1_hp, s1_boss_vel };
+	Stage2_boss* stage_boss2 = new Stage2_boss{ boss2_x,boss2_y, s2bossSize, (int)boss2_hp };
+	Stage3_boss* stage_boss3 = new Stage3_boss{ boss3_x,boss3_y, s3bossSize, (int)boss3_hp, s3_boss_vel };
 
 
 	map_setting.char_pos1(camera);
@@ -174,15 +176,16 @@ int main()
 
 	while (!is_window_closed())
 	{
-		
 		timer += DeltaTime;
 		int_timer += DeltaTime;
 		bullet_timer += DeltaTime;
 		scene_timer += DeltaTime;
 		boss3_timers += DeltaTime;
 		update_window();
-		if (int_timer%2==1)
+		if (int_timer%2==1 && count_once_debug != int_timer){
 		cmd_debug_mod(camera, player);
+		count_once_debug = int_timer;
+		}
 		//Game_start
 		//DIGIEPN LOGO
 		if (scene == 0)
@@ -213,8 +216,12 @@ int main()
 			if (main_menu.is_gameplay())
 			{
 				draw_image(Gameplay_button_on, mainmenu_x, gameplay_y);
-				if (MouseIsPressed)
-				scene = 6;
+				if (MouseIsPressed) {
+					tutorial_scene = 1;
+					scene = 7;
+					player->chara_pos_x = 300;
+					player->chara_pos_y = 300;
+				}
 			}
 			//Settings
 			if (main_menu.is_setting())
@@ -233,7 +240,6 @@ int main()
 			//Exit
 			if (main_menu.is_exit())
 			{
-
 				draw_image(Exit_button_on, mainmenu_x, exit_y);
 				if (MouseIsPressed)
 				scene = 5;
@@ -264,53 +270,53 @@ int main()
 		}
 
 		//Tutorial with story telling
-		if (scene == 6)
-		{
-			map_setting.map_creating();
-			if (textbox == 0)
-			{
-				tutorial.textbox1();
-			}
-			/*if (textbox == 1)
-			{
-				tutorial.textbox2();
-			}*/
-			if (textbox == 2)
-			{
-				tutorial.textbox3();
-			}
-			if (textbox == 3)
-			{
-				tutorial.textbox4();
-			}
-			if (textbox == 4)
-			{
-				tutorial.textbox5();
-			}
-			if (textbox == 5)
-			{
-				tutorial.textbox6();
-			}
-			if (textbox == 6)
-			{
-				tutorial.textbox7();
-			}
-			if (textbox == 7)
-			{
-				tutorial.textbox8();
-			}
-			if (textbox == 8)
-			{
-				tutorial.textbox9();
-			}
-			if (textbox == 1)
-			{
-				tutorial_scene = 1;
-				player->chara_pos_x = 300;
-				player->chara_pos_y = 300;
-				scene = 7;
-			}
-		}
+		//if (scene == 6)
+		//{
+		//	map_setting.map_creating();
+		//	if (textbox == 0)
+		//	{
+		//		tutorial.textbox1();
+		//	}
+		//	/*if (textbox == 1)
+		//	{
+		//		tutorial.textbox2();
+		//	}*/
+		//	if (textbox == 2)
+		//	{
+		//		tutorial.textbox3();
+		//	}
+		//	if (textbox == 3)
+		//	{
+		//		tutorial.textbox4();
+		//	}
+		//	if (textbox == 4)
+		//	{
+		//		tutorial.textbox5();
+		//	}
+		//	if (textbox == 5)
+		//	{
+		//		tutorial.textbox6();
+		//	}
+		//	if (textbox == 6)
+		//	{
+		//		tutorial.textbox7();
+		//	}
+		//	if (textbox == 7)
+		//	{
+		//		tutorial.textbox8();
+		//	}
+		//	if (textbox == 8)
+		//	{
+		//		tutorial.textbox9();
+		//	}
+		//	if (textbox == 1)
+		//	{
+		//		tutorial_scene = 1;
+		//		player->chara_pos_x = 300;
+		//		player->chara_pos_y = 300;
+		//		scene = 7;
+		//	}
+		//}
 
 		//Tutorial
 		if (scene == 7)
@@ -353,7 +359,6 @@ int main()
 
 				//Create Enemy
 				enemy_update_tuto.enemy_create(enemys_tuto, 5);
-
 				enemy_update_tuto.enemy_move(enemys_tuto, player);
 
 				//bullet draw
@@ -363,7 +368,7 @@ int main()
 				shooting_update.bullet_remove(bullets);
 
 				//Bullet Enemy Check
-				interaction.bullet_enemy_interaction(enemys_tuto, bullets, &enemy_tuto_death);
+				interaction.bullet_enemy_interaction(enemys_tuto, bullets, &enemy_death1);
 
 				if (count_enemy - enemys_tuto.size() == 1) {
 					score++;
@@ -384,7 +389,6 @@ int main()
 		//Tutorial_last
 		if (scene == 8)
 		{
-
 			//Player move limit
 			player_setting.move_limit(player);
 
@@ -411,7 +415,7 @@ int main()
 			interaction.player_enemy_interaction(enemys_1_1, player);
 
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_death1);
 
 			if (count_enemy - enemys_1_1.size() == 1) {
 				chap1_point--;
@@ -453,6 +457,7 @@ int main()
 			clear_background(HexColor{0xc4d37dff});
 			camera->camera_generate();
 
+			//weapon_choice = 3;
 			map_setting.stage1_creating(camera);
 			map_setting.stage1_controll(camera);
 			//Random enemy
@@ -464,17 +469,22 @@ int main()
 			interaction.player_enemy_interaction(enemys_1_1, player);
 
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_death1);
+			interaction.ice_enemy_interaction(enemys_1_1, ice,&enemy_death1);
+			interaction.storm_enemy_interaction(enemys_1_1, storm, &enemy_death1);
+
+			if(jewel_count ==0){
 			shooting_update.bullet_create(bullets, player);
 			shooting_update.bullet_draw(bullets);
 			shooting_update.bullet_remove(bullets);
 			shooting_update.coolTime(player);
-
+			}
 			//Quest
-			uisetting.enemy_quest(&enemy_1_1_death, 5);
+			//uisetting.enemy_quest(enemy1, 5);
+			uisetting.enemy_quest(enemy1, 1);
 
 			if(jewel_count ==1){
-			weapon_choice = 0;
+			
 			uisetting.roulette(randomboxloc);
 			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
 			uisetting.RcoolTime(player);
@@ -482,7 +492,6 @@ int main()
 			uisetting.this_stage(1, 1);
 
 			camera->camera_move();
-
 			player->MOVE();
 			player->draw_fix_chara();
 			player->hp_chara();
@@ -501,9 +510,14 @@ int main()
 			clear_background(HexColor{ 0xc4d37dff });
 			camera->camera_generate();
 			map_setting.stage2_creating(camera);
+			map_setting.stage2_controll(camera);
+
+			//uisetting.enemy_quest(enemy1, 10, enemy2, 5);
+			uisetting.enemy_quest(enemy1, 1, enemy2, 1);
+			uisetting.this_stage(1, 2);
 
 			//Create bullet
-			weapon_choice = 0;
+			
 			uisetting.roulette(randomboxloc);
 			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
 			uisetting.RcoolTime(player);
@@ -521,17 +535,16 @@ int main()
 			interaction.player_enemy_interaction(enemys_1_2, player);
 
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets,&enemy_1_1_death);
-			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_1_2_death);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets,&enemy_death1);
+			interaction.bullet_enemy_interaction(enemys_1_2, bullets,&enemy_death2);
 
-			interaction.ice_enemy_interaction(enemys_1_1, ice);
-			interaction.ice_enemy_interaction(enemys_1_2, ice);
+			interaction.ice_enemy_interaction(enemys_1_1, ice ,&enemy_death1);
+			interaction.ice_enemy_interaction(enemys_1_2, ice, &enemy_death2);
 
-			interaction.storm_enemy_interaction(enemys_1_1, storm);
-			interaction.storm_enemy_interaction(enemys_1_2, storm);
+			interaction.storm_enemy_interaction(enemys_1_1, storm, &enemy_death1);
+			interaction.storm_enemy_interaction(enemys_1_2, storm, &enemy_death2);
 			
-			uisetting.enemy_quest(&enemy_1_1_death, 10, &enemy_1_2_death, 5);
-			uisetting.this_stage(1, 2);
+			
 
 			camera->camera_move();
 			player->MOVE();
@@ -548,16 +561,22 @@ int main()
 			player_setting.move_limit(player);
 
 			//Draw Map
-			clear_background(HexColor{ 0xc4d37dff });
+			clear_background(HexColor{ 0x8de3ffff });
 			camera->camera_generate();
 			map_setting.stage3_creating(camera);
-
+			map_setting.stage3_controll(camera);
 			//Create bullet
-			weapon_choice = 0;
-			uisetting.roulette(randomboxloc);
-			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
-			uisetting.RcoolTime(player);
-
+			
+			if (jewel_count == 2) {
+				uisetting.roulette_six(sixboxloc);
+				uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
+				uisetting.ScoolTime(player);
+			}
+			else {
+				uisetting.roulette(randomboxloc);
+				uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
+				uisetting.RcoolTime(player);
+			}
 
 			//Random enemy
 			enemy_update_1_1.enemy_create(enemys_1_1, 10);
@@ -569,24 +588,30 @@ int main()
 			enemy_update_1_2.enemy_fix_move(enemys_1_2, player);
 			enemy_update_1_3.enemy_fix_move(enemys_1_3, player);
 
+			enemy_update_1_3.attack_create(enemy_attack,enemys_1_3, *player);
+			enemy_update_1_3.attack_draw(enemy_attack);
+			enemy_update_1_3.attack_remove(enemy_attack);
+
+
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
 			interaction.player_enemy_interaction(enemys_1_2, player);
 			interaction.player_enemy_interaction(enemys_1_3, player);
 
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
-			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_1_2_death);
-			interaction.bullet_enemy_interaction(enemys_1_3, bullets, &enemy_1_3_death);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_death1);
+			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_death2);
+			interaction.bullet_enemy_interaction(enemys_1_3, bullets, &enemy_death3);
 
-			interaction.ice_enemy_interaction(enemys_1_1, ice);
-			interaction.ice_enemy_interaction(enemys_1_2, ice);
-			interaction.ice_enemy_interaction(enemys_1_3, ice);
+			interaction.ice_enemy_interaction(enemys_1_1, ice, &enemy_death1);
+			interaction.ice_enemy_interaction(enemys_1_2, ice, &enemy_death2);
+			interaction.ice_enemy_interaction(enemys_1_3, ice, &enemy_death3);
 
-			interaction.storm_enemy_interaction(enemys_1_1, storm);
-			interaction.storm_enemy_interaction(enemys_1_2, storm);
-			interaction.storm_enemy_interaction(enemys_1_3, storm);
+			interaction.storm_enemy_interaction(enemys_1_1, storm, &enemy_death1);
+			interaction.storm_enemy_interaction(enemys_1_2, storm, &enemy_death2);
+			interaction.storm_enemy_interaction(enemys_1_3, storm, &enemy_death3);
 
+			uisetting.enemy_quest(enemy1, 1, enemy2, 1, enemy3, 1);
 			uisetting.this_stage(1, 3);
 
 			camera->camera_move();
@@ -604,27 +629,37 @@ int main()
 			player_setting.move_limit(player);
 
 			//Draw Map
-			clear_background(HexColor{ 0xc4d37dff });
+			clear_background(HexColor{ 0x8de3ffff });
 			camera->camera_generate();
 			map_setting.stage4_creating(camera);
-
+			map_setting.stage4_controll(camera);
 			//Create bullet
-			weapon_choice = 0;
+			if (jewel_count == 3) {
+				uisetting.roulette_ult(ultraboxloc);
+				uisetting.UcoolTime(player);
+			}
 			uisetting.roulette_six(sixboxloc);
 			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
 			uisetting.ScoolTime(player);
 
+			
+
+
 			//Random enemy
-			enemy_update_1_1.enemy_create(enemys_1_1, 7);
-			enemy_update_1_2.enemy_create(enemys_1_2, 3);
-			enemy_update_1_3.enemy_create(enemys_1_3, 3);
-			enemy_update_2_1.enemy_create(enemys_2_1, 7);
+			enemy_update_1_1.enemy_create(enemys_1_1, 2);
+			enemy_update_1_2.enemy_create(enemys_1_2, 2);
+			enemy_update_1_3.enemy_create(enemys_1_3, 1);
+			enemy_update_2_1.enemy_create(enemys_2_1, 2);
 
 			//Enemy move
 			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
 			enemy_update_1_2.enemy_fix_move(enemys_1_2, player);
 			enemy_update_1_3.enemy_fix_move(enemys_1_3, player);
 			enemy_update_2_1.enemy_fix_move(enemys_2_1, player);
+			
+			enemy_update_1_3.attack_create(enemy_attack, enemys_1_3, *player);
+			enemy_update_1_3.attack_draw(enemy_attack);
+			enemy_update_1_3.attack_remove(enemy_attack);
 
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
@@ -633,39 +668,41 @@ int main()
 			interaction.player_enemy_interaction(enemys_2_1, player);
 
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
-			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_1_2_death);
-			interaction.bullet_enemy_interaction(enemys_1_3, bullets, &enemy_1_3_death);
-			interaction.bullet_enemy_interaction(enemys_2_1, bullets, &enemy_2_1_death);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_death4);
+			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_death1);
+			interaction.bullet_enemy_interaction(enemys_1_3, bullets, &enemy_death2);
+			interaction.bullet_enemy_interaction(enemys_2_1, bullets, &enemy_death3);
 
 
-			interaction.ice_enemy_interaction(enemys_1_1, ice);
-			interaction.ice_enemy_interaction(enemys_1_2, ice);
-			interaction.ice_enemy_interaction(enemys_1_3, ice);
-			interaction.ice_enemy_interaction(enemys_2_1, ice);
+			interaction.ice_enemy_interaction(enemys_1_1, ice, &enemy_death4);
+			interaction.ice_enemy_interaction(enemys_1_2, ice, &enemy_death1);
+			interaction.ice_enemy_interaction(enemys_1_3, ice, &enemy_death2);
+			interaction.ice_enemy_interaction(enemys_2_1, ice, &enemy_death3);
 
 
-			interaction.storm_enemy_interaction(enemys_1_1, storm);
-			interaction.storm_enemy_interaction(enemys_1_2, storm);
-			interaction.storm_enemy_interaction(enemys_1_3, storm);
-			interaction.storm_enemy_interaction(enemys_2_1, storm);
+			interaction.storm_enemy_interaction(enemys_1_1, storm, &enemy_death4);
+			interaction.storm_enemy_interaction(enemys_1_2, storm, &enemy_death1);
+			interaction.storm_enemy_interaction(enemys_1_3, storm, &enemy_death2);
+			interaction.storm_enemy_interaction(enemys_2_1, storm, &enemy_death3);
 
 		
-			interaction.approach_enemy_interaction(enemys_1_1, approach);
-			interaction.approach_enemy_interaction(enemys_1_2, approach);
-			interaction.approach_enemy_interaction(enemys_1_3, approach);
-			interaction.approach_enemy_interaction(enemys_2_1, approach);
+			interaction.approach_enemy_interaction(enemys_1_1, approach, &enemy_death4);
+			interaction.approach_enemy_interaction(enemys_1_2, approach, &enemy_death1);
+			interaction.approach_enemy_interaction(enemys_1_3, approach, &enemy_death2);
+			interaction.approach_enemy_interaction(enemys_2_1, approach, &enemy_death3);
 
 			
-			interaction.bomb_enemy_interaction(enemys_1_1, bombs);
-			interaction.bomb_enemy_interaction(enemys_1_2, bombs);
-			interaction.bomb_enemy_interaction(enemys_1_3, bombs);
-			interaction.bomb_enemy_interaction(enemys_2_1, bombs);
+			interaction.bomb_enemy_interaction(enemys_1_1, bombs, &enemy_death4);
+			interaction.bomb_enemy_interaction(enemys_1_2, bombs, &enemy_death1);
+			interaction.bomb_enemy_interaction(enemys_1_3, bombs, &enemy_death2);
+			interaction.bomb_enemy_interaction(enemys_2_1, bombs, &enemy_death3);
 
 			interaction.back_enemy_interaction(enemys_1_1, knockback, player);
 			interaction.back_enemy_interaction(enemys_1_2, knockback, player);
 			interaction.back_enemy_interaction(enemys_1_3, knockback, player);
 			interaction.back_enemy_interaction(enemys_2_1, knockback, player);
+			
+			uisetting.enemy_quest(enemy2, 1, enemy3, 1, enemy4, 1);
 
 			uisetting.this_stage(2, 1);
 
@@ -687,20 +724,22 @@ int main()
 			clear_background(HexColor{ 0xc4d37dff });
 			camera->camera_generate();
 			map_setting.stage5_creating(camera);
+			map_setting.stage5_controll(camera);
 
 			//Create bullet
-			weapon_choice = 0;
+			
 			uisetting.roulette_six(sixboxloc);
 			uisetting.ScoolTime(player);
+			uisetting.roulette_ult(ultraboxloc);
+			uisetting.UcoolTime(player);
 			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
-
-
+			
 			//Random enemy
-			enemy_update_1_1.enemy_create(enemys_1_1, 2);
-			enemy_update_1_2.enemy_create(enemys_1_2, 3);
-			enemy_update_1_3.enemy_create(enemys_1_3, 4);
-			enemy_update_2_1.enemy_create(enemys_2_1, 5);
-			enemy_update_2_2.enemy_create(enemys_2_2, 4);
+			enemy_update_1_1.enemy_create(enemys_1_1, 1);
+			enemy_update_1_2.enemy_create(enemys_1_2, 1);
+			enemy_update_1_3.enemy_create(enemys_1_3, 1);
+			enemy_update_2_1.enemy_create(enemys_2_1, 1);
+			enemy_update_2_2.enemy_create(enemys_2_2, 1);
 
 
 
@@ -711,7 +750,9 @@ int main()
 			enemy_update_2_1.enemy_fix_move(enemys_2_1, player);
 			enemy_update_2_2.enemy_fix_move(enemys_2_2, player);
 
-
+			enemy_update_1_3.attack_create(enemy_attack, enemys_1_3, *player);
+			enemy_update_1_3.attack_draw(enemy_attack);
+			enemy_update_1_3.attack_remove(enemy_attack);
 
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
@@ -722,39 +763,39 @@ int main()
 
 
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
-			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_1_2_death);
-			interaction.bullet_enemy_interaction(enemys_1_3, bullets, &enemy_1_3_death);
-			interaction.bullet_enemy_interaction(enemys_2_1, bullets, &enemy_2_1_death);
-			interaction.bullet_enemy_interaction(enemys_2_2, bullets, &enemy_2_2_death);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_death4);
+			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_death4);
+			interaction.bullet_enemy_interaction(enemys_1_3, bullets, &enemy_death1);
+			interaction.bullet_enemy_interaction(enemys_2_1, bullets, &enemy_death2);
+			interaction.bullet_enemy_interaction(enemys_2_2, bullets, &enemy_death3);
 
 
-			interaction.ice_enemy_interaction(enemys_1_1, ice);
-			interaction.ice_enemy_interaction(enemys_1_2, ice);
-			interaction.ice_enemy_interaction(enemys_1_3, ice);
-			interaction.ice_enemy_interaction(enemys_2_1, ice);
-			interaction.ice_enemy_interaction(enemys_2_2, ice);
+			interaction.ice_enemy_interaction(enemys_1_1, ice, &enemy_death4);
+			interaction.ice_enemy_interaction(enemys_1_2, ice, &enemy_death4);
+			interaction.ice_enemy_interaction(enemys_1_3, ice, &enemy_death1);
+			interaction.ice_enemy_interaction(enemys_2_1, ice, &enemy_death2);
+			interaction.ice_enemy_interaction(enemys_2_2, ice, &enemy_death3);
 
 
-			interaction.storm_enemy_interaction(enemys_1_1, storm);
-			interaction.storm_enemy_interaction(enemys_1_2, storm);
-			interaction.storm_enemy_interaction(enemys_1_3, storm);
-			interaction.storm_enemy_interaction(enemys_2_1, storm);
-			interaction.storm_enemy_interaction(enemys_2_2, storm);
+			interaction.storm_enemy_interaction(enemys_1_1, storm, &enemy_death4);
+			interaction.storm_enemy_interaction(enemys_1_2, storm, &enemy_death4);
+			interaction.storm_enemy_interaction(enemys_1_3, storm, &enemy_death1);
+			interaction.storm_enemy_interaction(enemys_2_1, storm, &enemy_death2);
+			interaction.storm_enemy_interaction(enemys_2_2, storm, &enemy_death3);
 
 
-			interaction.approach_enemy_interaction(enemys_1_1, approach);
-			interaction.approach_enemy_interaction(enemys_1_2, approach);
-			interaction.approach_enemy_interaction(enemys_1_3, approach);
-			interaction.approach_enemy_interaction(enemys_2_1, approach);
-			interaction.approach_enemy_interaction(enemys_2_2, approach);
+			interaction.approach_enemy_interaction(enemys_1_1, approach, &enemy_death4);
+			interaction.approach_enemy_interaction(enemys_1_2, approach, &enemy_death4);
+			interaction.approach_enemy_interaction(enemys_1_3, approach, &enemy_death1);
+			interaction.approach_enemy_interaction(enemys_2_1, approach, &enemy_death2);
+			interaction.approach_enemy_interaction(enemys_2_2, approach, &enemy_death3);
 
 
-			interaction.bomb_enemy_interaction(enemys_1_1, bombs);
-			interaction.bomb_enemy_interaction(enemys_1_2, bombs);
-			interaction.bomb_enemy_interaction(enemys_1_3, bombs);
-			interaction.bomb_enemy_interaction(enemys_2_1, bombs);
-			interaction.bomb_enemy_interaction(enemys_2_2, bombs);
+			interaction.bomb_enemy_interaction(enemys_1_1, bombs, &enemy_death4);
+			interaction.bomb_enemy_interaction(enemys_1_2, bombs, &enemy_death4);
+			interaction.bomb_enemy_interaction(enemys_1_3, bombs, &enemy_death1);
+			interaction.bomb_enemy_interaction(enemys_2_1, bombs, &enemy_death2);
+			interaction.bomb_enemy_interaction(enemys_2_2, bombs, &enemy_death3);
 
 
 			interaction.back_enemy_interaction(enemys_1_1, knockback, player);
@@ -762,6 +803,8 @@ int main()
 			interaction.back_enemy_interaction(enemys_1_3, knockback, player);
 			interaction.back_enemy_interaction(enemys_2_1, knockback, player);
 			interaction.back_enemy_interaction(enemys_2_2, knockback, player);
+			
+			uisetting.enemy_quest(enemy3, 1, enemy4, 1, enemy5, 1);
 
 			uisetting.this_stage(2, 2);
 
@@ -776,7 +819,6 @@ int main()
 			player->chara_pos_x = Width / 2;
 			player->chara_pos_y = Height / 2;
 
-			weapon_choice = 0;
 			//Player move limit
 			player_setting.move_limit(player);
 
@@ -784,8 +826,8 @@ int main()
 			clear_background(HexColor{ 0xc4d37dff });
 			camera->camera_generate();
 			map_setting.stage6_creating(camera);
-
-			weapon_choice = 0;
+			map_setting.stage6_controll(camera);
+			
 			uisetting.roulette_six(sixboxloc);
 			uisetting.roulette_ult(ultraboxloc);
 			uisetting.UcoolTime(player);
@@ -800,7 +842,7 @@ int main()
 			enemy_update_2_1.enemy_create(enemys_2_1, 10);
 			enemy_update_2_2.enemy_create(enemys_2_2, 5);
 			enemy_update_2_3.enemy_create(enemys_2_3, 3);
-
+			
 
 			//Enemy move
 			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
@@ -810,7 +852,9 @@ int main()
 			enemy_update_2_2.enemy_fix_move(enemys_2_2, player);
 			enemy_update_2_3.enemy_fix_move(enemys_2_3, player);
 
-
+			enemy_update_1_3.attack_create(enemy_attack, enemys_1_3, *player);
+			enemy_update_1_3.attack_draw(enemy_attack);
+			enemy_update_1_3.attack_remove(enemy_attack);
 
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
@@ -823,46 +867,46 @@ int main()
 
 
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
-			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_1_2_death);
-			interaction.bullet_enemy_interaction(enemys_1_3, bullets, &enemy_1_3_death);
-			interaction.bullet_enemy_interaction(enemys_2_1, bullets, &enemy_2_1_death);
-			interaction.bullet_enemy_interaction(enemys_2_2, bullets, &enemy_2_2_death);
-			interaction.bullet_enemy_interaction(enemys_2_3, bullets, &enemy_2_3_death);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_death4);
+			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_death4);
+			interaction.bullet_enemy_interaction(enemys_1_3, bullets, &enemy_death1);
+			interaction.bullet_enemy_interaction(enemys_2_1, bullets, &enemy_death4);
+			interaction.bullet_enemy_interaction(enemys_2_2, bullets, &enemy_death2);
+			interaction.bullet_enemy_interaction(enemys_2_3, bullets, &enemy_death3);
 
 
 
-			interaction.ice_enemy_interaction(enemys_1_1, ice);
-			interaction.ice_enemy_interaction(enemys_1_2, ice);
-			interaction.ice_enemy_interaction(enemys_1_3, ice);
-			interaction.ice_enemy_interaction(enemys_2_1, ice);
-			interaction.ice_enemy_interaction(enemys_2_2, ice);
-			interaction.ice_enemy_interaction(enemys_2_3, ice);
+			interaction.ice_enemy_interaction(enemys_1_1, ice, &enemy_death4);
+			interaction.ice_enemy_interaction(enemys_1_2, ice, &enemy_death4);
+			interaction.ice_enemy_interaction(enemys_1_3, ice, &enemy_death1);
+			interaction.ice_enemy_interaction(enemys_2_1, ice, &enemy_death4);
+			interaction.ice_enemy_interaction(enemys_2_2, ice, &enemy_death2);
+			interaction.ice_enemy_interaction(enemys_2_3, ice, &enemy_death3);
 
 
 
-			interaction.storm_enemy_interaction(enemys_1_1, storm);
-			interaction.storm_enemy_interaction(enemys_1_2, storm);
-			interaction.storm_enemy_interaction(enemys_1_3, storm);
-			interaction.storm_enemy_interaction(enemys_2_1, storm);
-			interaction.storm_enemy_interaction(enemys_2_2, storm);
-			interaction.storm_enemy_interaction(enemys_2_3, storm);
+			interaction.storm_enemy_interaction(enemys_1_1, storm, &enemy_death4);
+			interaction.storm_enemy_interaction(enemys_1_2, storm, &enemy_death4);
+			interaction.storm_enemy_interaction(enemys_1_3, storm, &enemy_death1);
+			interaction.storm_enemy_interaction(enemys_2_1, storm, &enemy_death4);
+			interaction.storm_enemy_interaction(enemys_2_2, storm, &enemy_death2);
+			interaction.storm_enemy_interaction(enemys_2_3, storm, &enemy_death3);
 
 
-			interaction.approach_enemy_interaction(enemys_1_1, approach);
-			interaction.approach_enemy_interaction(enemys_1_2, approach);
-			interaction.approach_enemy_interaction(enemys_1_3, approach);
-			interaction.approach_enemy_interaction(enemys_2_1, approach);
-			interaction.approach_enemy_interaction(enemys_2_2, approach);
-			interaction.approach_enemy_interaction(enemys_2_3, approach);
+			interaction.approach_enemy_interaction(enemys_1_1, approach, &enemy_death4);
+			interaction.approach_enemy_interaction(enemys_1_2, approach, &enemy_death4);
+			interaction.approach_enemy_interaction(enemys_1_3, approach, &enemy_death1);
+			interaction.approach_enemy_interaction(enemys_2_1, approach, &enemy_death4);
+			interaction.approach_enemy_interaction(enemys_2_2, approach, &enemy_death2);
+			interaction.approach_enemy_interaction(enemys_2_3, approach, &enemy_death3);
 
 
-			interaction.bomb_enemy_interaction(enemys_1_1, bombs);
-			interaction.bomb_enemy_interaction(enemys_1_2, bombs);
-			interaction.bomb_enemy_interaction(enemys_1_3, bombs);
-			interaction.bomb_enemy_interaction(enemys_2_1, bombs);
-			interaction.bomb_enemy_interaction(enemys_2_2, bombs);
-			interaction.bomb_enemy_interaction(enemys_2_3, bombs);
+			interaction.bomb_enemy_interaction(enemys_1_1, bombs, &enemy_death4);
+			interaction.bomb_enemy_interaction(enemys_1_2, bombs, &enemy_death4);
+			interaction.bomb_enemy_interaction(enemys_1_3, bombs, &enemy_death1);
+			interaction.bomb_enemy_interaction(enemys_2_1, bombs, &enemy_death4);
+			interaction.bomb_enemy_interaction(enemys_2_2, bombs, &enemy_death2);
+			interaction.bomb_enemy_interaction(enemys_2_3, bombs, &enemy_death3);
 
 
 			interaction.back_enemy_interaction(enemys_1_1, knockback, player);
@@ -873,20 +917,22 @@ int main()
 			interaction.back_enemy_interaction(enemys_2_3, knockback, player);
 
 
-			interaction.meteor_enemy_interaction(enemys_1_1, meteor);
-			interaction.meteor_enemy_interaction(enemys_1_2, meteor);
-			interaction.meteor_enemy_interaction(enemys_1_3, meteor);
-			interaction.meteor_enemy_interaction(enemys_2_1, meteor);
-			interaction.meteor_enemy_interaction(enemys_2_2, meteor);
-			interaction.meteor_enemy_interaction(enemys_2_3, meteor);
+			interaction.meteor_enemy_interaction(enemys_1_1, meteor, &enemy_death4);
+			interaction.meteor_enemy_interaction(enemys_1_2, meteor, &enemy_death4);
+			interaction.meteor_enemy_interaction(enemys_1_3, meteor, &enemy_death1);
+			interaction.meteor_enemy_interaction(enemys_2_1, meteor, &enemy_death4);
+			interaction.meteor_enemy_interaction(enemys_2_2, meteor, &enemy_death2);
+			interaction.meteor_enemy_interaction(enemys_2_3, meteor, &enemy_death3);
 
 
-			interaction.breath_enemy_interaction(enemys_1_1, breath, player);
-			interaction.breath_enemy_interaction(enemys_1_2, breath, player);
-			interaction.breath_enemy_interaction(enemys_1_3, breath, player);
-			interaction.breath_enemy_interaction(enemys_2_1, breath, player);
-			interaction.breath_enemy_interaction(enemys_2_2, breath, player);
-			interaction.breath_enemy_interaction(enemys_2_3, breath, player);
+			interaction.breath_enemy_interaction(enemys_1_1, breath, player, &enemy_death4);
+			interaction.breath_enemy_interaction(enemys_1_2, breath, player, &enemy_death4);
+			interaction.breath_enemy_interaction(enemys_1_3, breath, player, &enemy_death1);
+			interaction.breath_enemy_interaction(enemys_2_1, breath, player, &enemy_death4);
+			interaction.breath_enemy_interaction(enemys_2_2, breath, player, &enemy_death2);
+			interaction.breath_enemy_interaction(enemys_2_3, breath, player, &enemy_death3);
+
+			uisetting.enemy_quest(enemy3, 1, enemy5, 1, enemy6, 1);
 
 			uisetting.this_stage(2, 3);
 
@@ -908,8 +954,8 @@ int main()
 			clear_background(HexColor{ 0xc4d37dff });
 			camera->camera_generate();
 			map_setting.stage7_creating(camera);
-
-			weapon_choice = 0;
+			map_setting.stage7_controll(camera);
+			
 			uisetting.roulette_six(sixboxloc);
 			uisetting.roulette_ult(ultraboxloc);
 			uisetting.UcoolTime(player);
@@ -917,11 +963,12 @@ int main()
 			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
 
 			//Random enemy
-			enemy_update_1_1.enemy_create(enemys_1_1, 20);
-			enemy_update_1_2.enemy_create(enemys_1_2, 20);
-			enemy_update_1_3.enemy_create(enemys_1_3, 20);
-			enemy_update_2_1.enemy_create(enemys_2_1, 20);
-			enemy_update_2_2.enemy_create(enemys_2_2, 20);
+			enemy_update_1_1.enemy_create(enemys_1_1, 2);
+			enemy_update_1_2.enemy_create(enemys_1_2, 2);
+			enemy_update_1_3.enemy_create(enemys_1_3, 2);
+			enemy_update_2_1.enemy_create(enemys_2_1, 2);
+			enemy_update_2_2.enemy_create(enemys_2_2, 2);
+			enemy_update_2_3.enemy_create(enemys_2_3, 2);
 
 			//Enemy move
 			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
@@ -929,6 +976,11 @@ int main()
 			enemy_update_1_3.enemy_fix_move(enemys_1_3, player);
 			enemy_update_2_1.enemy_fix_move(enemys_2_1, player);
 			enemy_update_2_2.enemy_fix_move(enemys_2_2, player);
+			enemy_update_2_3.enemy_fix_move(enemys_2_3, player);
+
+			enemy_update_1_3.attack_create(enemy_attack, enemys_1_3, *player);
+			enemy_update_1_3.attack_draw(enemy_attack);
+			enemy_update_1_3.attack_remove(enemy_attack);
 
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
@@ -936,48 +988,49 @@ int main()
 			interaction.player_enemy_interaction(enemys_1_3, player);
 			interaction.player_enemy_interaction(enemys_2_1, player);
 			interaction.player_enemy_interaction(enemys_2_2, player);
+			interaction.player_enemy_interaction(enemys_2_3, player);
 
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
-			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_1_2_death);
-			interaction.bullet_enemy_interaction(enemys_1_3, bullets, &enemy_1_3_death);
-			interaction.bullet_enemy_interaction(enemys_2_1, bullets, &enemy_2_1_death);
-			interaction.bullet_enemy_interaction(enemys_2_2, bullets, &enemy_2_2_death);
-			interaction.bullet_enemy_interaction(enemys_2_3, bullets, &enemy_2_3_death);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_death4);
+			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_death4);
+			interaction.bullet_enemy_interaction(enemys_1_3, bullets, &enemy_death1);
+			interaction.bullet_enemy_interaction(enemys_2_1, bullets, &enemy_death4);
+			interaction.bullet_enemy_interaction(enemys_2_2, bullets, &enemy_death2);
+			interaction.bullet_enemy_interaction(enemys_2_3, bullets, &enemy_death3);
 
 
 
-			interaction.ice_enemy_interaction(enemys_1_1, ice);
-			interaction.ice_enemy_interaction(enemys_1_2, ice);
-			interaction.ice_enemy_interaction(enemys_1_3, ice);
-			interaction.ice_enemy_interaction(enemys_2_1, ice);
-			interaction.ice_enemy_interaction(enemys_2_2, ice);
-			interaction.ice_enemy_interaction(enemys_2_3, ice);
+			interaction.ice_enemy_interaction(enemys_1_1, ice, &enemy_death4);
+			interaction.ice_enemy_interaction(enemys_1_2, ice, &enemy_death4);
+			interaction.ice_enemy_interaction(enemys_1_3, ice, &enemy_death1);
+			interaction.ice_enemy_interaction(enemys_2_1, ice, &enemy_death4);
+			interaction.ice_enemy_interaction(enemys_2_2, ice, &enemy_death2);
+			interaction.ice_enemy_interaction(enemys_2_3, ice, &enemy_death3);
 
 
 
-			interaction.storm_enemy_interaction(enemys_1_1, storm);
-			interaction.storm_enemy_interaction(enemys_1_2, storm);
-			interaction.storm_enemy_interaction(enemys_1_3, storm);
-			interaction.storm_enemy_interaction(enemys_2_1, storm);
-			interaction.storm_enemy_interaction(enemys_2_2, storm);
-			interaction.storm_enemy_interaction(enemys_2_3, storm);
+			interaction.storm_enemy_interaction(enemys_1_1, storm, &enemy_death4);
+			interaction.storm_enemy_interaction(enemys_1_2, storm, &enemy_death4);
+			interaction.storm_enemy_interaction(enemys_1_3, storm, &enemy_death1);
+			interaction.storm_enemy_interaction(enemys_2_1, storm, &enemy_death4);
+			interaction.storm_enemy_interaction(enemys_2_2, storm, &enemy_death2);
+			interaction.storm_enemy_interaction(enemys_2_3, storm, &enemy_death3);
 
 
-			interaction.approach_enemy_interaction(enemys_1_1, approach);
-			interaction.approach_enemy_interaction(enemys_1_2, approach);
-			interaction.approach_enemy_interaction(enemys_1_3, approach);
-			interaction.approach_enemy_interaction(enemys_2_1, approach);
-			interaction.approach_enemy_interaction(enemys_2_2, approach);
-			interaction.approach_enemy_interaction(enemys_2_3, approach);
+			interaction.approach_enemy_interaction(enemys_1_1, approach, &enemy_death4);
+			interaction.approach_enemy_interaction(enemys_1_2, approach, &enemy_death4);
+			interaction.approach_enemy_interaction(enemys_1_3, approach, &enemy_death1);
+			interaction.approach_enemy_interaction(enemys_2_1, approach, &enemy_death4);
+			interaction.approach_enemy_interaction(enemys_2_2, approach, &enemy_death2);
+			interaction.approach_enemy_interaction(enemys_2_3, approach, &enemy_death3);
 
 
-			interaction.bomb_enemy_interaction(enemys_1_1, bombs);
-			interaction.bomb_enemy_interaction(enemys_1_2, bombs);
-			interaction.bomb_enemy_interaction(enemys_1_3, bombs);
-			interaction.bomb_enemy_interaction(enemys_2_1, bombs);
-			interaction.bomb_enemy_interaction(enemys_2_2, bombs);
-			interaction.bomb_enemy_interaction(enemys_2_3, bombs);
+			interaction.bomb_enemy_interaction(enemys_1_1, bombs, &enemy_death4);
+			interaction.bomb_enemy_interaction(enemys_1_2, bombs, &enemy_death4);
+			interaction.bomb_enemy_interaction(enemys_1_3, bombs, &enemy_death1);
+			interaction.bomb_enemy_interaction(enemys_2_1, bombs, &enemy_death4);
+			interaction.bomb_enemy_interaction(enemys_2_2, bombs, &enemy_death2);
+			interaction.bomb_enemy_interaction(enemys_2_3, bombs, &enemy_death3);
 
 
 			interaction.back_enemy_interaction(enemys_1_1, knockback, player);
@@ -988,20 +1041,22 @@ int main()
 			interaction.back_enemy_interaction(enemys_2_3, knockback, player);
 
 
-			interaction.meteor_enemy_interaction(enemys_1_1, meteor);
-			interaction.meteor_enemy_interaction(enemys_1_2, meteor);
-			interaction.meteor_enemy_interaction(enemys_1_3, meteor);
-			interaction.meteor_enemy_interaction(enemys_2_1, meteor);
-			interaction.meteor_enemy_interaction(enemys_2_2, meteor);
-			interaction.meteor_enemy_interaction(enemys_2_3, meteor);
+			interaction.meteor_enemy_interaction(enemys_1_1, meteor, &enemy_death4);
+			interaction.meteor_enemy_interaction(enemys_1_2, meteor, &enemy_death4);
+			interaction.meteor_enemy_interaction(enemys_1_3, meteor, &enemy_death1);
+			interaction.meteor_enemy_interaction(enemys_2_1, meteor, &enemy_death4);
+			interaction.meteor_enemy_interaction(enemys_2_2, meteor, &enemy_death2);
+			interaction.meteor_enemy_interaction(enemys_2_3, meteor, &enemy_death3);
 
 
-			interaction.breath_enemy_interaction(enemys_1_1, breath, player);
-			interaction.breath_enemy_interaction(enemys_1_2, breath, player);
-			interaction.breath_enemy_interaction(enemys_1_3, breath, player);
-			interaction.breath_enemy_interaction(enemys_2_1, breath, player);
-			interaction.breath_enemy_interaction(enemys_2_2, breath, player);
-			interaction.breath_enemy_interaction(enemys_2_3, breath, player);
+			interaction.breath_enemy_interaction(enemys_1_1, breath, player, &enemy_death4);
+			interaction.breath_enemy_interaction(enemys_1_2, breath, player, &enemy_death4);
+			interaction.breath_enemy_interaction(enemys_1_3, breath, player, &enemy_death1);
+			interaction.breath_enemy_interaction(enemys_2_1, breath, player, &enemy_death4);
+			interaction.breath_enemy_interaction(enemys_2_2, breath, player, &enemy_death2);
+			interaction.breath_enemy_interaction(enemys_2_3, breath, player, &enemy_death3);
+
+			uisetting.enemy_quest(enemy3, 1, enemy5, 1, enemy6, 1);
 
 			uisetting.this_stage(3, 1);
 
@@ -1026,6 +1081,10 @@ int main()
 			enemy_update_1_2.enemy_move(enemys_1_2, player);
 			enemy_update_1_3.enemy_move(enemys_1_3, player);
 
+			enemy_update_1_3.attack_create(enemy_attack, enemys_1_3, *player);
+			enemy_update_1_3.attack_draw(enemy_attack);
+			enemy_update_1_3.attack_remove(enemy_attack);
+
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
 			interaction.player_enemy_interaction(enemys_1_2, player);
@@ -1033,7 +1092,7 @@ int main()
 
 
 			//Create bullet
-			weapon_choice = 0;
+			
 			uisetting.roulette_ult(ultraboxloc);
 			uisetting.roulette_six(sixboxloc);
 			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
@@ -1042,17 +1101,17 @@ int main()
 
 
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
-			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_1_2_death);
-			interaction.bullet_enemy_interaction(enemys_1_3, bullets, &enemy_1_3_death);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_death1);
+			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_death2);
+			interaction.bullet_enemy_interaction(enemys_1_3, bullets, &enemy_death3);
 
-			interaction.ice_enemy_interaction(enemys_1_1, ice);
-			interaction.ice_enemy_interaction(enemys_1_2, ice);
-			interaction.ice_enemy_interaction(enemys_1_3, ice);
+			interaction.ice_enemy_interaction(enemys_1_1, ice, &enemy_death1);
+			interaction.ice_enemy_interaction(enemys_1_2, ice, &enemy_death2);
+			interaction.ice_enemy_interaction(enemys_1_3, ice, &enemy_death3);
 
-			interaction.storm_enemy_interaction(enemys_1_1, storm);
-			interaction.storm_enemy_interaction(enemys_1_2, storm);
-			interaction.storm_enemy_interaction(enemys_1_3, storm);
+			interaction.storm_enemy_interaction(enemys_1_1, storm, &enemy_death1);
+			interaction.storm_enemy_interaction(enemys_1_2, storm, &enemy_death2);
+			interaction.storm_enemy_interaction(enemys_1_3, storm, &enemy_death3);
 
 			stage_boss1->draw();
 			stage_boss1->move();
@@ -1068,8 +1127,6 @@ int main()
 			interaction.breath_boss1_interaction(stage_boss1, breath);
 			interaction.meteor_boss1_interaction(stage_boss1, meteor);
 
-
-
 			player->MOVE();
 			player->draw_chara();
 			player->hp_chara();
@@ -1081,7 +1138,7 @@ int main()
 			map_setting.boss2_creating();
 
 			//Create bullet
-			weapon_choice = 0;
+			
 			uisetting.roulette_ult(ultraboxloc);
 			uisetting.roulette_six(sixboxloc);
 			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
@@ -1126,37 +1183,37 @@ int main()
 			interaction.boss2_player_interaction(player);
 
 			//Bullet Enemy Check
-			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_1_2_death);
-			interaction.bullet_enemy_interaction(enemys_2_2, bullets, &enemy_2_2_death);
-			interaction.bullet_enemy_interaction(enemys_2_3, bullets, &enemy_2_3_death);
+			interaction.bullet_enemy_interaction(enemys_1_2, bullets,  &enemy_death1);
+			interaction.bullet_enemy_interaction(enemys_2_2, bullets,  &enemy_death2);
+			interaction.bullet_enemy_interaction(enemys_2_3, bullets, &enemy_death3);
 
-			interaction.ice_enemy_interaction(enemys_1_2, ice);
-			interaction.ice_enemy_interaction(enemys_2_2, ice);
-			interaction.ice_enemy_interaction(enemys_2_3, ice);
+			interaction.ice_enemy_interaction(enemys_1_2, ice, &enemy_death1);
+			interaction.ice_enemy_interaction(enemys_2_2, ice, &enemy_death2);
+			interaction.ice_enemy_interaction(enemys_2_3, ice, &enemy_death3);
 
-			interaction.storm_enemy_interaction(enemys_1_2, storm);
-			interaction.storm_enemy_interaction(enemys_2_2, storm);
-			interaction.storm_enemy_interaction(enemys_2_3, storm);
+			interaction.storm_enemy_interaction(enemys_1_2, storm, &enemy_death1);
+			interaction.storm_enemy_interaction(enemys_2_2, storm, &enemy_death2);
+			interaction.storm_enemy_interaction(enemys_2_3, storm, &enemy_death3);
 
-			interaction.approach_enemy_interaction(enemys_1_2, approach);
-			interaction.approach_enemy_interaction(enemys_2_2, approach);
-			interaction.approach_enemy_interaction(enemys_2_3, approach);
+			interaction.approach_enemy_interaction(enemys_1_2, approach, &enemy_death1);
+			interaction.approach_enemy_interaction(enemys_2_2, approach, &enemy_death2);
+			interaction.approach_enemy_interaction(enemys_2_3, approach, &enemy_death3);
 
-			interaction.bomb_enemy_interaction(enemys_1_2, bombs);
-			interaction.bomb_enemy_interaction(enemys_2_2, bombs);
-			interaction.bomb_enemy_interaction(enemys_2_3, bombs);
+			interaction.bomb_enemy_interaction(enemys_1_2, bombs, &enemy_death1);
+			interaction.bomb_enemy_interaction(enemys_2_2, bombs, &enemy_death2);
+			interaction.bomb_enemy_interaction(enemys_2_3, bombs, &enemy_death3);
 
 			interaction.back_enemy_interaction(enemys_1_2, knockback, player);
 			interaction.back_enemy_interaction(enemys_2_2, knockback, player);
 			interaction.back_enemy_interaction(enemys_2_3, knockback, player);
 
-			interaction.meteor_enemy_interaction(enemys_1_2, meteor);
-			interaction.meteor_enemy_interaction(enemys_2_2, meteor);
-			interaction.meteor_enemy_interaction(enemys_2_3, meteor);
+			interaction.meteor_enemy_interaction(enemys_1_2, meteor, &enemy_death1);
+			interaction.meteor_enemy_interaction(enemys_2_2, meteor, &enemy_death2);
+			interaction.meteor_enemy_interaction(enemys_2_3, meteor, &enemy_death3);
 
-			interaction.breath_enemy_interaction(enemys_1_2, breath, player);
-			interaction.breath_enemy_interaction(enemys_2_2, breath, player);
-			interaction.breath_enemy_interaction(enemys_2_3, breath, player);
+			interaction.breath_enemy_interaction(enemys_1_2, breath, player, &enemy_death1);
+			interaction.breath_enemy_interaction(enemys_2_2, breath, player, &enemy_death2);
+			interaction.breath_enemy_interaction(enemys_2_3, breath, player, &enemy_death3);
 
 			player->MOVE();
 			player->draw_chara();
@@ -1172,6 +1229,10 @@ int main()
 			s3boss_update.attack_draw(boss_attack);
 			s3boss_update.attack_remove(boss_attack);
 
+			uisetting.roulette_six(sixboxloc);
+			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
+			uisetting.ScoolTime(player);
+
 			stage_boss3->draw();
 			stage_boss3->move(player);
 			stage_boss3->hp();
@@ -1179,8 +1240,8 @@ int main()
 			if (stage_boss3->health <= 50)
 			{
 				//Random enemy
-				enemy_update_1_1.enemy_create(enemys_1_1, 5);
-				enemy_update_1_2.enemy_create(enemys_1_2, 5);
+				enemy_update_1_1.enemy_create(enemys_1_1, 3);
+				enemy_update_1_2.enemy_create(enemys_1_2, 3);
 
 				//Enemy move
 				enemy_update_1_1.enemy_move(enemys_1_1, player);
@@ -1190,34 +1251,28 @@ int main()
 				interaction.player_enemy_interaction(enemys_1_1, player);
 				interaction.player_enemy_interaction(enemys_1_2, player);
 			}
-			
-			
-			uisetting.roulette(randomboxloc);
-			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
-			uisetting.RcoolTime(player);
-			
 
 			//Bullet Enemy Check
-			interaction.ice_enemy_interaction(enemys_1_1, ice);
-			interaction.ice_enemy_interaction(enemys_1_2, ice);
+			interaction.ice_enemy_interaction(enemys_1_1, ice, &enemy_death1);
+			interaction.ice_enemy_interaction(enemys_1_2, ice, &enemy_death2);
+															 
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_death1);
+			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_death2);
 
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
-			interaction.bullet_enemy_interaction(enemys_1_2, bullets, &enemy_1_2_death);
+			interaction.approach_enemy_interaction(enemys_1_1, approach, &enemy_death1);
+			interaction.approach_enemy_interaction(enemys_1_2, approach, &enemy_death2);
 
-			interaction.approach_enemy_interaction(enemys_1_1, approach);
-			interaction.approach_enemy_interaction(enemys_1_2, approach);
+			interaction.meteor_enemy_interaction(enemys_1_1, meteor, &enemy_death1);
+			interaction.meteor_enemy_interaction(enemys_1_2, meteor, &enemy_death2);
 
-			interaction.meteor_enemy_interaction(enemys_1_1, meteor);
-			interaction.meteor_enemy_interaction(enemys_1_2, meteor);
+			interaction.storm_enemy_interaction(enemys_1_1, storm, &enemy_death1);
+			interaction.storm_enemy_interaction(enemys_1_2, storm, &enemy_death2);
 
-			interaction.storm_enemy_interaction(enemys_1_1, storm);
-			interaction.storm_enemy_interaction(enemys_1_2, storm);
+			interaction.bomb_enemy_interaction(enemys_1_1, bombs, &enemy_death1);
+			interaction.bomb_enemy_interaction(enemys_1_2, bombs, &enemy_death2);
 
-			interaction.bomb_enemy_interaction(enemys_1_1, bombs);
-			interaction.bomb_enemy_interaction(enemys_1_2, bombs);
-
-			interaction.breath_enemy_interaction(enemys_1_1, breath, player);
-			interaction.breath_enemy_interaction(enemys_1_2, breath, player);
+			interaction.breath_enemy_interaction(enemys_1_1, breath, player, &enemy_death1);
+			interaction.breath_enemy_interaction(enemys_1_2, breath, player, &enemy_death2);
 
 			interaction.back_enemy_interaction(enemys_1_1,knockback, player);
 			interaction.back_enemy_interaction(enemys_1_2, knockback, player);
@@ -1247,13 +1302,13 @@ int main()
 			enemy_update_1_1.enemy_move(enemys_1_1, player);
 
 			//Bullet Enemy Check
-			interaction.ice_enemy_interaction(enemys_1_1, ice);
-			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_1_1_death);
-			interaction.approach_enemy_interaction(enemys_1_1, approach);
-			interaction.meteor_enemy_interaction(enemys_1_1, meteor);
-			interaction.storm_enemy_interaction(enemys_1_1, storm);
-			interaction.bomb_enemy_interaction(enemys_1_1, bombs);
-			interaction.breath_enemy_interaction(enemys_1_1, breath, player);
+			interaction.ice_enemy_interaction(enemys_1_1, ice, &enemy_death1);
+			interaction.bullet_enemy_interaction(enemys_1_1, bullets, &enemy_death1);
+			interaction.approach_enemy_interaction(enemys_1_1, approach, &enemy_death1);
+			interaction.meteor_enemy_interaction(enemys_1_1, meteor, &enemy_death1);
+			interaction.storm_enemy_interaction(enemys_1_1, storm, &enemy_death1);
+			interaction.bomb_enemy_interaction(enemys_1_1, bombs, &enemy_death1);
+			interaction.breath_enemy_interaction(enemys_1_1, breath, player, &enemy_death1);
 			interaction.back_enemy_interaction(enemys_1_1, knockback, player);
 
 			//back

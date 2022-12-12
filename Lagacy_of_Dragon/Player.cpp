@@ -121,8 +121,9 @@ void Player_setting::move_limit(Player* player)
 void Player::hp_chara()
 {
 	push_settings();
+	set_image_mode(RectMode::Corner);	
 	set_fill_color(HexColor{ 0xFF0000FF });
-	draw_rectangle(100, 100, 20 * hp, 20);
+	draw_rectangle(100, 100, 17 * hp, 20);
 	draw_image(HP, 85, 85, 50, 50);
 	pop_settings();
 	if (hp == 0)

@@ -13,7 +13,7 @@ const Image razerImage2{ "attack/razer2.png" };
 using namespace doodle;
 static constexpr int Brvelocity = 15;
 
-constexpr int breathSize = 700;
+constexpr int breathSize = 3600;
 constexpr int breathSize1 = 100;
 constexpr int breathdamage = 5;
 
@@ -42,9 +42,11 @@ struct BreathWeapon {
 	float angleX = (mouseX - bullet_pos_x);
 	float angleY = (mouseY - bullet_pos_y);
 
-	void draw(); 
+	void drawR();
+	void drawL();
+	/*void draw();
 	void drawrect(std::vector<BreathWeapon*>& bullets, Player* player);
-	void FireBullet();
+	void FireBullet();*/
 };
 
 struct Breath_update
@@ -52,6 +54,8 @@ struct Breath_update
 	void bullet_create(std::vector<BreathWeapon*>& bullets, Player* player);
 	void bullet_draw(std::vector<BreathWeapon*>& bullets, Player* player);
 	void coolTime(std::vector<BreathWeapon*>& bullets, Player* player);
+	void bullet_remove(std::vector<BreathWeapon*>& bullets);
+
 };
 
 extern Breath_update breath_update;

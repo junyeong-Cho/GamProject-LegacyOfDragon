@@ -2,10 +2,12 @@
 #include "Window_setting.h"
 #include "Player.h"
 #include "Camera.h"
+#include "UIsetting.h"
 //2-3
 void Map_setting::stage6_creating(Camera* camera)
 {
-	for (int x = camera->xs - 1; x < camera->xe + 1; x++)
+	go_next_stage = false;
+	for (int x = camera->xs - 1; x < camera->xe + 4; x++)
 	{
 		if (x < 0 || x > 35)
 		{
@@ -22,7 +24,7 @@ void Map_setting::stage6_creating(Camera* camera)
 		}
 	}
 
-	for (int x = camera->xs - 1; x < camera->xe + 1; x++)
+	for (int x = camera->xs - 1; x < camera->xe + 4; x++)
 	{
 		if (x < 0 || x > 35)
 		{
@@ -45,14 +47,36 @@ void Map_setting::stage6_creating(Camera* camera)
 			draw_image(tiles[tile], x * tile_size + camera->offsetX, y * tile_size + camera->offsetY, tile_size, tile_size);
 		}
 	}
-	if (camera->x > 2750 && camera->x < 2950 && camera->y > 100 && camera->y < 150)
-	{
-		camera->camera_pos_x = 100;
-		camera->camera_pos_y = 2500;
-		scene = 16;
-	}
 }
 
+void Map_setting::stage6_controll(Camera* camera) {
+
+	if (!quest_complite) {
+		int tile = map_setting.NOPOTAL;
+		draw_image(tiles[tile], 30 * tile_size + camera->offsetX, 0 * tile_size + camera->offsetY, tile_size, tile_size);
+		draw_image(tiles[tile], 31 * tile_size + camera->offsetX, 0 * tile_size + camera->offsetY, tile_size, tile_size);
+	}
+
+	if (camera->x > 2750 && camera->x < 2950 && camera->y > 100 && camera->y < 150)
+	{
+		if (quest_complite) {
+			camera->camera_pos_x = 100;
+			camera->camera_pos_y = 2500;
+			
+			enemy_death1 = 0;
+			enemy_death2 = 0;
+			enemy_death3 = 0;
+			enemy_death4 = 0;
+
+			quest_complite = false;
+			scene = 16;
+		}
+		else
+		{
+			uisetting.talkbubble("kill enemys!");
+		}
+	}
+}
 
 void Map_setting::char_pos6(Camera* camera)
 {

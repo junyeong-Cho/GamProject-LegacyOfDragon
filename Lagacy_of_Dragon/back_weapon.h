@@ -6,24 +6,33 @@
 #include <vector>
 using namespace doodle;
 
+inline Image backImage{ "attack/knockback.png" };
+inline Image backImage1{ "attack/knockback1.png" };
+
+
+
 inline bool not_clicked_back = false;
-
 inline int backSize = 100;
-
 inline int Bavelocity = 5;
+inline int Ba1velocity = 3;
 
 inline bool is_ba_hit = false;
 inline double back_timer = 0;
 inline double back_time_check = 3;
 inline double ba_click_timer = 0;
 inline double ba_click_check = 3;
-
 inline double back_time_checks = 1;
+
+inline double back1_timer = 0;
+inline double back1_check = 0.1;
+inline double back2_check = 0.2;
+
 
 struct BackWeapon {
 	int bullet_pos_x = 0;
 	int bullet_pos_y = 0;
 	int size = 0;
+	int velocity = 0;
 
 	float mouseX = static_cast<float>(get_mouse_x());
 	float mouseY = static_cast<float>(get_mouse_y());

@@ -4,8 +4,11 @@
 #include "Window_setting.h"
 #include "UIsetting.h"
 
+//º¸¼®1
 void Map_setting::stage1_creating(Camera* camera)
 {
+	go_next_stage = false;
+
 	for (int x = camera->xs - 1; x < camera->xe + 4; x++)
 	{
 		if (x < 0 || x > 35)
@@ -54,31 +57,42 @@ void Map_setting::stage1_controll(Camera* camera) {
 	if (camera->x > -150 && camera->x < -50 && camera->y > 3500 && camera->y < 3600)
 	{
 		jewel_count = 1;
+		timer = 0;
 	}
-	if (jewel_count == 1) {
+	if (jewel_count == 1)
+	{
 		int tile = map_setting.PLAI0;
 		draw_image(tiles[tile], 1 * tile_size + camera->offsetX, 34 * tile_size + camera->offsetY, tile_size, tile_size);
-	}
 
-	if (jewel_count == 0 || !quest_complite) {
-		int tile = map_setting.NOPOTAL;
-		draw_image(tiles[tile], 35 * tile_size + camera->offsetX, 29 * tile_size + camera->offsetY, tile_size, tile_size);
-		draw_image(tiles[tile], 35 * tile_size + camera->offsetX, 30 * tile_size + camera->offsetY, tile_size, tile_size);
-	}
-
-	if (camera->x > 3200 && camera->x < 3300 && camera->y > 3000 && camera->y < 3300 )
-	{
-		if (jewel_count == 1 && quest_complite) {
-			camera->camera_pos_x = -100;
-			camera->camera_pos_y = 2900;
-			enemy_1_1_death = 0;
-			scene = 11;
-		}
-		else
+		if (timer < info_timer_check)
 		{
-			uisetting.talkbubble("Collect the jewels \non the map! \nand kill enemys!");
+			uisetting.talkbubble("You can change \nweapons by \npressing the Q key!");
 		}
 	}
+
+
+		if (jewel_count == 0 || !quest_complite) {
+			int tile = map_setting.NOPOTAL;
+			draw_image(tiles[tile], 35 * tile_size + camera->offsetX, 29 * tile_size + camera->offsetY, tile_size, tile_size);
+			draw_image(tiles[tile], 35 * tile_size + camera->offsetX, 30 * tile_size + camera->offsetY, tile_size, tile_size);
+		}
+
+		if (camera->x > 3200 && camera->x < 3300 && camera->y > 3000 && camera->y < 3300)
+		{
+			if (jewel_count == 1 && quest_complite) {
+				camera->camera_pos_x = -100;
+				camera->camera_pos_y = 2900;
+				enemy_death1 = 0;
+				quest_complite = false;
+				go_next_stage = true;
+				scene = 11;
+			}
+			else
+			{
+				uisetting.talkbubble("We need to \nfind the gems! \nand kill enemys!");
+			}
+		}
+	
 }
 
 void Map_setting::char_pos1(Camera* camera)

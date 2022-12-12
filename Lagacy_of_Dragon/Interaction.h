@@ -33,21 +33,21 @@ inline double boss_timer = 0.0;
 inline double boss_time_check = 0.7;
 
 inline double back_timers = 0;
-inline double back_checks = 3;
-inline double back_init = 4;
+inline double back_checks = 1;
+inline double back_init = 2.5;
 
 struct Interaction
 {
 	void player_enemyat_interaction(std::vector<Enemy_attack*>& attack, Player* player);
 	void player_enemy_interaction(std::vector<Enemy*>& enemys, Player* player);
 	void bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Shooting*>& bullets, int* death);
-	void ice_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<IceWeapon*>& bullets);
-	void storm_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Storm*>& bullets);
+	void ice_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<IceWeapon*>& bullets, int* death);
+	void storm_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Storm*>& bullets, int* death);
 	void back_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<BackWeapon*>& bullets, Player* player);
-	void bomb_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<BombWeapon*>& bullets);
-	void breath_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<BreathWeapon*>& bullets, Player* player);
-	void approach_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Approach*>& bullets);
-	void meteor_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Meteor*>& bullets);
+	void bomb_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<BombWeapon*>& bullets, int* death);
+	void breath_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<BreathWeapon*>& bullets, Player* player, int* death);
+	void approach_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Approach*>& bullets, int* death);
+	void meteor_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Meteor*>& bullets, int* death);
 
 	// 날라다니는놈 얘도 충돌체크 필ㅇㅅ옶음?
 	void player_boss3_interaction(Stage3_boss* boss3, std::vector<Shooting*>& bullets);

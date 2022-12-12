@@ -8,9 +8,9 @@ using namespace doodle;
 
 inline Image iceImage { "attack/iceweapon.png" };
 
-static constexpr int Ivelocity = 10;
+static constexpr int Ivelocity = 12;
 
-constexpr int iceSize = 5;
+constexpr int iceSize = 25;
 constexpr int icedamage = 1;
 
 inline double ice_timer = 0;

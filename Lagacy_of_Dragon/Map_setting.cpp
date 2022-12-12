@@ -47,10 +47,11 @@ void Map_setting::tuto_controll(Player* player) {
 		draw_image(tiles[tile], 13 * tile_size, 6 * tile_size, tile_size, tile_size);
 		if (player->chara_pos_x>13 * tile_size&& player->chara_pos_y> 5 * tile_size&& player->chara_pos_y < 7 * tile_size)
 		{
-			enemy_1_1_death = 0;
+			enemy_death1 = 0;
 			scene = 10;
 		}
 
 		uisetting.movebubble("Now let's go to the \nmain game!", player);
 	}
 }
+

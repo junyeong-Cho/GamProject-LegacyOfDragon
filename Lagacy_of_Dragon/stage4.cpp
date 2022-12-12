@@ -2,10 +2,13 @@
 #include "Window_setting.h"
 #include "Player.h"
 #include "Camera.h"
+#include "UIsetting.h"
 //2-1
+//º¸¼®3
 void Map_setting::stage4_creating(Camera* camera)
 {
-	for (int x = camera->xs - 1; x < camera->xe + 1; x++)
+	go_next_stage = false;
+	for (int x = camera->xs - 1; x < camera->xe + 4; x++)
 	{
 		if (x < 0 || x > 35)
 		{
@@ -45,18 +48,50 @@ void Map_setting::stage4_creating(Camera* camera)
 			draw_image(tiles[tile], x * tile_size + camera->offsetX, y * tile_size + camera->offsetY, tile_size, tile_size);
 		}
 	}
-	if (camera->x > -300 && camera->x < -150 && camera->y > 400 && camera->y < 700)
-	{
-		camera->camera_pos_x = -120;
-		camera->camera_pos_y = 1900;
-		scene = 14;
-	}
-	if (camera->x > -50 && camera->x < 50 && camera->y > 3400 && camera->y < 3450)
-	{
-		//·ê·¿ È°¼ºÈ­
-	}
 }
 
+void Map_setting::stage4_controll(Camera* camera) {
+	if (camera->x > -50 && camera->x < 50 && camera->y > 3400 && camera->y < 3450)
+	{
+		jewel_count = 3;
+		timer = 0;
+	}
+	if (jewel_count == 3) {
+		int tile = map_setting.PLAI0;
+		draw_image(tiles[tile], 2 * tile_size + camera->offsetX, 33 * tile_size + camera->offsetY, tile_size, tile_size);
+		if (timer < info_timer_check)
+		{
+			uisetting.talkbubble("Now you can use \nyour ultimate weapons \nby pressing the R key!");
+		}
+	}
+
+	if (!quest_complite || jewel_count != 3) 
+	{
+		int tile = map_setting.NOPOTAL;
+		draw_image(tiles[tile], 26 * tile_size + camera->offsetX, 35 * tile_size + camera->offsetY, tile_size, tile_size);
+		draw_image(tiles[tile], 27 * tile_size + camera->offsetX, 35 * tile_size + camera->offsetY, tile_size, tile_size);
+	}
+
+	if (camera->x > -300 && camera->x < -150 && camera->y > 400 && camera->y < 700)
+	{
+		if (quest_complite && jewel_count == 3) {
+			camera->camera_pos_x = -120;
+			camera->camera_pos_y = 1900;
+			
+			enemy_death1 = 0;
+			enemy_death2 = 0;
+			enemy_death3 = 0;
+			enemy_death4 = 0;
+
+			quest_complite = false;
+			scene = 14;
+		}
+		else
+		{
+			uisetting.talkbubble("We need to \nfind the gems! \nand kill enemys!");
+		}
+	}
+}
 
 void Map_setting::char_pos4(Camera* camera)
 {

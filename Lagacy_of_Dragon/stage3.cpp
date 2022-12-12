@@ -2,10 +2,13 @@
 #include "Window_setting.h"
 #include "Player.h"
 #include "Camera.h"
+#include "UIsetting.h"
 
+//º¸¼®2
 void Map_setting::stage3_creating(Camera* camera)
 {
-	for (int x = camera->xs - 1; x < camera->xe + 1; x++)
+	go_next_stage = false;
+	for (int x = camera->xs - 1; x < camera->xe + 4; x++)
 	{
 		if (x < 0 || x > 35)
 		{
@@ -22,7 +25,7 @@ void Map_setting::stage3_creating(Camera* camera)
 		}
 	}
 
-	for (int x = camera->xs - 1; x < camera->xe + 1; x++)
+	for (int x = camera->xs - 1; x < camera->xe + 4; x++)
 	{
 		if (x < 0 || x > 35)
 		{
@@ -46,19 +49,47 @@ void Map_setting::stage3_creating(Camera* camera)
 		}
 	}
 
-	if (camera->x > 1050 && camera->x < 1200 && camera->y > 0 && camera->y < 200)
-	{
-		camera->camera_pos_x = 2400;
-		camera->camera_pos_y = 3500;
-		scene = 19;
-	}
-
+}
+void Map_setting::stage3_controll(Camera* camera) {
 	if (camera->x > 2650 && camera->x < 2750 && camera->y > 1500 && camera->y < 1550)
 	{
-		//·ê·¿ È°¼ºÈ­
+		jewel_count = 2;
+		timer = 0;
+	}
+	if (jewel_count == 2) {
+		int tile = map_setting.PLAI0;
+		draw_image(tiles[tile], 29 * tile_size + camera->offsetX, 14 * tile_size + camera->offsetY, tile_size, tile_size);
+		if (timer < info_timer_check)
+		{
+			uisetting.talkbubble("Weapons have been \nupgraded!");
+		}
+	}
+
+	if (!quest_complite || jewel_count != 2) {
+		int tile = map_setting.NOPOTAL;
+		draw_image(tiles[tile], 13 * tile_size + camera->offsetX, 0 * tile_size + camera->offsetY, tile_size, tile_size);
+		draw_image(tiles[tile], 14 * tile_size + camera->offsetX, 0 * tile_size + camera->offsetY, tile_size, tile_size);
+	}
+
+	if (camera->x > 1050 && camera->x < 1200 && camera->y > 0 && camera->y < 200)
+	{
+		if (quest_complite&& jewel_count == 2) {
+			camera->camera_pos_x = 2400;
+			camera->camera_pos_y = 3500;
+			
+			enemy_death1 = 0;
+			enemy_death2 = 0;
+			enemy_death3 = 0;
+			enemy_death4 = 0;
+			quest_complite = false;
+			scene = 19;
+		}
+		else
+		{
+			uisetting.talkbubble("We need to \nfind the gems! \nand kill enemys!");
+		}
 	}
 }
-
 
 void Map_setting::char_pos3(Camera* camera)
 {

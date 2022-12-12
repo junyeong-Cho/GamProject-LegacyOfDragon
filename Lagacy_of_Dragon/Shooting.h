@@ -9,7 +9,7 @@ inline Image shootImage{ "attack/fireball1.png" };
 using namespace doodle;
 
 static constexpr int Pvelocity = 3;
-static constexpr int Bvelocity = 20;
+static constexpr int Bvelocity = 10;
 static constexpr int Player_r = 50;
 
 constexpr int bulletSize = 10;

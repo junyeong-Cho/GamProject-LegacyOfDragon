@@ -31,11 +31,12 @@ inline double SkillTimeCheck_ul = 3;
 inline double skillTimer_six = 0;
 inline double SkillTimeCheck_six = 5;
 //---------------------------------//
+inline int roulette_working = 0;
+
 inline int rouletteCheck = 0;
 inline int readyRoulette = 0;
 inline int readyRoulette2 = 0;
 inline int rouletteflag = 0;
-
 
 inline int rouletteCheck_ul = 0;
 inline int readyRoulette_ul = 0;
@@ -101,17 +102,16 @@ inline double rouletteu_init_check = 25;
 inline double roulettes_init_timer = 0;
 inline double roulettes_init_check = 20;
 
-inline int enemy_tuto_death = 0;
-inline int enemy_1_1_death = 0;
-inline int enemy_1_2_death = 0;
-inline int enemy_1_3_death = 0;
-inline int enemy_2_1_death = 0;
-inline int enemy_2_2_death = 0;
-inline int enemy_2_3_death = 0;
-inline int enemy_3_1_death = 0;
-inline int enemy_3_2_death = 0;
+inline int enemy_death1 = 0;
+inline int enemy_death2 = 0;
+inline int enemy_death3 = 0;
+inline int enemy_death4 = 0;
+inline int enemy_death5 = 0;
+inline int enemy_death6 = 0;
+
 
 inline bool quest_complite = false;
+inline bool go_next_stage = false;
 
 inline Color box_color = HexColor{ 0xff0000ff };
 inline Color box_color1 = HexColor{ 0xffb7b7ff };
@@ -170,8 +170,9 @@ struct UIsetting
 	void gameover(int* scene);
 	void talkbubble(string text);
 	void movebubble(string text, Player* player);
-	void enemy_quest(int* death, int demand);
-	void enemy_quest(int* death1, int demand1, int* death2, int demand2);
+	void enemy_quest(Image enemy, int demand);
+	void enemy_quest(Image enemy_1, int demand1, Image enemy_2, int demand2);
+	void enemy_quest(Image enemy_1, int demand1, Image enemy_2, int demand2, Image enemy_3, int demand3);
 	void this_stage(int main_stage, int sub_stage);
 };
 extern UIsetting uisetting;

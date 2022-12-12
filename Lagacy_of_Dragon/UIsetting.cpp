@@ -40,10 +40,12 @@ void UIsetting::roulette(vector<int> randomboxloc)
 			randomScene = 1;
 			readyRoulette = 1;
 			rouletteflag = 1;
+			
 		}
 
-		if (randomScene == 1 && is_random == true)
+		if (randomScene == 1 && is_random == true && roulette_working != 2)
 		{
+			roulette_working = 1;
 			push_settings();
 			set_outline_width(8.0);
 			set_outline_color(box_color1);
@@ -52,7 +54,7 @@ void UIsetting::roulette(vector<int> randomboxloc)
 			draw_line(draw_roulette_line_x2, randomboxh, draw_roulette_line_x2, randomboxh + randomboxSize);
 			draw_rectangle(randomboxloc[0], randomboxh, randomboxSize * 3, randomboxSize);
 			pop_settings();
-			;
+			
 			//Weapon Draw
 			draw_image(ShootW, randomboxloc[0], randomboxh, randomboxSize, randomboxSize);
 			draw_image(IceW, randomboxloc[1], randomboxh, randomboxSize, randomboxSize);
@@ -151,6 +153,7 @@ void UIsetting::roulette(vector<int> randomboxloc)
 						roulette_count_once = 0;
 						choice_box_once = 0;
 						roulette_init_timer = 0;
+						roulette_working = 0;
 					}
 
 				}
@@ -170,19 +173,21 @@ void UIsetting::roulette_ult(vector<int> ultraboxloc) {
 	{
 		readyRoulette_ul = false;
 
-		if (KeyIsPressed && Key != KeyboardButtons::E)
+		if (KeyIsPressed && Key != KeyboardButtons::R)
 		{
 			is_random_ul = true;
 		}
-		if (KeyIsPressed && Key == KeyboardButtons::E)
+		if (KeyIsPressed && Key == KeyboardButtons::R)
 		{
 			randomScene_ul = 1;
 			readyRoulette_ul = 1;
 			is_random_ul = true;
 			rouletteflag_ul = 1;
+			
 		}
-		if (randomScene_ul == 1 && is_random_ul == true)
+		if (randomScene_ul == 1 && is_random_ul == true && roulette_working != 1)
 		{
+			roulette_working = 2;
 			push_settings();
 			set_outline_width(8.0);
 			set_outline_color(box_color1);
@@ -272,6 +277,7 @@ void UIsetting::roulette_ult(vector<int> ultraboxloc) {
 						is_random_ul = false;
 						choice_box_once_ul = 0;
 						rouletteu_init_timer = 0;
+						roulette_working = 0;
 					}
 				}
 			}
@@ -290,19 +296,22 @@ void UIsetting::roulette_six(vector<int> sixboxloc) {
 	{
 		readyRoulette_six = false;
 
-		if (KeyIsPressed && Key != KeyboardButtons::T)
+		if (KeyIsPressed && Key != KeyboardButtons::Q)
 		{
 			is_random_six = true;
 		}
-		if (KeyIsPressed && Key == KeyboardButtons::T)
+		if (KeyIsPressed && Key == KeyboardButtons::Q)
 		{
 			randomScene_six = 1;
 			readyRoulette_six = 1;
 			is_random_six = true;
 			rouletteflag_six = 1;
+			
+
 		}
-		if (randomScene_six == 1 && is_random_six == true)
+		if (randomScene_six == 1 && is_random_six == true && roulette_working!=2)
 		{
+			roulette_working = 1;
 			push_settings();
 			set_outline_width(8.0);
 			set_outline_color(box_color1);
@@ -449,6 +458,7 @@ void UIsetting::roulette_six(vector<int> sixboxloc) {
 						is_random_six = false;
 						choice_box_once_six = 0;
 						roulettes_init_timer = 0;
+						roulette_working = false;
 					}
 				}
 			}
@@ -560,6 +570,7 @@ void UIsetting::weaponChoice(vector<Shooting*>& bullets, vector<IceWeapon*>& ice
 		breath_update.bullet_create(breath, player);
 		breath_update.bullet_draw(breath, player);
 		breath_update.coolTime(breath, player);
+		breath_update.bullet_remove(breath);
 	}
 
 	//meteor
@@ -716,34 +727,51 @@ void UIsetting::movebubble(string text, Player* player)
 	pop_settings();
 }
 
-void UIsetting::enemy_quest(int* death, int demand)
+void UIsetting::enemy_quest(Image enemy, int demand)
 {
-
 	push_settings();
 	apply_scale(0.33);
-	draw_image(enemy1, (Width - 200) * 3, (100)*3);
+	draw_image(enemy, (Width - 200) * 3, (100)*3, 150, 150);
 	set_font_size(100);
-	draw_text(to_string(*death) + " / " + to_string(demand), (Width - 100) * 3, (150)*3);
+	draw_text(to_string(enemy_death1) + " / " + to_string(demand), (Width - 100) * 3, (150)*3);
 
 	pop_settings();
-	if (*death >= demand) {
+	if (enemy_death1 >= demand) {
 		quest_complite = true;
 	}
 }
 
-void UIsetting::enemy_quest(int* death1, int demand1, int* death2, int demand2)
+void UIsetting::enemy_quest(Image enemy_1, int demand1, Image enemy_2, int demand2)
 {
 
 	push_settings();
 	apply_scale(0.33);
-	draw_image(enemy1, (Width - 200) * 3, (100) * 3);
-	draw_image(enemy2, (Width - 200) * 3, (200) * 3);
+	draw_image(enemy_1, (Width - 200) * 3, (100) * 3, 150, 150);
+	draw_image(enemy_2, (Width - 200) * 3, (150) * 3, 150, 150);
 	set_font_size(100);
-	draw_text(to_string(*death1) + " / " + to_string(demand2), (Width - 100) * 3, (150) * 3);
-	draw_text(to_string(*death1) + " / " + to_string(demand2), (Width - 100) * 3, (250) * 3);
+	draw_text(to_string(enemy_death1) + " / " + to_string(demand1), (Width - 100) * 3, (150) * 3);
+	draw_text(to_string(enemy_death2) + " / " + to_string(demand2), (Width - 100) * 3, (200) * 3);
 
 	pop_settings();
-	if (*death1 >= demand1 && *death2 >= demand2) {
+	if (enemy_death1 >= demand1 && enemy_death2 >= demand2) {
+		quest_complite = true;
+	}
+}
+void UIsetting::enemy_quest(Image enemy_1, int demand1, Image enemy_2, int demand2, Image enemy_3, int demand3)
+{
+
+	push_settings();
+	apply_scale(0.33);
+	draw_image(enemy_1, (Width - 200) * 3, (100) * 3, 150, 150);
+	draw_image(enemy_2, (Width - 200) * 3, (150) * 3, 150, 150);
+	draw_image(enemy_3, (Width - 200) * 3, (200) * 3, 150, 150);
+	set_font_size(100);
+	draw_text(to_string(enemy_death1) + " / " + to_string(demand1), (Width - 100) * 3, (150) * 3);
+	draw_text(to_string(enemy_death2) + " / " + to_string(demand2), (Width - 100) * 3, (200) * 3);
+	draw_text(to_string(enemy_death3) + " / " + to_string(demand3), (Width - 100) * 3, (250) * 3);
+
+	pop_settings();
+	if (enemy_death1 >= demand1 && enemy_death2 >= demand2 && enemy_death3 >= demand3) {
 		quest_complite = true;
 	}
 }
@@ -751,11 +779,11 @@ void UIsetting::enemy_quest(int* death1, int demand1, int* death2, int demand2)
 void UIsetting::this_stage(int main_stage, int sub_stage)
 {
 	push_settings();
+	set_image_mode(RectMode::Corner);
 	apply_scale(0.7);
-	//set_image_mode(RectMode::Center); 
-	draw_image(Stage, Width / 2, 50);
+	draw_image(Stage, Width / 2+800, 50);
 	set_font_size(50);
 	set_fill_color(HexColor{0xfbb7b7ff});
-	draw_text(to_string(main_stage) + " - " + to_string(sub_stage), Width/2+37, 190);
+	draw_text(to_string(main_stage) + " - " + to_string(sub_stage), Width/2 + 837, 190);
 	pop_settings();
 }

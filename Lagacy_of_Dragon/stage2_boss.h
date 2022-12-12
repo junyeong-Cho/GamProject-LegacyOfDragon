@@ -33,7 +33,7 @@ inline Color hp_color_2 = HexColor{ 0xfff000ff };
 inline int boss2_x = 750;
 inline int boss2_y = 500;
 inline int s2bossSize = 100;
-inline int boss2_hp = 200;
+inline double boss2_hp = 200;
 inline int s2_boss_vel = 5;
 inline int r_attack = 0;
 
