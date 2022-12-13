@@ -30,3 +30,26 @@ void Camera::camera_move()
 		camera_pos_x += DeltaTime * 150 * 2;
 	}
 }
+
+void Camera::move_fix_limit(Camera* camera)
+{
+	//Player move limit
+	if (camera->camera_pos_x < -200)
+	{
+		camera->camera_pos_x += DeltaTime * 150 * 2;
+	}
+	if (camera->camera_pos_y > 3600)
+	{
+		camera->camera_pos_y -= DeltaTime * 150 * 2;
+	}
+	if (camera->camera_pos_x > 3300)
+	{
+		camera->camera_pos_x -= DeltaTime * 150 * 2;
+	}
+	if (camera->camera_pos_y < 100)
+	{
+		camera->camera_pos_y += DeltaTime * 150 * 2;
+	}
+	//player->draw_chara();
+	//player->MOVE();
+}

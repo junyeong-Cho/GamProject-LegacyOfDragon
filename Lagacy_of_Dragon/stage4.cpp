@@ -68,8 +68,8 @@ void Map_setting::stage4_controll(Camera* camera) {
 	if (!quest_complite || jewel_count != 3) 
 	{
 		int tile = map_setting.NOPOTAL;
-		draw_image(tiles[tile], 26 * tile_size + camera->offsetX, 35 * tile_size + camera->offsetY, tile_size, tile_size);
-		draw_image(tiles[tile], 27 * tile_size + camera->offsetX, 35 * tile_size + camera->offsetY, tile_size, tile_size);
+		draw_image(tiles[tile], 0 * tile_size + camera->offsetX, 4 * tile_size + camera->offsetY, tile_size, tile_size);
+		draw_image(tiles[tile], 0 * tile_size + camera->offsetX, 5 * tile_size + camera->offsetY, tile_size, tile_size);
 	}
 
 	if (camera->x > -300 && camera->x < -150 && camera->y > 400 && camera->y < 700)

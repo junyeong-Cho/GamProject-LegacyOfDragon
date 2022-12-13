@@ -19,6 +19,7 @@ public:
 
 	void camera_generate();
 	void camera_move();
+	void move_fix_limit(Camera* camera);
 }; 
 extern Camera camera;
 

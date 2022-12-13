@@ -8,7 +8,7 @@ using namespace doodle;
 // 1-2 11
 // 1-3 12
 //
-inline int scene = 17;
+inline int scene = 1;
 inline int jewel_count = 0;
 
 
