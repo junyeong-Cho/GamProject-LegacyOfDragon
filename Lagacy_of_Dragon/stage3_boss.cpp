@@ -2,6 +2,7 @@
 #include <doodle\doodle.hpp>
 #include "Window_setting.h"
 #include <iostream>
+#include "Enemy.h"
 
 using namespace doodle;
 
@@ -16,21 +17,21 @@ void Stage3_boss::draw()
 void Stage3_boss::move(Player* player)
 {
 
-	if (x >= player->chara_pos_x)
+	if (x >= player->chara_pos_x- avoid_gap)
 	{
-		x -= velocity;
+		x -= velocity * DeltaTime * 50;
 	}
-	if (x <= player->chara_pos_x)
+	if (x <= player->chara_pos_x + avoid_gap)
 	{
-		x += velocity;
+		x += velocity * DeltaTime * 50;
 	}
-	if (y >= player->chara_pos_y)
+	if (y >= player->chara_pos_y - avoid_gap)
 	{
-		y -= velocity;
+		y -= velocity * DeltaTime * 50;
 	}
-	if (y <= player->chara_pos_y)
+	if (y <= player->chara_pos_y + avoid_gap)
 	{
-		y += velocity;
+		y += velocity * DeltaTime * 50;
 	}
 }
 void Stage3_boss::hp()

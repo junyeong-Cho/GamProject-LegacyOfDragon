@@ -37,7 +37,7 @@ void Map_setting::char_boss3(Player* player)
 	}
 }
 
-void Map_setting::fade_out(Stage3_boss* boss) {
+void Map_setting::fade_out(Stage2_boss* boss) {
 
 	Color fade = HexColor{ back_color };
 	if (boss->size == 0) {

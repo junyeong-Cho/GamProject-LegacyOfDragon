@@ -120,6 +120,7 @@ inline int update = 0;
 inline int count_once_debug = 0;
 
 void cmd_debug_mod(Camera* camera, Player* player) {
+//	int scene_controll;
 	system("cls");
 	cout << "width: " << Width << "\t height: " << Height << endl;
 	cout << "player x: " << player->chara_pos_x << "\t player y: " << player->chara_pos_y << endl;
@@ -133,6 +134,9 @@ void cmd_debug_mod(Camera* camera, Player* player) {
 	cout << "tile[x]: " << static_cast<int>((camera->x - camera->offsetX)/tile_size) << endl;
 	cout << "tile[y]: " << static_cast<int>((camera->y - camera->offsetY)/tile_size) << endl;
 	cout << "timer" <<timer << endl;
+	cout << "scene :" << scene << endl;
+//	cin >> scene_controll;
+//	scene = scene_controll;
 }
 
 int main()
@@ -461,7 +465,7 @@ int main()
 			map_setting.stage1_creating(camera);
 			map_setting.stage1_controll(camera);
 			//Random enemy
-			enemy_update_1_1.enemy_create(enemys_1_1, 7);
+			enemy_update_1_1.enemy_create(enemys_1_1, 3);
 			//Enemy move
 			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
 
@@ -523,8 +527,8 @@ int main()
 			uisetting.RcoolTime(player);
 
 			//Random enemy
-			enemy_update_1_1.enemy_create(enemys_1_1, 10);
-			enemy_update_1_2.enemy_create(enemys_1_2, 5);
+			enemy_update_1_1.enemy_create(enemys_1_1, 7);
+			enemy_update_1_2.enemy_create(enemys_1_2, 3);
 
 			//Enemy move
 			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
@@ -579,9 +583,9 @@ int main()
 			}
 
 			//Random enemy
-			enemy_update_1_1.enemy_create(enemys_1_1, 10);
+			enemy_update_1_1.enemy_create(enemys_1_1, 7);
 			enemy_update_1_2.enemy_create(enemys_1_2, 3);
-			enemy_update_1_3.enemy_create(enemys_1_3, 2);
+			enemy_update_1_3.enemy_create(enemys_1_3, 1);
 
 			//Enemy move
 			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
@@ -649,7 +653,7 @@ int main()
 			enemy_update_1_1.enemy_create(enemys_1_1, 2);
 			enemy_update_1_2.enemy_create(enemys_1_2, 2);
 			enemy_update_1_3.enemy_create(enemys_1_3, 1);
-			enemy_update_2_1.enemy_create(enemys_2_1, 2);
+			enemy_update_2_1.enemy_create(enemys_2_1, 1);
 
 			//Enemy move
 			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
@@ -837,11 +841,11 @@ int main()
 
 			//Random enemy
 			enemy_update_1_1.enemy_create(enemys_1_1, 4);
-			enemy_update_1_2.enemy_create(enemys_1_2, 5);
-			enemy_update_1_3.enemy_create(enemys_1_3, 4);
-			enemy_update_2_1.enemy_create(enemys_2_1, 10);
-			enemy_update_2_2.enemy_create(enemys_2_2, 5);
-			enemy_update_2_3.enemy_create(enemys_2_3, 3);
+			enemy_update_1_2.enemy_create(enemys_1_2, 3);
+			enemy_update_1_3.enemy_create(enemys_1_3, 2);
+			enemy_update_2_1.enemy_create(enemys_2_1, 4);
+			enemy_update_2_2.enemy_create(enemys_2_2, 2);
+			enemy_update_2_3.enemy_create(enemys_2_3, 1);
 			
 
 			//Enemy move
@@ -1072,9 +1076,9 @@ int main()
 			map_setting.map_creating();
 
 			//Random enemy
-			enemy_update_1_1.enemy_create(enemys_1_1, 5);
-			enemy_update_1_2.enemy_create(enemys_1_2, 5);
-			enemy_update_1_3.enemy_create(enemys_1_3, 5);
+			enemy_update_1_1.enemy_create(enemys_1_1, 2);
+			enemy_update_1_2.enemy_create(enemys_1_2, 2);
+			enemy_update_1_3.enemy_create(enemys_1_3, 1);
 
 			//Enemy move
 			enemy_update_1_1.enemy_move(enemys_1_1, player);
@@ -1154,9 +1158,9 @@ int main()
 			if (stage_boss2->health <= 50)
 			{
 				//Random enemy
-				enemy_update_1_2.enemy_create(enemys_1_2, 7);
-				enemy_update_2_2.enemy_create(enemys_2_2, 7);
-				enemy_update_2_3.enemy_create(enemys_2_3, 7);
+				enemy_update_1_2.enemy_create(enemys_1_2, 1);
+				enemy_update_2_2.enemy_create(enemys_2_2, 1);
+				enemy_update_2_3.enemy_create(enemys_2_3, 3);
 
 
 				//Enemy move
@@ -1215,6 +1219,8 @@ int main()
 			interaction.breath_enemy_interaction(enemys_2_2, breath, player, &enemy_death2);
 			interaction.breath_enemy_interaction(enemys_2_3, breath, player, &enemy_death3);
 
+			map_setting.fade_out(stage_boss2);
+
 			player->MOVE();
 			player->draw_chara();
 			player->hp_chara();
@@ -1240,8 +1246,8 @@ int main()
 			if (stage_boss3->health <= 50)
 			{
 				//Random enemy
-				enemy_update_1_1.enemy_create(enemys_1_1, 3);
-				enemy_update_1_2.enemy_create(enemys_1_2, 3);
+				enemy_update_1_1.enemy_create(enemys_1_1, 1);
+				enemy_update_1_2.enemy_create(enemys_1_2, 1);
 
 				//Enemy move
 				enemy_update_1_1.enemy_move(enemys_1_1, player);
@@ -1328,8 +1334,6 @@ int main()
 				breath_update.coolTime(breath, player);
 			}
 			map_setting.boss3_creating();
-
-			map_setting.fade_out(stage_boss3);
 
 			player->MOVE();
 			player->draw_chara();

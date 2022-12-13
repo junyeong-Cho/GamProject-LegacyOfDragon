@@ -485,7 +485,7 @@ void Enemy_update_1_3::enemy_create(std::vector<Enemy*>& enemys, int regen)
 			push_settings();
 			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
 			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
-			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 6, 3, 1.5, 110, 0xfff00fff, 3 });
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 6, 3, 1.5, 110, 0xfff00fff, 3});
 			pop_settings();
 		}
 		count_once = int_timer;
@@ -502,7 +502,7 @@ void Enemy_update_2_1::enemy_create(std::vector<Enemy*>& enemys, int regen)
 			push_settings();
 			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
 			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
-			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 1, 1, 4, 70, 0xf00fffff, 4 });
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 1, 1, 1.6, 70, 0xf00fffff, 4 });
 			pop_settings();
 		}
 		count_once = int_timer;
@@ -519,7 +519,7 @@ void Enemy_update_2_2::enemy_create(std::vector<Enemy*>& enemys, int regen)
 			push_settings();
 			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
 			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
-			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 2, 2, 4, 70, 0xff00ffff , 5 });
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 2, 2, 2, 70, 0xff00ffff , 5 });
 			pop_settings();
 		}
 		count_once = int_timer;

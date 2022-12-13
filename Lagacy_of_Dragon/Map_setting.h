@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "stage3_boss.h"
 #include "Enemy.h"
+#include "stage2_boss.h"
 
 using namespace doodle;
 
@@ -691,7 +692,7 @@ struct Map_setting {
 	void char_boss2(Player* player);
 	void char_boss3(Player* player);
 
-	void fade_out(Stage3_boss* boss);
+	void fade_out(Stage2_boss* boss);
 };
 
 extern Map_setting map_setting;

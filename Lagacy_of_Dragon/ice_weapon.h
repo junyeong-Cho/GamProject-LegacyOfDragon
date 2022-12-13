@@ -10,7 +10,7 @@ inline Image iceImage { "attack/iceweapon.png" };
 
 static constexpr int Ivelocity = 12;
 
-constexpr int iceSize = 25;
+constexpr int iceSize = 75;
 constexpr int icedamage = 1;
 
 inline double ice_timer = 0;

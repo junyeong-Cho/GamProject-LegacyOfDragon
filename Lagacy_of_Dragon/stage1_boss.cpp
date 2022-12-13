@@ -36,6 +36,8 @@ void Stage1_boss::move()
 		velocity *= -1 * DeltaTime * 50;
 		boss1_move_check = false;
 	}
+
+
 }
 
 void Stage1_boss::hp()
