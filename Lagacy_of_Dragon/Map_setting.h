@@ -18,6 +18,8 @@ static constexpr int world_y = 10;
 static constexpr int stage_x = 36;
 static constexpr int stage_y = 36;
 inline int back_color=0;
+inline int count_oncef =0;
+inline bool once_controll = false;
 
 static constexpr int info_timer_check = 3;
 
@@ -692,7 +694,7 @@ struct Map_setting {
 	void char_boss2(Player* player);
 	void char_boss3(Player* player);
 
-	void fade_out(Stage2_boss* boss);
+	void fade_out();
 };
 
 extern Map_setting map_setting;

@@ -190,6 +190,9 @@ int main()
 		cmd_debug_mod(camera, player);
 		count_once_debug = int_timer;
 		}
+
+		cout << "int timer" << int_timer << endl;
+
 		//Game_start
 		//DIGIEPN LOGO
 		if (scene == 0)
@@ -215,7 +218,6 @@ int main()
 		if (scene == 2)
 		{
 			main_menu.main_UI();
-
 			//Gameplay
 			if (main_menu.is_gameplay())
 			{
@@ -1219,7 +1221,7 @@ int main()
 			interaction.breath_enemy_interaction(enemys_2_2, breath, player, &enemy_death2);
 			interaction.breath_enemy_interaction(enemys_2_3, breath, player, &enemy_death3);
 
-			map_setting.fade_out(stage_boss2);
+			
 
 			player->MOVE();
 			player->draw_chara();

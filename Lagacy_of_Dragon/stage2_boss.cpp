@@ -1,5 +1,6 @@
 #include "stage2_boss.h"
 #include "Window_setting.h"
+#include "Map_setting.h"
 
 #include <doodle\doodle.hpp>
 
@@ -41,7 +42,7 @@ void Stage2_boss::hp()
 	pop_settings();
 	if (health <= 0)
 	{
-		scene = 1;
+		map_setting.fade_out();
 	}
 }
 

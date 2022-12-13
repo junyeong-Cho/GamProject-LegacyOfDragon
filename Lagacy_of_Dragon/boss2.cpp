@@ -1,5 +1,7 @@
 #include "Map_setting.h"
 #include "Player.h"
+#include "Window_setting.h"
+#include <iostream>
 
 void Map_setting::boss2_creating()
 {
@@ -33,4 +35,18 @@ void Map_setting::char_boss2(Player* player)
 			}
 		}
 	}
+}
+
+void Map_setting::fade_out() 
+{
+	if (timer*64 >= 0xff&&!once_controll) {
+		timer = 0;
+		once_controll = true;
+	}
+	else if (timer * 64 >= 0xff && once_controll) {
+		scene = 4;
+	}
+	Color fade = HexColor{ back_color };
+	back_color = timer * 64;
+	clear_background(fade);
 }
