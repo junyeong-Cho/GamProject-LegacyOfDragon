@@ -75,6 +75,13 @@ bool player_enemy_check = false;
 
 //-------------------------------// Roulette
 
+int soundChecker_credit = 0;
+int soundChecker_stage_1 = 0;
+int soundChecker_stage_2 = 0;
+int soundChekcer_stage_3 = 0;
+int soundChecker_boss = 0;
+
+
 Map_setting map_setting;
 Window_setting window_setting;
 Logos logos;
@@ -107,6 +114,12 @@ Enemy_update_2_3 enemy_update_2_3;
 S2boss_update s2boss_update;
 S3boss_update s3boss_update;
 
+Music background_music_credit;
+Music background_music_1;
+Music background_music_2;
+Music background_music_3;
+Music background_music_boss;
+
 //Diagonal move
 void on_key_pressed(KeyboardButtons button);
 void on_key_released(KeyboardButtons button);
@@ -137,6 +150,7 @@ void cmd_debug_mod(Camera* camera, Player* player) {
 SoundEffect sound_effects_main[] = {
 	SoundEffect("assets/SFX/Clicking.wav"),
 };
+
 
 int main()
 {
@@ -178,6 +192,46 @@ int main()
 	map_setting.char_pos1(camera);
 
 
+	if (!background_music_credit.openFromFile("assets/Credit.ogg")) {
+		cout << "Failed to load the music file: assets/Credit.ogg" << endl;
+	}
+
+	if (!background_music_1.openFromFile("assets/Stage-1.ogg")) {
+		cout << "Failed to load the music file: assets/Stage-1.ogg" << endl;
+	}
+
+	if (!background_music_2.openFromFile("assets/Stage-2.ogg")) {
+		cout << "Failed to load the music file: assets/Stage-2.ogg" << endl;
+	}
+
+	if (!background_music_3.openFromFile("assets/Stage-3.ogg")) {
+		cout << "Failed to load the music file: assets/Stage-3.ogg" << endl;
+	}
+
+	if (!background_music_boss.openFromFile("assets/Boss.ogg")) {
+		cout << "Failed to load the music file: assets/Boss.ogg" << endl;
+	}
+
+	background_music_credit.setLoop(true);
+	background_music_credit.setVolume(25);
+	background_music_credit.play();
+
+	background_music_1.setLoop(true);
+	background_music_1.setVolume(25);
+
+
+	background_music_2.setLoop(true);
+	background_music_2.setVolume(25);
+
+
+	background_music_3.setLoop(true);
+	background_music_3.setVolume(25);
+
+	background_music_boss.setLoop(true);
+	background_music_boss.setVolume(25);
+
+
+
 	while (!is_window_closed())
 	{
 		timer += DeltaTime;
@@ -186,7 +240,8 @@ int main()
 		scene_timer += DeltaTime;
 		boss3_timers += DeltaTime;
 		update_window();
-		if (int_timer%2==1 && count_once_debug != int_timer){
+		if (int_timer%2==1 && count_once_debug != int_timer)
+		{
 		cmd_debug_mod(camera, player);
 		count_once_debug = int_timer;
 		}
@@ -195,6 +250,12 @@ int main()
 		//DIGIEPN LOGO
 		if (scene == 0)
 		{
+			soundChecker_credit++;
+			if (soundChecker_credit == 11)
+			{
+				background_music_credit.play();
+			}
+
 			logos.digipen_logo();
 			if (scene_timer > digipenlogo_check)
 			{
@@ -460,6 +521,14 @@ int main()
 		//Stage 1-1
 		if (scene == 10)
 		{
+			//sound playing
+			soundChecker_stage_1++;
+			background_music_credit.stop();
+			if (soundChecker_stage_1 == 11)
+			{
+				background_music_1.play();
+			}
+
 			player->chara_pos_x = Width / 2;
 			player->chara_pos_y = Height / 2;
 			//Player move limit
@@ -647,6 +716,12 @@ int main()
 		//Stage 2-1
 		if (scene == 13)
 		{
+			soundChecker_stage_2++;
+			background_music_boss.stop();
+			if (soundChecker_stage_2 == 11)
+			{
+				background_music_2.play();
+			}
 			player->chara_pos_x = Width / 2;
 			player->chara_pos_y = Height / 2;
 
@@ -853,6 +928,12 @@ int main()
 		//Stage 2-3
 		if (scene == 15)
 		{
+			soundChekcer_stage_3++;
+			background_music_boss.stop();
+			if (soundChekcer_stage_3 == 11)
+			{
+				background_music_3.play();
+			}
 			player->chara_pos_x = Width / 2;
 			player->chara_pos_y = Height / 2;
 
@@ -989,6 +1070,12 @@ int main()
 		//Stage 3-1
 		if (scene == 16)
 		{
+			soundChekcer_stage_3++;
+			background_music_boss.stop();
+			if (soundChekcer_stage_3 == 11)
+			{
+				background_music_3.play();
+			}
 			player->chara_pos_x = Width / 2;
 			player->chara_pos_y = Height / 2;
 
@@ -1122,6 +1209,12 @@ int main()
 		//Boss2 
 		if (scene == 17)
 		{
+			soundChecker_boss++;
+			background_music_2.stop();
+			if (soundChecker_boss == 11)
+			{
+				background_music_boss.play();
+			}
 			player_setting.move_limit(player);
 			map_setting.map_creating();
 
@@ -1191,6 +1284,12 @@ int main()
 		//Boss3 
 		if (scene == 18)
 		{
+			soundChecker_boss++;
+			background_music_3.stop();
+			if (soundChecker_boss == 11)
+			{
+				background_music_boss.play();
+			}
 			player_setting.move_limit(player);
 		//	player_setting.move_fix_limit(camera);
 			map_setting.boss2_creating();
@@ -1286,6 +1385,12 @@ int main()
 		//Boss1 
 		if (scene == 19)
 		{
+			soundChecker_boss++;
+			background_music_1.stop();
+			if (soundChecker_boss == 11)
+			{
+				background_music_boss.play();
+			}
 			player_setting.move_limit(player);
 		//	player_setting.move_fix_limit(camera);
 			map_setting.boss3_creating();
