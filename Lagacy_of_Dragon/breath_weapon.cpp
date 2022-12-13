@@ -14,7 +14,7 @@ using namespace sf;
 #define BreathS 0
 
 SoundEffect sound_effects_laser[] = {
-    SoundEffect("assets/SFX/Ultimate_laser.wav"),
+    SoundEffect("assets/SFX/Ultimate_laser_short.wav"),
 };
 
 void BreathWeapon::drawR()

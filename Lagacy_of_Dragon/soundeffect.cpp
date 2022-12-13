@@ -15,4 +15,5 @@ SoundEffect::SoundEffect(const string& filename) {
 void SoundEffect::play() {
     sound.setBuffer(buffer);
     sound.play();
+    sound.setVolume(30);
 }

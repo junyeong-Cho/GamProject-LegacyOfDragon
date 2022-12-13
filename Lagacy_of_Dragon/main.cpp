@@ -213,22 +213,22 @@ int main()
 	}
 
 	background_music_credit.setLoop(true);
-	background_music_credit.setVolume(25);
+	background_music_credit.setVolume(20);
 	background_music_credit.play();
 
 	background_music_1.setLoop(true);
-	background_music_1.setVolume(25);
+	background_music_1.setVolume(20);
 
 
 	background_music_2.setLoop(true);
-	background_music_2.setVolume(25);
+	background_music_2.setVolume(20);
 
 
 	background_music_3.setLoop(true);
-	background_music_3.setVolume(25);
+	background_music_3.setVolume(20);
 
 	background_music_boss.setLoop(true);
-	background_music_boss.setVolume(25);
+	background_music_boss.setVolume(20);
 
 
 
