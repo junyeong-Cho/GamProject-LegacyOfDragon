@@ -90,6 +90,7 @@ void Interaction::bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 					enemys[j]->health--;
 					delete bullets[i];
 					bullets.erase(bullets.begin() + i);
+					break;
 				}
 			}
 		}
@@ -121,6 +122,7 @@ void Interaction::ice_enemy_interaction(std::vector<Enemy*>& enemys, std::vector
 					delete bullets[i];
 					bullets.erase(bullets.begin() + i);
 					enemys[j]->health --;
+					break;
 				}
 			}
 		}

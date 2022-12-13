@@ -18,8 +18,8 @@ void Stage2_boss::move()
 
 	if (b2_move_timer > b2_move_check)
 	{
-		int r_boss_x = random(100, 1400);
-		int r_boss_y = random(100, 900);
+		int r_boss_x = random(100, 1400) * DeltaTime * 50;
+		int r_boss_y = random(100, 900) * DeltaTime * 50;
 
 		x = r_boss_x;
 		y = r_boss_y;
