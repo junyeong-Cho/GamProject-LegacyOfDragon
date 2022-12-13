@@ -332,7 +332,7 @@ int main()
 
 				tutorial.scene1_guideline();
 				player_setting.move_limit(player);
-				player_setting.move_fix_limit(camera);
+				//player_setting.move_fix_limit(camera);
 
 				//bullet_create
 				shooting_update.bullet_create(bullets, player);
@@ -358,7 +358,7 @@ int main()
 
 				//Player move limit
 				player_setting.move_limit(player);
-				player_setting.move_fix_limit(camera);
+			//	player_setting.move_fix_limit(camera);
 
 				//Bullet_shooting
 				shooting_update.bullet_create(bullets, player);
@@ -397,7 +397,7 @@ int main()
 		{
 			//Player move limit
 			player_setting.move_limit(player);
-			player_setting.move_fix_limit(camera);
+		//	player_setting.move_fix_limit(camera);
 
 			//Bullet_shooting
 			shooting_update.bullet_create(bullets, player);
@@ -459,8 +459,8 @@ int main()
 			player->chara_pos_x = Width / 2;
 			player->chara_pos_y = Height / 2;
 			//Player move limit
-			//player_setting.move_limit(player);
-			player_setting.move_fix_limit(camera);
+			player_setting.move_limit(player);
+			//player_setting.move_fix_limit(camera);
 			//Draw Map
 			clear_background(HexColor{0xc4d37dff});
 			camera->camera_generate();
@@ -515,8 +515,8 @@ int main()
 			
 		
 			//Player move limit
-			//player_setting.move_limit(player);
-			player_setting.move_fix_limit(camera);
+			player_setting.move_limit(player);
+		//	player_setting.move_fix_limit(camera);
 
 			//Draw Map
 			clear_background(HexColor{ 0xc4d37dff });
@@ -648,7 +648,7 @@ int main()
 
 			//Player move limit
 			player_setting.move_limit(player);
-			player_setting.move_fix_limit(camera);
+		//	player_setting.move_fix_limit(camera);
 			//Draw Map
 			clear_background(HexColor{ 0x8de3ffff });
 			camera->camera_generate();
@@ -746,7 +746,7 @@ int main()
 
 			//Player move limit
 			player_setting.move_limit(player);
-			player_setting.move_fix_limit(camera);
+		//	player_setting.move_fix_limit(camera);
 			//Draw Map
 			clear_background(HexColor{ 0xc4d37dff });
 			camera->camera_generate();
@@ -854,7 +854,7 @@ int main()
 
 			//Player move limit
 			player_setting.move_limit(player);
-			player_setting.move_fix_limit(camera);
+			//player_setting.move_fix_limit(camera);
 			//Draw Map
 			clear_background(HexColor{ 0xc4d37dff });
 			camera->camera_generate();
@@ -990,7 +990,7 @@ int main()
 
 			//Player move limit
 			player_setting.move_limit(player);
-			player_setting.move_fix_limit(camera);
+		//	player_setting.move_fix_limit(camera);
 			//Draw Map
 			clear_background(HexColor{ 0xc4d37dff });
 			camera->camera_generate();
@@ -1148,11 +1148,9 @@ int main()
 
 			//Create bullet
 			
-			uisetting.roulette_ult(ultraboxloc);
-			uisetting.roulette_six(sixboxloc);
+			uisetting.roulette(randomboxloc);
 			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
-			uisetting.ScoolTime(player);
-			uisetting.UcoolTime(player);
+			uisetting.RcoolTime(player);
 
 
 			//Bullet Enemy Check
@@ -1190,7 +1188,7 @@ int main()
 		if (scene == 18)
 		{
 			player_setting.move_limit(player);
-			player_setting.move_fix_limit(camera);
+		//	player_setting.move_fix_limit(camera);
 			map_setting.boss2_creating();
 
 			//Create bullet
@@ -1285,7 +1283,7 @@ int main()
 		if (scene == 19)
 		{
 			player_setting.move_limit(player);
-			player_setting.move_fix_limit(camera);
+		//	player_setting.move_fix_limit(camera);
 			map_setting.boss3_creating();
 
 			s3boss_update.attack_create(boss_attack, stage_boss3, player);
@@ -1356,7 +1354,7 @@ int main()
 		if (scene == 20)
 		{
 			player_setting.move_limit(player);
-			player_setting.move_fix_limit(camera);
+			//player_setting.move_fix_limit(camera);
 			map_setting.boss3_creating();
 
 

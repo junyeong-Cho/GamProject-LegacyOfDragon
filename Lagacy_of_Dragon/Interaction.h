@@ -36,6 +36,16 @@ inline double back_timers = 0;
 inline double back_checks = 1;
 inline double back_init = 2.5;
 
+
+inline double hp_b2_timer = 0;
+inline double hp_b2_check = 0.7;
+
+inline double hp_b1_timer = 0;
+inline double hp_b1_check = 0.7;
+
+inline double hp_b3_timer = 0;
+inline double hp_b3_check = 0;
+
 struct Interaction
 {
 	void player_enemyat_interaction(std::vector<Enemy_attack*>& attack, Player* player);

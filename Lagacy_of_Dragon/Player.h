@@ -36,7 +36,7 @@ struct Player {
 
 struct Player_setting
 {
-	void move_fix_limit(Camera* camera);
+	//void move_fix_limit(Camera* camera);
 	void move_limit(Player* player);
 
 };

@@ -29,7 +29,7 @@ void Stage1_boss::move()
 
 	if (x <= 100)
 	{
-		velocity *= -1*DeltaTime*50;
+		velocity *= -1 * DeltaTime *50;
 		boss1_move_check = true;
 	}
 	if (x >= 1400)

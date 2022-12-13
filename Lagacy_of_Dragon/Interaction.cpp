@@ -385,15 +385,23 @@ void Interaction::storm_boss3_interaction(Stage3_boss* boss3, std::vector<Storm*
 
 		if (distance < bullets[i]->size / static_cast<double>(2) + boss3->size / static_cast<double>(2))
 		{
-			if (boss3->health-0.3 == 0)
-			{
-				delete boss3;
-				break;
-			}
-			else {
-				boss3->health-=0.3;
-				break;
-			}
+			hp_b3_timer += DeltaTime;
+			if (hp_b3_timer >= hp_b3_check)
+			{			
+				if (boss3->health - 0.3 == 0)
+				{
+					delete boss3;
+					hp_b3_timer = 0;
+					hp_b3_check = 0.7;
+					break;
+				}
+				else 
+				{
+					boss3->health -= 0.3;
+					hp_b3_check +=0.7;
+				}
+		    }
+			
 		}
 	}
 }
@@ -466,31 +474,21 @@ void Interaction::storm_boss1_interaction(Stage1_boss* boss1, std::vector<Storm*
 
 		if (distance < bullets[i]->size / static_cast<double>(2) + boss1->size)
 		{
-
-			if (boss1->health - 0.3 == 0)
+			hp_b1_timer += DeltaTime;
+			if (hp_b1_timer >= hp_b1_check)
 			{
-				delete boss1;
-				break;
-			}
-			else {
-				boss1->health -= 0.3;
-			}
-
-			if (boss1->x <= bullets[i]->bullet_pos_x)
-			{
-				boss1->x += bullets[i]->velocity;
-			}
-			if (boss1->x >= bullets[i]->bullet_pos_x)
-			{
-				boss1->x -= bullets[i]->velocity;
-			}
-			if (boss1->y <= bullets[i]->bullet_pos_y)
-			{
-				boss1->y += bullets[i]->velocity;
-			}
-			if (boss1->y >= bullets[i]->bullet_pos_y)
-			{
-				boss1->y -= bullets[i]->velocity;
+				if (boss1->health - 0.3 == 0)
+				{
+					delete boss1;
+					hp_b1_timer = 0;
+					hp_b1_check = 0.7;
+					break;
+				}
+				else
+				{
+					boss1->health -= 0.3;
+					hp_b1_check += 0.7;
+				}
 			}
 		}
 	}
@@ -558,13 +556,21 @@ void Interaction::breath_boss1_interaction(Stage1_boss* boss1, std::vector<Breat
 
 		if (distance < bullets[i]->size1 / static_cast<double>(2) + boss1->size / static_cast<double>(2))
 		{
-			if (boss1->health - 1 == 0)
+			hp_b1_timer += DeltaTime;
+			if (hp_b1_timer >= hp_b1_check)
 			{
-				delete boss1;
-				break;
-			}
-			else {
-				boss1->health--;
+				if (boss1->health - 2 == 0)
+				{
+					delete boss1;
+					hp_b1_timer = 0;
+					hp_b1_check = 0.7;
+					break;
+				}
+				else
+				{
+					boss1->health -= 2;
+					hp_b1_check += 0.7;
+				}
 			}
 		}
 
@@ -580,15 +586,21 @@ void Interaction::meteor_boss1_interaction(Stage1_boss* boss1, std::vector<Meteo
 
 		if (distance < bullets[i]->size / static_cast<double>(2) + boss1->size)
 		{
-			if (boss1->health - 1 == 0)
+			hp_b1_timer += DeltaTime;
+			if (hp_b1_timer >= hp_b1_check)
 			{
-				delete boss1;
-				break;
-			}
-			else
-			{
-				boss1->health--;
-				break;
+				if (boss1->health - 2 == 0)
+				{
+					delete boss1;
+					hp_b1_timer = 0;
+					hp_b1_check = 0.7;
+					break;
+				}
+				else
+				{
+					boss1->health -= 2;
+					hp_b1_check += 0.7;
+				}
 			}
 		}
 	}
@@ -681,30 +693,21 @@ void Interaction::storm_boss2_interaction(Stage2_boss* boss2, std::vector<Storm*
 		if (distance < bullets[i]->size / static_cast<double>(2) + boss2->size)
 		{
 
-			if (boss2->health - 0.5 <= 0)
+			hp_b2_timer += DeltaTime;
+			if (hp_b2_timer >= hp_b2_check)
 			{
-				delete boss2;
-				break;
-			}
-			else {
-				boss2->health -= 0.5;
-			}
-
-			if (boss2->x <= bullets[i]->bullet_pos_x)
-			{
-				boss2->x += bullets[i]->velocity;
-			}
-			if (boss2->x >= bullets[i]->bullet_pos_x)
-			{
-				boss2->x -= bullets[i]->velocity;
-			}
-			if (boss2->y <= bullets[i]->bullet_pos_y)
-			{
-				boss2->y += bullets[i]->velocity;
-			}
-			if (boss2->y >= bullets[i]->bullet_pos_y)
-			{
-				boss2->y -= bullets[i]->velocity;
+				if (boss2->health - 0.5 <= 0)
+				{
+					delete boss2;
+					hp_b2_timer = 0;
+					hp_b2_check = 0.7;
+					break;
+				}
+				else
+				{
+					boss2->health -= 0.5;
+					hp_b2_check += 0.7;
+				}
 			}
 		}
 	}
@@ -772,13 +775,21 @@ void Interaction::breath_boss2_interaction(Stage2_boss* boss2, std::vector<Breat
 
 			if (distance < bullets[i]->size1 / static_cast<double>(2) + boss2->size / static_cast<double>(2))
 			{
-				if (boss2->health - 1 <= 0)
+				hp_b2_timer += DeltaTime;
+				if (hp_b2_timer >= hp_b2_check)
 				{
-					delete boss2;
-					break;
-				}
-				else {
-					boss2->health--;
+					if (boss2->health - 2 <= 0)
+					{
+						delete boss2;
+						hp_b2_timer = 0;
+						hp_b2_check = 0.7;
+						break;
+					}
+					else
+					{
+						boss2->health -= 2;
+						hp_b2_check += 0.7;
+					}
 				}
 			}
 		
@@ -794,15 +805,21 @@ void Interaction::meteor_boss2_interaction(Stage2_boss* boss2, std::vector<Meteo
 
 		if (distance < bullets[i]->size / static_cast<double>(2) + boss2->size)
 		{
-			if (boss2->health - 1 <= 0)
+			hp_b2_timer += DeltaTime;
+			if (hp_b2_timer >= hp_b2_check)
 			{
-				delete boss2;
-				break;
-			}
-			else
-			{
-				boss2->health--;
-				break;
+				if (boss2->health - 2 <= 0)
+				{
+					delete boss2;
+					hp_b2_timer = 0;
+					hp_b2_check = 0.7;
+					break;
+				}
+				else
+				{
+					boss2->health -= 2;
+					hp_b2_check += 0.7;
+				}
 			}
 		}
 	}

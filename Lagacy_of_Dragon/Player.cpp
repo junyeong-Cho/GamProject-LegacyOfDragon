@@ -118,28 +118,28 @@ void Player_setting::move_limit(Player* player)
 	//player->MOVE();
 }
 
-void Player_setting::move_fix_limit(Camera* camera)
-{
-	//Player move limit
-	if (camera->camera_pos_x < 36 * tile_size)
-	{
-		camera->camera_pos_x += DeltaTime * 150 * 2;
-	}
-	if (camera->camera_pos_y > 0)
-	{
-		camera->camera_pos_y -= DeltaTime * 150 * 2;
-	}
-	if (camera->camera_pos_x > 0)
-	{
-		camera->camera_pos_x -= DeltaTime * 150 * 2;
-	}
-	if (camera->camera_pos_y < 36 * tile_size)
-	{
-		camera->camera_pos_y += DeltaTime * 150 * 2;
-	}
-	//player->draw_chara();
-	//player->MOVE();
-}
+//void Player_setting::move_fix_limit(Camera* camera)
+//{
+//	//Player move limit
+//	if (camera->camera_pos_x < 36 * tile_size)
+//	{
+//		camera->camera_pos_x += DeltaTime * 150 * 2;
+//	}
+//	if (camera->camera_pos_y > 0)
+//	{
+//		camera->camera_pos_y -= DeltaTime * 150 * 2;
+//	}
+//	if (camera->camera_pos_x > 0)
+//	{
+//		camera->camera_pos_x -= DeltaTime * 150 * 2;
+//	}
+//	if (camera->camera_pos_y < 36 * tile_size)
+//	{
+//		camera->camera_pos_y += DeltaTime * 150 * 2;
+//	}
+//	//player->draw_chara();
+//	//player->MOVE();
+//}
 
 void Player::hp_chara()
 {
