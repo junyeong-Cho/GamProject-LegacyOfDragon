@@ -213,22 +213,22 @@ int main()
 	}
 
 	background_music_credit.setLoop(true);
-	background_music_credit.setVolume(20);
+	background_music_credit.setVolume(9);
 	background_music_credit.play();
 
 	background_music_1.setLoop(true);
-	background_music_1.setVolume(20);
+	background_music_1.setVolume(9);
 
 
 	background_music_2.setLoop(true);
-	background_music_2.setVolume(20);
+	background_music_2.setVolume(9);
 
 
 	background_music_3.setLoop(true);
-	background_music_3.setVolume(20);
+	background_music_3.setVolume(9);
 
 	background_music_boss.setLoop(true);
-	background_music_boss.setVolume(20);
+	background_music_boss.setVolume(9);
 
 
 
@@ -337,55 +337,6 @@ int main()
 		{
 			return 0;
 		}
-
-		//Tutorial with story telling
-		//if (scene == 6)
-		//{
-		//	map_setting.map_creating();
-		//	if (textbox == 0)
-		//	{
-		//		tutorial.textbox1();
-		//	}
-		//	/*if (textbox == 1)
-		//	{
-		//		tutorial.textbox2();
-		//	}*/
-		//	if (textbox == 2)
-		//	{
-		//		tutorial.textbox3();
-		//	}
-		//	if (textbox == 3)
-		//	{
-		//		tutorial.textbox4();
-		//	}
-		//	if (textbox == 4)
-		//	{
-		//		tutorial.textbox5();
-		//	}
-		//	if (textbox == 5)
-		//	{
-		//		tutorial.textbox6();
-		//	}
-		//	if (textbox == 6)
-		//	{
-		//		tutorial.textbox7();
-		//	}
-		//	if (textbox == 7)
-		//	{
-		//		tutorial.textbox8();
-		//	}
-		//	if (textbox == 8)
-		//	{
-		//		tutorial.textbox9();
-		//	}
-		//	if (textbox == 1)
-		//	{
-		//		tutorial_scene = 1;
-		//		player->chara_pos_x = 300;
-		//		player->chara_pos_y = 300;
-		//		scene = 7;
-		//	}
-		//}
 
 		//Tutorial
 		if (scene == 7)
@@ -562,7 +513,8 @@ int main()
 			shooting_update.bullet_remove(bullets);
 			shooting_update.coolTime(player);
 			}
-			//Quest
+			//
+			// uest
 			//uisetting.enemy_quest(enemy1, 5);
 			uisetting.enemy_quest(enemy1, 1);
 

@@ -282,7 +282,6 @@ void Tutorial::scene1_guideline()
 void Tutorial::scene2_guideline()
 {
 	push_settings();
-	draw_text("Kill all the enemies!", 100, 150);
-	draw_text("SCORE: " + std::to_string(score), score_width, score_height);
+	draw_text("Kill all the enemies!", 100, 230);
 	pop_settings();
 }
