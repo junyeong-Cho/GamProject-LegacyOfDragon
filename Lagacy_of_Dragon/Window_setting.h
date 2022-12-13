@@ -4,8 +4,11 @@
 #include <doodle\doodle.hpp>
 using namespace doodle;
 
-
-inline int scene = 1;
+// 1-1 10
+// 1-2 11
+// 1-3 12
+//
+inline int scene = 10;
 inline int jewel_count = 0;
 
 

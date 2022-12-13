@@ -2,6 +2,7 @@
 #include <doodle\doodle.hpp>
 #include <iostream>
 #include "Camera.h"
+#include "UIsetting.h"
 using namespace std;
 using namespace doodle;
 
@@ -65,6 +66,16 @@ void Enemy_attack::fire_attack()
 
 	attack_pos_x += static_cast<int>(velocityX);
 	attack_pos_y += static_cast<int>(velocityY);
+}
+
+void Enemy_update::enemy_remove(std::vector<Enemy*>& enemys){
+if (go_next_stage == true) {
+	for (int i = 0; i < enemys.size(); i++)
+	{
+		delete enemys[i];
+		enemys.erase(enemys.begin() + i);
+	}
+}
 }
 
 void Enemy_update::enemy_create(std::vector<Enemy*>& enemys, int regen)

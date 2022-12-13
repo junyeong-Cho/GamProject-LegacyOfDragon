@@ -387,14 +387,10 @@ void Interaction::storm_boss3_interaction(Stage3_boss* boss3, std::vector<Storm*
 		{
 			if (boss3->health-0.3 == 0)
 			{
-				delete bullets[i];
 				delete boss3;
-				bullets.erase(bullets.begin() + i);
 				break;
 			}
 			else {
-				delete bullets[i];
-				bullets.erase(bullets.begin() + i);
 				boss3->health-=0.3;
 				break;
 			}

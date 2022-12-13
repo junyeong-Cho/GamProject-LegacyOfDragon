@@ -3,6 +3,7 @@
 
 #include <doodle\doodle.hpp>
 #include <vector>
+#include "Camera.h"
 using namespace doodle;
 
 static constexpr int tile_size = 100;
@@ -35,7 +36,9 @@ struct Player {
 
 struct Player_setting
 {
+	void move_fix_limit(Camera* camera);
 	void move_limit(Player* player);
+
 };
 extern Player_setting player_setting;
 

@@ -93,8 +93,9 @@ struct Enemy_attack {
 
 struct Enemy_update {
 	int timer_check = 4;
-	int regen_delay = 8;
+	int regen_delay = 7;
 	int count_once = 0;
+	virtual void enemy_remove(std::vector<Enemy*>& enemys);
 	virtual void enemy_create(std::vector<Enemy*>& enemys, int regen);
 	virtual void enemy_move(std::vector<Enemy*>& enemys, Player* player);
 	virtual void enemy_fix_move(std::vector<Enemy*>& enemys, Player* player);

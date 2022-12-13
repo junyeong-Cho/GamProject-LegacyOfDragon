@@ -51,6 +51,7 @@ void Approach_update::bullet_remove(std::vector<Approach*>& bullets)
 	{
 		if (not_clicked_app == true)
 		{
+			not_clicked_app = false;
 			delete bullets[i];
 			bullets.erase(bullets.begin() + i);
 		}

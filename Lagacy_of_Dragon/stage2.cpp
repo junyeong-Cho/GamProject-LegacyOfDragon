@@ -65,6 +65,7 @@ void Map_setting::stage2_controll(Camera* camera) {
 			enemy_death2 = 0;
 			enemy_death3 = 0;
 			enemy_death4 = 0;
+			go_next_stage = true;
 
 			quest_complite = false;
 			scene = 12;

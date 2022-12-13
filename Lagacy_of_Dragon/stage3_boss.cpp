@@ -3,6 +3,7 @@
 #include "Window_setting.h"
 #include <iostream>
 #include "Enemy.h"
+#include "UIsetting.h"
 
 using namespace doodle;
 
@@ -49,6 +50,8 @@ void Stage3_boss::hp()
 
 	if (health <=0 )
 	{
+		
+		go_next_stage = true;
 		scene = 13;
 	}
 }

@@ -16,7 +16,7 @@ constexpr int bulletSize = 10;
 inline bool not_clicked = false;
 
 inline double sh_click_timer = 0;
-inline double sh_click_check = 1;
+inline double sh_click_check = 0.5;
 
 struct Shooting {
 	int bullet_pos_x = 0;

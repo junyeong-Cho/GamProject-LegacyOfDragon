@@ -79,6 +79,6 @@ void Shooting_update::coolTime(Player* player)
 
 	push_settings();
 	set_fill_color(HexColor{ 0x00FF00FF });
-	draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 50, 100 * sh_click_timer, 10);
+	draw_rectangle(player->chara_pos_x - 50, player->chara_pos_y - 50, 200 * sh_click_timer, 10);
 	pop_settings();
 }

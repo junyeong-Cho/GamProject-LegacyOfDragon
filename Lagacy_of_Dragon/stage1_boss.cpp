@@ -1,6 +1,7 @@
 #include "stage1_boss.h"
 #include <doodle\doodle.hpp>
 #include "Window_setting.h"
+#include "UIsetting.h"
 
 using namespace doodle;
 
@@ -54,6 +55,8 @@ void Stage1_boss::hp()
 	pop_settings();
 	if (health <= 0)
 	{
+		go_next_stage = true;
 		scene = 15;
+
 	}
 }

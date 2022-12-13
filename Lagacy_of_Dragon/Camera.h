@@ -19,5 +19,7 @@ public:
 
 	void camera_generate();
 	void camera_move();
-};
+}; 
+extern Camera camera;
+
 #endif

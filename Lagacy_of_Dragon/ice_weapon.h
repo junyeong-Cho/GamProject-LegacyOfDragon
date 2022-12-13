@@ -14,7 +14,7 @@ constexpr int iceSize = 75;
 constexpr int icedamage = 1;
 
 inline double ice_timer = 0;
-inline double ice_check = 0.5;
+inline double ice_check = 0.25;
 
 inline bool not_clicked_ice = false;
 

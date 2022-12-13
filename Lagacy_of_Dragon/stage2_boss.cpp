@@ -40,7 +40,7 @@ void Stage2_boss::hp()
 	set_fill_color(hp_color_2);
 	draw_rectangle(b2_hp_x, b2_hp_y, 5 * health, b2_hp_h);
 	pop_settings();
-	if (health <= 0)
+	if (health < 0)
 	{
 		map_setting.fade_out();
 	}
@@ -63,7 +63,7 @@ void S2boss_update::s2_boss_attack(Stage2_boss* boss2, Player* player)
 		b2_blink_check = b2_blink_time;
 		b2_change_check += 5; // 
 
-		if (boss2->health <= 100)
+		if (boss2->health <= 100 && boss2->health > 0)
 		{
 			b2_change_random = random(2, 9);
 			b2_blink_timer = 0;

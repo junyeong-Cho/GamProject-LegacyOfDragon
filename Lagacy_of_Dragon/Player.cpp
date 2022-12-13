@@ -1,7 +1,7 @@
-#include "Player.h"
 #include "Map_setting.h"
 #include "Window_setting.h"
 #include "UIsetting.h"
+#include "Camera.h"
 #include <doodle\doodle.hpp>
 #include <iostream>
 
@@ -113,6 +113,29 @@ void Player_setting::move_limit(Player* player)
 	if (player->chara_pos_y < player_limit_y1)
 	{
 		player->chara_pos_y += DeltaTime * 150 * 2;
+	}
+	//player->draw_chara();
+	//player->MOVE();
+}
+
+void Player_setting::move_fix_limit(Camera* camera)
+{
+	//Player move limit
+	if (camera->camera_pos_x < 36 * tile_size)
+	{
+		camera->camera_pos_x += DeltaTime * 150 * 2;
+	}
+	if (camera->camera_pos_y > 0)
+	{
+		camera->camera_pos_y -= DeltaTime * 150 * 2;
+	}
+	if (camera->camera_pos_x > 0)
+	{
+		camera->camera_pos_x -= DeltaTime * 150 * 2;
+	}
+	if (camera->camera_pos_y < 36 * tile_size)
+	{
+		camera->camera_pos_y += DeltaTime * 150 * 2;
 	}
 	//player->draw_chara();
 	//player->MOVE();

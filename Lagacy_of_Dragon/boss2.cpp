@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Window_setting.h"
 #include <iostream>
+#include "UIsetting.h"
 
 void Map_setting::boss2_creating()
 {
@@ -44,6 +45,7 @@ void Map_setting::fade_out()
 		once_controll = true;
 	}
 	else if (timer * 64 >= 0xff && once_controll) {
+		go_next_stage = true;
 		scene = 4;
 	}
 	Color fade = HexColor{ back_color };

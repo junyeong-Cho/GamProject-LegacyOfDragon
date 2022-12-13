@@ -65,6 +65,20 @@ void Storm_update::bullet_draw(std::vector<Storm*>& storms) {
 		storms[i]->draw();
 		storms[i]->FireBullet();
 		pop_settings();
+
+		if (moveW == true) {
+			storms[i]->bullet_pos_x += DeltaTime * 150 * 2;
+		}
+		if (moveA == true) {
+			storms[i]->bullet_pos_x += DeltaTime * 150 * 2;
+		}
+		if (moveS == true) {
+			storms[i]->bullet_pos_y -= DeltaTime * 150 * 2;
+		}
+		if (moveD == true) {
+			storms[i]->bullet_pos_x -= DeltaTime * 150 * 2;
+		}
+
 	}
 }
 
@@ -75,6 +89,7 @@ void Storm_update::bullet_remove(std::vector<Storm*>& storms)
 		st_remove_timer += DeltaTime;
 		if (st_remove_timer > st_remove_check)
 		{
+			not_clicked_sto = false;
 			delete storms[i];
 			storms.erase(storms.begin() + i);
 			st_remove_timer = 0;

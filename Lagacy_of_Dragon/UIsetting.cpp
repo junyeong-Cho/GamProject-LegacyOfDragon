@@ -361,7 +361,7 @@ void UIsetting::roulette_six(vector<int> sixboxloc) {
 				//Speed is on proportion with Time (현재 속도는 30이라 skillTimer = 5, 속도 5곱해줌
 				if (skillTimer_six < SkillTimeCheck_six)
 				{
-					six_box_x -= skillTimer_six * 5.8; // Same as acc_x
+					six_box_x -= skillTimer_six * 5.9; // Same as acc_x
 				}
 				else if (skillTimer_six > SkillTimeCheck_six)
 				{
@@ -417,6 +417,7 @@ void UIsetting::roulette_six(vector<int> sixboxloc) {
 						draw_rectangle(six_box_x, randomboxh, sixboxSize, sixboxSize);
 						pop_settings();
 						weapon_choice = 2;
+						choice_box_once_six = 1;
 						
 
 					}

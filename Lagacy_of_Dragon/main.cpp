@@ -191,8 +191,6 @@ int main()
 		count_once_debug = int_timer;
 		}
 
-		cout << "int timer" << int_timer << endl;
-
 		//Game_start
 		//DIGIEPN LOGO
 		if (scene == 0)
@@ -334,6 +332,7 @@ int main()
 
 				tutorial.scene1_guideline();
 				player_setting.move_limit(player);
+				player_setting.move_fix_limit(camera);
 
 				//bullet_create
 				shooting_update.bullet_create(bullets, player);
@@ -359,6 +358,7 @@ int main()
 
 				//Player move limit
 				player_setting.move_limit(player);
+				player_setting.move_fix_limit(camera);
 
 				//Bullet_shooting
 				shooting_update.bullet_create(bullets, player);
@@ -397,6 +397,7 @@ int main()
 		{
 			//Player move limit
 			player_setting.move_limit(player);
+			player_setting.move_fix_limit(camera);
 
 			//Bullet_shooting
 			shooting_update.bullet_create(bullets, player);
@@ -458,7 +459,8 @@ int main()
 			player->chara_pos_x = Width / 2;
 			player->chara_pos_y = Height / 2;
 			//Player move limit
-			player_setting.move_limit(player);
+			//player_setting.move_limit(player);
+			player_setting.move_fix_limit(camera);
 			//Draw Map
 			clear_background(HexColor{0xc4d37dff});
 			camera->camera_generate();
@@ -471,6 +473,8 @@ int main()
 			//Enemy move
 			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
 
+			//remove enemy
+			enemy_update.enemy_remove(enemys_1_1);
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
 
@@ -497,6 +501,7 @@ int main()
 			}
 			uisetting.this_stage(1, 1);
 
+			
 			camera->camera_move();
 			player->MOVE();
 			player->draw_fix_chara();
@@ -510,7 +515,8 @@ int main()
 			
 		
 			//Player move limit
-			player_setting.move_limit(player);
+			//player_setting.move_limit(player);
+			player_setting.move_fix_limit(camera);
 
 			//Draw Map
 			clear_background(HexColor{ 0xc4d37dff });
@@ -535,6 +541,10 @@ int main()
 			//Enemy move
 			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
 			enemy_update_1_2.enemy_fix_move(enemys_1_2, player);
+
+			//remove enemy
+			enemy_update.enemy_remove(enemys_1_1);
+			enemy_update.enemy_remove(enemys_1_2);
 
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
@@ -589,6 +599,11 @@ int main()
 			enemy_update_1_2.enemy_create(enemys_1_2, 3);
 			enemy_update_1_3.enemy_create(enemys_1_3, 1);
 
+			//remove enemy
+			enemy_update.enemy_remove(enemys_1_1);
+			enemy_update.enemy_remove(enemys_1_2);
+			enemy_update.enemy_remove(enemys_1_3);
+
 			//Enemy move
 			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
 			enemy_update_1_2.enemy_fix_move(enemys_1_2, player);
@@ -633,7 +648,7 @@ int main()
 
 			//Player move limit
 			player_setting.move_limit(player);
-
+			player_setting.move_fix_limit(camera);
 			//Draw Map
 			clear_background(HexColor{ 0x8de3ffff });
 			camera->camera_generate();
@@ -656,6 +671,12 @@ int main()
 			enemy_update_1_2.enemy_create(enemys_1_2, 2);
 			enemy_update_1_3.enemy_create(enemys_1_3, 1);
 			enemy_update_2_1.enemy_create(enemys_2_1, 1);
+
+			//remove enemy
+			enemy_update.enemy_remove(enemys_1_1);
+			enemy_update.enemy_remove(enemys_1_2);
+			enemy_update.enemy_remove(enemys_1_3);
+			enemy_update.enemy_remove(enemys_2_1);
 
 			//Enemy move
 			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
@@ -725,7 +746,7 @@ int main()
 
 			//Player move limit
 			player_setting.move_limit(player);
-
+			player_setting.move_fix_limit(camera);
 			//Draw Map
 			clear_background(HexColor{ 0xc4d37dff });
 			camera->camera_generate();
@@ -747,6 +768,12 @@ int main()
 			enemy_update_2_1.enemy_create(enemys_2_1, 1);
 			enemy_update_2_2.enemy_create(enemys_2_2, 1);
 
+			//remove enemy
+			enemy_update.enemy_remove(enemys_1_1);
+			enemy_update.enemy_remove(enemys_1_2);
+			enemy_update.enemy_remove(enemys_1_3);
+			enemy_update.enemy_remove(enemys_2_1);
+			enemy_update.enemy_remove(enemys_2_2);
 
 
 			//Enemy move
@@ -827,7 +854,7 @@ int main()
 
 			//Player move limit
 			player_setting.move_limit(player);
-
+			player_setting.move_fix_limit(camera);
 			//Draw Map
 			clear_background(HexColor{ 0xc4d37dff });
 			camera->camera_generate();
@@ -849,6 +876,14 @@ int main()
 			enemy_update_2_2.enemy_create(enemys_2_2, 2);
 			enemy_update_2_3.enemy_create(enemys_2_3, 1);
 			
+			//remove enemy
+			enemy_update.enemy_remove(enemys_1_1);
+			enemy_update.enemy_remove(enemys_1_2);
+			enemy_update.enemy_remove(enemys_1_3);
+			enemy_update.enemy_remove(enemys_2_1);
+			enemy_update.enemy_remove(enemys_2_2);
+			enemy_update.enemy_remove(enemys_2_3);
+
 
 			//Enemy move
 			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
@@ -955,7 +990,7 @@ int main()
 
 			//Player move limit
 			player_setting.move_limit(player);
-
+			player_setting.move_fix_limit(camera);
 			//Draw Map
 			clear_background(HexColor{ 0xc4d37dff });
 			camera->camera_generate();
@@ -975,6 +1010,15 @@ int main()
 			enemy_update_2_1.enemy_create(enemys_2_1, 2);
 			enemy_update_2_2.enemy_create(enemys_2_2, 2);
 			enemy_update_2_3.enemy_create(enemys_2_3, 2);
+
+			//remove enemy
+			enemy_update.enemy_remove(enemys_1_1);
+			enemy_update.enemy_remove(enemys_1_2);
+			enemy_update.enemy_remove(enemys_1_3);
+			enemy_update.enemy_remove(enemys_2_1);
+			enemy_update.enemy_remove(enemys_2_2);
+			enemy_update.enemy_remove(enemys_2_3);
+
 
 			//Enemy move
 			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
@@ -1078,9 +1122,14 @@ int main()
 			map_setting.map_creating();
 
 			//Random enemy
-			enemy_update_1_1.enemy_create(enemys_1_1, 2);
-			enemy_update_1_2.enemy_create(enemys_1_2, 2);
+			enemy_update_1_1.enemy_create(enemys_1_1, 1);
+			enemy_update_1_2.enemy_create(enemys_1_2, 1);
 			enemy_update_1_3.enemy_create(enemys_1_3, 1);
+
+			//remove enemy
+			enemy_update.enemy_remove(enemys_1_1);
+			enemy_update.enemy_remove(enemys_1_2);
+			enemy_update.enemy_remove(enemys_1_3);
 
 			//Enemy move
 			enemy_update_1_1.enemy_move(enemys_1_1, player);
@@ -1141,6 +1190,7 @@ int main()
 		if (scene == 18)
 		{
 			player_setting.move_limit(player);
+			player_setting.move_fix_limit(camera);
 			map_setting.boss2_creating();
 
 			//Create bullet
@@ -1164,7 +1214,6 @@ int main()
 				enemy_update_2_2.enemy_create(enemys_2_2, 1);
 				enemy_update_2_3.enemy_create(enemys_2_3, 3);
 
-
 				//Enemy move
 				enemy_update_1_2.enemy_move(enemys_1_2, player);
 				enemy_update_2_2.enemy_move(enemys_2_2, player);
@@ -1187,6 +1236,11 @@ int main()
 			interaction.breath_boss2_interaction(stage_boss2,breath);
 			interaction.meteor_boss2_interaction(stage_boss2,meteor);
 			interaction.boss2_player_interaction(player);
+
+			//remove enemy
+			enemy_update.enemy_remove(enemys_1_1);
+			enemy_update.enemy_remove(enemys_1_2);
+			enemy_update.enemy_remove(enemys_1_3);
 
 			//Bullet Enemy Check
 			interaction.bullet_enemy_interaction(enemys_1_2, bullets,  &enemy_death1);
@@ -1231,6 +1285,7 @@ int main()
 		if (scene == 19)
 		{
 			player_setting.move_limit(player);
+			player_setting.move_fix_limit(camera);
 			map_setting.boss3_creating();
 
 			s3boss_update.attack_create(boss_attack, stage_boss3, player);
@@ -1259,7 +1314,10 @@ int main()
 				interaction.player_enemy_interaction(enemys_1_1, player);
 				interaction.player_enemy_interaction(enemys_1_2, player);
 			}
-
+			//remove enemy
+			enemy_update.enemy_remove(enemys_1_1);
+			enemy_update.enemy_remove(enemys_1_2);
+			
 			//Bullet Enemy Check
 			interaction.ice_enemy_interaction(enemys_1_1, ice, &enemy_death1);
 			interaction.ice_enemy_interaction(enemys_1_2, ice, &enemy_death2);
@@ -1298,6 +1356,7 @@ int main()
 		if (scene == 20)
 		{
 			player_setting.move_limit(player);
+			player_setting.move_fix_limit(camera);
 			map_setting.boss3_creating();
 
 

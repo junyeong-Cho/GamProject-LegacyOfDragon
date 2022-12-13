@@ -25,7 +25,7 @@ void Map_setting::stage4_creating(Camera* camera)
 		}
 	}
 
-	for (int x = camera->xs - 1; x < camera->xe + 1; x++)
+	for (int x = camera->xs - 1; x < camera->xe + 4; x++)
 	{
 		if (x < 0 || x > 35)
 		{
@@ -84,6 +84,7 @@ void Map_setting::stage4_controll(Camera* camera) {
 			enemy_death4 = 0;
 
 			quest_complite = false;
+			go_next_stage = true;
 			scene = 14;
 		}
 		else
