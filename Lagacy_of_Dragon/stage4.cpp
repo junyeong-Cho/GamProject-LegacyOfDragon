@@ -1,10 +1,15 @@
-#include "Map_setting.h"
+Ôªø//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ÔªøAll content ¬© 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------#include "Map_setting.h"
 #include "Window_setting.h"
 #include "Player.h"
 #include "Camera.h"
 #include "UIsetting.h"
 //2-1
-//∫∏ºÆ3
+//Î≥¥ÏÑù3
 void Map_setting::stage4_creating(Camera* camera)
 {
 	go_next_stage = false;

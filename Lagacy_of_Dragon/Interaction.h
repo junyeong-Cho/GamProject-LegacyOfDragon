@@ -1,3 +1,9 @@
+ï»¿//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ï»¿All content Â© 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------
 #ifndef COLL_H
 #define COLL_H
 
@@ -8,7 +14,6 @@
 
 #include "Shooting.h"
 #include "ice_weapon.h"
-#include "auto_weapon.h"
 #include "back_weapon.h"
 #include "approach_weapon.h"
 #include "bomb_weapon.h"
@@ -59,12 +64,17 @@ struct Interaction
 	void approach_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Approach*>& bullets, int* death);
 	void meteor_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Meteor*>& bullets, int* death);
 
-	// ³¯¶ó´Ù´Ï´Â³ğ ¾êµµ Ãæµ¹Ã¼Å© ÇÊ¤·¤µ®À½?
+	// ë‚ ë¼ë‹¤ë‹ˆëŠ”ë†ˆ ì–˜ë„ ì¶©ëŒì²´í¬ í•„ã…‡ã……ì˜¶ìŒ?
 	void player_boss3_interaction(Stage3_boss* boss3, std::vector<Shooting*>& bullets);
 	void ice_boss3_interaction(Stage3_boss* boss3, std::vector<IceWeapon*>& bullets);
 	void storm_boss3_interaction(Stage3_boss* boss3, std::vector<Storm*>& bullets);
+	void approach_boss3_interaction(Stage3_boss* boss3, std::vector<Approach*>& bullets);
+	void bomb_boss3_interaction(Stage3_boss* boss3, std::vector<BombWeapon*>& bullets);
+	void back_boss3_interaction(Stage3_boss* boss3, std::vector<BackWeapon*>& bullets);
 
-	// ÁÂ¿ì ¿òÁ÷ÀÌ´Â³ğ 2 ¾êµµ Ãæµ¹Ã¼Å© ÇÊ¿ä¾øÀ½
+
+
+	// ì¢Œìš° ì›€ì§ì´ëŠ”ë†ˆ 2 ì–˜ë„ ì¶©ëŒì²´í¬ í•„ìš”ì—†ìŒ
 	void player_boss1_interaction(Stage1_boss* boss1, std::vector<Shooting*>& bullets);
 	void ice_boss1_interaction(Stage1_boss* boss1, std::vector<IceWeapon*>& bullets);
 	void storm_boss1_interaction(Stage1_boss* boss1, std::vector<Storm*>& bullets);
@@ -75,7 +85,7 @@ struct Interaction
 	void meteor_boss1_interaction(Stage1_boss* boss1, std::vector<Meteor*>& bullets);
 
 
-	// »¡°»ÀÌ 3
+	// ë¹¨ê°±ì´ 3
 	void player_boss2_interaction(Stage2_boss* boss2, std::vector<Shooting*>& bullets);
 	void ice_boss2_interaction(Stage2_boss* boss2, std::vector<IceWeapon*>& bullets);
 	void storm_boss2_interaction(Stage2_boss* boss2, std::vector<Storm*>& bullets);

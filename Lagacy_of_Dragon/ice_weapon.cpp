@@ -1,6 +1,21 @@
+﻿//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ﻿All content © 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------
 #include "ice_weapon.h"
+#include "soundeffect.h"
+#include <SFML/Audio.hpp>
 #include <doodle\doodle.hpp>
 using namespace doodle;
+using namespace sf;
+
+#define IceS 0
+
+SoundEffect sound_effects_ice[] = {
+	SoundEffect("assets/SFX/Fireball.wav"),
+};
 
 void IceWeapon::draw()
 {
@@ -31,6 +46,7 @@ void Ice_update::bullet_create(std::vector<IceWeapon*>& bullets, Player* player)
 	{
 		if (MouseIsPressed && not_clicked_ice == true)
 		{
+			sound_effects_ice[IceS].play();
 			bullets.push_back(new IceWeapon{ player->chara_pos_x, player->chara_pos_y, iceSize, icedamage });
 			not_clicked_ice = false;
 			ice_timer = 0;

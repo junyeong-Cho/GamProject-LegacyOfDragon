@@ -1,7 +1,23 @@
+﻿//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ﻿All content © 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------
 #include "Shooting.h"
 #include "UIsetting.h"
+#include "soundeffect.h"
 #include <doodle\doodle.hpp>
+#include <SFML/Audio.hpp>
 using namespace doodle;
+using namespace sf;
+
+
+#define Fireball 0
+
+SoundEffect sound_effects_shoot[] = {
+	SoundEffect("assets/SFX/Fireball.wav"),
+};
 
 double Shooting::radius() {
 	double radius = static_cast<int>(size / static_cast<double>(2));
@@ -39,6 +55,7 @@ void Shooting_update::bullet_create(std::vector<Shooting*> &bullets, Player* pla
 	{
 		if (MouseIsPressed && not_clicked == true)
 		{
+			sound_effects_shoot[Fireball].play();
 			bullets.push_back(new Shooting{ player->chara_pos_x, player->chara_pos_y, bulletSize });
 
 			not_clicked = false;

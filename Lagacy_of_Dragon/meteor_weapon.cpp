@@ -1,6 +1,22 @@
+﻿//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ﻿All content © 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------
 #include "meteor_weapon.h"
+#include "soundeffect.h"
 #include <doodle\doodle.hpp>
+#include <SFML/Audio.hpp>
+
 using namespace doodle;
+using namespace sf;
+
+#define MeteorS 0
+
+SoundEffect sound_effects_meteor[] = {
+	SoundEffect("assets/SFX/Bomb.wav"),
+};
 
 void Meteor::draw()
 {
@@ -9,7 +25,7 @@ void Meteor::draw()
 	meteor_timer += DeltaTime;
 	set_fill_color(HexColor{ 0xff002a55 });
 
-	if (meteor_timer < meteor1_check) // 0.5��
+	if (meteor_timer < meteor1_check) // 0.5초
 	{
 		draw_image(meteorImage1, bullet_pos_x, bullet_pos_y, size, size);
 	}
@@ -49,6 +65,7 @@ void Meteor_update::bullet_create(std::vector<Meteor*>& bullets, Player* player)
 	{
 		if (MouseIsPressed && not_clicked_me == true)
 		{
+			sound_effects_meteor[MeteorS].play();
 			bullets.push_back(new Meteor{ player->chara_pos_x, player->chara_pos_y, meteorSize, mevelocity });
 			not_clicked_me = false;
 			me_click_timer = 0;

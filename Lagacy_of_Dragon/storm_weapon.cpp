@@ -1,6 +1,23 @@
+﻿//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ﻿All content © 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------
 #include "storm_weapon.h"
+#include "soundeffect.h"
 #include <doodle\doodle.hpp>
+#include <SFML/Audio.hpp>
+
 using namespace doodle;
+using namespace sf;
+
+#define StormS 0
+
+SoundEffect sound_effects_storm[] = {
+	SoundEffect("assets/SFX/Wind.wav"),
+};
+
 
 void Storm::draw()
 {
@@ -9,7 +26,7 @@ void Storm::draw()
 	storm_timer += DeltaTime;
 	set_image_mode(RectMode::Center);
 
-	if (storm_timer < storm1_check) // 0.5��
+	if (storm_timer < storm1_check) // 0.5초
 	{
 		draw_image(stormImage1, bullet_pos_x, bullet_pos_y, size, size);
 	}
@@ -49,6 +66,7 @@ void Storm_update::bullet_create(std::vector<Storm*>& storms, Player* player)
 	{
 		if (MouseIsPressed && not_clicked_sto == true)
 		{
+			sound_effects_storm[StormS].play();
 			storms.push_back(new Storm{ player->chara_pos_x, player->chara_pos_y, stormSize, stvelocity });
 			not_clicked_sto = false;
 			st_click_timer = 0;

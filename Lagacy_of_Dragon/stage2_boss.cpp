@@ -1,3 +1,9 @@
+ï»¿//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ï»¿All content Â© 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------
 #include "stage2_boss.h"
 #include "Window_setting.h"
 #include "Map_setting.h"
@@ -53,7 +59,7 @@ void S2boss_update::s2_boss_attack(Stage2_boss* boss2, Player* player)
 	
 	b2_change_timer += DeltaTime;
 
-	if (b2_change_timer > b2_change_check) //3.5ÃÊ µÚ¿¡
+	if (b2_change_timer > b2_change_check) //3.5ì´ˆ ë’¤ì—
 	{
 		if (boss2->health < 200 && boss2->health > 100)
 
@@ -77,7 +83,7 @@ void S2boss_update::s2_boss_attack(Stage2_boss* boss2, Player* player)
 
 	if (r_attack == 0)
 	{
-		// °¡·Î
+		// ê°€ë¡œ
 		b2_blink_timer += DeltaTime;
 
 		if (b2_blink_timer > b2_blink_check)
@@ -114,7 +120,7 @@ void S2boss_update::s2_boss_attack(Stage2_boss* boss2, Player* player)
 
 	if (r_attack == 1)
 	{
-		// ¼¼·Î
+		// ì„¸ë¡œ
 		b2_blink_timer += DeltaTime;
 		if (b2_blink_timer > b2_blink_check)
 		{
@@ -151,7 +157,7 @@ void S2boss_update::s2_boss_attack(Stage2_boss* boss2, Player* player)
 
 	if (r_attack == 2)
 	{
-		// ¿ÞÂÊ ¹Ý
+		// ì™¼ìª½ ë°˜
 		b2_blink_timer += DeltaTime;
 		if (b2_blink_timer > b2_blink_check)
 		{
@@ -185,7 +191,7 @@ void S2boss_update::s2_boss_attack(Stage2_boss* boss2, Player* player)
 
 	if (r_attack == 3)
 	{
-		// ¿À¸¥ÂÊ ¹Ý
+		// ì˜¤ë¥¸ìª½ ë°˜
 		b2_blink_timer += DeltaTime;
 		if (b2_blink_timer > b2_blink_check)
 		{
@@ -219,7 +225,7 @@ void S2boss_update::s2_boss_attack(Stage2_boss* boss2, Player* player)
 
 	if (r_attack == 4)
 	{
-		// À§ÂÊ ¹Ý
+		// ìœ„ìª½ ë°˜
 		b2_blink_timer += DeltaTime;
 		if (b2_blink_timer > b2_blink_check)
 		{
@@ -253,7 +259,7 @@ void S2boss_update::s2_boss_attack(Stage2_boss* boss2, Player* player)
 
 	if (r_attack == 5)
 	{
-		// ¾Æ·¡ÂÊ ¹Ý
+		// ì•„ëž˜ìª½ ë°˜
 		b2_blink_timer += DeltaTime;
 		if (b2_blink_timer > b2_blink_check)
 		{
@@ -287,7 +293,7 @@ void S2boss_update::s2_boss_attack(Stage2_boss* boss2, Player* player)
 
 	if (r_attack == 6)
 	{
-		// Áß¾Ó
+		// ì¤‘ì•™
 		b2_blink_timer += DeltaTime;
 		if (b2_blink_timer > b2_blink_check)
 		{
@@ -321,7 +327,7 @@ void S2boss_update::s2_boss_attack(Stage2_boss* boss2, Player* player)
 	
 	if (r_attack == 7)
 	{
-		// ¼¼·Î 3ÁÙ
+		// ì„¸ë¡œ 3ì¤„
 		b2_blink_timer += DeltaTime;
 		if (b2_blink_timer > b2_blink_check)
 		{
@@ -363,7 +369,7 @@ void S2boss_update::s2_boss_attack(Stage2_boss* boss2, Player* player)
 
 	if (r_attack == 8)
 	{
-		// °¡·Î 3ÁÙ
+		// ê°€ë¡œ 3ì¤„
 		b2_blink_timer += DeltaTime;
 		if (b2_blink_timer > b2_blink_check)
 		{
@@ -406,7 +412,7 @@ void S2boss_update::s2_boss_attack(Stage2_boss* boss2, Player* player)
 
 	if (r_attack == 9)
 	{
-		// ±âº»
+		// ê¸°ë³¸
 		b2_blink_timer += DeltaTime;
 		if (b2_blink_timer > b2_blink_check)
 		{
@@ -434,10 +440,10 @@ void S2boss_update::s2_boss_attack(Stage2_boss* boss2, Player* player)
 		{
 			is_b2_draw = false;
 			push_settings();
-			draw_image(razer_ver, 200, 0, 200, Height);//¼¼·Î
+			draw_image(razer_ver, 200, 0, 200, Height);//ì„¸ë¡œ
 			draw_image(razer_ver1, 600, 0, 300, Height);
 			draw_image(razer_ver, 1100, 0, 200, Height);
-			draw_image(razer_hori, 0, 125, Width, 125);//°¡·Î
+			draw_image(razer_hori, 0, 125, Width, 125);//ê°€ë¡œ
 			draw_image(razer_hori, 0, 375, Width, 250);
 			draw_image(razer_hori, 0, 750, Width, 125);
 			pop_settings();

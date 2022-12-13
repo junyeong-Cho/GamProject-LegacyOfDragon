@@ -111,7 +111,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)external\doodle\bin\$(Configuration)\$(Platform);$(SolutionDir)external\SFML\$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>doodle.lib;Opengl32.lib;Gdi32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>doodle.lib;Opengl32.lib;Gdi32.lib;User32.lib;sfml-main-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -130,12 +130,11 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)external\doodle\bin\$(Configuration)\$(Platform);$(SolutionDir)external\SFML\$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>doodle.lib;Opengl32.lib;Gdi32.lib;User32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>doodle.lib;Opengl32.lib;Gdi32.lib;User32.lib;sfml-main.lib;sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-audio.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="approach_weapon.cpp" />
-    <ClCompile Include="auto_weapon.cpp" />
     <ClCompile Include="back_weapon.cpp" />
     <ClCompile Include="bomb_weapon.cpp" />
     <ClCompile Include="boss2.cpp" />
@@ -152,6 +151,7 @@
     <ClCompile Include="meteor_weapon.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Shooting.cpp" />
+    <ClCompile Include="soundeffect.cpp" />
     <ClCompile Include="stage1.cpp" />
     <ClCompile Include="stage1_boss.cpp" />
     <ClCompile Include="stage2.cpp" />
@@ -169,7 +169,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="approach_weapon.h" />
-    <ClInclude Include="auto_weapon.h" />
     <ClInclude Include="back_weapon.h" />
     <ClInclude Include="bomb_weapon.h" />
     <ClInclude Include="breath_weapon.h" />
@@ -183,6 +182,7 @@
     <ClInclude Include="meteor_weapon.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shooting.h" />
+    <ClInclude Include="soundeffect.h" />
     <ClInclude Include="stage1_boss.h" />
     <ClInclude Include="stage2_boss.h" />
     <ClInclude Include="storm_weapon.h" />

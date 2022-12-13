@@ -1,7 +1,21 @@
-
+﻿//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ﻿All content © 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------
+#include <SFML/Audio.hpp>
+#include "soundeffect.h"
 #include "breath_weapon.h"
 #include <doodle\doodle.hpp>
 using namespace doodle;
+using namespace sf;
+
+#define BreathS 0
+
+SoundEffect sound_effects_laser[] = {
+    SoundEffect("assets/SFX/Ultimate_laser.wav"),
+};
 
 void BreathWeapon::drawR()
 {
@@ -34,6 +48,7 @@ void Breath_update::bullet_create(std::vector<BreathWeapon*>& bullets, Player* p
     {
         if (MouseIsPressed && not_clicked_breath == true)
         {
+            sound_effects_laser[BreathS].play();
             bullets.push_back(new BreathWeapon{ player->chara_pos_x + breathSize / 2, player->chara_pos_y, breathSize, breathSize1, breathdamage });
             not_clicked_breath = false;
             br_click_timer = 0;

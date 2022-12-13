@@ -1,7 +1,21 @@
+﻿//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ﻿All content © 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------
 #include "back_weapon.h"
+#include "soundeffect.h"
 #include <doodle\doodle.hpp>
+#include <SFML/Audio.hpp>
+using namespace sf;
 using namespace doodle;
 
+#define BackS 0
+
+SoundEffect sound_effects_back[] = {
+    SoundEffect("assets/SFX/Wind.wav"),
+};
 
 //knockback
 void BackWeapon::draw()
@@ -10,7 +24,7 @@ void BackWeapon::draw()
 
     back1_timer += DeltaTime;
     set_image_mode(RectMode::Center);
-    if (back1_timer < back1_check) // 0.5��
+    if (back1_timer < back1_check) // 0.5초
     {
         draw_image(backImage, bullet_pos_x, bullet_pos_y, size, size);
     }
@@ -61,6 +75,7 @@ void Back_update::bullet_create(std::vector<BackWeapon*>& bullets, Player* playe
     {
         if (MouseIsPressed && not_clicked_back == true)
         {
+            sound_effects_back[BackS].play();
             bullets.push_back(new BackWeapon{ player->chara_pos_x, player->chara_pos_y, backSize, Ba1velocity });
             not_clicked_back = false;
             ba_click_timer = 0;

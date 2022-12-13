@@ -1,3 +1,9 @@
+ï»¿//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ï»¿All content Â© 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------
 #include "Tutorial.h"
 #include "Player.h"
 #include "UIsetting.h"
@@ -7,9 +13,9 @@
 void Tutorial::textbox1() 
 {
 	chicken_to_happy += DeltaTime;
-	draw_image(Nest, nest_loc, nest_loc, tuto_size, tuto_size);//µÕÁö
-	draw_image(green_dragon, dragon_x, dragon_y, tuto_size, tuto_size);//ÇÃ·¹ÀÌ¾î
-	draw_image(meat, meat_x, meat_y, tuto_size, tuto_size);//Ä¡Å²
+	draw_image(Nest, nest_loc, nest_loc, tuto_size, tuto_size);//ë‘¥ì§€
+	draw_image(green_dragon, dragon_x, dragon_y, tuto_size, tuto_size);//í”Œë ˆì´ì–´
+	draw_image(meat, meat_x, meat_y, tuto_size, tuto_size);//ì¹˜í‚¨
 
 	chicken_x = dragon_x + 50;
 	chicken_y = dragon_y - 50;
@@ -28,9 +34,9 @@ void Tutorial::textbox2()
 	happy_to_bad += DeltaTime;
 	happy_timer += DeltaTime;
 
-	draw_image(Nest, nest_loc, nest_loc, tuto_size, tuto_size);//µÕÁö
-	draw_image(green_dragon, dragon_x, dragon_y, tuto_size, tuto_size);//ÇÃ·¹ÀÌ¾î
-	draw_image(meat, meat_x, meat_y, tuto_size, tuto_size);//Ä¡Å²
+	draw_image(Nest, nest_loc, nest_loc, tuto_size, tuto_size);//ë‘¥ì§€
+	draw_image(green_dragon, dragon_x, dragon_y, tuto_size, tuto_size);//í”Œë ˆì´ì–´
+	draw_image(meat, meat_x, meat_y, tuto_size, tuto_size);//ì¹˜í‚¨
 
 	chicken_x = dragon_x + 30;
 	chicken_y = dragon_y - 50;
@@ -55,10 +61,10 @@ void Tutorial::textbox2()
 void Tutorial::textbox3()
 {
 	bad_to_angry += DeltaTime;
-	draw_image(Nest, nest_loc, nest_loc, tuto_size, tuto_size);//µÕÁö
-	draw_image(green_dragon, dragon_x, dragon_y, tuto_size, tuto_size);//ÇÃ·¹ÀÌ¾î
-	draw_image(red_dragon, rdragon_x, rdragon_y, tuto_size, tuto_size);//»¡°»ÀÌ
-	draw_image(meat, meat_x, meat_y, tuto_size, tuto_size);//Ä¡Å²
+	draw_image(Nest, nest_loc, nest_loc, tuto_size, tuto_size);//ë‘¥ì§€
+	draw_image(green_dragon, dragon_x, dragon_y, tuto_size, tuto_size);//í”Œë ˆì´ì–´
+	draw_image(red_dragon, rdragon_x, rdragon_y, tuto_size, tuto_size);//ë¹¨ê°±ì´
+	draw_image(meat, meat_x, meat_y, tuto_size, tuto_size);//ì¹˜í‚¨
 
 	chicken_x = dragon_x + 30;
 	chicken_y = dragon_y - 50;
@@ -74,10 +80,10 @@ void Tutorial::textbox3()
 //steel and smile
 void Tutorial::textbox4()
 {
-	draw_image(Nest, nest_loc, nest_loc, tuto_size, tuto_size);//µÕÁö
-	draw_image(green_dragon, dragon_x, dragon_y, tuto_size, tuto_size);//ÇÃ·¹ÀÌ¾î
-	draw_image(red_dragon, rdragon_x, rdragon_y, tuto_size, tuto_size);//»¡°»ÀÌ
-	draw_image(meat, meat_x, meat_y, tuto_size, tuto_size);//Ä¡Å²
+	draw_image(Nest, nest_loc, nest_loc, tuto_size, tuto_size);//ë‘¥ì§€
+	draw_image(green_dragon, dragon_x, dragon_y, tuto_size, tuto_size);//í”Œë ˆì´ì–´
+	draw_image(red_dragon, rdragon_x, rdragon_y, tuto_size, tuto_size);//ë¹¨ê°±ì´
+	draw_image(meat, meat_x, meat_y, tuto_size, tuto_size);//ì¹˜í‚¨
 	rdragon_y -= dragons_vel;
 	
 	if (rdragon_y <= 200)
@@ -114,10 +120,10 @@ void Tutorial::textbox4()
 //angry
 void Tutorial::textbox5()
 {
-	draw_image(Nest, nest_loc, nest_loc, tuto_size, tuto_size);//µÕÁö
-	draw_image(green_dragon, dragon_x, dragon_y, tuto_size, tuto_size);//ÇÃ·¹ÀÌ¾î
-	draw_image(red_dragon, rdragon_x, rdragon_y, tuto_size, tuto_size);//»¡°»ÀÌ
-	draw_image(meat, meat_x, meat_y, tuto_size, tuto_size);//Ä¡Å²
+	draw_image(Nest, nest_loc, nest_loc, tuto_size, tuto_size);//ë‘¥ì§€
+	draw_image(green_dragon, dragon_x, dragon_y, tuto_size, tuto_size);//í”Œë ˆì´ì–´
+	draw_image(red_dragon, rdragon_x, rdragon_y, tuto_size, tuto_size);//ë¹¨ê°±ì´
+	draw_image(meat, meat_x, meat_y, tuto_size, tuto_size);//ì¹˜í‚¨
 
 	angry_to_move += DeltaTime;
 	angry_timer += DeltaTime;
@@ -147,7 +153,7 @@ void Tutorial::textbox5()
 void Tutorial::textbox6()
 {
 	
-	draw_image(red_dragon, rdragon_x, rdragon_y, tuto_size, tuto_size);//»¡°»ÀÌ
+	draw_image(red_dragon, rdragon_x, rdragon_y, tuto_size, tuto_size);//ë¹¨ê°±ì´
 	
 	rdragon_x += dragons_vel;
 
@@ -183,7 +189,7 @@ void Tutorial::textbox7()
 	ddi_to_jewel += DeltaTime;
 	ddiyong_timer += DeltaTime;
 
-	draw_image(red_dragon, rdragon_x, rdragon_y, tuto_size, tuto_size);//»¡°»ÀÌ
+	draw_image(red_dragon, rdragon_x, rdragon_y, tuto_size, tuto_size);//ë¹¨ê°±ì´
 
 	chicken_x = rdragon_x + 30;
 	chicken_y = rdragon_y - 50;
@@ -210,7 +216,7 @@ void Tutorial::textbox8()
 {
 	jewel_to_ddi += DeltaTime;
 	jewel_timer += DeltaTime;
-	draw_image(red_dragon, rdragon_x, rdragon_y, tuto_size, tuto_size);//»¡°»ÀÌ
+	draw_image(red_dragon, rdragon_x, rdragon_y, tuto_size, tuto_size);//ë¹¨ê°±ì´
 
 	chicken_x = rdragon_x + 30;
 	chicken_y = rdragon_y - 50;
@@ -237,8 +243,8 @@ void Tutorial::textbox9()
 	ddi_to_shoot += DeltaTime;
 	ddiyong_timer += DeltaTime;
 
-	draw_image(green_dragon, dragon_x, dragon_y, tuto_size, tuto_size);//ÇÃ·¹ÀÌ¾î
-	draw_image(jewel1, jewel_x, jewel_y, tuto_size, tuto_size);//º¸¼®
+	draw_image(green_dragon, dragon_x, dragon_y, tuto_size, tuto_size);//í”Œë ˆì´ì–´
+	draw_image(jewel1, jewel_x, jewel_y, tuto_size, tuto_size);//ë³´ì„
 
 	chicken_x = dragon_x + 30;
 	chicken_y = dragon_y - 50;

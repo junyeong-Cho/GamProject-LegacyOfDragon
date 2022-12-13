@@ -1,7 +1,12 @@
+Ôªø//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ÔªøAll content ¬© 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------
 #include "Interaction.h"
 
 #include "ice_weapon.h"
-#include "auto_weapon.h"
 #include "back_weapon.h"
 #include "bomb_weapon.h"
 #include "breath_weapon.h"
@@ -13,6 +18,26 @@
 #include "stage2_boss.h"
 #include "stage3_boss.h"
 #include "UIsetting.h"
+#include "soundeffect.h"
+#include <SFML/Audio.hpp>
+
+#define Ga1 0
+#define Ga2 1
+#define Ga3 2
+#define Ha1 3
+#define Ha2 4
+#define Ha3 5
+
+using namespace sf;
+
+SoundEffect sound_effects_enemy[] = {
+	SoundEffect("assets/SFX/Gagoil_1_dying.wav"),
+	SoundEffect("assets/SFX/Gagoil_2_dying.wav"),
+	SoundEffect("assets/SFX/Gagoil_3_dying.wav"),
+	SoundEffect("assets/SFX/Hate_1_dying.wav"),
+	SoundEffect("assets/SFX/Hate_2_dying.wav"),
+	SoundEffect("assets/SFX/Hate_3_dying.wav"),
+};
 
 void Interaction::player_enemyat_interaction(std::vector<Enemy_attack*>& attack, Player* player)
 {
@@ -81,6 +106,7 @@ void Interaction::bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 					(* death)++;
 					delete bullets[i];
 					delete enemys[j];
+					sound_effects_enemy[Ha1].play();
 
 					bullets.erase(bullets.begin() + i);
 					enemys.erase(enemys.begin() + j);
@@ -113,6 +139,7 @@ void Interaction::ice_enemy_interaction(std::vector<Enemy*>& enemys, std::vector
 					(*death)++;
 					delete bullets[i];
 					delete enemys[j];
+					sound_effects_enemy[Ha1].play();
 
 					bullets.erase(bullets.begin() + i);
 					enemys.erase(enemys.begin() + j);
@@ -144,6 +171,8 @@ void Interaction::storm_enemy_interaction(std::vector<Enemy*>& enemys, std::vect
 				if (enemys[j]->health - 0.5 == 0)
 				{
 					(*death)++;
+					sound_effects_enemy[Ha1].play();
+
 					delete enemys[j];
 					enemys.erase(enemys.begin() + j);
 					break;
@@ -211,6 +240,7 @@ void Interaction::bomb_enemy_interaction(std::vector<Enemy*>& enemys, std::vecto
 					if (enemys[j]->health - 1 == 0)
 					{
 						(*death)++;
+						sound_effects_enemy[Ha1].play();
 						delete enemys[j];
 						enemys.erase(enemys.begin() + j);
 						break;
@@ -238,6 +268,7 @@ void Interaction::breath_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 					if (enemys[j]->health - 1 <= 0)
 					{
 						(*death)++;
+						sound_effects_enemy[Ha1].play();
 						delete enemys[j];
 						enemys.erase(enemys.begin() + j);
 						break;
@@ -283,6 +314,7 @@ void Interaction::approach_enemy_interaction(std::vector<Enemy*>& enemys, std::v
 				if (enemys[j]->health - 1 == 0)
 				{
 					(*death)++;
+					sound_effects_enemy[Ha1].play();
 					delete enemys[j];
 	                enemys.erase(enemys.begin() + j);
 					break;
@@ -309,6 +341,7 @@ void Interaction::meteor_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 				if (enemys[j]->health - 1 == 0)
 				{
 					(*death)++;
+					sound_effects_enemy[Ha1].play();
 					delete enemys[j];
 					enemys.erase(enemys.begin() + j);
 					break;
@@ -322,7 +355,7 @@ void Interaction::meteor_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 }
 
 
-//≥Ø∂Û¥Ÿ¥œ¥¬≥ 
+//ÎÇ†ÎùºÎã§ÎãàÎäîÎÜà 
 void Interaction::player_boss3_interaction(Stage3_boss* boss3, std::vector<Shooting*>& bullets)
 {
 	for (int i = 0; i < bullets.size(); i++)
@@ -335,6 +368,7 @@ void Interaction::player_boss3_interaction(Stage3_boss* boss3, std::vector<Shoot
 		{
 			if (boss3->health == 0)
 			{
+				sound_effects_enemy[Ga1].play();
 				delete bullets[i];
 				delete boss3;
 				bullets.erase(bullets.begin() + i);
@@ -361,6 +395,8 @@ void Interaction::ice_boss3_interaction(Stage3_boss* boss3, std::vector<IceWeapo
 		{
 			if (boss3->health == 0)
 			{
+				sound_effects_enemy[Ga1].play();
+
 				delete bullets[i];
 				delete boss3;
 				bullets.erase(bullets.begin() + i);
@@ -390,6 +426,7 @@ void Interaction::storm_boss3_interaction(Stage3_boss* boss3, std::vector<Storm*
 			{			
 				if (boss3->health - 0.3 == 0)
 				{
+					sound_effects_enemy[Ga1].play();
 					delete boss3;
 					hp_b3_timer = 0;
 					hp_b3_check = 0.7;
@@ -405,9 +442,85 @@ void Interaction::storm_boss3_interaction(Stage3_boss* boss3, std::vector<Storm*
 		}
 	}
 }
+void Interaction::back_boss3_interaction(Stage3_boss* boss3, std::vector<BackWeapon*>& bullets) {
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		double a = bullets[i]->bullet_pos_x - boss3->x;
+		double b = bullets[i]->bullet_pos_y - boss3->y;
+		double distance = sqrt(a * a + b * b);
+
+		if (distance < bullets[i]->size / 2 + boss3->size / 2)
+		{
+			if (boss3->health - 0.5 == 0)
+			{
+				delete boss3;
+				sound_effects_enemy[Ha1].play();
+				break;
+			}
+			else {
+				boss3->health -= 0.5;
+				break;
+			}
+		}
+	}
+}
+void Interaction::approach_boss3_interaction(Stage3_boss* boss3, std::vector<Approach*>& bullets)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		double a = bullets[i]->x - boss3->x;
+		double b = bullets[i]->y - boss3->y;
+		double distance = sqrt(a * a + b * b);
+
+		if (distance < bullets[i]->size / static_cast<double>(2) + boss3->size)
+		{
+			if (boss3->health - 1 == 0)
+			{
+				sound_effects_enemy[Ga2].play();
+				delete boss3;
+				break;
+			}
+			else
+			{
+				boss3->health--;
+				break;
+			}
+		}
+	}
+}
+void Interaction::bomb_boss3_interaction(Stage3_boss* boss3, std::vector<BombWeapon*>& bullets)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		double a = bullets[i]->bullet_pos_x - boss3->x;
+		double b = bullets[i]->bullet_pos_y - boss3->y;
+		double distance = sqrt(a * a + b * b);
+		if (distance < bullets[i]->size / 2 + boss3->size / 2)
+		{
+			is_bomb_hit = true;
+			double c = bullets[i]->bullet_pos_x - boss3->x;
+			double d = bullets[i]->bullet_pos_y - boss3->y;
+			double distance1 = sqrt(c * c + d * d);
+
+			if (distance1 < bullets[i]->range / 2 + boss3->size / 2)
+			{
+				if (boss3->health - 1 == 0)
+				{
+					sound_effects_enemy[Ga2].play();
+					delete boss3;
+					break;
+				}
+				else {
+					boss3->health--;
+				}
+			}
+		}
+	}
+}
 
 
-//¡¬øÏ øÚ¡˜¿Ã¥¬ ≥
+
+//Ï¢åÏö∞ ÏõÄÏßÅÏù¥Îäî ÎÜà
 
 void Interaction::player_boss1_interaction(Stage1_boss* boss1, std::vector<Shooting*>& bullets)
 {
@@ -421,6 +534,7 @@ void Interaction::player_boss1_interaction(Stage1_boss* boss1, std::vector<Shoot
 		{
 			if (boss1->health - 1 == 0)
 			{
+				sound_effects_enemy[Ga2].play();
 				delete bullets[i];
 				delete boss1;
 				bullets.erase(bullets.begin() + i);
@@ -448,6 +562,7 @@ void Interaction::ice_boss1_interaction(Stage1_boss* boss1, std::vector<IceWeapo
 		{
 			if (boss1->health - 1 == 0)
 			{
+				sound_effects_enemy[Ga2].play();
 				delete bullets[i];
 				delete boss1;
 				bullets.erase(bullets.begin() + i);
@@ -479,6 +594,7 @@ void Interaction::storm_boss1_interaction(Stage1_boss* boss1, std::vector<Storm*
 			{
 				if (boss1->health - 0.3 == 0)
 				{
+					sound_effects_enemy[Ga2].play();
 					delete boss1;
 					hp_b1_timer = 0;
 					hp_b1_check = 0.7;
@@ -493,7 +609,29 @@ void Interaction::storm_boss1_interaction(Stage1_boss* boss1, std::vector<Storm*
 		}
 	}
 }
-void Interaction::back_boss1_interaction(Stage1_boss* boss1, std::vector<BackWeapon*>& bullets) {}
+void Interaction::back_boss1_interaction(Stage1_boss* boss1, std::vector<BackWeapon*>& bullets) 
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		double a = bullets[i]->bullet_pos_x - boss1->x;
+		double b = bullets[i]->bullet_pos_y - boss1->y;
+		double distance = sqrt(a * a + b * b);
+
+		if (distance < bullets[i]->size / 2 + boss1->size / 2)
+		{
+			if (boss1->health - 0.5 == 0)
+			{
+				delete boss1;
+				sound_effects_enemy[Ha1].play();
+				break;
+			}
+			else {
+				boss1->health -= 0.5;
+				break;
+			}
+		}
+	}
+}
 void Interaction::approach_boss1_interaction(Stage1_boss* boss1, std::vector<Approach*>& bullets)
 {
 	for (int i = 0; i < bullets.size(); i++)
@@ -506,6 +644,7 @@ void Interaction::approach_boss1_interaction(Stage1_boss* boss1, std::vector<App
 		{
 			if (boss1->health - 1 == 0)
 			{
+				sound_effects_enemy[Ga2].play();
 				delete boss1;
 				break;
 			}
@@ -535,6 +674,7 @@ void Interaction::bomb_boss1_interaction(Stage1_boss* boss1, std::vector<BombWea
 			{
 				if (boss1->health - 1 == 0)
 				{
+					sound_effects_enemy[Ga2].play();
 					delete boss1;
 					break;
 				}
@@ -561,6 +701,7 @@ void Interaction::breath_boss1_interaction(Stage1_boss* boss1, std::vector<Breat
 			{
 				if (boss1->health - 2 == 0)
 				{
+					sound_effects_enemy[Ga2].play();
 					delete boss1;
 					hp_b1_timer = 0;
 					hp_b1_check = 0.7;
@@ -591,6 +732,7 @@ void Interaction::meteor_boss1_interaction(Stage1_boss* boss1, std::vector<Meteo
 			{
 				if (boss1->health - 2 == 0)
 				{
+					sound_effects_enemy[Ga2].play();
 					delete boss1;
 					hp_b1_timer = 0;
 					hp_b1_check = 0.7;
@@ -609,7 +751,7 @@ void Interaction::meteor_boss1_interaction(Stage1_boss* boss1, std::vector<Meteo
 
 
 
-//ª°∞ª¿Ã
+//Îπ®Í∞±Ïù¥
 void Interaction::boss2_player_interaction(Player* player)
 {
 	if (is_b2_hit == true)
@@ -639,6 +781,7 @@ void Interaction::player_boss2_interaction(Stage2_boss* boss2, std::vector<Shoot
 		{
 			if (boss2->health - 1 <= 0)
 			{
+				sound_effects_enemy[Ga3].play();
 				delete bullets[i];
 				delete boss2;
 				bullets.erase(bullets.begin() + i);
@@ -666,6 +809,8 @@ void Interaction::ice_boss2_interaction(Stage2_boss* boss2, std::vector<IceWeapo
 		{
 			if (boss2->health - 1 <= 0)
 			{
+				sound_effects_enemy[Ga3].play();
+
 				delete bullets[i];
 				delete boss2;
 				bullets.erase(bullets.begin() + i);
@@ -698,6 +843,7 @@ void Interaction::storm_boss2_interaction(Stage2_boss* boss2, std::vector<Storm*
 			{
 				if (boss2->health - 0.5 <= 0)
 				{
+					sound_effects_enemy[Ga3].play();
 					delete boss2;
 					hp_b2_timer = 0;
 					hp_b2_check = 0.7;
@@ -712,7 +858,30 @@ void Interaction::storm_boss2_interaction(Stage2_boss* boss2, std::vector<Storm*
 		}
 	}
 }
-void Interaction::back_boss2_interaction(Stage2_boss* boss2, std::vector<BackWeapon*>& bullets){}
+void Interaction::back_boss2_interaction(Stage2_boss* boss2, std::vector<BackWeapon*>& bullets)
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		double a = bullets[i]->bullet_pos_x - boss2->x;
+		double b = bullets[i]->bullet_pos_y - boss2->y;
+		double distance = sqrt(a * a + b * b);
+
+		if (distance < bullets[i]->size / 2 + boss2->size / 2)
+		{
+			if (boss2->health - 0.5 == 0)
+			{
+				delete boss2;
+				sound_effects_enemy[Ha1].play();
+				break;
+			}
+			else {
+				boss2->health -= 0.5;
+				break;
+			}
+		}
+	}
+	
+}
 void Interaction::approach_boss2_interaction(Stage2_boss* boss2, std::vector<Approach*>& bullets)
 {
 	for (int i = 0; i < bullets.size(); i++)
@@ -725,6 +894,7 @@ void Interaction::approach_boss2_interaction(Stage2_boss* boss2, std::vector<App
 		{
 			if (boss2->health - 1 <= 0)
 			{
+				sound_effects_enemy[Ga3].play();
 				delete boss2;
 				break;
 			}
@@ -754,6 +924,7 @@ void Interaction::bomb_boss2_interaction(Stage2_boss* boss2, std::vector<BombWea
 			{
 				if (boss2->health - 1 <= 0)
 				{
+					sound_effects_enemy[Ga3].play();
 					delete boss2;
 					break;
 				}
@@ -780,6 +951,7 @@ void Interaction::breath_boss2_interaction(Stage2_boss* boss2, std::vector<Breat
 				{
 					if (boss2->health - 2 <= 0)
 					{
+						sound_effects_enemy[Ga3].play();
 						delete boss2;
 						hp_b2_timer = 0;
 						hp_b2_check = 0.7;
@@ -810,6 +982,7 @@ void Interaction::meteor_boss2_interaction(Stage2_boss* boss2, std::vector<Meteo
 			{
 				if (boss2->health - 2 <= 0)
 				{
+					sound_effects_enemy[Ga3].play();
 					delete boss2;
 					hp_b2_timer = 0;
 					hp_b2_check = 0.7;

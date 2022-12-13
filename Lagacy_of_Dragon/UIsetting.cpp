@@ -1,14 +1,29 @@
+ï»¿//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ï»¿All content Â© 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------
 #include "UIsetting.h"
 #include "Player.h"
-
+#include "soundeffect.h"
+#include <SFML/Audio.hpp>
 #include <doodle\doodle.hpp>
 #include <iostream>
 
 bool something = false;
 bool not_click = false;
 
+using namespace sf;
 using namespace std;
 using namespace doodle;
+
+#define UiClick 0
+
+
+SoundEffect sound_effects_ui[] = {
+	SoundEffect("assets/SFX/Clicking.wav"),
+};
 
 void UIsetting::ui_point() {
 	{
@@ -94,7 +109,7 @@ void UIsetting::roulette(vector<int> randomboxloc)
 			if (readyRoulette2 > 2 && rouletteflag)
 			{
 				skillTimer += DeltaTime;
-				//Speed is on proportion with Time (ÇöÀç ¼Óµµ´Â 30ÀÌ¶ó skillTimer = 5, ¼Óµµ 6°öÇØÁÜ
+				//Speed is on proportion with Time (í˜„ì¬ ì†ë„ëŠ” 30ì´ë¼ skillTimer = 5, ì†ë„ 6ê³±í•´ì¤Œ
 				if (skillTimer < SkillTimeCheck)
 				{
 					box_x -= skillTimer * 5.7; // Same as acc_x
@@ -233,7 +248,7 @@ void UIsetting::roulette_ult(vector<int> ultraboxloc) {
 			{
 
 				skillTimer_ul += DeltaTime;
-				//Speed is on proportion with Time (ÇöÀç ¼Óµµ´Â 15ÀÌ¶ó skillTimer = 5, ¼Óµµ 5°öÇØÁÜ
+				//Speed is on proportion with Time (í˜„ì¬ ì†ë„ëŠ” 15ì´ë¼ skillTimer = 5, ì†ë„ 5ê³±í•´ì¤Œ
 				if (skillTimer_ul < SkillTimeCheck_ul)
 				{
 					ultra_box_x -= skillTimer_ul * 4.7; // Same as acc_x
@@ -358,7 +373,7 @@ void UIsetting::roulette_six(vector<int> sixboxloc) {
 			{
 
 				skillTimer_six += DeltaTime;
-				//Speed is on proportion with Time (ÇöÀç ¼Óµµ´Â 30ÀÌ¶ó skillTimer = 5, ¼Óµµ 5°öÇØÁÜ
+				//Speed is on proportion with Time (í˜„ì¬ ì†ë„ëŠ” 30ì´ë¼ skillTimer = 5, ì†ë„ 5ê³±í•´ì¤Œ
 				if (skillTimer_six < SkillTimeCheck_six)
 				{
 					six_box_x -= skillTimer_six * 5.9; // Same as acc_x
@@ -610,6 +625,7 @@ void UIsetting::howtoplay(int* scene) {
 
 		if ((get_mouse_x() > 990 && get_mouse_x() < 1420 && get_mouse_y() > 720 && get_mouse_y() < 810) && (MouseIsPressed && not_click))
 		{
+			sound_effects_ui[UiClick].play();
 			howtoplay_scene++;
 			not_click = false;
 		}
@@ -619,6 +635,7 @@ void UIsetting::howtoplay(int* scene) {
 		draw_image(howtoplay2_1, Width / 2, Height / 2, Width, Height);
 		if ((get_mouse_x() > 990 && get_mouse_x() < 1420 && get_mouse_y() > 720 && get_mouse_y() < 810) && (MouseIsPressed && not_click))
 		{
+			sound_effects_ui[UiClick].play();
 			howtoplay_scene++;
 			not_click = false;
 		}
@@ -628,6 +645,7 @@ void UIsetting::howtoplay(int* scene) {
 		draw_image(howtoplay3, Width / 2, Height / 2, Width, Height);
 		if ((get_mouse_x() > 990 && get_mouse_x() < 1420 && get_mouse_y() > 720 && get_mouse_y() < 810) && (MouseIsPressed && not_click))
 		{
+			sound_effects_ui[UiClick].play();
 			howtoplay_scene++;
 			not_click = false;
 		}
@@ -637,6 +655,7 @@ void UIsetting::howtoplay(int* scene) {
 		draw_image(howtoplay4, Width / 2, Height / 2, Width, Height);
 		if ((get_mouse_x() > 990 && get_mouse_x() < 1420 && get_mouse_y() > 720 && get_mouse_y() < 810) && (MouseIsPressed && not_click))
 		{
+			sound_effects_ui[UiClick].play();
 			howtoplay_scene++;
 			not_click = false;
 		}
@@ -647,12 +666,14 @@ void UIsetting::howtoplay(int* scene) {
 		if ((get_mouse_x() > 990 && get_mouse_x() < 1420 && get_mouse_y() > 720 && get_mouse_y() < 810) && (MouseIsPressed && not_click))
 		{
 			*scene = 2;
+			sound_effects_ui[UiClick].play();
 			howtoplay_scene = 0;
 			not_click = false;
 		}
 		if ((get_mouse_x() > 990 && get_mouse_x() < 1420 && get_mouse_y() > 620 && get_mouse_y() < 710) && (MouseIsPressed && not_click))
 		{
 			*scene = 6;
+			sound_effects_ui[UiClick].play();
 			howtoplay_scene = 0;
 			not_click = false;
 		}
@@ -683,9 +704,11 @@ void UIsetting::gameover(int* scene)
 	}
 
 	if ((get_mouse_x() > 600 && get_mouse_x() < 900 && get_mouse_y() > 540 && get_mouse_y() < 610) && (MouseIsPressed && not_click)) {
+		sound_effects_ui[UiClick].play();
 		*scene = 2;
 	}
 	else if ((get_mouse_x() > 600 && get_mouse_x() < 900 && get_mouse_y() > 640 && get_mouse_y() < 710) && (MouseIsPressed && not_click)) {
+		sound_effects_ui[UiClick].play();
 		*scene = 6;
 	}
 
@@ -701,9 +724,11 @@ void UIsetting::gameover(int* scene)
 	}
 
 	if ((get_mouse_x() > 600 && get_mouse_x() < 900 && get_mouse_y() > 540 && get_mouse_y() < 610) && (MouseIsPressed && not_click)) {
+		sound_effects_ui[UiClick].play();
 		*scene = 2;
 	}
 	else if ((get_mouse_x() > 600 && get_mouse_x() < 900 && get_mouse_y() > 640 && get_mouse_y() < 710) && (MouseIsPressed && not_click)) {
+		sound_effects_ui[UiClick].play();
 		*scene = 6;
 	}
 }

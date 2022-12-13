@@ -1,3 +1,10 @@
+﻿//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ﻿All content © 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------
+
 #ifndef WINS_H
 #define WINS_H
 
@@ -8,7 +15,7 @@ using namespace doodle;
 // 1-2 11
 // 1-3 12
 //
-inline int scene = 1;
+inline int scene = 0;
 inline int jewel_count = 0;
 
 

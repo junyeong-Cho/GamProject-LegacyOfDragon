@@ -1,3 +1,10 @@
+ï»¿
+//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ï»¿All content Â© 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------
 #include "Map_setting.h"
 #include "Window_setting.h"
 #include "UIsetting.h"
@@ -92,7 +99,7 @@ void Player::MOVE() {
 	if (moveD == true) {
 		chara_pos_x += DeltaTime * 150 * 2;
 	}
-	//¸¶¿ì½º ¹æÇâº¸°í Ä³¸¯ÅÍ ÁÂ¿ì¹İÀü
+	//ë§ˆìš°ìŠ¤ ë°©í–¥ë³´ê³  ìºë¦­í„° ì¢Œìš°ë°˜ì „
 }
 
 void Player_setting::move_limit(Player* player)

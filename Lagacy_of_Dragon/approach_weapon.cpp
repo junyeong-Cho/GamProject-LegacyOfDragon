@@ -1,7 +1,22 @@
+﻿//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ﻿All content © 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------
 #include "approach_weapon.h"
+#include <SFML/Audio.hpp>
 #include <doodle\doodle.hpp>
+#include "soundeffect.h"
 
 using namespace doodle;
+using namespace sf;
+
+#define App 0
+
+SoundEffect sound_effects_app[] = {
+	SoundEffect("assets/SFX/Wind.wav"),
+};
 
 void Approach::draw()
 {
@@ -28,6 +43,7 @@ void Approach_update::bullet_create(std::vector<Approach*>& bullets, Player* pla
 	{
 		if (MouseIsPressed && not_clicked_app == true)
 		{
+			sound_effects_app[App].play();
 			bullets.push_back(new Approach{ player->chara_pos_x, player->chara_pos_y, approachSize });
 			not_clicked_app = false;
 			ap_click_timer = 0;

@@ -28,32 +28,20 @@
     <Filter Include="헤더 파일\Enemy">
       <UniqueIdentifier>{b776ea9e-7ac1-40aa-ade1-9fd8b254a4f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Settings">
+      <UniqueIdentifier>{58cf6c3b-e354-4faf-bf03-23210a7f8457}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Map\Boss stages">
+      <UniqueIdentifier>{8edb0e53-256d-410d-9b89-389fe8088019}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Map\Normal stages">
+      <UniqueIdentifier>{d0d315dd-7347-4f83-b5c4-65a9cdb4de3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\main">
+      <UniqueIdentifier>{d3433b8e-3c1e-4cd9-854f-3c722048e731}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Window_setting.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Logos.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Main_menu.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Tutorial.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Interaction.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="UIsetting.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="back_weapon.cpp">
       <Filter>소스 파일\Weapon</Filter>
     </ClCompile>
@@ -66,18 +54,6 @@
     <ClCompile Include="Shooting.cpp">
       <Filter>소스 파일\Weapon</Filter>
     </ClCompile>
-    <ClCompile Include="stage1.cpp">
-      <Filter>소스 파일\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="stage2.cpp">
-      <Filter>소스 파일\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="stage3.cpp">
-      <Filter>소스 파일\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="stage4.cpp">
-      <Filter>소스 파일\Map</Filter>
-    </ClCompile>
     <ClCompile Include="ice_weapon.cpp">
       <Filter>소스 파일\Weapon</Filter>
     </ClCompile>
@@ -87,23 +63,8 @@
     <ClCompile Include="storm_weapon.cpp">
       <Filter>소스 파일\Weapon</Filter>
     </ClCompile>
-    <ClCompile Include="auto_weapon.cpp">
-      <Filter>소스 파일\Weapon</Filter>
-    </ClCompile>
     <ClCompile Include="meteor_weapon.cpp">
       <Filter>소스 파일\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="stage5.cpp">
-      <Filter>소스 파일\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="stage6.cpp">
-      <Filter>소스 파일\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="stage7.cpp">
-      <Filter>소스 파일\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="stage1_boss.cpp">
       <Filter>소스 파일\Enemy</Filter>
@@ -114,17 +75,68 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>소스 파일\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Map_setting.cpp">
-      <Filter>소스 파일\Map</Filter>
-    </ClCompile>
     <ClCompile Include="stage3_boss.cpp">
       <Filter>소스 파일\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="boss2.cpp">
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일\main</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>소스 파일\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Interaction.cpp">
+      <Filter>소스 파일\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Logos.cpp">
+      <Filter>소스 파일\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Main_menu.cpp">
+      <Filter>소스 파일\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Tutorial.cpp">
       <Filter>소스 파일\Map</Filter>
     </ClCompile>
+    <ClCompile Include="boss2.cpp">
+      <Filter>소스 파일\Map\Boss stages</Filter>
+    </ClCompile>
     <ClCompile Include="boss3.cpp">
-      <Filter>소스 파일\Map</Filter>
+      <Filter>소스 파일\Map\Boss stages</Filter>
+    </ClCompile>
+    <ClCompile Include="stage1.cpp">
+      <Filter>소스 파일\Map\Normal stages</Filter>
+    </ClCompile>
+    <ClCompile Include="stage2.cpp">
+      <Filter>소스 파일\Map\Normal stages</Filter>
+    </ClCompile>
+    <ClCompile Include="stage3.cpp">
+      <Filter>소스 파일\Map\Normal stages</Filter>
+    </ClCompile>
+    <ClCompile Include="stage4.cpp">
+      <Filter>소스 파일\Map\Normal stages</Filter>
+    </ClCompile>
+    <ClCompile Include="stage5.cpp">
+      <Filter>소스 파일\Map\Normal stages</Filter>
+    </ClCompile>
+    <ClCompile Include="stage6.cpp">
+      <Filter>소스 파일\Map\Normal stages</Filter>
+    </ClCompile>
+    <ClCompile Include="stage7.cpp">
+      <Filter>소스 파일\Map\Normal stages</Filter>
+    </ClCompile>
+    <ClCompile Include="Map_setting.cpp">
+      <Filter>소스 파일\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="UIsetting.cpp">
+      <Filter>소스 파일\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Window_setting.cpp">
+      <Filter>소스 파일\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="soundeffect.cpp">
+      <Filter>소스 파일\Settings</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -173,9 +185,6 @@
     <ClInclude Include="storm_weapon.h">
       <Filter>헤더 파일\Weapon</Filter>
     </ClInclude>
-    <ClInclude Include="auto_weapon.h">
-      <Filter>헤더 파일\Weapon</Filter>
-    </ClInclude>
     <ClInclude Include="meteor_weapon.h">
       <Filter>헤더 파일\Weapon</Filter>
     </ClInclude>
@@ -193,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="stage3_boss.h">
       <Filter>헤더 파일\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="soundeffect.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

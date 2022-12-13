@@ -1,3 +1,10 @@
+﻿
+//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ﻿All content © 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------
 #include "stage1_boss.h"
 #include <doodle\doodle.hpp>
 #include "Window_setting.h"

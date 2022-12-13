@@ -1,7 +1,22 @@
+﻿//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ﻿All content © 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------
 #include "bomb_weapon.h"
+#include "soundeffect.h"
+#include <SFML/Audio.hpp>
 #include <doodle\doodle.hpp>
-using namespace doodle;
 
+using namespace doodle;
+using namespace sf;
+
+#define BombS 0
+
+SoundEffect sound_effects_bomb[] = {
+    SoundEffect("assets/SFX/Bomb.wav"),
+};
 
 void BombWeapon::draw()
 {
@@ -47,6 +62,7 @@ void Bomb_update::bullet_remove(std::vector<BombWeapon*>& bullets)
     {
         if (is_bomb_hit == true)
         {
+            sound_effects_bomb[BombS].play();
             bo_remove_timer += DeltaTime;
             draw_image(bombImage2, bullets[i]->bullet_pos_x, bullets[i]->bullet_pos_y, bullets[i]->size, bullets[i]->size);
 

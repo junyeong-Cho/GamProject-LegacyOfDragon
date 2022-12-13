@@ -1,7 +1,13 @@
+ï»¿//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ï»¿All content Â© 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------
 #include <Windows.h>
 
 #include <doodle/doodle.hpp>
-//#include <SFML/Audio.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -18,6 +24,9 @@
 #include "Interaction.h"
 #include "UIsetting.h"
 #include "Camera.h"
+#include "soundeffect.h"
+
+
 
 #include "bomb_weapon.h"
 #include "back_weapon.h"
@@ -32,9 +41,11 @@
 #include "stage1_boss.h"
 
 
+#define Click 0
 
 using namespace std;
 using namespace doodle;
+using namespace sf;
 
 //--------------------------------// Timer for scene
 double scene_timer = 0;
@@ -74,7 +85,7 @@ Enemy_update enemy_update;
 Interaction interaction;
 UIsetting uisetting;
 
-//¹Ì¿Ï¼º
+//ë¯¸ì™„ì„±
 Breath_update breath_update; 
 
 Storm_update storm_update;
@@ -95,22 +106,6 @@ Enemy_update_2_3 enemy_update_2_3;
 
 S2boss_update s2boss_update;
 S3boss_update s3boss_update;
-
-//sf::Music background_music;
-//
-//enum Weapons
-//{
-//	Shootings = 0,
-//	Storms = 1,
-//	Ices = 2,
-//	Knockbacks = 3,
-//	Bombs = 4,
-//	Approachs = 5,
-//	Autos = 6,
-//	Breaths = 7,
-//};
-//
-//Weapons state = Weapons::Breaths;
 
 //Diagonal move
 void on_key_pressed(KeyboardButtons button);
@@ -139,8 +134,13 @@ void cmd_debug_mod(Camera* camera, Player* player) {
 //	scene = scene_controll;
 }
 
+SoundEffect sound_effects_main[] = {
+	SoundEffect("assets/SFX/Clicking.wav"),
+};
+
 int main()
 {
+	try{
 	window_setting.setting();
 
 	vector<Shooting*> bullets;
@@ -221,6 +221,7 @@ int main()
 			{
 				draw_image(Gameplay_button_on, mainmenu_x, gameplay_y);
 				if (MouseIsPressed) {
+					sound_effects_main[Click].play();
 					tutorial_scene = 1;
 					scene = 7;
 					player->chara_pos_x = 300;
@@ -232,6 +233,7 @@ int main()
 			{
 				draw_image(Howtoplay_button_on, mainmenu_x, setting_y);
 				if (MouseIsPressed)
+				sound_effects_main[Click].play();
 				scene = 3;
 			}
 			//Credits
@@ -239,6 +241,7 @@ int main()
 			{
 				draw_image(Credit_button_on, mainmenu_x, credit_y);
 				if (MouseIsPressed)
+				sound_effects_main[Click].play();
 				scene = 4;
 			}
 			//Exit
@@ -246,6 +249,7 @@ int main()
 			{
 				draw_image(Exit_button_on, mainmenu_x, exit_y);
 				if (MouseIsPressed)
+				sound_effects_main[Click].play();
 				scene = 5;
 			}
 		}
@@ -1344,6 +1348,9 @@ int main()
 			interaction.player_boss3_interaction(stage_boss3, bullets);
 			interaction.ice_boss3_interaction(stage_boss3, ice);
 			interaction.storm_boss3_interaction(stage_boss3, storm);
+			interaction.approach_boss3_interaction(stage_boss3, approach);
+			interaction.bomb_boss3_interaction(stage_boss3, bombs);
+			interaction.back_boss3_interaction(stage_boss3, knockback);
 				
 
 			player->MOVE();
@@ -1400,9 +1407,14 @@ int main()
 		}
 
 	}
-	return 0;
+	}
+	catch (std::exception& e) {
+		std::cerr << e.what() << "\n";
+		return -1;
+	}
+	
 }
 
-//ºê·¹½º ±×¸®±â
-//ÇÃ·¹ÀÌ¾î ¸®¹ÌÆ®
-//¹«±â ÁÝ±â
+//ë¸Œë ˆìŠ¤ ê·¸ë¦¬ê¸°
+//í”Œë ˆì´ì–´ ë¦¬ë¯¸íŠ¸
+//ë¬´ê¸° ì¤ê¸°

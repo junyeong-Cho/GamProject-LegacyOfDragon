@@ -1,3 +1,9 @@
+﻿//---------------------------------------------------------
+// GAM100
+// Author:	Junyeong Cho, Hyunwoo Yang, Chunho Park, Jaeyong Lee
+//
+// ﻿All content © 2022 DigiPen (USA) Corporation, all rights reserved.
+//---------------------------------------------------------
 #ifndef UI_H
 #define UI_H
 
@@ -6,7 +12,6 @@
 
 #include "Shooting.h"
 #include "ice_weapon.h"
-#include "auto_weapon.h"
 #include "back_weapon.h"
 #include "approach_weapon.h"
 #include "bomb_weapon.h"
