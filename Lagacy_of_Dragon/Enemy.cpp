@@ -74,14 +74,21 @@ void Enemy_attack::fire_attack()
 	attack_pos_y += static_cast<int>(velocityY);
 }
 
-void Enemy_update::enemy_remove(std::vector<Enemy*>& enemys){
-if (go_next_stage == true) {
-	for (int i = 0; i < enemys.size(); i++)
+void Enemy_update::enemy_remove(std::vector<Enemy*>& enemys, std::vector<BombWeapon*>& bullets)
+{
+	if (go_next_stage == true)
 	{
-		delete enemys[i];
-		enemys.erase(enemys.begin() + i);
+		for (int i = 0; i < enemys.size(); i++)
+		{
+			for (int j = 0; j < bullets.size(); i++)
+			{
+				delete bullets[j];
+				delete enemys[i];
+				enemys.erase(enemys.begin() + i);
+				bullets.erase(bullets.begin() + j);
+			}
+		}
 	}
-}
 }
 
 void Enemy_update::enemy_create(std::vector<Enemy*>& enemys, int regen)

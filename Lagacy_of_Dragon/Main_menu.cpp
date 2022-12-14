@@ -9,6 +9,8 @@
 #include "Window_setting.h"
 
 void Main_menu::main_UI() {
+	push_settings();
+	set_image_mode(RectMode::Corner);
 	clear_background(HexColor{0xffcf69ff});
 	draw_image(Title, title_x, title_y);
 
@@ -17,10 +19,11 @@ void Main_menu::main_UI() {
 	draw_image(Howtoplay_button, mainmenu_x, setting_y);
 	draw_image(Credit_button, mainmenu_x, credit_y);
 	draw_image(Exit_button, mainmenu_x, exit_y);
+	pop_settings();
 }
 
 bool Main_menu::is_gameplay() {
-	return (get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_gameplay_y && get_mouse_y() < click_gameplay_y + click_gap_y && MouseIsPressed);
+	return (get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_gameplay_y && get_mouse_y() < click_gameplay_y + click_gap_y);
 }
 bool Main_menu::is_setting() {
 	return (get_mouse_x() > click_mainmenu_x && get_mouse_x() < click_mainmenu_x + click_gap_x && get_mouse_y() > click_setting_y && get_mouse_y() < click_setting_y + click_gap_y && MouseIsPressed);

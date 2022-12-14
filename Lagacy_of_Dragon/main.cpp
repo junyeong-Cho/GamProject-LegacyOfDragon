@@ -143,6 +143,7 @@ void cmd_debug_mod(Camera* camera, Player* player) {
 	cout << "tile[y]: " << static_cast<int>((camera->y - camera->offsetY)/tile_size) << endl;
 	cout << "timer" <<timer << endl;
 	cout << "scene :" << scene << endl;
+	cout << "not_clicked_bomb :" << not_clicked_bomb << endl;
 //	cin >> scene_controll;
 //	scene = scene_controll;
 }
@@ -250,12 +251,6 @@ int main()
 		//DIGIEPN LOGO
 		if (scene == 0)
 		{
-			soundChecker_credit++;
-			if (soundChecker_credit == 11)
-			{
-				background_music_credit.play();
-			}
-
 			logos.digipen_logo();
 			if (scene_timer > digipenlogo_check)
 			{
@@ -504,7 +499,7 @@ int main()
 			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
 
 			//remove enemy
-			enemy_update.enemy_remove(enemys_1_1);
+			enemy_update.enemy_remove(enemys_1_1,bombs);
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
 
@@ -574,8 +569,8 @@ int main()
 			enemy_update_1_2.enemy_fix_move(enemys_1_2, player);
 
 			//remove enemy
-			enemy_update.enemy_remove(enemys_1_1);
-			enemy_update.enemy_remove(enemys_1_2);
+			enemy_update.enemy_remove(enemys_1_1,bombs);
+			enemy_update.enemy_remove(enemys_1_2,bombs);
 
 			//Me Enemy check
 			interaction.player_enemy_interaction(enemys_1_1, player);
@@ -631,9 +626,9 @@ int main()
 			enemy_update_1_3.enemy_create(enemys_1_3, 1);
 
 			//remove enemy
-			enemy_update.enemy_remove(enemys_1_1);
-			enemy_update.enemy_remove(enemys_1_2);
-			enemy_update.enemy_remove(enemys_1_3);
+			enemy_update.enemy_remove(enemys_1_1,bombs);
+			enemy_update.enemy_remove(enemys_1_2,bombs);
+			enemy_update.enemy_remove(enemys_1_3,bombs);
 
 			//Enemy move
 			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
@@ -701,9 +696,6 @@ int main()
 			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
 			uisetting.ScoolTime(player);
 
-			weapon_choice = 2;
-
-
 			//Random enemy
 			enemy_update_1_1.enemy_create(enemys_1_1, 2);
 			enemy_update_1_2.enemy_create(enemys_1_2, 2);
@@ -711,10 +703,10 @@ int main()
 			enemy_update_2_1.enemy_create(enemys_2_1, 1);
 
 			//remove enemy
-			enemy_update.enemy_remove(enemys_1_1);
-			enemy_update.enemy_remove(enemys_1_2);
-			enemy_update.enemy_remove(enemys_1_3);
-			enemy_update.enemy_remove(enemys_2_1);
+			enemy_update.enemy_remove(enemys_1_1,bombs);
+			enemy_update.enemy_remove(enemys_1_2,bombs);
+			enemy_update.enemy_remove(enemys_1_3,bombs);
+			enemy_update.enemy_remove(enemys_2_1,bombs);
 
 			//Enemy move
 			enemy_update_1_1.enemy_fix_move(enemys_1_1, player);
@@ -808,11 +800,11 @@ int main()
 			enemy_update_2_2.enemy_create(enemys_2_2, 1);
 
 			//remove enemy
-			enemy_update.enemy_remove(enemys_1_1);
-			enemy_update.enemy_remove(enemys_1_2);
-			enemy_update.enemy_remove(enemys_1_3);
-			enemy_update.enemy_remove(enemys_2_1);
-			enemy_update.enemy_remove(enemys_2_2);
+			enemy_update.enemy_remove(enemys_1_1,bombs);
+			enemy_update.enemy_remove(enemys_1_2,bombs);
+			enemy_update.enemy_remove(enemys_1_3,bombs);
+			enemy_update.enemy_remove(enemys_2_1,bombs);
+			enemy_update.enemy_remove(enemys_2_2,bombs);
 
 
 			//Enemy move
@@ -922,12 +914,12 @@ int main()
 			enemy_update_2_3.enemy_create(enemys_2_3, 1);
 			
 			//remove enemy
-			enemy_update.enemy_remove(enemys_1_1);
-			enemy_update.enemy_remove(enemys_1_2);
-			enemy_update.enemy_remove(enemys_1_3);
-			enemy_update.enemy_remove(enemys_2_1);
-			enemy_update.enemy_remove(enemys_2_2);
-			enemy_update.enemy_remove(enemys_2_3);
+			enemy_update.enemy_remove(enemys_1_1,bombs);
+			enemy_update.enemy_remove(enemys_1_2,bombs);
+			enemy_update.enemy_remove(enemys_1_3,bombs);
+			enemy_update.enemy_remove(enemys_2_1,bombs);
+			enemy_update.enemy_remove(enemys_2_2,bombs);
+			enemy_update.enemy_remove(enemys_2_3,bombs);
 
 
 			//Enemy move
@@ -1065,12 +1057,12 @@ int main()
 			enemy_update_2_3.enemy_create(enemys_2_3, 2);
 
 			//remove enemy
-			enemy_update.enemy_remove(enemys_1_1);
-			enemy_update.enemy_remove(enemys_1_2);
-			enemy_update.enemy_remove(enemys_1_3);
-			enemy_update.enemy_remove(enemys_2_1);
-			enemy_update.enemy_remove(enemys_2_2);
-			enemy_update.enemy_remove(enemys_2_3);
+			enemy_update.enemy_remove(enemys_1_1,bombs);
+			enemy_update.enemy_remove(enemys_1_2,bombs);
+			enemy_update.enemy_remove(enemys_1_3,bombs);
+			enemy_update.enemy_remove(enemys_2_1,bombs);
+			enemy_update.enemy_remove(enemys_2_2,bombs);
+			enemy_update.enemy_remove(enemys_2_3,bombs);
 
 
 			//Enemy move
@@ -1186,9 +1178,9 @@ int main()
 			enemy_update_1_3.enemy_create(enemys_1_3, 1);
 
 			//remove enemy
-			enemy_update.enemy_remove(enemys_1_1);
-			enemy_update.enemy_remove(enemys_1_2);
-			enemy_update.enemy_remove(enemys_1_3);
+			enemy_update.enemy_remove(enemys_1_1,bombs);
+			enemy_update.enemy_remove(enemys_1_2,bombs);
+			enemy_update.enemy_remove(enemys_1_3,bombs);
 
 			//Enemy move
 			enemy_update_1_1.enemy_move(enemys_1_1, player);
@@ -1301,9 +1293,9 @@ int main()
 			interaction.boss2_player_interaction(player);
 
 			//remove enemy
-			enemy_update.enemy_remove(enemys_1_1);
-			enemy_update.enemy_remove(enemys_1_2);
-			enemy_update.enemy_remove(enemys_1_3);
+			enemy_update.enemy_remove(enemys_1_1,bombs);
+			enemy_update.enemy_remove(enemys_1_2,bombs);
+			enemy_update.enemy_remove(enemys_1_3,bombs);
 
 			//Bullet Enemy Check
 			interaction.bullet_enemy_interaction(enemys_1_2, bullets,  &enemy_death1);
@@ -1384,8 +1376,8 @@ int main()
 				interaction.player_enemy_interaction(enemys_1_2, player);
 			}
 			//remove enemy
-			enemy_update.enemy_remove(enemys_1_1);
-			enemy_update.enemy_remove(enemys_1_2);
+			enemy_update.enemy_remove(enemys_1_1,bombs);
+			enemy_update.enemy_remove(enemys_1_2,bombs);
 			
 			//Bullet Enemy Check
 			interaction.ice_enemy_interaction(enemys_1_1, ice, &enemy_death1);

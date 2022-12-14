@@ -504,14 +504,23 @@ void Interaction::bomb_boss3_interaction(Stage3_boss* boss3, std::vector<BombWea
 
 			if (distance1 < bullets[i]->range / 2 + boss3->size / 2)
 			{
-				if (boss3->health - 1 == 0)
+				hp_b3_timer += DeltaTime;
+				if (hp_b3_timer >= hp_b3_check)
 				{
-					sound_effects_enemy[Ga2].play();
-					delete boss3;
-					break;
-				}
-				else {
-					boss3->health--;
+					if (boss3->health - 0.7 == 0)
+					{
+						sound_effects_enemy[Ga1].play();
+						delete boss3;
+						hp_b3_timer = 0;
+						hp_b3_check = 0.7;
+						break;
+					}
+					else
+					{
+						boss3->health -= 0.7;
+						hp_b3_check += 0.7;
+						break;
+					}
 				}
 			}
 		}
@@ -672,14 +681,22 @@ void Interaction::bomb_boss1_interaction(Stage1_boss* boss1, std::vector<BombWea
 
 			if (distance1 < bullets[i]->range / 2 + boss1->size / 2)
 			{
-				if (boss1->health - 1 == 0)
+				hp_b1_timer += DeltaTime;
+				if (hp_b1_timer >= hp_b1_check)
 				{
-					sound_effects_enemy[Ga2].play();
-					delete boss1;
-					break;
-				}
-				else {
-					boss1->health--;
+					if (boss1->health - 0.7 == 0)
+					{
+						sound_effects_enemy[Ga2].play();
+						delete boss1;
+						hp_b1_timer = 0;
+						hp_b1_check = 0.7;
+						break;
+					}
+					else
+					{
+						boss1->health -= 0.7;
+						hp_b1_check += 0.7;
+					}
 				}
 			}
 		}
@@ -922,14 +939,23 @@ void Interaction::bomb_boss2_interaction(Stage2_boss* boss2, std::vector<BombWea
 
 			if (distance1 < bullets[i]->range / 2 + boss2->size / 2)
 			{
-				if (boss2->health - 1 <= 0)
+				hp_b2_timer += DeltaTime;
+				if (hp_b2_timer >= hp_b2_check)
 				{
-					sound_effects_enemy[Ga3].play();
-					delete boss2;
-					break;
-				}
-				else {
-					boss2->health--;
+					if (boss2->health - 0.7 <= 0)
+					{
+						sound_effects_enemy[Ga3].play();
+						delete boss2;
+						hp_b2_timer = 0;
+						hp_b2_check = 0.7;
+						break;
+					}
+					else
+					{
+						boss2->health -= 0.7;
+						hp_b2_check += 0.7;
+						break;
+					}
 				}
 			}
 		}

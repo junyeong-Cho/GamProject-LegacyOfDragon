@@ -11,6 +11,7 @@
 #include <vector>
 #include "Player.h"
 #include "Camera.h"
+#include "bomb_weapon.h"
 
 inline double timer = 0;
 inline int int_timer = 0;
@@ -102,7 +103,7 @@ struct Enemy_update {
 	int timer_check = 4;
 	int regen_delay = 7;
 	int count_once = 0;
-	virtual void enemy_remove(std::vector<Enemy*>& enemys);
+	virtual void enemy_remove(std::vector<Enemy*>& enemys, std::vector<BombWeapon*>& bullets);
 	virtual void enemy_create(std::vector<Enemy*>& enemys, int regen);
 	virtual void enemy_move(std::vector<Enemy*>& enemys, Player* player);
 	virtual void enemy_fix_move(std::vector<Enemy*>& enemys, Player* player);
