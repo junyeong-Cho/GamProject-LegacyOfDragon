@@ -796,7 +796,7 @@ void Interaction::player_boss2_interaction(Stage2_boss* boss2, std::vector<Shoot
 
 		if (distance < bullets[i]->size / static_cast<double>(2) + boss2->size)
 		{
-			if (boss2->health - 1 <= 0)
+			if (boss2->health <= 0)
 			{
 				sound_effects_enemy[Ga3].play();
 				delete bullets[i];
@@ -808,7 +808,7 @@ void Interaction::player_boss2_interaction(Stage2_boss* boss2, std::vector<Shoot
 			{
 				delete bullets[i];
 				bullets.erase(bullets.begin() + i);
-				boss2->health--;
+				boss2->health -= 50;
 				break;
 			}
 		}

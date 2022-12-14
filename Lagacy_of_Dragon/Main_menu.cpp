@@ -47,7 +47,6 @@ void Main_menu::in_credit()
 		set_image_mode(RectMode::Center);
 		draw_image(Credit1, Width/2, Height/2+700-credit_timer*100);
 		draw_image(Credit2, Width/2, Height/2+1600-credit_timer*100);
-		std::cout << credit_timer << std::endl;
 		if (credit_timer > 23)
 		{
 			draw_image(Credit3, Width / 2, Height / 2);

@@ -80,7 +80,8 @@ int soundChecker_stage_1 = 0;
 int soundChecker_stage_2 = 0;
 int soundChekcer_stage_3 = 0;
 int soundChecker_boss = 0;
-
+int soundChecker_credit_1 = 0;
+int Another_soundChecker_credit = 0;
 
 Map_setting map_setting;
 Window_setting window_setting;
@@ -215,7 +216,7 @@ int main()
 
 	background_music_credit.setLoop(true);
 	background_music_credit.setVolume(9);
-	background_music_credit.play();
+	
 
 	background_music_1.setLoop(true);
 	background_music_1.setVolume(9);
@@ -251,6 +252,12 @@ int main()
 		//DIGIEPN LOGO
 		if (scene == 0)
 		{
+			Another_soundChecker_credit++;
+			if (soundChecker_stage_1 == 11)
+			{
+				background_music_credit.play();
+			}
+
 			logos.digipen_logo();
 			if (scene_timer > digipenlogo_check)
 			{
@@ -272,6 +279,7 @@ int main()
 		if (scene == 2)
 		{
 			main_menu.main_UI();
+			background_music_credit.play();
 			//Gameplay
 			if (main_menu.is_gameplay())
 			{
@@ -320,12 +328,14 @@ int main()
 		//Credits
 		if (scene == 4)
 		{	
-
-			main_menu.in_credit();
-			if (main_menu.is_in_credit())
+			background_music_boss.stop();
+			soundChecker_credit_1++;
+			if (soundChecker_stage_1 == 11)
 			{
-				scene = 2;
+				background_music_credit.play();
 			}
+			main_menu.in_credit();
+
 		}
 
 		//Exit

@@ -138,6 +138,9 @@
     <ClCompile Include="soundeffect.cpp">
       <Filter>소스 파일\Settings</Filter>
     </ClCompile>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>소스 파일\main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
