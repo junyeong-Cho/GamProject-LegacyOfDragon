@@ -116,7 +116,7 @@ inline int enemy_death6 = 0;
 
 
 inline bool quest_complite = false;
-inline bool go_next_stage = false;
+inline bool go_next_stage = true;
 
 inline Color box_color = HexColor{ 0xff0000ff };
 inline Color box_color1 = HexColor{ 0xffb7b7ff };

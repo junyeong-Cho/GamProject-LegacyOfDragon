@@ -296,6 +296,7 @@ int main()
 				if (MouseIsPressed)
 				sound_effects_main[Click].play();
 				scene = 3;
+
 			}
 			//Credits
 			if (main_menu.is_credit())
@@ -341,6 +342,11 @@ int main()
 		//Tutorial
 		if (scene == 7)
 		{
+			if(go_next_stage){
+			tutorial_scene = 1;
+			player->chara_pos_x = 300;
+			player->chara_pos_y = 300;
+			}
 			map_setting.map_creating();
 			//First Scene(Shoot)			
 			if (tutorial_scene == 1)
@@ -600,7 +606,7 @@ int main()
 
 			//Player move limit
 			player_setting.move_limit(player);
-
+			camera->move_fix_limit(camera);
 			//Draw Map
 			clear_background(HexColor{ 0x8de3ffff });
 			camera->camera_generate();
@@ -679,6 +685,7 @@ int main()
 
 			//Player move limit
 			player_setting.move_limit(player);
+			camera->move_fix_limit(camera);
 		//	player_setting.move_fix_limit(camera);
 			//Draw Map
 			clear_background(HexColor{ 0x8de3ffff });
@@ -694,7 +701,7 @@ int main()
 			uisetting.weaponChoice(bullets, ice, bombs, storm, approach, knockback, breath, meteor, player);
 			uisetting.ScoolTime(player);
 
-			
+			weapon_choice = 2;
 
 
 			//Random enemy
@@ -776,6 +783,7 @@ int main()
 			player->chara_pos_y = Height / 2;
 
 			//Player move limit
+			camera->move_fix_limit(camera);
 			player_setting.move_limit(player);
 		//	player_setting.move_fix_limit(camera);
 			//Draw Map
@@ -1033,7 +1041,9 @@ int main()
 
 			//Player move limit
 			player_setting.move_limit(player);
-		//	player_setting.move_fix_limit(camera);
+			camera->move_fix_limit(camera);
+			//	player_setting.move_fix_limit(camera);
+		// 
 			//Draw Map
 			clear_background(HexColor{ 0xc4d37dff });
 			camera->camera_generate();

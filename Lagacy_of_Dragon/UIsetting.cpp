@@ -672,10 +672,11 @@ void UIsetting::howtoplay(int* scene) {
 		}
 		if ((get_mouse_x() > 990 && get_mouse_x() < 1420 && get_mouse_y() > 620 && get_mouse_y() < 710) && (MouseIsPressed && not_click))
 		{
-			*scene = 6;
+			*scene = 7;
 			sound_effects_ui[UiClick].play();
 			howtoplay_scene = 0;
 			not_click = false;
+
 		}
 
 		break;

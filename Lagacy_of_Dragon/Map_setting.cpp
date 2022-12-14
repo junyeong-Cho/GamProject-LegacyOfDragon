@@ -13,6 +13,7 @@
 
 void Map_setting::map_creating()
 {
+	go_next_stage = false;
 	clear_background(255);
 	for (int x = 0; x < 18; x++) {
 		for (int y = 0; y < 10; y++) {
