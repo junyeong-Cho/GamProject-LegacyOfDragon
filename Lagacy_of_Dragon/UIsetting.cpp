@@ -409,7 +409,8 @@ void UIsetting::roulette_six(vector<int> sixboxloc) {
 						
 
 					}//Third box
-					else if (six_box_x >= 450 + specific_six_gap * 2 && six_box_x < 450 + specific_six_gap * 3)
+					//else if (six_box_x >= 450 + specific_six_gap * 2 && six_box_x < 450 + specific_six_gap * 3)
+					else if (six_box_x >= 450 + specific_six_gap * 2 && six_box_x < 450 + specific_six_gap * 4)
 					{
 						six_box_x = sixboxloc[2];
 						push_settings();
@@ -422,7 +423,8 @@ void UIsetting::roulette_six(vector<int> sixboxloc) {
 						choice_box_once_six = 1;
 						
 					}
-					else if (six_box_x >= 450 + specific_six_gap * 3 && six_box_x < 450 + specific_six_gap * 4)
+//					else if (six_box_x >= 450 + specific_six_gap * 3 && six_box_x < 450 + specific_six_gap * 4)
+					else if (false)
 					{
 						six_box_x = sixboxloc[3];
 						push_settings();

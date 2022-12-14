@@ -26,6 +26,7 @@ static constexpr int stage_y = 36;
 inline int back_color=0;
 inline int count_oncef =0;
 inline bool once_controll = false;
+inline bool is_small_map = false;
 
 static constexpr int info_timer_check = 3;
 

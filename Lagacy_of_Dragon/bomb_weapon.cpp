@@ -38,8 +38,8 @@ void Bomb_update::bullet_create(std::vector<BombWeapon*>& bullets, Player* playe
     {
         if (MouseIsPressed && not_clicked_bomb == true)
         {
-            bullets.push_back(new BombWeapon{ player->chara_pos_x, player->chara_pos_y, bombSize, bombDamage, bombrange });
             not_clicked_bomb = false;
+            bullets.push_back(new BombWeapon{ player->chara_pos_x, player->chara_pos_y, bombSize, bombDamage, bombrange });            
             bo_click_timer = 0;
         }
     }
@@ -53,6 +53,18 @@ void Bomb_update::bullet_draw(std::vector<BombWeapon*>& bullets)
         push_settings();
         bullets[i]->draw();
         pop_settings();
+        if (moveW == true) {
+            bullets[i]->bullet_pos_y += DeltaTime * 150 * 2;
+        }
+        if (moveA == true) {
+            bullets[i]->bullet_pos_x += DeltaTime * 150 * 2;
+        }
+        if (moveS == true) {
+            bullets[i]->bullet_pos_y -= DeltaTime * 150 * 2;
+        }
+        if (moveD == true) {
+            bullets[i]->bullet_pos_x -= DeltaTime * 150 * 2;
+        }
     }
 }
 
