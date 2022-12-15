@@ -712,7 +712,7 @@ void UIsetting::gameover(int* scene)
 	}
 	else if ((get_mouse_x() > 600 && get_mouse_x() < 900 && get_mouse_y() > 640 && get_mouse_y() < 710) && (MouseIsPressed && not_click)) {
 		sound_effects_ui[UiClick].play();
-		*scene = 6;
+		*scene = 10;
 	}
 
 	set_image_mode(RectMode::Center);
@@ -732,7 +732,7 @@ void UIsetting::gameover(int* scene)
 	}
 	else if ((get_mouse_x() > 600 && get_mouse_x() < 900 && get_mouse_y() > 640 && get_mouse_y() < 710) && (MouseIsPressed && not_click)) {
 		sound_effects_ui[UiClick].play();
-		*scene = 6;
+		*scene = 10;
 	}
 }
 

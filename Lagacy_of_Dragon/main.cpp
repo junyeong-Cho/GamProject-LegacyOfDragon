@@ -74,7 +74,7 @@ bool tutorial_scene3 = false;
 bool player_enemy_check = false;
 
 //-------------------------------// Roulette
-
+bool soundCheck_is = false;
 int soundChecker_credit = 0;
 int soundChecker_stage_1 = 0;
 int soundChecker_stage_2 = 0;
@@ -216,6 +216,7 @@ int main()
 
 	background_music_credit.setLoop(true);
 	background_music_credit.setVolume(9);
+	background_music_credit.play();
 	
 
 	background_music_1.setLoop(true);
@@ -252,12 +253,6 @@ int main()
 		//DIGIEPN LOGO
 		if (scene == 0)
 		{
-			Another_soundChecker_credit++;
-			if (soundChecker_stage_1 == 11)
-			{
-				background_music_credit.play();
-			}
-
 			logos.digipen_logo();
 			if (scene_timer > digipenlogo_check)
 			{
@@ -335,7 +330,12 @@ int main()
 				background_music_credit.play();
 			}
 			main_menu.in_credit();
-
+			if(credit_timer > 31)
+			{
+				background_music_credit.stop();
+				background_music_credit.setVolume(0);
+			}
+			background_music_credit.setVolume(9);
 		}
 
 		//Exit

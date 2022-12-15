@@ -77,7 +77,7 @@ void Map_setting::stage6_controll(Camera* camera) {
 
 			quest_complite = false;
 			go_next_stage = true;
-			scene = 16;
+			scene = 17;
 		}
 		else
 		{

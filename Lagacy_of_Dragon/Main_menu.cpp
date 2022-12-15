@@ -47,11 +47,12 @@ void Main_menu::in_credit()
 		set_image_mode(RectMode::Center);
 		draw_image(Credit1, Width/2, Height/2+700-credit_timer*100);
 		draw_image(Credit2, Width/2, Height/2+1600-credit_timer*100);
-		if (credit_timer > 23)
-		{
-			draw_image(Credit3, Width / 2, Height / 2);
-		}
+		draw_image(Credit3, Width/2, Height/2+2500-credit_timer*100);
 		if (credit_timer > 27)
+		{
+			draw_image(program, Width / 2, Height / 2);
+		}
+		if (credit_timer > 31)
 		{
 			credit_timer = 0;
 			scene = 2;

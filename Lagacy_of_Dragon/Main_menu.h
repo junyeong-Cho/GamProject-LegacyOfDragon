@@ -47,6 +47,10 @@ const Image Howtoplay_button_on{ "UIdesign/HTPon.png" };
 const Image Credit1{ "credit/credit1.png" };
 const Image Credit2{ "credit/credit2.png" };
 const Image Credit3{ "credit/credit3.png" };
+const Image program{ "credit/program.png" };
+
+
+
 
 struct Main_menu {
 	void main_UI();

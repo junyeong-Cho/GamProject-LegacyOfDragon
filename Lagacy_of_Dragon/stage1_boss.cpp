@@ -63,7 +63,7 @@ void Stage1_boss::hp()
 	if (health <= 0)
 	{
 		go_next_stage = true;
-		scene = 15;
+		scene = 16;
 
 	}
 }
