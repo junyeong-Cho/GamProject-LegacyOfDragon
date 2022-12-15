@@ -145,8 +145,6 @@ void cmd_debug_mod(Camera* camera, Player* player) {
 	cout << "timer" <<timer << endl;
 	cout << "scene :" << scene << endl;
 	cout << "not_clicked_bomb :" << not_clicked_bomb << endl;
-//	cin >> scene_controll;
-//	scene = scene_controll;
 }
 
 SoundEffect sound_effects_main[] = {
