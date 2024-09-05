@@ -26,8 +26,8 @@ double Shooting::radius() {
 
 void Shooting::draw()
 {
-	set_fill_color(HexColor{ 0xff002aff });
-	draw_ellipse(bullet_pos_x, bullet_pos_y, size, size);
+	set_fill_color(HexColor{ 0xffff00ff });
+	doodle::draw_ellipse(bullet_pos_x, bullet_pos_y, size, size);
 }
 
 void Shooting::FireBullet()

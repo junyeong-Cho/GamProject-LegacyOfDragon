@@ -59,14 +59,22 @@ const Image g3attack{ "attack/g3bullet.png" };
 struct Enemy {
 	float x = 0;
 	float y = 0;
+<<<<<<< HEAD
 	double health = 2;
+=======
+	int health = 1;
+>>>>>>> Camera_error
 	int deal = 0;
 	float speed = 0.5;
 	int enemysize = 30;
 	unsigned int color = 0xffffffff;
 	int type = 0;
+<<<<<<< HEAD
 
 	Enemy(float _x, float _y, double _health, int _deal, float _speed, int _enemysize, unsigned int _color, int _type)
+=======
+	Enemy(float _x, float _y, int _health, int _deal, float _speed, int _enemysize, unsigned int _color, int _type)
+>>>>>>> Camera_error
 	{
 		x = _x;
 		y = _y;
@@ -77,6 +85,7 @@ struct Enemy {
 		color = _color;
 		type = _type;
 	}
+<<<<<<< HEAD
 	void enemy1_draw();
 	void enemy2_draw();
 	void enemy3_draw();
@@ -86,6 +95,10 @@ struct Enemy {
 
 };
 
+=======
+	void draw();
+};
+>>>>>>> Camera_error
 struct Enemy_attack {
 	float attack_pos_x = 0;
 	float attack_pos_y = 0;
@@ -101,6 +114,7 @@ struct Enemy_attack {
 
 struct Enemy_update {
 	int timer_check = 4;
+<<<<<<< HEAD
 	int regen_delay = 7;
 	int count_once = 0;
 	virtual void enemy_remove(std::vector<Enemy*>& enemys, std::vector<BombWeapon*>& bullets);
@@ -113,21 +127,38 @@ struct Enemy_update {
 
 	virtual void enemy_death(std::vector<Enemy*>& enemys, int* death);
 };
+=======
+	int regen_delay = 4;
+	int count_once = 0;
+	virtual void enemy_create(std::vector<Enemy*>& enemys, int regen);
+	virtual void enemy_move(std::vector<Enemy*>& enemys, Player* player);
+	virtual void attack_create(std::vector<Enemy_attack*>& attack, std::vector<Enemy*>& enemys, Player player);
+	virtual void attack_draw(std::vector<Enemy_attack*>& attack);
+	virtual void attack_remove(std::vector<Enemy_attack*>& attack);
+}; 
+>>>>>>> Camera_error
 extern Enemy_update enemy_update;
 struct Enemy_update_tuto : public Enemy_update {
 	void enemy_create(std::vector<Enemy*>& enemys, int regen) override;
 };
 struct Enemy_update_1_1 : public Enemy_update {
 	void enemy_create(std::vector<Enemy*>& enemys, int regen) override;
+<<<<<<< HEAD
 	void enemy_fix_move(std::vector<Enemy*>& enemys, Player* player) override;
 };
 struct Enemy_update_1_2 : public Enemy_update {
 	void enemy_create(std::vector<Enemy*>& enemys, int regen) override;
 	void enemy_fix_move(std::vector<Enemy*>& enemys, Player* player) override;
+=======
+};
+struct Enemy_update_1_2 : public Enemy_update {
+	void enemy_create(std::vector<Enemy*>& enemys, int regen) override;
+>>>>>>> Camera_error
 };
 struct Enemy_update_1_3 : public Enemy_update {
 	void enemy_create(std::vector<Enemy*>& enemys, int regen) override;
 	void enemy_move(std::vector<Enemy*>& enemys, Player* player) override;
+<<<<<<< HEAD
 	void enemy_fix_move(std::vector<Enemy*>& enemys, Player* player) override;
 };
 struct Enemy_update_2_1 : public Enemy_update {
@@ -141,6 +172,17 @@ struct Enemy_update_2_2 : public Enemy_update {
 struct Enemy_update_2_3 : public Enemy_update {
 	void enemy_create(std::vector<Enemy*>& enemys, int regen) override;
 	void enemy_fix_move(std::vector<Enemy*>& enemys, Player* player) override;
+=======
+};
+struct Enemy_update_2_1 : public Enemy_update {
+	void enemy_create(std::vector<Enemy*>& enemys, int regen) override;
+};
+struct Enemy_update_2_2 : public Enemy_update {
+	void enemy_create(std::vector<Enemy*>& enemys, int regen) override;
+};
+struct Enemy_update_2_3 : public Enemy_update {
+	void enemy_create(std::vector<Enemy*>& enemys, int regen) override;
+>>>>>>> Camera_error
 };
 
 

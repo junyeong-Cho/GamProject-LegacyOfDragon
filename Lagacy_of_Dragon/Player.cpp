@@ -56,14 +56,14 @@ void Player::draw_chara() {
 	{
 		push_settings();
 		set_image_mode(RectMode::Center);
-		draw_image(tiles[map_setting.CHARA], chara_pos_x, chara_pos_y, -tile_size, tile_size);
+		draw_image(tiles[map_setting.CHARA], Width / 2, Height / 2, -tile_size, tile_size);
 		pop_settings();
 	}
 	else if (get_mouse_x() < chara_pos_x)
 	{
 		push_settings();
 		set_image_mode(RectMode::Center);
-		draw_image(tiles[map_setting.CHARA], chara_pos_x, chara_pos_y, tile_size, tile_size);
+		draw_image(tiles[map_setting.CHARA], Width / 2, Height / 2, tile_size, tile_size);
 		pop_settings();
 	}
 }
@@ -101,6 +101,7 @@ void Player::MOVE() {
 	}
 	//마우스 방향보고 캐릭터 좌우반전
 }
+
 
 void Player_setting::move_limit(Player* player)
 {

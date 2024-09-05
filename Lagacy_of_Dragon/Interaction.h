@@ -53,6 +53,7 @@ inline double hp_b3_check = 0;
 
 struct Interaction
 {
+<<<<<<< HEAD
 	void player_enemyat_interaction(std::vector<Enemy_attack*>& attack, Player* player);
 	void player_enemy_interaction(std::vector<Enemy*>& enemys, Player* player);
 	void bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Shooting*>& bullets, int* death);
@@ -96,6 +97,11 @@ struct Interaction
 	void meteor_boss2_interaction(Stage2_boss* boss2, std::vector<Meteor*>& bullets);
 	void boss2_player_interaction(Player* player);
 
+=======
+	void player_enemy_interaction(std::vector<Enemy*>& enemys, Player* player);
+	void bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Shooting*>& bullets);
+	void bullet_s1boss_interaction(std::vector<Stage1_boss*>& stage1_boss, std::vector<Shooting*>& bullets);
+>>>>>>> Camera_error
 };
 extern Interaction interaction;
 

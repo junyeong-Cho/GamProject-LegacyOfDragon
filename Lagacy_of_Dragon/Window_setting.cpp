@@ -9,7 +9,7 @@
 #include "Window_setting.h"
 
  void Window_setting::setting() {
- create_window(world_x* tile_size, world_y* tile_size);
+ create_window(1000, 1000);
  set_frame_of_reference(FrameOfReference::LeftHanded_OriginTopLeft);
  set_image_mode(RectMode::Corner);
  no_fill();

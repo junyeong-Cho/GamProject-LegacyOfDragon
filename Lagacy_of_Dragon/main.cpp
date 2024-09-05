@@ -56,7 +56,11 @@ int tutorial_check = 2;
 //--------------------------------// Tutorial Scene 
 int clicked_check = 0;
 //--------------------------------// Scene
+<<<<<<< HEAD
 //int scene = 10;
+=======
+int scene = 10;
+>>>>>>> Camera_error
 int tutorial_scene = 0;
 //--------------------------------//Bullet
 double bullet_timer = 0;
@@ -93,6 +97,13 @@ Player_setting player_setting;
 Enemy_update enemy_update;
 Interaction interaction;
 UIsetting uisetting;
+Enemy_update_tuto enemy_update_tuto;
+Enemy_update_1_1 enemy_update_1_1;
+Enemy_update_1_2 enemy_update_1_2;
+Enemy_update_1_3 enemy_update_1_3;
+Enemy_update_2_1 enemy_update_2_1;
+Enemy_update_2_2 enemy_update_2_2;
+Enemy_update_2_3 enemy_update_2_3;
 
 //미완성
 Breath_update breath_update; 
@@ -154,8 +165,12 @@ SoundEffect sound_effects_main[] = {
 };
 
 
+
+
+
 int main()
 {
+<<<<<<< HEAD
 	try{
 	window_setting.setting();
 
@@ -176,6 +191,13 @@ int main()
 	vector<Enemy*> enemys_2_2;
 	vector<Enemy*> enemys_2_3;
 
+=======
+	vector<Shooting*> bullets;
+	vector<Enemy*> enemys_tuto;
+	vector<Enemy*> enemys_1_1;
+	vector<Enemy*> enemys_1_3;
+	vector<Enemy*> enemys_2_1;
+>>>>>>> Camera_error
 	vector<Enemy_attack*> enemy_attack;
 	vector<Boss_attack*> boss_attack;
 
@@ -240,12 +262,21 @@ int main()
 	background_music_boss.setLoop(true);
 	background_music_boss.setVolume(9);
 
+<<<<<<< HEAD
 
+=======
+	Player* player = new Player{ Width/2, Height/2, 0, 0};
+
+	window_setting.setting();
+	//Stage1_boss* stage1_boss = new Stage1_boss{ 500, 300, 30, 50 };
+
+	map_setting.char_pos1(player);
+>>>>>>> Camera_error
 
 	while (!is_window_closed())
 	{
 		timer += DeltaTime;
-		int_timer += DeltaTime;
+		int_timer += static_cast<int>(DeltaTime);
 		bullet_timer += DeltaTime;
 		scene_timer += DeltaTime;
 		boss3_timers += DeltaTime;
@@ -407,7 +438,22 @@ int main()
 
 				//Create Enemy
 				enemy_update_tuto.enemy_create(enemys_tuto, 5);
+<<<<<<< HEAD
 				enemy_update_tuto.enemy_move(enemys_tuto, player);
+=======
+				enemy_update_1_3.enemy_create(enemys_1_3, 3);
+				enemy_update_2_1.enemy_create(enemys_2_1, 5);
+
+				//Enemy Move
+				enemy_update_tuto.enemy_move(enemys_tuto, player);
+				enemy_update_1_3.enemy_move(enemys_1_3, player);
+				enemy_update_2_1.enemy_move(enemys_2_1, player);
+
+				//Enemy attack
+				enemy_update.attack_create(enemy_attack, enemys_1_3, *player);
+				enemy_update.attack_draw(enemy_attack);
+				enemy_update.attack_remove(enemy_attack);
+>>>>>>> Camera_error
 
 				//bullet draw
 				shooting_update.bullet_draw(bullets);
@@ -498,6 +544,7 @@ int main()
 		//Stage 1-1
 		if (scene == 10)
 		{
+<<<<<<< HEAD
 			//sound playing
 			soundChecker_stage_1++;
 			background_music_credit.stop();
@@ -508,12 +555,28 @@ int main()
 
 			player->chara_pos_x = Width / 2;
 			player->chara_pos_y = Height / 2;
+=======
+
+
+>>>>>>> Camera_error
 			//Player move limit
 			player_setting.move_limit(player);
 			camera->move_fix_limit(camera);
 			//Draw Map
+<<<<<<< HEAD
 			clear_background(HexColor{0xc4d37dff});
 			camera->camera_generate();
+=======
+			map_setting.stage1_creating(player);
+
+			//Create bullet
+			shooting_update.bullet_create(bullets, player);
+
+			shooting_update.bullet_draw(bullets);
+
+			//Bullet Remove
+			shooting_update.bullet_remove(bullets);
+>>>>>>> Camera_error
 
 			//weapon_choice = 3;
 			map_setting.stage1_creating(camera);
@@ -533,7 +596,30 @@ int main()
 			interaction.ice_enemy_interaction(enemys_1_1, ice,&enemy_death1);
 			interaction.storm_enemy_interaction(enemys_1_1, storm, &enemy_death1);
 
+<<<<<<< HEAD
 			if(jewel_count ==0){
+=======
+			player->MOVE();
+			player->draw_chara();
+			player->hp_chara(&scene);
+
+
+		}
+
+		//Experiment boss
+		if (scene == 20)
+		{
+			//Player move limit
+			player_setting.move_limit(player);
+
+			//Bullet_shooting
+			shooting_update.bullet_create(bullets, player);
+
+			//Draw Map
+			map_setting.map_creating();
+
+			//Create bullet
+>>>>>>> Camera_error
 			shooting_update.bullet_create(bullets, player);
 			shooting_update.bullet_draw(bullets);
 			shooting_update.bullet_remove(bullets);
@@ -544,6 +630,7 @@ int main()
 			//uisetting.enemy_quest(enemy1, 5);
 			uisetting.enemy_quest(enemy1, 1);
 
+<<<<<<< HEAD
 			if(jewel_count ==1){
 			
 			uisetting.roulette(randomboxloc);
@@ -663,6 +750,11 @@ int main()
 			enemy_update_1_3.attack_create(enemy_attack,enemys_1_3, *player);
 			enemy_update_1_3.attack_draw(enemy_attack);
 			enemy_update_1_3.attack_remove(enemy_attack);
+=======
+			//Boss move
+			//stage1_boss->draw();
+			//stage1_boss->move();
+>>>>>>> Camera_error
 
 
 			//Me Enemy check

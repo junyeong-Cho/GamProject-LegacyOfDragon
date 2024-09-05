@@ -6,6 +6,7 @@
 //---------------------------------------------------------
 #include "Interaction.h"
 
+<<<<<<< HEAD
 #include "ice_weapon.h"
 #include "back_weapon.h"
 #include "bomb_weapon.h"
@@ -40,6 +41,9 @@ SoundEffect sound_effects_enemy[] = {
 };
 
 void Interaction::player_enemyat_interaction(std::vector<Enemy_attack*>& attack, Player* player)
+=======
+void Interaction::player_enemy_interaction(std::vector<Enemy*>& enemys, Player* player)
+>>>>>>> Camera_error
 {
 	for (int j = 0; j < attack.size(); j++)
 	{
@@ -103,6 +107,7 @@ void Interaction::bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 			{
 				if (enemys[j]->health - 1 <= 0)
 				{
+<<<<<<< HEAD
 					(* death)++;
 					delete bullets[i];
 					delete enemys[j];
@@ -117,11 +122,21 @@ void Interaction::bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 					delete bullets[i];
 					bullets.erase(bullets.begin() + i);
 					break;
+=======
+					player->hp -= 1;
+					hp_time_check += 0.7;
+				}
+
+				if (player->hp == 0)
+				{
+
+>>>>>>> Camera_error
 				}
 			}
 		}
 	}
 }
+<<<<<<< HEAD
 void Interaction::ice_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<IceWeapon*>& bullets, int* death) 
 {
 	for (int i = 0; i < bullets.size(); i++)
@@ -242,10 +257,36 @@ void Interaction::bomb_enemy_interaction(std::vector<Enemy*>& enemys, std::vecto
 						(*death)++;
 						sound_effects_enemy[Ha1].play();
 						delete enemys[j];
+=======
+
+void Interaction::bullet_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<Shooting*>& bullets) {
+	{
+		for (int i = 0; i < bullets.size(); i++)
+		{
+			for (int j = 0; j < enemys.size(); j++)
+			{
+				double a = bullets[i]->bullet_pos_x - enemys[j]->x;
+				double b = bullets[i]->bullet_pos_y - enemys[j]->y;
+				double distance = sqrt(a * a + b * b);
+
+				if (distance < bulletradius + enemys[j]->enemysize)
+				{
+					if (enemys[j]->health - 1 == 0)
+					{
+						delete bullets[i];
+						delete enemys[j];
+
+						bullets.erase(bullets.begin() + i);
+>>>>>>> Camera_error
 						enemys.erase(enemys.begin() + j);
 						break;
 					}
 					else {
+<<<<<<< HEAD
+=======
+						delete bullets[i];
+						bullets.erase(bullets.begin() + i);
+>>>>>>> Camera_error
 						enemys[j]->health--;
 					}
 				}
@@ -253,6 +294,7 @@ void Interaction::bomb_enemy_interaction(std::vector<Enemy*>& enemys, std::vecto
 		}
 	}
 }
+<<<<<<< HEAD
 void Interaction::breath_enemy_interaction(std::vector<Enemy*>& enemys, std::vector<BreathWeapon*>& bullets, Player* player, int* death)
 {
 	for (int i = 0; i < bullets.size(); i++)
@@ -357,6 +399,10 @@ void Interaction::meteor_enemy_interaction(std::vector<Enemy*>& enemys, std::vec
 
 //날라다니는놈 
 void Interaction::player_boss3_interaction(Stage3_boss* boss3, std::vector<Shooting*>& bullets)
+=======
+/*
+void bullet_s1boss_interaction(Stage1_boss* stage1_boss, std::vector<Shooting*>& bullets)
+>>>>>>> Camera_error
 {
 	for (int i = 0; i < bullets.size(); i++)
 	{
@@ -440,6 +486,7 @@ void Interaction::storm_boss3_interaction(Stage3_boss* boss3, std::vector<Storm*
 		    }
 			
 		}
+<<<<<<< HEAD
 	}
 }
 void Interaction::back_boss3_interaction(Stage3_boss* boss3, std::vector<BackWeapon*>& bullets) {
@@ -1022,4 +1069,8 @@ void Interaction::meteor_boss2_interaction(Stage2_boss* boss2, std::vector<Meteo
 			}
 		}
 	}
+=======
+	 }
+>>>>>>> Camera_error
 }
+*/

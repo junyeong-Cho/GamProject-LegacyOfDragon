@@ -12,6 +12,7 @@
 using namespace std;
 using namespace doodle;
 
+<<<<<<< HEAD
 void Enemy::enemy1_draw()
 {
 	push_settings();
@@ -52,6 +53,12 @@ void Enemy::enemy6_draw()
 	set_image_mode(RectMode::Center);
 	draw_image(enemy6, x, y, enemysize, enemysize);
 	pop_settings();
+=======
+void Enemy::draw()
+{
+	set_fill_color(HexColor{ color });
+	draw_ellipse(x, y, enemysize, enemysize);
+>>>>>>> Camera_error
 }
 
 void Enemy_attack::draw_enemy_attack()
@@ -62,7 +69,10 @@ void Enemy_attack::draw_enemy_attack()
 	draw_image(g3attack, attack_pos_x, attack_pos_y, attack_size, attack_size);
 	pop_settings();
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> Camera_error
 void Enemy_attack::fire_attack()
 {
 
@@ -74,6 +84,7 @@ void Enemy_attack::fire_attack()
 	attack_pos_y += static_cast<int>(velocityY);
 }
 
+<<<<<<< HEAD
 void Enemy_update::enemy_remove(std::vector<Enemy*>& enemys, std::vector<BombWeapon*>& bullets)
 {
 	if (go_next_stage == true)
@@ -91,6 +102,8 @@ void Enemy_update::enemy_remove(std::vector<Enemy*>& enemys, std::vector<BombWea
 	}
 }
 
+=======
+>>>>>>> Camera_error
 void Enemy_update::enemy_create(std::vector<Enemy*>& enemys, int regen)
 {
 	int_timer = static_cast<int>(timer);
@@ -108,6 +121,7 @@ void Enemy_update::enemy_create(std::vector<Enemy*>& enemys, int regen)
 		count_once = int_timer;
 	}
 }
+<<<<<<< HEAD
 void Enemy_update::enemy_death(std::vector<Enemy*>& enemys, int* death) {
 	for (int i = 0; i < enemys.size(); i++)
 	{
@@ -118,16 +132,50 @@ void Enemy_update::enemy_death(std::vector<Enemy*>& enemys, int* death) {
 		}
 	}
 }
+=======
+>>>>>>> Camera_error
 void Enemy_update::enemy_move(std::vector<Enemy*>& enemys, Player* player)
 {
 	for (int i = 0; i < enemys.size(); i++)
 	{
+<<<<<<< HEAD
 		enemys[i]->enemy1_draw();
 		/*	enemys[i]->enemy2_draw();
 			enemys[i]->enemy3_draw();
 			enemys[i]->enemy4_draw();
 			enemys[i]->enemy5_draw();
 			enemys[i]->enemy6_draw();*/
+=======
+		push_settings();
+		enemys[i]->draw();
+		pop_settings();
+		
+		if (enemys[i]->x >= player->chara_pos_x)
+		{
+			enemys[i]->x -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->x <= player->chara_pos_x)
+		{
+			enemys[i]->x += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->y >= player->chara_pos_y)
+		{
+			enemys[i]->y -= random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+		if (enemys[i]->y <= player->chara_pos_y)
+		{
+			enemys[i]->y += random(enemy_vel_min, enemy_vel_max) * enemys[i]->speed;
+		}
+	}
+}
+void Enemy_update_1_3::enemy_move(std::vector<Enemy*>& enemys, Player* player)
+{
+	for (int i = 0; i < enemys.size(); i++)
+	{
+		push_settings();
+		enemys[i]->draw();
+		pop_settings();
+>>>>>>> Camera_error
 
 		if (enemys[i]->x >= player->chara_pos_x)
 		{
@@ -147,10 +195,18 @@ void Enemy_update::enemy_move(std::vector<Enemy*>& enemys, Player* player)
 		}
 	}
 }
+<<<<<<< HEAD
 void Enemy_update::enemy_fix_move(std::vector<Enemy*>& enemys, Player* player)
+=======
+
+void Enemy_update_tuto::enemy_create(std::vector<Enemy*>& enemys, int regen)
+>>>>>>> Camera_error
 {
-	for (int i = 0; i < enemys.size(); i++)
+	int_timer = static_cast<int>(timer);
+
+	if (int_timer % regen_delay == 1 && count_once != int_timer)
 	{
+<<<<<<< HEAD
 		enemys[i]->enemy1_draw();
 		/*	enemys[i]->enemy2_draw();
 			enemys[i]->enemy3_draw();
@@ -268,9 +324,26 @@ void Enemy_update_1_2::enemy_fix_move(std::vector<Enemy*>& enemys, Player* playe
 	}
 }
 void Enemy_update_1_3::enemy_fix_move(std::vector<Enemy*>& enemys, Player* player)
+=======
+		for (int i = 0; i < regen; i++)
+		{
+			push_settings();
+			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
+			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 1, 0, 0.5, 30, 0xffffffff, 0 });
+			pop_settings();
+		}
+		count_once = int_timer;
+	}
+}
+void Enemy_update_1_1::enemy_create(std::vector<Enemy*>& enemys, int regen) 
+>>>>>>> Camera_error
 {
-	for (int i = 0; i < enemys.size(); i++)
+	int_timer = static_cast<int>(timer);
+
+	if (int_timer % regen_delay == 1 && count_once != int_timer)
 	{
+<<<<<<< HEAD
 		push_settings();
 		enemys[i]->enemy3_draw();
 		pop_settings();
@@ -309,9 +382,26 @@ void Enemy_update_1_3::enemy_fix_move(std::vector<Enemy*>& enemys, Player* playe
 }
 
 void Enemy_update_2_1::enemy_fix_move(std::vector<Enemy*>& enemys, Player* player)
+=======
+		for (int i = 0; i < regen; i++)
+		{
+			push_settings();
+			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
+			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 1, 1, 0.5, 30, 0xffffffff, 1 });
+			pop_settings();
+		}
+		count_once = int_timer;
+	}
+}
+void Enemy_update_1_2::enemy_create(std::vector<Enemy*>& enemys, int regen)
+>>>>>>> Camera_error
 {
-	for (int i = 0; i < enemys.size(); i++)
+	int_timer = static_cast<int>(timer);
+
+	if (int_timer % regen_delay == 1 && count_once != int_timer)
 	{
+<<<<<<< HEAD
 		enemys[i]->enemy4_draw();
 
 		if (enemys[i]->x >= player->chara_pos_x)
@@ -347,9 +437,25 @@ void Enemy_update_2_1::enemy_fix_move(std::vector<Enemy*>& enemys, Player* playe
 	}
 }
 void Enemy_update_2_2::enemy_fix_move(std::vector<Enemy*>& enemys, Player* player)
+=======
+		for (int i = 0; i < regen; i++)
+		{
+			push_settings();
+			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
+			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 1, 0, 0.5, 30, 0xffffffff, 2 });
+			pop_settings();
+		}
+		count_once = int_timer;
+	}
+}
+void Enemy_update_1_3::enemy_create(std::vector<Enemy*>& enemys, int regen)
+>>>>>>> Camera_error
 {
-	for (int i = 0; i < enemys.size(); i++)
+	int_timer = static_cast<int>(timer);
+	if (int_timer % regen_delay == 1 && count_once != int_timer)
 	{
+<<<<<<< HEAD
 		enemys[i]->enemy5_draw();
 
 		if (enemys[i]->x >= player->chara_pos_x)
@@ -385,9 +491,26 @@ void Enemy_update_2_2::enemy_fix_move(std::vector<Enemy*>& enemys, Player* playe
 	}
 }
 void Enemy_update_2_3::enemy_fix_move(std::vector<Enemy*>& enemys, Player* player)
+=======
+		for (int i = 0; i < regen; i++)
+		{
+			push_settings();
+			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
+			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 6, 3, 1.5, 90, 0xfff00fff, 3 });
+			pop_settings();
+		}
+		count_once = int_timer;
+	}
+}
+void Enemy_update_2_1::enemy_create(std::vector<Enemy*>& enemys, int regen)
+>>>>>>> Camera_error
 {
-	for (int i = 0; i < enemys.size(); i++)
+	int_timer = static_cast<int>(timer);
+
+	if (int_timer % regen_delay == 1 && count_once != int_timer)
 	{
+<<<<<<< HEAD
 		enemys[i]->enemy6_draw();
 
 		if (enemys[i]->x >= player->chara_pos_x)
@@ -420,9 +543,24 @@ void Enemy_update_2_3::enemy_fix_move(std::vector<Enemy*>& enemys, Player* playe
 			enemys[i]->x -= DeltaTime * 150 * 2;
 		}
 
+=======
+		for (int i = 0; i < regen; i++)
+		{
+			push_settings();
+			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
+			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 1, 1, 4, 30, 0xf00fffff, 4 });
+			pop_settings();
+		}
+		count_once = int_timer;
+>>>>>>> Camera_error
 	}
 }
+void Enemy_update_2_2::enemy_create(std::vector<Enemy*>& enemys, int regen)
+{
+	int_timer = static_cast<int>(timer);
 
+<<<<<<< HEAD
 void Enemy_update_1_3::enemy_move(std::vector<Enemy*>& enemys, Player* player)
 {
 	for (int i = 0; i < enemys.size(); i++)
@@ -452,6 +590,8 @@ void Enemy_update_tuto::enemy_create(std::vector<Enemy*>& enemys, int regen)
 {
 	int_timer = static_cast<int>(timer);
 
+=======
+>>>>>>> Camera_error
 	if (int_timer % regen_delay == 1 && count_once != int_timer)
 	{
 		for (int i = 0; i < regen; i++)
@@ -459,6 +599,7 @@ void Enemy_update_tuto::enemy_create(std::vector<Enemy*>& enemys, int regen)
 			push_settings();
 			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
 			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
+<<<<<<< HEAD
 			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 2, 0, 0.5, 70, 0xffffffff, 0 });
 			pop_settings();
 		}
@@ -544,6 +685,9 @@ void Enemy_update_2_2::enemy_create(std::vector<Enemy*>& enemys, int regen)
 			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
 			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
 			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 2, 2, 2, 70, 0xff00ffff , 5 });
+=======
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 2, 2, 4, 30, 0xff00ffff , 5 });
+>>>>>>> Camera_error
 			pop_settings();
 		}
 		count_once = int_timer;
@@ -560,14 +704,21 @@ void Enemy_update_2_3::enemy_create(std::vector<Enemy*>& enemys, int regen)
 			push_settings();
 			float r_enemy_y = static_cast<float>(random(enemyMin, enemyMax));
 			float r_enemy_x = static_cast<float>(random(enemyMin, enemyMax));
+<<<<<<< HEAD
 			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 5, 3, 2.5, 70, 0xf000ffff, 6 });
+=======
+			enemys.push_back(new Enemy{ r_enemy_x, r_enemy_y, 5, 3, 2.5, 30, 0xf000ffff, 6 });
+>>>>>>> Camera_error
 			pop_settings();
 		}
 		count_once = int_timer;
 	}
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> Camera_error
 void Enemy_update::attack_create(std::vector<Enemy_attack*>& attack, std::vector<Enemy*>& enemys, Player player)
 {
 	int_timer = static_cast<int>(timer);
